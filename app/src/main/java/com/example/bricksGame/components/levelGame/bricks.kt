@@ -17,6 +17,8 @@ val fieldBricks = FieldBricks()
 class FieldBricks {
     val width = 400.dp
     val height = 400.dp
+    val columns = (width / brick.width).toInt()
+    val rows = (height / brick.height).toInt()
 }
 
 class Bricks {
@@ -25,7 +27,7 @@ class Bricks {
 }
 
 fun main() {
-    generateMatrix(3, 4, true)
+    generateMatrix(fieldBricks.columns, fieldBricks.rows, true)
 }
 
 fun generateMatrix(columns: Int, rows: Int, print: Boolean = false): Array<Array<Int>> {
