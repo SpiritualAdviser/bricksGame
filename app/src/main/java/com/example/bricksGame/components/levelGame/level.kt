@@ -37,10 +37,15 @@ fun LevelGame() {
 
             Box(
                 Modifier
-                    .size(fieldBricks.width, fieldBricks.height)
-                    .background(Color.Gray)
-            ) {
-                SetBricksContent()
+                    .size(
+                        fieldBricks.width + fieldBricks.padding,
+                        fieldBricks.height + fieldBricks.padding
+                    )
+                    .background(Color.Gray),
+                contentAlignment = Alignment.Center,
+
+                ) {
+                RunBricksComponent()
             }
         }
     }
