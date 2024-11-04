@@ -32,7 +32,7 @@ fun main() {
 
 fun generateMatrix(columns: Int, rows: Int, print: Boolean = false): Array<Array<Int>> {
     val counter = 0
-    val matrix = Array(columns) { Array<Int>(rows) { counter } }
+    val matrix = Array(columns) { Array(rows) { counter } }
 
     if (print) {
         matrix.forEach { columnValue ->
