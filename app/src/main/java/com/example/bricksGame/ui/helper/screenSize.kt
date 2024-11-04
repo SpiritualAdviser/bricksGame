@@ -1,4 +1,4 @@
-package com.example.bricksGame.modules.helper
+package com.example.bricksGame.ui.helper
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.*

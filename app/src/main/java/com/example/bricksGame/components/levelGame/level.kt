@@ -13,13 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.example.bricksGame.R
-import com.example.bricksGame.Routes
+import com.example.bricksGame.ui.helper.buttonController
 
 
 @Composable
-fun LevelGame(navController: NavHostController) {
+fun LevelGame() {
 
     Box(
         contentAlignment = Alignment.Center,
@@ -31,7 +30,7 @@ fun LevelGame(navController: NavHostController) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Button(modifier = Modifier.padding(10.dp),
 
-                onClick = { navController.navigate(Routes.MainMeny.route) }) {
+                onClick = { buttonController.buttonLisener("mainMeny") }) {
                 Text("Home")
             }
 
