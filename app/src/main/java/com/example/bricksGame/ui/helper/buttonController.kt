@@ -6,12 +6,11 @@ import com.example.bricksGame.newGame
 val buttonController = ButtonController()
 
 class ButtonController {
-    private val navController = NawHostHandler.getInstance().getNavController()
 
-    fun buttonLisener(name: String) {
+    fun buttonLisener(name: String, navController:NavHostController) {
         when (name) {
-            "mainMeny"->openMainMeny(navController)
-            "levelGame"->openLevelGame(navController)
+            "HomeScreen"->openMainMeny(navController)
+            "LevelGame"->openLevelGame(navController)
         }
     }
 
@@ -25,8 +24,8 @@ class ButtonController {
 
 private fun openMainMeny(navController: NavHostController) {
 
-    navController.navigate(Routes.MainMeny.route) {
+    navController.navigate(Routes.HomeScreen.route) {
         launchSingleTop = true
-        popUpTo(Routes.MainMeny.route)
+        popUpTo(Routes.HomeScreen.route)
     }
 }
