@@ -7,10 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.example.bricksGame.ui.helper.buttonController
+import androidx.navigation.NavHostController
+import com.example.bricksGame.Routes
+
 
 @Composable
-fun HomeScreen(name: String) {
+fun HomeScreen(name: String, navController: NavHostController) {
     Column(
         modifier = Modifier
             .background(color = Color.DarkGray)
@@ -21,7 +23,7 @@ fun HomeScreen(name: String) {
         Text(
             text = "$name!",
         )
-        Button(onClick = { buttonController.buttonLisener("levelGame")}) {
+        Button(onClick = { navController.navigate(Routes.LevelGame.route) }) {
             Text("Start")
         }
     }
