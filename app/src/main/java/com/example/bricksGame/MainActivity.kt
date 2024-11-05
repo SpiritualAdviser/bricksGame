@@ -5,9 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import com.example.bricksGame.components.levelGame.Bricks
+import androidx.navigation.compose.rememberNavController
 import com.example.bricksGame.ui.helper.NawHostHandler
+
 var newGame = true
 
 class MainActivity : ComponentActivity() {
@@ -15,7 +15,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
             RunGame()
         }
     }
@@ -23,8 +22,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun RunGame() {
-    val navController = NawHostHandler.getInstance()
-    navController.NawHost()
+    val navController = rememberNavController()
+    NawHostHandler.getInstance().NawHost(navController)
 }
 
 

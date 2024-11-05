@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.bricksGame.R
 import com.example.bricksGame.newGame
 import com.example.bricksGame.ui.helper.buttonController
@@ -38,24 +39,24 @@ fun getBrick(): Bricks {
 }
 
 @Composable
-fun LevelGame() {
+fun LevelGame(navController: NavHostController) {
     val brick = getBrick()
     newGame = false
-    MainBox(brick)
+    MainBox(brick, navController)
 }
 
 @Composable
-fun ScreenWithOrientation(brick: Bricks) {
+fun ScreenWithOrientation(brick: Bricks, navController: NavHostController) {
     val orientation = LocalConfiguration.current.orientation
     if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-        LandscapeLayout(brick)
+        LandscapeLayout(brick, navController)
     } else {
-        PortraitLayout(brick)
+        PortraitLayout(brick, navController)
     }
 }
 
 @Composable
-fun LandscapeLayout(brick: Bricks) {
+fun LandscapeLayout(brick: Bricks, navController: NavHostController) {
     Row(
         Modifier
             .fillMaxWidth(1f)
@@ -63,14 +64,14 @@ fun LandscapeLayout(brick: Bricks) {
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        GetButtonHome()
+        GetButtonHome(navController)
         GetFieldBox(brick)
         GetThreeBricksBlock(brick)
     }
 }
 
 @Composable
-fun PortraitLayout(brick: Bricks) {
+fun PortraitLayout(brick: Bricks, navController: NavHostController) {
     Column(
         Modifier
             .fillMaxWidth(1f)
@@ -78,28 +79,28 @@ fun PortraitLayout(brick: Bricks) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        GetButtonHome()
+        GetButtonHome(navController)
         GetFieldBox(brick)
         GetThreeBricksBlock(brick)
     }
 }
 
 @Composable
-fun MainBox(brick: Bricks) {
+fun MainBox(brick: Bricks, navController: NavHostController) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(R.color.darkGray)),
     ) {
-        ScreenWithOrientation(brick)
+        ScreenWithOrientation(brick, navController)
     }
 }
 
 @Composable
-fun GetButtonHome() {
+fun GetButtonHome(navController: NavHostController) {
     Button(
-        onClick = { buttonController.buttonLisener("mainMeny") }) {
+        onClick = { buttonController.buttonLisener("HomeScreen", navController) }) {
         Text("Home")
     }
 }
@@ -145,10 +146,10 @@ fun GetThreeBricksBlock(brick: Bricks) {
 fun FillBrickField(brick: Bricks) {
     var fieldElementIndex = 0
     Column {
-        brick.matrixField.forEachIndexed { indexColumn, _ ->
+        brick.matrixField.forEach {  _ ->
 
             LazyRow {
-                items(brick.fieldBricks.rows) { index ->
+                items(brick.fieldBricks.rows) {
                     Box(
                         modifier = Modifier
                             .background(brick.colorsListField[++fieldElementIndex])
