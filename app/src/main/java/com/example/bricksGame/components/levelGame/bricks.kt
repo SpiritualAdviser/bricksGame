@@ -1,84 +1,94 @@
 package com.example.bricksGame.components.levelGame
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.ui.theme.colors
 
+open class Bricks {
+
+    companion object {
+        private var instance: Bricks? = null
+
+        fun getInstance(needNewInstance: Boolean = false): Bricks {
+            if (instance == null || needNewInstance)
+                synchronized(Bricks::class.java) {
+
+                    if (instance == null) {
+
+                        println()
+                        instance = Bricks()
+                    }
+                    if (needNewInstance) {
+                        println()
+                        instance = Bricks()
+                    }
+
+                }
+            return requireNotNull(instance)
+        }
+    }
+
+    val width = 80.dp
+    val height = 60.dp
+    val colorList = getColorlist(3)
+    val fieldBricks = FieldBricks()
+    val colorsListField = this.getColorlist(fieldBricks.columns * fieldBricks.rows)
+    val matrixField = generateMatrix(fieldBricks.columns, fieldBricks.rows, true)
+
+    inner class FieldBricks {
+        val fieldWidth = 400.dp
+        val fieldHeight = 400.dp
+        val columns = (fieldHeight / height).toInt()
+        val rows = (fieldWidth / width).toInt()
+        val padding = 5.dp
+    }
+
+    fun getColorlist(numberItems: Int): MutableList<Color> {
+        val listResult: MutableList<Color> = mutableListOf()
+        for (i in 0..numberItems) {
+            listResult.add(getRandomCollor())
+        }
+        return listResult
+    }
+
+    private fun getRandomCollor(): Color {
+        val currentColor = colors.random()
+        return currentColor
+    }
+
+    private fun generateMatrix(
+        columns: Int,
+        rows: Int,
+        matrixPrint: Boolean = false
+    ): Array<Array<Int>> {
+        val counter = 0
+        val matrix = Array(columns) { Array(rows) { counter } }
+
+        if (matrixPrint) {
+            matrix.forEach { columnValue ->
+
+                columnValue.forEach { rowValue ->
+                    print("$rowValue \t")
+                }
+                println()
+            }
+        }
+        return matrix
+    }
+}
+
+
 //fun main() {
-//    generateMatrix(fieldBricks.columns, fieldBricks.rows, true)
+//    val brick = Bricks()
 //}
 
-val brick = Bricks()
-val fieldBricks = FieldBricks()
-val matrixField = generateMatrix(fieldBricks.columns, fieldBricks.rows, true)
+//
+//fun gets(){
+//    val brick = Bricks()
+//    val fieldBricks = FieldBricks()
+//    val matrixField = generateMatrix(fieldBricks.columns, fieldBricks.rows, true)
+//}
 
-class FieldBricks {
-    val width = 400.dp
-    val height = 400.dp
-    val columns = (height / brick.height).toInt()
-    val rows = (width / brick.width).toInt()
-    val padding = 5.dp
-}
 
-class Bricks {
-    val width = 50.dp
-    val height = 40.dp
-}
 
-@Composable
-fun RunBricksComponent() {
-    SetBricksContent()
-}
 
-@Composable
-fun SetBricksContent() {
-
-    Column {
-        matrixField.forEach { _ ->
-            LazyRow {
-                items(fieldBricks.rows) {
-                    Box(
-                        modifier = Modifier
-                            .background(getRandomCollor())
-                            .border(width = 1.dp, color = Color.Black)
-                            .size(brick.width, brick.height)
-                    )
-                }
-            }
-        }
-    }
-}
-
-private fun generateMatrix(
-    columns: Int,
-    rows: Int,
-    matrixPrint: Boolean = false
-): Array<Array<Int>> {
-    val counter = 0
-    val matrix = Array(columns) { Array(rows) { counter } }
-
-    if (matrixPrint) {
-        matrix.forEach { columnValue ->
-
-            columnValue.forEach { rowValue ->
-                print("$rowValue \t")
-            }
-            println()
-        }
-    }
-    return matrix
-}
-
-private fun getRandomCollor(): Color {
-
-    val currentColor = colors.random()
-    return currentColor
-}

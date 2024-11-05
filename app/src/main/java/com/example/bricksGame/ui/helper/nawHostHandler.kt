@@ -1,11 +1,13 @@
 package com.example.bricksGame.ui.helper
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.bricksGame.components.gameMeny.HomeScreen
+import com.example.bricksGame.components.levelGame.Bricks
 import com.example.bricksGame.components.levelGame.LevelGame
 
 open class NawHostHandler private constructor() {
