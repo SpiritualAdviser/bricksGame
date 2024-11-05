@@ -5,12 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.example.bricksGame.components.gameMeny.HomeScreen
-import com.example.bricksGame.components.levelGame.LevelGame
-
+import androidx.compose.runtime.remember
+import com.example.bricksGame.components.levelGame.Bricks
+import com.example.bricksGame.ui.helper.NawHostHandler
 var newGame = true
 
 class MainActivity : ComponentActivity() {
@@ -18,6 +15,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+
             RunGame()
         }
     }
@@ -25,30 +23,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun RunGame() {
-    val navController = rememberNavController()
-//    NavHost(navController = navController, startDestination = "HomeScreen") {
-//
-//        composable("HomeScreen") {
-//            HomeScreen("555", navController)
-//        }
-//
-//        composable("LevelGame") {
-//            LevelGame(navController)
-//        }
-//    }
-
-
-    NavHost(navController = navController, startDestination = Routes.HomeScreen.route) {
-
-        composable(Routes.HomeScreen.route) { HomeScreen("55", navController) }
-        composable(Routes.LevelGame.route) { LevelGame(navController) }
-    }
-}
-
-sealed class Routes(val route: String) {
-
-    object HomeScreen : Routes("HomeScreen")
-    object LevelGame : Routes("LevelGame")
+    val navController = NawHostHandler.getInstance()
+    navController.NawHost()
 }
 
 
