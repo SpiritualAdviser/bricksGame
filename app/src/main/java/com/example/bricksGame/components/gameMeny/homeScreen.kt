@@ -22,7 +22,7 @@ fun HomeScreen(name: String, navController: NavHostController) {
         Text(
             text = "$name!",
         )
-        Button(onClick = { buttonController.buttonLisener("LevelGame", navController) }) {
+        Button(onClick = { buttonController.buttonListener("LevelGame", navController) }) {
             Text("Start")
         }
     }

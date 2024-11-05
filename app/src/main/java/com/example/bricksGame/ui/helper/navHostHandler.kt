@@ -7,17 +7,17 @@ import androidx.navigation.compose.composable
 import com.example.bricksGame.components.gameMeny.HomeScreen
 import com.example.bricksGame.components.levelGame.LevelGame
 
-open class NawHostHandler private constructor() {
+open class NavHostHandler private constructor() {
 
     companion object {
-        private var instance: NawHostHandler? = null
+        private var instance: NavHostHandler? = null
 
-        fun getInstance(): NawHostHandler {
+        fun getInstance(): NavHostHandler {
             if (instance == null)
-                synchronized(NawHostHandler::class.java) {
+                synchronized(NavHostHandler::class.java) {
 
                     if (instance == null) {
-                        instance = NawHostHandler()
+                        instance = NavHostHandler()
                     }
                 }
             return requireNotNull(instance)

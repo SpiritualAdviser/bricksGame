@@ -30,28 +30,28 @@ open class Bricks {
 
     val width = 80.dp
     val height = 60.dp
-    val colorList = getColorlist(3)
+    val colorList = getColorList(3)
     val fieldBricks = FieldBricks()
-    val colorsListField = this.getColorlist(fieldBricks.columns * fieldBricks.rows)
+    val colorsListField = this.getColorList(fieldBricks.columns * fieldBricks.rows)
     val matrixField = generateMatrix(fieldBricks.columns, fieldBricks.rows, true)
 
     inner class FieldBricks {
-        val fieldWidth = 400.dp
+        private val fieldWidth = 400.dp
         val fieldHeight = 400.dp
         val columns = (fieldHeight / height).toInt()
         val rows = (fieldWidth / width).toInt()
         val padding = 5.dp
     }
 
-    fun getColorlist(numberItems: Int): MutableList<Color> {
+    private fun getColorList(numberItems: Int): MutableList<Color> {
         val listResult: MutableList<Color> = mutableListOf()
         for (i in 0..numberItems) {
-            listResult.add(getRandomCollor())
+            listResult.add(getRandomColor())
         }
         return listResult
     }
 
-    private fun getRandomCollor(): Color {
+    private fun getRandomColor(): Color {
         val currentColor = colors.random()
         return currentColor
     }

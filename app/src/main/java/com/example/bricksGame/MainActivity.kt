@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
-import com.example.bricksGame.ui.helper.NawHostHandler
+import com.example.bricksGame.ui.helper.NavHostHandler
 
 var newGame = true
 
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun RunGame() {
     val navController = rememberNavController()
-    NawHostHandler.getInstance().NawHost(navController)
+    NavHostHandler.getInstance().NawHost(navController)
 }
 
 

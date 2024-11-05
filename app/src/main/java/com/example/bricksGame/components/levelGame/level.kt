@@ -100,7 +100,7 @@ fun MainBox(brick: Bricks, navController: NavHostController) {
 @Composable
 fun GetButtonHome(navController: NavHostController) {
     Button(
-        onClick = { buttonController.buttonLisener("HomeScreen", navController) }) {
+        onClick = { buttonController.buttonListener("HomeScreen", navController) }) {
         Text("Home")
     }
 }

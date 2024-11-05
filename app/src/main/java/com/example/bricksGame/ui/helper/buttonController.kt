@@ -7,9 +7,9 @@ val buttonController = ButtonController()
 
 class ButtonController {
 
-    fun buttonLisener(name: String, navController:NavHostController) {
+    fun buttonListener(name: String, navController:NavHostController) {
         when (name) {
-            "HomeScreen"->openMainMeny(navController)
+            "HomeScreen"->openMainMany(navController)
             "LevelGame"->openLevelGame(navController)
         }
     }
@@ -22,7 +22,7 @@ class ButtonController {
     }
 }
 
-private fun openMainMeny(navController: NavHostController) {
+private fun openMainMany(navController: NavHostController) {
 
     navController.navigate(Routes.HomeScreen.route) {
         launchSingleTop = true

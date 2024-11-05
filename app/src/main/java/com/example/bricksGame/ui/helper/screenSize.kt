@@ -4,10 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.*
 import androidx.compose.ui.unit.dp
 
-class Helper {
-
-}
-
 class ScreenSize {
     var screenWidthPx = 0
     var screenHeightPx = 0
