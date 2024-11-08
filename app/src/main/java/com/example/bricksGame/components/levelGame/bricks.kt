@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.ui.theme.colors
 
-open class Bricks {
+open class Bricks private constructor() {
 
     companion object {
         private var instance: Bricks? = null

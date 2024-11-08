@@ -9,13 +9,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.bricksGame.ui.helper.NavHostHandler
 
-val GAMEDATA = GameData()
-
-class GameData {
-    var newGame = true
-    val navHostHandler = NavHostHandler.getInstance()
-}
-
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,8 +22,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun RunGame() {
-    val navController = rememberNavController()
-    GAMEDATA.navHostHandler.CreateNavHost(navController)
+    NavHostHandler().CreateNavHost()
 }
 
 

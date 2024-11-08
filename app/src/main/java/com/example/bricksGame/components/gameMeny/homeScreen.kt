@@ -1,4 +1,3 @@
-
 package com.example.bricksGame.components.gameMeny
 
 import androidx.compose.foundation.background
@@ -8,26 +7,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavHostController
-import com.example.bricksGame.GAMEDATA
+import androidx.navigation.NavController
 
-@Composable
-fun HomeScreen(
-    name: String,
-    navController: NavHostController = GAMEDATA.navHostHandler.getNavController()
+class HomeScreen(
+    private var navController: NavController,
+    private val nameDescription: String = "level"
 ) {
-    Column(
-        modifier = Modifier
-            .background(color = Color.DarkGray)
-            .fillMaxSize(),
-        Arrangement.Center,
-        Alignment.CenterHorizontally
+
+    @Composable
+    fun Run() {
+        MainBox()
+    }
+
+    @Composable
+    fun MainBox(
     ) {
-        Text(
-            text = "$name!",
-        )
-        Button(onClick = { navController.navigate("LevelGame") }) {
-            Text("Start")
+        Column(
+            modifier = Modifier
+                .background(color = Color.DarkGray)
+                .fillMaxSize(),
+            Arrangement.Center,
+            Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "${nameDescription}!",
+            )
+            Button(onClick = { navController.navigate("LevelGame") }) {
+                Text("Start")
+            }
         }
     }
 }

@@ -25,136 +25,129 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.bricksGame.GAMEDATA
 import com.example.bricksGame.R
 
-fun getBrick(): Bricks {
-    var instance = Bricks.getInstance()
 
-    if (GAMEDATA.newGame) {
-        instance = Bricks.getInstance(true)
+class LevelGame(private val navController: NavHostController) {
+    private val bricks: Bricks = Bricks.getInstance()
+
+    @Composable
+    fun Run() {
+        MainBox()
     }
-    return instance
-}
 
-@Composable
-fun LevelGame() {
-    val brick = getBrick()
-    GAMEDATA.newGame = false
-    MainBox(brick)
-}
-
-@Composable
-fun ScreenWithOrientation(brick: Bricks) {
-    val orientation = LocalConfiguration.current.orientation
-    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-        LandscapeLayout(brick)
-    } else {
-        PortraitLayout(brick)
-    }
-}
-
-@Composable
-fun LandscapeLayout(brick: Bricks) {
-    Row(
-        Modifier
-            .fillMaxWidth(1f)
-            .fillMaxHeight(1f),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        GetButtonHome()
-        GetFieldBox(brick)
-        GetThreeBricksBlock(brick)
-    }
-}
-
-@Composable
-fun PortraitLayout(brick: Bricks) {
-    Column(
-        Modifier
-            .fillMaxWidth(1f)
-            .fillMaxHeight(1f),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly
-    ) {
-        GetButtonHome()
-        GetFieldBox(brick)
-        GetThreeBricksBlock(brick)
-    }
-}
-
-@Composable
-fun MainBox(brick: Bricks) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxSize()
-            .background(colorResource(R.color.darkGray)),
-    ) {
-        ScreenWithOrientation(brick)
-    }
-}
-
-@Composable
-fun GetButtonHome(navController: NavHostController = GAMEDATA.navHostHandler.getNavController()) {
-    Button(
-        onClick = { navController.navigate("HomeScreen") }) {
-        Text("Home")
-    }
-}
-
-@Composable
-fun GetFieldBox(brick: Bricks) {
-    Box(
-        Modifier
-            .size(
-                brick.fieldBricks.fieldHeight + brick.fieldBricks.padding,
-                brick.fieldBricks.fieldHeight + brick.fieldBricks.padding
-            )
-            .background(Color.Gray),
-        contentAlignment = Alignment.Center,
-
+    @Composable
+    private fun MainBox() {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxSize()
+                .background(colorResource(R.color.darkGray)),
         ) {
-        FillBrickField(brick)
-    }
-}
-
-@Composable
-fun GetThreeBricksBlock(brick: Bricks) {
-    LazyHorizontalGrid(
-        modifier = Modifier
-            .size((brick.width + 10.dp) * 3, brick.height + 10.dp)
-            .border(2.dp, Color.Black)
-            .padding(5.dp),
-        rows = GridCells.FixedSize(brick.width),
-        verticalArrangement = Arrangement.Center,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
-        items(3) { index ->
-            Box(
-                Modifier
-                    .background(color = brick.colorList[index])
-                    .size(brick.width, brick.height)
-            )
+            ScreenWithOrientation()
         }
     }
-}
 
-@Composable
-fun FillBrickField(brick: Bricks) {
-    var fieldElementIndex = 0
-    Column {
-        brick.matrixField.forEach { _ ->
+    @Composable
+    private fun ScreenWithOrientation() {
+        val orientation = LocalConfiguration.current.orientation
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            LandscapeLayout()
+        } else {
+            PortraitLayout()
+        }
+    }
 
-            LazyRow {
-                items(brick.fieldBricks.rows) {
-                    Box(
-                        modifier = Modifier
-                            .background(brick.colorsListField[++fieldElementIndex])
-                            .border(width = 1.dp, color = Color.Black)
-                            .size(brick.width, brick.height)
-                    )
+    @Composable
+    private fun LandscapeLayout() {
+        Row(
+            Modifier
+                .fillMaxWidth(1f)
+                .fillMaxHeight(1f),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            GetButtonHome()
+            GetFieldBox()
+            GetThreeBricksBlock()
+        }
+    }
+
+    @Composable
+    private fun PortraitLayout() {
+        Column(
+            Modifier
+                .fillMaxWidth(1f)
+                .fillMaxHeight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceEvenly
+        ) {
+            GetButtonHome()
+            GetFieldBox()
+            GetThreeBricksBlock()
+        }
+    }
+
+    @Composable
+    private fun GetButtonHome() {
+        Button(
+            onClick = { navController.navigate("HomeScreen") }) {
+            Text("Home")
+        }
+    }
+
+    @Composable
+    private fun GetFieldBox() {
+        Box(
+            Modifier
+                .size(
+                    bricks.fieldBricks.fieldHeight + bricks.fieldBricks.padding,
+                    bricks.fieldBricks.fieldHeight + bricks.fieldBricks.padding
+                )
+                .background(Color.Gray),
+            contentAlignment = Alignment.Center,
+
+            ) {
+            FillBrickField()
+        }
+    }
+
+    @Composable
+    private fun GetThreeBricksBlock() {
+        LazyHorizontalGrid(
+            modifier = Modifier
+                .size((bricks.width + 10.dp) * 3, bricks.height + 10.dp)
+                .border(2.dp, Color.Black)
+                .padding(5.dp),
+            rows = GridCells.FixedSize(bricks.width),
+            verticalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            items(3) { index ->
+                Box(
+                    Modifier
+                        .background(color = bricks.colorList[index])
+                        .size(bricks.width, bricks.height)
+                )
+            }
+        }
+    }
+
+    @Composable
+    private fun FillBrickField() {
+        var fieldElementIndex = 0
+        Column {
+            bricks.matrixField.forEach { _ ->
+
+                LazyRow {
+                    items(bricks.fieldBricks.rows) {
+                        Box(
+                            modifier = Modifier
+                                .background(bricks.colorsListField[++fieldElementIndex])
+                                .border(width = 1.dp, color = Color.Black)
+                                .size(bricks.width, bricks.height)
+                        )
+                    }
                 }
             }
         }
