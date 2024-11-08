@@ -5,10 +5,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.bricksGame.ui.helper.NavHostHandler
 
-var newGame = true
+val GAMEDATA = GameData()
+
+class GameData {
+    var newGame = true
+    val navHostHandler = NavHostHandler.getInstance()
+}
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +30,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun RunGame() {
     val navController = rememberNavController()
-    NavHostHandler.getInstance().NawHost(navController)
+    GAMEDATA.navHostHandler.CreateNavHost(navController)
 }
+
+
 
 
 

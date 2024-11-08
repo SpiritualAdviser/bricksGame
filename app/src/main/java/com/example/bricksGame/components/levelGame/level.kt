@@ -25,38 +25,37 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.bricksGame.GAMEDATA
 import com.example.bricksGame.R
-import com.example.bricksGame.newGame
-import com.example.bricksGame.ui.helper.buttonController
 
 fun getBrick(): Bricks {
     var instance = Bricks.getInstance()
 
-    if (newGame) {
+    if (GAMEDATA.newGame) {
         instance = Bricks.getInstance(true)
     }
     return instance
 }
 
 @Composable
-fun LevelGame(navController: NavHostController) {
+fun LevelGame() {
     val brick = getBrick()
-    newGame = false
-    MainBox(brick, navController)
+    GAMEDATA.newGame = false
+    MainBox(brick)
 }
 
 @Composable
-fun ScreenWithOrientation(brick: Bricks, navController: NavHostController) {
+fun ScreenWithOrientation(brick: Bricks) {
     val orientation = LocalConfiguration.current.orientation
     if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-        LandscapeLayout(brick, navController)
+        LandscapeLayout(brick)
     } else {
-        PortraitLayout(brick, navController)
+        PortraitLayout(brick)
     }
 }
 
 @Composable
-fun LandscapeLayout(brick: Bricks, navController: NavHostController) {
+fun LandscapeLayout(brick: Bricks) {
     Row(
         Modifier
             .fillMaxWidth(1f)
@@ -64,14 +63,14 @@ fun LandscapeLayout(brick: Bricks, navController: NavHostController) {
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        GetButtonHome(navController)
+        GetButtonHome()
         GetFieldBox(brick)
         GetThreeBricksBlock(brick)
     }
 }
 
 @Composable
-fun PortraitLayout(brick: Bricks, navController: NavHostController) {
+fun PortraitLayout(brick: Bricks) {
     Column(
         Modifier
             .fillMaxWidth(1f)
@@ -79,28 +78,28 @@ fun PortraitLayout(brick: Bricks, navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        GetButtonHome(navController)
+        GetButtonHome()
         GetFieldBox(brick)
         GetThreeBricksBlock(brick)
     }
 }
 
 @Composable
-fun MainBox(brick: Bricks, navController: NavHostController) {
+fun MainBox(brick: Bricks) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(R.color.darkGray)),
     ) {
-        ScreenWithOrientation(brick, navController)
+        ScreenWithOrientation(brick)
     }
 }
 
 @Composable
-fun GetButtonHome(navController: NavHostController) {
+fun GetButtonHome(navController: NavHostController = GAMEDATA.navHostHandler.getNavController()) {
     Button(
-        onClick = { buttonController.buttonListener("HomeScreen", navController) }) {
+        onClick = { navController.navigate("HomeScreen") }) {
         Text("Home")
     }
 }
@@ -146,7 +145,7 @@ fun GetThreeBricksBlock(brick: Bricks) {
 fun FillBrickField(brick: Bricks) {
     var fieldElementIndex = 0
     Column {
-        brick.matrixField.forEach {  _ ->
+        brick.matrixField.forEach { _ ->
 
             LazyRow {
                 items(brick.fieldBricks.rows) {
