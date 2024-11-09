@@ -18,8 +18,6 @@ class FieldLevelBlockViewModel : ViewModel() {
 
     val colorList = getColorList(columns * rows)
 
-//    val colorList = mutableListOf(1, 0, 0, 0, 0, 2)
-
     private fun getColorList(numberItems: Int): MutableList<Color> {
         val listResult: MutableList<Color> = mutableListOf()
 
@@ -35,7 +33,6 @@ class FieldLevelBlockViewModel : ViewModel() {
         }
         return listResult
     }
-
 
     private fun generateMatrix(
         matrixPrint: Boolean = false

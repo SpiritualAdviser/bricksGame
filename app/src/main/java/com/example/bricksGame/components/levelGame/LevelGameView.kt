@@ -28,14 +28,20 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.bricksGame.AppNavigation
 import com.example.bricksGame.R
+import com.example.bricksGame.Routes
 import com.example.bricksGame.ui.theme.colorsBricks
 
 
 class LevelGameView() {
     private val navController: NavController = AppNavigation.getInstance().getNavController()
 
+    private lateinit var viewModelFLB: FieldLevelBlockViewModel
+    private lateinit var viewModelBricks: BricksViewModel
+
     @Composable
     fun Run() {
+        viewModelFLB = viewModel()
+        viewModelBricks = viewModel()
         MainBox()
     }
 
@@ -85,7 +91,7 @@ class LevelGameView() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly,
 
-        ) {
+            ) {
             ButtonHome()
             FieldBox()
             BricksBlock()
@@ -95,15 +101,18 @@ class LevelGameView() {
     @Composable
     private fun ButtonHome() {
         Button(
-            onClick = { navController.navigate("HomeScreen") }) {
+            onClick = {
+                navController.navigate(Routes.HomeScreen.route) {
+                    popUpTo(Routes.HomeScreen.route)
+                    launchSingleTop = true
+                }
+            }) {
             Text("Home")
         }
     }
 
     @Composable
-    private fun BricksBlock(
-        viewModelBricks: BricksViewModel = viewModel(),
-    ) {
+    private fun BricksBlock() {
 
         LazyHorizontalGrid(
             modifier = Modifier
@@ -128,7 +137,7 @@ class LevelGameView() {
     }
 
     @Composable
-    private fun FieldBox(viewModelFLB: FieldLevelBlockViewModel = FieldLevelBlockViewModel()) {
+    private fun FieldBox() {
         Box(
             Modifier
                 .size(
@@ -144,10 +153,7 @@ class LevelGameView() {
     }
 
     @Composable
-    private fun GridFieldBox(
-        viewModelFLB: FieldLevelBlockViewModel = viewModel(),
-        viewModelBricks: BricksViewModel = viewModel(),
-    ) {
+    private fun GridFieldBox() {
         LazyVerticalGrid(
             columns = GridCells.FixedSize(viewModelBricks.width),
             verticalArrangement = Arrangement.Center,

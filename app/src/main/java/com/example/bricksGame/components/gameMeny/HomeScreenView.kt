@@ -36,7 +36,10 @@ class HomeScreenView() {
             )
             Button(onClick = {
                 viewModelHS.setNameOnHomeScreen("HomeBack")
-                navController.navigate(Routes.LevelGame.route)
+                navController.navigate(Routes.LevelGame.route) {
+                    popUpTo(Routes.LevelGame.route)
+                    launchSingleTop = true
+                }
             }) {
                 Text("Start")
             }
