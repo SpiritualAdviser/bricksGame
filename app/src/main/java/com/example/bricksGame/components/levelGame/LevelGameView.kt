@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.material3.Button
@@ -24,12 +23,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.bricksGame.AppNavigation
 import com.example.bricksGame.R
 
 
-class LevelGame(private val navController: NavHostController) {
-    private val bricks: Bricks = Bricks.getInstance()
+class LevelGameView() {
+    private val navController: NavController = AppNavigation.getInstance().getNavController()
 
     @Composable
     fun Run() {
@@ -64,12 +65,12 @@ class LevelGame(private val navController: NavHostController) {
             Modifier
                 .fillMaxWidth(1f)
                 .fillMaxHeight(1f),
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            GetButtonHome()
-            GetFieldBox()
-            GetThreeBricksBlock()
+            ButtonHome()
+            FieldBox()
+            BricksBlock()
         }
     }
 
@@ -80,16 +81,17 @@ class LevelGame(private val navController: NavHostController) {
                 .fillMaxWidth(1f)
                 .fillMaxHeight(1f),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
+            verticalArrangement = Arrangement.SpaceEvenly,
+
         ) {
-            GetButtonHome()
-            GetFieldBox()
-            GetThreeBricksBlock()
+            ButtonHome()
+            FieldBox()
+            BricksBlock()
         }
     }
 
     @Composable
-    private fun GetButtonHome() {
+    private fun ButtonHome() {
         Button(
             onClick = { navController.navigate("HomeScreen") }) {
             Text("Home")
@@ -97,58 +99,69 @@ class LevelGame(private val navController: NavHostController) {
     }
 
     @Composable
-    private fun GetFieldBox() {
-        Box(
-            Modifier
-                .size(
-                    bricks.fieldBricks.fieldHeight + bricks.fieldBricks.padding,
-                    bricks.fieldBricks.fieldHeight + bricks.fieldBricks.padding
-                )
-                .background(Color.Gray),
-            contentAlignment = Alignment.Center,
+    private fun BricksBlock(
+        viewModelBricks: BricksViewModel = viewModel(),
+    ) {
 
-            ) {
-            FillBrickField()
-        }
-    }
-
-    @Composable
-    private fun GetThreeBricksBlock() {
         LazyHorizontalGrid(
             modifier = Modifier
-                .size((bricks.width + 10.dp) * 3, bricks.height + 10.dp)
+                .size(
+                    (viewModelBricks.width + viewModelBricks.padding) * 3 + viewModelBricks.padding,
+                    viewModelBricks.height + viewModelBricks.padding
+                )
                 .border(2.dp, Color.Black)
-                .padding(5.dp),
-            rows = GridCells.FixedSize(bricks.width),
+                .padding(viewModelBricks.padding),
+            rows = GridCells.FixedSize(viewModelBricks.width),
             verticalArrangement = Arrangement.Center,
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            horizontalArrangement = Arrangement.spacedBy(viewModelBricks.padding)
         ) {
             items(3) { index ->
                 Box(
                     Modifier
-                        .background(color = bricks.colorList[index])
-                        .size(bricks.width, bricks.height)
+                        .background(color = viewModelBricks.colorList[index])
+                        .size(viewModelBricks.width, viewModelBricks.height)
                 )
             }
         }
     }
 
     @Composable
-    private fun FillBrickField() {
-        var fieldElementIndex = 0
-        Column {
-            bricks.matrixField.forEach { _ ->
+    private fun FieldBox(viewModelFLB: FieldLevelBlockViewModel = FieldLevelBlockViewModel()) {
+        Box(
+            Modifier
+                .size(
+                    viewModelFLB.width + viewModelFLB.padding,
+                    viewModelFLB.height + viewModelFLB.padding
+                )
+                .background(Color.Gray),
+            contentAlignment = Alignment.Center,
 
-                LazyRow {
-                    items(bricks.fieldBricks.rows) {
-                        Box(
-                            modifier = Modifier
-                                .background(bricks.colorsListField[++fieldElementIndex])
-                                .border(width = 1.dp, color = Color.Black)
-                                .size(bricks.width, bricks.height)
-                        )
-                    }
-                }
+            ) {
+            GridFieldBox()
+        }
+    }
+
+    @Composable
+    private fun GridFieldBox(
+        viewModelFLB: FieldLevelBlockViewModel = viewModel(),
+        viewModelBricks: BricksViewModel = viewModel(),
+    ) {
+        println(viewModelFLB.colorList.size)
+        LazyHorizontalGrid(
+            rows = GridCells.FixedSize(viewModelBricks.height),
+            verticalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .size(viewModelFLB.width, viewModelFLB.height)
+
+        ) {
+            items(viewModelFLB.colorList.size) { index ->
+                Box(
+                    Modifier
+                        .background(color = viewModelFLB.colorList[index])
+                        .size(viewModelBricks.width, viewModelBricks.height)
+                        .border(1.dp, Color.Black)
+                )
             }
         }
     }
