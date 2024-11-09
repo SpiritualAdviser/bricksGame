@@ -2,8 +2,8 @@ package com.example.bricksGame.components.levelGame
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.bricksGame.ui.theme.colors
 import androidx.lifecycle.ViewModel
+import com.example.bricksGame.ui.theme.colorsBricks
 
 open class BricksViewModel : ViewModel() {
 
@@ -14,6 +14,7 @@ open class BricksViewModel : ViewModel() {
 
     private fun getColorList(numberItems: Int): MutableList<Color> {
         val listResult: MutableList<Color> = mutableListOf()
+
         for (i in 1..numberItems) {
             listResult.add(getRandomColor())
         }
@@ -21,10 +22,9 @@ open class BricksViewModel : ViewModel() {
     }
 
     private fun getRandomColor(): Color {
-        val currentColor = colors.random()
+        val currentColor: Color = colorsBricks.values.random()
         return currentColor
     }
-
 }
 
 

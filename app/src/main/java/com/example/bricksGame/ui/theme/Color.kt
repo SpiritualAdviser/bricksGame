@@ -10,4 +10,17 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val colors = listOf(Pink40, PurpleGrey40, Purple40)
+val Red900 = Color(0xFFB71C1C)
+val Blue900 = Color(0xFF0D47A1)
+val Green900 = Color(0xFF1B5E20)
+val Yellow900 = Color(0xFFF57F17)
+val Purple900 = Color(0xFF4A148C)
+
+
+val colorsBricks = mapOf(
+    1 to Red900,
+    2 to Blue900,
+    3 to Green900,
+    4 to Yellow900,
+    5 to Purple900
+)

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,6 +28,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.bricksGame.AppNavigation
 import com.example.bricksGame.R
+import com.example.bricksGame.ui.theme.colorsBricks
 
 
 class LevelGameView() {
@@ -146,9 +148,8 @@ class LevelGameView() {
         viewModelFLB: FieldLevelBlockViewModel = viewModel(),
         viewModelBricks: BricksViewModel = viewModel(),
     ) {
-        println(viewModelFLB.colorList.size)
-        LazyHorizontalGrid(
-            rows = GridCells.FixedSize(viewModelBricks.height),
+        LazyVerticalGrid(
+            columns = GridCells.FixedSize(viewModelBricks.width),
             verticalArrangement = Arrangement.Center,
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
