@@ -1,4 +1,4 @@
-package com.example.bricksGame.components.gameMeny
+package com.example.bricksGame.components.gameMeny.models
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

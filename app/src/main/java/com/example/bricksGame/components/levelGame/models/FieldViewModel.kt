@@ -1,20 +1,18 @@
-package com.example.bricksGame.components.levelGame
+package com.example.bricksGame.components.levelGame.models
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.ui.theme.colorsBricks
 
-class FieldLevelBlockViewModel : ViewModel() {
-
-    private val bricksViewModel = BricksViewModel()
+object FieldViewModel : ViewModel() {
 
     val width = 380.dp
     val height = 390.dp
     val padding = 10.dp
-    val columns: Int = (width / bricksViewModel.width).toInt()
-    val rows: Int = (height / bricksViewModel.height).toInt()
-    val matrixField = generateMatrix(true)
+    private val columns: Int = (width / BricksViewModel.width).toInt()
+    private val rows: Int = (height / BricksViewModel.height).toInt()
+    private val matrixField = generateMatrix(true)
 
     val colorList = getColorList(columns * rows)
 

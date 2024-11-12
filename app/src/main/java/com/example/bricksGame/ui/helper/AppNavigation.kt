@@ -1,4 +1,4 @@
-package com.example.bricksGame
+package com.example.bricksGame.ui.helper
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
@@ -6,8 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.bricksGame.components.gameMeny.HomeScreenView
-import com.example.bricksGame.components.levelGame.LevelGameView
+import com.example.bricksGame.components.gameMeny.RunHomeScreen
+import com.example.bricksGame.components.levelGame.RunLevelGame
 
 class AppNavigation private constructor() {
 
@@ -33,8 +33,8 @@ class AppNavigation private constructor() {
         _navController = rememberNavController()
 
         NavHost(navController = _navController, startDestination = Routes.HomeScreen.route) {
-            composable(Routes.HomeScreen.route) { HomeScreenView().Run() }
-            composable(Routes.LevelGame.route) { LevelGameView().Run() }
+            composable(Routes.HomeScreen.route) { RunHomeScreen() }
+            composable(Routes.LevelGame.route) { RunLevelGame() }
         }
     }
 
