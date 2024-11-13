@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.example.bricksGame"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -76,6 +76,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation (libs.androidx.runtime.livedata)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-
+    implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.core.ktx)
 }

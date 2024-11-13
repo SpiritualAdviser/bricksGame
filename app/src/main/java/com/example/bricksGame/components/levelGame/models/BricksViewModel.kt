@@ -1,6 +1,9 @@
 package com.example.bricksGame.components.levelGame.models
 
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -9,50 +12,33 @@ import com.example.bricksGame.ui.theme.colorsBricks
 
 object BricksViewModel : ViewModel() {
 
-    val width = 70.dp
-    val height = 60.dp
+    val width = 50.dp
+    val height = 50.dp
     private val padding = 5.dp
-    private val maxBricks = 3
-    val widthGridSize = (width + padding) * maxBricks + padding
-    val heightGridSize = height + padding
+    private const val MAX_BRICKS = 3
+    val widthGridSize = (width + padding) * MAX_BRICKS + padding
+    val heightGridSize = height + padding+50.dp
 
-    var bricksList = mutableStateListOf<Brick>()
+    private val _bricksList = createBricksList().toMutableStateList()
 
-    fun addItem() {
-        if (bricksList.size < maxBricks) {
+    val bricks: MutableList<Brick>
+        get() = _bricksList
+
+    private fun createBricksList(): MutableList<Brick> {
+        val bricksList: MutableList<Brick> = mutableListOf()
+
+        for (i in 0 until MAX_BRICKS) {
             bricksList.add(
                 Brick(
                     width = width,
                     height = height,
-                    id = bricksList.size,
-                    position = (bricksList.size).toString(),
+                    id = i,
+                    position = i.toString(),
                     color = getRandomColor()
                 )
             )
         }
-    }
-
-    fun deleteItem(index: Int) {
-        if (bricksList.size != 0) {
-            bricksList.removeAt(index)
-        }
-    }
-
-    fun createBricksList(): Unit {
-        if (bricksList.size < maxBricks) {
-
-            for (i in bricksList.size until maxBricks) {
-                bricksList.add(
-                    Brick(
-                        width = width,
-                        height = height,
-                        id = i,
-                        position = i.toString(),
-                        color = getRandomColor()
-                    )
-                )
-            }
-        }
+        return bricksList
     }
 
     private fun getRandomColor(): Color {
@@ -62,12 +48,17 @@ object BricksViewModel : ViewModel() {
 }
 
 data class Brick(
+    private var initX: Dp = 0.dp,
+    private var initY: Dp = 0.dp,
     val width: Dp,
     val height: Dp,
     var id: Int,
     var position: String,
     var color: Color
-)
+) {
+    var x by mutableStateOf(initX)
+    var y by mutableStateOf(initY)
+}
 
 
 

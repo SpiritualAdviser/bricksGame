@@ -8,10 +8,11 @@ import com.example.bricksGame.ui.theme.colorsBricks
 object FieldViewModel : ViewModel() {
 
     val width = 380.dp
-    val height = 390.dp
-    val padding = 10.dp
+    val height = 380.dp
+    val padding = 1.dp
     private val columns: Int = (width / BricksViewModel.width).toInt()
     private val rows: Int = (height / BricksViewModel.height).toInt()
+
     private val matrixField = generateMatrix(true)
 
     val colorList = getColorList(columns * rows)
@@ -38,20 +39,6 @@ object FieldViewModel : ViewModel() {
 
         val counter = 0
         val matrix = Array(rows) { Array(columns) { counter } }
-        matrix[0][0] = 1
-        matrix[0][2] = 2
-
-        matrix[1][1] = 4
-        matrix[1][4] = 3
-
-        matrix[2][1] = 4
-        matrix[2][3] = 3
-
-        matrix[4][4] = 4
-        matrix[4][3] = 3
-
-        matrix[5][0] = 4
-        matrix[5][4] = 3
 
         if (matrixPrint) {
             matrix.forEach { columnValue ->

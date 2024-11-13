@@ -4,15 +4,20 @@ package com.example.bricksGame.components.levelGame
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -23,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
@@ -77,30 +83,8 @@ private fun PortraitLayout() {
 
         ) {
         ButtonHome()
-        ButtonAdd()
-        ButtonDelete()
         FieldBox()
         BricksBlock()
-    }
-}
-
-@Composable
-private fun ButtonAdd() {
-    Button(onClick = {
-        BricksViewModel.addItem()
-    }
-    ) {
-        Text("ButtonAdd")
-    }
-}
-
-@Composable
-private fun ButtonDelete() {
-    Button(onClick = {
-        BricksViewModel.deleteItem(0)
-    }
-    ) {
-        Text("removeFirst")
     }
 }
 
@@ -116,21 +100,43 @@ private fun ButtonHome() {
 @Composable
 
 private fun BricksBlock() {
-    LazyHorizontalGrid(
-        modifier = Modifier
-            .size(BricksViewModel.widthGridSize, BricksViewModel.heightGridSize)
-            .border(2.dp, Color.Black)
-            .padding(10.dp),
-        rows = GridCells.FixedSize(BricksViewModel.width),
-        verticalArrangement = Arrangement.Center,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
-        items(BricksViewModel.bricksList) { item ->
-            Box(
-                Modifier
-                    .size(item.width, item.height)
-                    .background(item.color)
-            )
+
+    val orientation = LocalConfiguration.current.orientation
+    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        Column() {
+            (BricksViewModel.bricks.forEach {
+                Box(
+                    Modifier
+                        .offset(it.x, it.y)
+                        .size(it.width, it.height)
+                        .background(it.color)
+                        .pointerInput(Unit) {
+                            detectDragGestures { _, dragAmount ->
+                                it.x += dragAmount.x.toDp()
+                                it.y += dragAmount.y.toDp()
+                            }
+                        }
+                )
+                Spacer(modifier = Modifier.size(8.dp))
+            })
+        }
+    } else {
+        Row() {
+            (BricksViewModel.bricks.forEach {
+                Box(
+                    Modifier
+                        .offset(it.x, it.y)
+                        .size(it.width, it.height)
+                        .background(it.color)
+                        .pointerInput(Unit) {
+                            detectDragGestures { _, dragAmount ->
+                                it.x += dragAmount.x.toDp()
+                                it.y += dragAmount.y.toDp()
+                            }
+                        }
+                )
+                Spacer(modifier = Modifier.size(8.dp))
+            })
         }
     }
 }

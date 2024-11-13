@@ -5,13 +5,13 @@ import androidx.compose.ui.platform.*
 import androidx.compose.ui.unit.dp
 
 class ScreenSize {
-    private var screenWidthPx = 0
-    private var screenHeightPx = 0
-    private var screenWidthDp = 0.dp
-    private var screenHeightDp = 0.dp
+    var screenWidthPx = 0
+    var screenHeightPx = 0
+    var screenWidthDp = 0.dp
+    var screenHeightDp = 0.dp
 
     @Composable
-    fun GetScreenSize(screenSize: ScreenSize) {
+    fun GetScreenSize() {
         val context = LocalContext.current
         val displayMetrics = context.resources.displayMetrics
 
