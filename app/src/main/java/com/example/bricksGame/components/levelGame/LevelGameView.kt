@@ -107,13 +107,13 @@ private fun BricksBlock() {
             (BricksViewModel.bricks.forEach {
                 Box(
                     Modifier
-                        .offset(it.x, it.y)
+                        .offset(it.y, it.x)
                         .size(it.width, it.height)
                         .background(it.color)
                         .pointerInput(Unit) {
                             detectDragGestures { _, dragAmount ->
-                                it.x += dragAmount.x.toDp()
-                                it.y += dragAmount.y.toDp()
+                                it.y += dragAmount.x.toDp()
+                                it.x += dragAmount.y.toDp()
                             }
                         }
                 )
