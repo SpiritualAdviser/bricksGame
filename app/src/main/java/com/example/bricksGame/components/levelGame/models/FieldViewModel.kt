@@ -1,17 +1,17 @@
 package com.example.bricksGame.components.levelGame.models
 
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.screenSize
-import com.example.bricksGame.ui.helper.ScreenSize
 import com.example.bricksGame.ui.theme.colorsBricks
+import kotlin.math.round
 
 object FieldViewModel : ViewModel() {
-    private const val COLUMNS: Int = 6
-    private const val ROWS: Int = 5
+    const val COLUMNS: Int = 6
+    const val ROWS: Int = 5
+    private const val COLUMNS_BLOCK_SHAPES = 3
 
     private val padding = 10.dp
     val width = screenSize.screenWidthDp - padding * 2
@@ -20,36 +20,38 @@ object FieldViewModel : ViewModel() {
 
     val brickOnField = createBricksList()
 
-    private fun createBricksList() {
+    private fun createBricksList(): MutableList<FieldBrick> {
+        val allBrickOnField = COLUMNS * ROWS
+        val bricksList: MutableList<FieldBrick> = mutableListOf()
+        var positionColumn = 0
+        var positionRow = 0
 
-        val count = COLUMNS + ROWS
+        for (i in 0 until allBrickOnField) {
 
+            if (i != 0 && i % 5 == 0) {
+                ++positionColumn
+                positionRow = 0
+            }
 
-        val fieldBrick = FieldBrick()
+            bricksList.add(createBrick(positionColumn, positionRow))
+            ++positionRow
+        }
+        println(bricksList.toString())
+        return bricksList
+    }
 
-
+    private fun createBrick(positionColumn: Int, positionRow: Int): FieldBrick {
+        return FieldBrick(
+            width = round(this.width.value / ROWS).dp,
+            height = round(this.height.value / (COLUMNS + COLUMNS_BLOCK_SHAPES)).dp,
+            position = Pair(positionColumn, positionRow),
+            id = "$positionColumn $positionRow",
+            color = colorsBricks.getValue(positionColumn)
+        )
     }
 
     private
     val matrixField = generateMatrix(true)
-
-    val colorList = getColorList(COLUMNS * ROWS)
-
-    private fun getColorList(numberItems: Int): MutableList<Color> {
-        val listResult: MutableList<Color> = mutableListOf()
-
-        matrixField.forEachIndexed { indexColumn, array ->
-
-            array.forEachIndexed { indexRow, value ->
-                var keyColor = Color.Transparent
-                if (value != 0) {
-                    keyColor = colorsBricks.getValue(value)
-                }
-                listResult.add(keyColor)
-            }
-        }
-        return listResult
-    }
 
     private fun generateMatrix(
         matrixPrint: Boolean = false
@@ -74,9 +76,10 @@ object FieldViewModel : ViewModel() {
 }
 
 data class FieldBrick(
-    val name: String = "Field",
+    val name: String = "FieldBricks",
     val width: Dp = 0.dp,
     val height: Dp = 0.dp,
-    val id: Int = 0,
-    val position: Int = 0,
+    val id: String = "00",
+    val color: Color = Color.Transparent,
+    val position: Pair<Int, Int>,
 )

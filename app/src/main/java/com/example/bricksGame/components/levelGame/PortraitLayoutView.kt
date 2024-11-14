@@ -9,11 +9,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,7 +41,6 @@ fun PortraitLayout() {
         ) {
         ButtonHome()
         FieldBox()
-//        BricksBlock()
     }
 }
 
@@ -53,7 +55,11 @@ private fun ButtonHome() {
 
 @Composable
 private fun BricksBlock() {
-    Row() {
+    Row(
+        Modifier.fillMaxSize(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
         (BricksViewModel.bricks.forEach {
             Box(
                 Modifier
@@ -74,35 +80,36 @@ private fun BricksBlock() {
 
 @Composable
 private fun FieldBox() {
-    Box(
+    Column(
         Modifier
             .size(
                 FieldViewModel.width,
                 FieldViewModel.height
             )
             .background(Color.Gray),
-        contentAlignment = Alignment.Center,
-
-        ) {
-//        GridFieldBox()
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        GridFieldBox()
+        BricksBlock()
     }
 }
 
 @Composable
 private fun GridFieldBox() {
     LazyVerticalGrid(
-        columns = GridCells.FixedSize(BricksViewModel.width),
-        verticalArrangement = Arrangement.Center,
+        columns = GridCells.Fixed(FieldViewModel.ROWS),
         horizontalArrangement = Arrangement.Center,
-        modifier = Modifier.size(FieldViewModel.width, FieldViewModel.height)
+        modifier = Modifier
+//            .size(FieldViewModel.width, FieldViewModel.height)
+            .padding(10.dp)
 
     ) {
-        items(FieldViewModel.colorList.size) { index ->
+        items(FieldViewModel.brickOnField) {
             Box(
                 Modifier
-                    .background(color = FieldViewModel.colorList[index])
-                    .size(BricksViewModel.width, BricksViewModel.height)
-                    .border(1.dp, Color.Black)
+                    .size(it.width, it.height)
+                    .background(it.color)
+                    .border(2.dp, Color.Black)
             )
         }
     }
