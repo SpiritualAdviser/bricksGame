@@ -50,133 +50,14 @@ fun RunLevelGame() {
     ) {
         val orientation = LocalConfiguration.current.orientation
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            LandscapeLayout()
+//            LandscapeLayout()
         } else {
             PortraitLayout()
         }
     }
 }
 
-@Composable
-private fun LandscapeLayout() {
-    Row(
-        Modifier
-            .fillMaxWidth(1f)
-            .fillMaxHeight(1f),
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        ButtonHome()
-        FieldBox()
-        BricksBlock()
-    }
-}
 
-@Composable
-private fun PortraitLayout() {
-    Column(
-        Modifier
-            .fillMaxWidth(1f)
-            .fillMaxHeight(1f),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly,
-
-        ) {
-        ButtonHome()
-        FieldBox()
-        BricksBlock()
-    }
-}
-
-@Composable
-private fun ButtonHome() {
-    Button(onClick = {
-        ButtonController.navigateHome()
-    }) {
-        Text("Home")
-    }
-}
-
-@Composable
-
-private fun BricksBlock() {
-
-    val orientation = LocalConfiguration.current.orientation
-    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-        Column() {
-            (BricksViewModel.bricks.forEach {
-                Box(
-                    Modifier
-                        .offset(it.y, it.x)
-                        .size(it.width, it.height)
-                        .background(it.color)
-                        .pointerInput(Unit) {
-                            detectDragGestures { _, dragAmount ->
-                                it.y += dragAmount.x.toDp()
-                                it.x += dragAmount.y.toDp()
-                            }
-                        }
-                )
-                Spacer(modifier = Modifier.size(8.dp))
-            })
-        }
-    } else {
-        Row() {
-            (BricksViewModel.bricks.forEach {
-                Box(
-                    Modifier
-                        .offset(it.x, it.y)
-                        .size(it.width, it.height)
-                        .background(it.color)
-                        .pointerInput(Unit) {
-                            detectDragGestures { _, dragAmount ->
-                                it.x += dragAmount.x.toDp()
-                                it.y += dragAmount.y.toDp()
-                            }
-                        }
-                )
-                Spacer(modifier = Modifier.size(8.dp))
-            })
-        }
-    }
-}
-
-@Composable
-private fun FieldBox() {
-    Box(
-        Modifier
-            .size(
-                FieldViewModel.width + FieldViewModel.padding,
-                FieldViewModel.height + FieldViewModel.padding
-            )
-            .background(Color.Gray),
-        contentAlignment = Alignment.Center,
-
-        ) {
-        GridFieldBox()
-    }
-}
-
-@Composable
-private fun GridFieldBox() {
-
-    LazyVerticalGrid(
-        columns = GridCells.FixedSize(BricksViewModel.width),
-        verticalArrangement = Arrangement.Center,
-        horizontalArrangement = Arrangement.Center,
-        modifier = Modifier.size(FieldViewModel.width, FieldViewModel.height)
-
-    ) {
-        items(FieldViewModel.colorList.size) { index ->
-            Box(
-                Modifier
-                    .background(color = FieldViewModel.colorList[index])
-                    .size(BricksViewModel.width, BricksViewModel.height)
-                    .border(1.dp, Color.Black)
-            )
-        }
-    }
-}
 
 
 
