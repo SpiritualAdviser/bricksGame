@@ -38,7 +38,7 @@ fun PortraitLayout() {
         ) {
         ButtonHome()
         FieldBox()
-        BricksBlock()
+//        BricksBlock()
     }
 }
 
@@ -77,14 +77,14 @@ private fun FieldBox() {
     Box(
         Modifier
             .size(
-                FieldViewModel.width + FieldViewModel.padding,
-                FieldViewModel.height + FieldViewModel.padding
+                FieldViewModel.width,
+                FieldViewModel.height
             )
             .background(Color.Gray),
         contentAlignment = Alignment.Center,
 
         ) {
-        GridFieldBox()
+//        GridFieldBox()
     }
 }
 

@@ -17,7 +17,7 @@ object BricksViewModel : ViewModel() {
     private val padding = 5.dp
     private const val MAX_BRICKS = 3
     val widthGridSize = (width + padding) * MAX_BRICKS + padding
-    val heightGridSize = height + padding+50.dp
+    val heightGridSize = height + padding + 50.dp
 
     private val _bricksList = createBricksList().toMutableStateList()
 
@@ -48,16 +48,16 @@ object BricksViewModel : ViewModel() {
 }
 
 data class Brick(
-    private var initX: Dp = 0.dp,
-    private var initY: Dp = 0.dp,
+    private var innerX: Dp = 0.dp,
+    private var innerY: Dp = 0.dp,
     val width: Dp,
     val height: Dp,
     var id: Int,
     var position: String,
     var color: Color
 ) {
-    var x by mutableStateOf(initX)
-    var y by mutableStateOf(initY)
+    var x by mutableStateOf(innerX)
+    var y by mutableStateOf(innerY)
 }
 
 
