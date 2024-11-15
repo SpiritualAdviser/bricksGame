@@ -76,6 +76,8 @@ object FieldViewModel : ViewModel() {
 }
 
 data class FieldBrick(
+    var x: Dp = 0.dp,
+    var y: Dp = 0.dp,
     val name: String = "FieldBricks",
     val width: Dp = 0.dp,
     val height: Dp = 0.dp,

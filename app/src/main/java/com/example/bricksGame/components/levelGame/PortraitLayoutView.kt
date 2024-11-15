@@ -24,6 +24,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
@@ -50,31 +53,6 @@ private fun ButtonHome() {
         ButtonController.navigateHome()
     }) {
         Text("Home")
-    }
-}
-
-@Composable
-private fun BricksBlock() {
-    Row(
-        Modifier.fillMaxSize(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        (BricksViewModel.bricks.forEach {
-            Box(
-                Modifier
-                    .offset(it.x, it.y)
-                    .size(it.width, it.height)
-                    .background(it.color)
-                    .pointerInput(Unit) {
-                        detectDragGestures { _, dragAmount ->
-                            it.x += dragAmount.x.toDp()
-                            it.y += dragAmount.y.toDp()
-                        }
-                    }
-            )
-            Spacer(modifier = Modifier.size(8.dp))
-        })
     }
 }
 
@@ -110,7 +88,40 @@ private fun GridFieldBox() {
                     .size(it.width, it.height)
                     .background(it.color)
                     .border(2.dp, Color.Black)
+                    .onGloballyPositioned() { coordinates ->
+
+                        it.x = coordinates.positionInWindow().x.dp
+                        it.y = coordinates.positionInWindow().y.dp
+                        println("${it.x}-- ${it.y}")
+                    }
+
             )
+
         }
+    }
+}
+
+@Composable
+private fun BricksBlock() {
+    Row(
+        Modifier.fillMaxSize(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        (BricksViewModel.bricks.forEach {
+            Box(
+                Modifier
+                    .offset(it.x, it.y)
+                    .size(it.width, it.height)
+                    .background(it.color)
+                    .pointerInput(Unit) {
+                        detectDragGestures { _, dragAmount ->
+                            it.x += dragAmount.x.toDp()
+                            it.y += dragAmount.y.toDp()
+                        }
+                    }
+            )
+            Spacer(modifier = Modifier.size(8.dp))
+        })
     }
 }
