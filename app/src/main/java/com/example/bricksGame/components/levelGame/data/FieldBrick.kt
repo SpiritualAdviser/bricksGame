@@ -10,20 +10,20 @@ import androidx.compose.ui.unit.dp
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 
 data class FieldBrick(
+    val position: Pair<Int, Int>,
+    val id: String = "00",
     val border: Dp = 0.dp,
     var borderColor: MutableState<Color> = mutableStateOf(Color.Black),
     var x: Dp = 0.dp,
     var y: Dp = 0.dp,
-    var globalX: Dp = 0.dp,
-    var globalY: Dp = 0.dp,
-    var globalWidth: Dp = 0.dp,
-    var globalHeight: Dp = 0.dp,
+    var globalX: Float = 0f,
+    var globalY: Float = 0f,
+    var globalWidth: Int = 0,
+    var globalHeight: Int = 0,
     val name: String = "FieldBricks",
     var width: Dp = 0.dp,
     var height: Dp = 0.dp,
-    val id: String = "00",
     val color: Color = Color.Transparent,
-    val position: Pair<Int, Int>,
     var onCollision: Boolean = false,
 ) {
     fun addToCollision() {
@@ -31,10 +31,10 @@ data class FieldBrick(
     }
 
     fun setGloballyPosition(coordinates: LayoutCoordinates) {
-        this.globalWidth = coordinates.size.width.dp
-        this.globalHeight = coordinates.size.height.dp
-        this.globalX = coordinates.positionInWindow().x.dp
-        this.globalY = coordinates.positionInWindow().y.dp
+        this.globalWidth = coordinates.size.width
+        this.globalHeight = coordinates.size.height
+        this.globalX = coordinates.positionInWindow().x
+        this.globalY = coordinates.positionInWindow().y
     }
 
     private fun changeBorder(color: Color) {
@@ -43,12 +43,15 @@ data class FieldBrick(
 
     fun onTargetCollision(brick: Brick) {
         changeBorder(Color.Red)
-        println(this.position)
+        brick.onCollision(this)
     }
 
     fun onOutCollision(brick: Brick) {
+        changeBorder(Color.Black)
+        brick.onCollision(null)
+    }
 
-
+    fun onDragEnd(){
         changeBorder(Color.Black)
     }
 }

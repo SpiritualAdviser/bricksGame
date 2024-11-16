@@ -9,6 +9,7 @@ class ScreenSize {
     var screenHeightPx = 0
     var screenWidthDp = 0.dp
     var screenHeightDp = 0.dp
+    var density = 0f
 
     @Composable
     fun GetScreenSize() {
@@ -19,7 +20,7 @@ class ScreenSize {
         this.screenWidthPx = displayMetrics.widthPixels
         this.screenHeightPx = displayMetrics.heightPixels
         // Device density
-        val density = displayMetrics.density
+        density = displayMetrics.density
 
         val densityLd = LocalDensity.current
         val configuration = LocalConfiguration.current

@@ -116,14 +116,21 @@ private fun BricksBlock() {
                     .onGloballyPositioned { coordinates ->
                         it.setGloballyPosition(coordinates)
                     }
-                    .pointerInput(Unit) {
-                        detectDragGestures { _, dragAmount ->
-                            it.dragging(dragAmount.x.toDp(), dragAmount.y.toDp())
 
-                            coroutineScope.launch {
-                                it.addToCollision()
+                    .pointerInput(Unit) {
+
+                        detectDragGestures(
+                            onDragStart = { },
+                            onDragEnd = { it.stickPosition() },
+                            onDragCancel = {},
+                            onDrag = { changed, dragAmount ->
+                                it.dragging(dragAmount.x , dragAmount.y)
+
+                                coroutineScope.launch {
+                                    it.addToCollision()
+                                }
                             }
-                        }
+                        )
                     }
             )
             Spacer(modifier = Modifier.size(8.dp))
