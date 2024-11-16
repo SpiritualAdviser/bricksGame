@@ -15,12 +15,13 @@ import com.example.bricksGame.ui.theme.colorsBricks
 
 object BricksViewModel : ViewModel() {
 
-    val width = 50.dp
-    val height = 50.dp
-    private val padding = 5.dp
+    private val widthPadding = FieldViewModel.padding / FieldViewModel.ROWS + FieldViewModel.border
+    private val heightPadding = FieldViewModel.padding / FieldViewModel.COLUMNS + FieldViewModel.border
+
+    private val width = FieldViewModel.fieldBrickWidth - widthPadding
+    private val height = FieldViewModel.fieldBrickHeight - heightPadding
+
     private const val MAX_BRICKS = 3
-    val widthGridSize = (width + padding) * MAX_BRICKS + padding
-    val heightGridSize = height + padding + 50.dp
 
     private val _bricksList = createBricksList().toMutableStateList()
 

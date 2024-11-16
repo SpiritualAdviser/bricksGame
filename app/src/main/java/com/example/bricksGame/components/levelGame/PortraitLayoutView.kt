@@ -80,7 +80,7 @@ private fun GridFieldBox() {
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier
 //            .size(FieldViewModel.width, FieldViewModel.height)
-            .padding(10.dp)
+            .padding(FieldViewModel.border)
 
     ) {
         items(FieldViewModel.brickOnField) {
@@ -89,7 +89,7 @@ private fun GridFieldBox() {
                 Modifier
                     .size(it.width, it.height)
                     .background(it.color)
-                    .border(2.dp, Color.Black)
+                    .border(it.border, it.borderColor)
                     .onGloballyPositioned() { coordinates ->
                         it.setGloballyPosition(coordinates)
                     }

@@ -16,10 +16,15 @@ object FieldViewModel : ViewModel() {
     const val ROWS: Int = 5
     private const val COLUMNS_BLOCK_SHAPES = 3
 
-    private val padding = 10.dp
+    val padding = 10.dp
     val width = screenSize.screenWidthDp - padding * 2
     private val levelScore = screenSize.screenHeightDp / 100 * 20
     val height = screenSize.screenHeightDp - levelScore + padding * 2
+    val border = 2.dp
+
+    val fieldBrickWidth = round(this.width.value / ROWS).dp
+    val fieldBrickHeight = round(this.height.value / (COLUMNS + COLUMNS_BLOCK_SHAPES)).dp
+
 
     val brickOnField = createBricksList()
 
@@ -45,11 +50,12 @@ object FieldViewModel : ViewModel() {
 
     private fun createBrick(positionColumn: Int, positionRow: Int): FieldBrick {
         return FieldBrick(
-            width = round(this.width.value / ROWS).dp,
-            height = round(this.height.value / (COLUMNS + COLUMNS_BLOCK_SHAPES)).dp,
+            width = fieldBrickWidth,
+            height = fieldBrickHeight,
             position = Pair(positionColumn, positionRow),
             id = "$positionColumn $positionRow",
-            color = colorsBricks.getValue(positionColumn)
+            color = colorsBricks.getValue(positionColumn),
+            border = border
         )
     }
 
@@ -79,6 +85,8 @@ object FieldViewModel : ViewModel() {
 }
 
 data class FieldBrick(
+    val border: Dp = 0.dp,
+    val borderColor: Color = Color.Black,
     var x: Dp = 0.dp,
     var y: Dp = 0.dp,
     var globalX: Dp = 0.dp,
