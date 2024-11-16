@@ -1,8 +1,7 @@
 package com.example.bricksGame.ui.helper
 
-import com.example.bricksGame.components.levelGame.models.Brick
-import com.example.bricksGame.components.levelGame.models.FieldBrick
-import kotlinx.coroutines.CoroutineScope
+import com.example.bricksGame.components.levelGame.data.Brick
+import com.example.bricksGame.components.levelGame.data.FieldBrick
 
 object CollisionBricksOnLevel {
 
