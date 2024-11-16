@@ -1,5 +1,7 @@
 package com.example.bricksGame.components.levelGame.data
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
@@ -9,7 +11,7 @@ import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 
 data class FieldBrick(
     val border: Dp = 0.dp,
-    val borderColor: Color = Color.Black,
+    var borderColor: MutableState<Color> = mutableStateOf(Color.Black),
     var x: Dp = 0.dp,
     var y: Dp = 0.dp,
     var globalX: Dp = 0.dp,
@@ -22,6 +24,7 @@ data class FieldBrick(
     val id: String = "00",
     val color: Color = Color.Transparent,
     val position: Pair<Int, Int>,
+    var onCollision: Boolean = false,
 ) {
     fun addToCollision() {
         CollisionBricksOnLevel.addToCollision(this)
@@ -32,5 +35,18 @@ data class FieldBrick(
         this.globalHeight = coordinates.size.height.dp
         this.globalX = coordinates.positionInWindow().x.dp
         this.globalY = coordinates.positionInWindow().y.dp
+    }
+
+    private fun changeBorder(color: Color) {
+        this.borderColor.value = color
+    }
+
+    fun onTargetCollision() {
+        changeBorder(Color.Red)
+        println(this.position)
+    }
+
+    fun onOutCollision() {
+        changeBorder(Color.Black)
     }
 }

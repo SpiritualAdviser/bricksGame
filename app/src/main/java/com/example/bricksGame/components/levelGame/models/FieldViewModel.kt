@@ -1,14 +1,9 @@
 package com.example.bricksGame.components.levelGame.models
 
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.LayoutCoordinates
-import androidx.compose.ui.layout.positionInWindow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.data.FieldBrick
 import com.example.bricksGame.screenSize
-import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 import com.example.bricksGame.ui.theme.colorsBricks
 import kotlin.math.round
 
@@ -16,7 +11,7 @@ object FieldViewModel : ViewModel() {
     const val COLUMNS: Int = 6
     const val ROWS: Int = 5
     private const val COLUMNS_BLOCK_SHAPES = 3
-
+    private const val MAX_FIELD_BRICKS = COLUMNS * ROWS
     val padding = 10.dp
     val width = screenSize.screenWidthDp - padding * 2
     private val levelScore = screenSize.screenHeightDp / 100 * 20
@@ -30,7 +25,7 @@ object FieldViewModel : ViewModel() {
     val brickOnField = createBricksList()
 
     private fun createBricksList(): MutableList<FieldBrick> {
-        val allBrickOnField = COLUMNS * ROWS
+        val allBrickOnField = MAX_FIELD_BRICKS
         val bricksList: MutableList<FieldBrick> = mutableListOf()
         var positionColumn = 0
         var positionRow = 0

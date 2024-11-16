@@ -2,6 +2,7 @@ package com.example.bricksGame.components.levelGame.models
 
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.ui.theme.colorsBricks
@@ -12,8 +13,8 @@ object BricksViewModel : ViewModel() {
     private val heightPadding =
         FieldViewModel.padding / FieldViewModel.COLUMNS + FieldViewModel.border
 
-    private val width = FieldViewModel.fieldBrickWidth - widthPadding
-    private val height = FieldViewModel.fieldBrickHeight - heightPadding
+    private val width = FieldViewModel.fieldBrickWidth - widthPadding-20.dp
+    private val height = FieldViewModel.fieldBrickHeight - heightPadding-20.dp
 
     private const val MAX_BRICKS = 3
 

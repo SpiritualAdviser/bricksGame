@@ -89,7 +89,7 @@ private fun GridFieldBox() {
                 Modifier
                     .size(it.width, it.height)
                     .background(it.color)
-                    .border(it.border, it.borderColor)
+                    .border(it.border, it.borderColor.value)
                     .onGloballyPositioned() { coordinates ->
                         it.setGloballyPosition(coordinates)
                     }

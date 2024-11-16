@@ -7,7 +7,6 @@ object CollisionBricksOnLevel {
 
     private var fieldBricksList: MutableList<FieldBrick> = mutableListOf()
     private var isRun = false
-    private var colision = false
 
     fun runCollision(state: Boolean) {
         isRun = state
@@ -20,10 +19,12 @@ object CollisionBricksOnLevel {
     fun observeObjects(brick: Brick) {
 
         if (isRun) {
-            var xCollision = false
-            var yCollision = false
+            var xCollision: Boolean
+            var yCollision: Boolean
 
             fieldBricksList.forEach { fieldBrick ->
+                xCollision = false
+                yCollision = false
                 if (brick.globalX < fieldBrick.globalX + fieldBrick.globalWidth &&
                     brick.globalX + brick.globalWidth > fieldBrick.globalX
                 ) {
@@ -36,7 +37,19 @@ object CollisionBricksOnLevel {
                 }
 
                 if (xCollision && yCollision) {
-                    println("colision")
+
+                    if (!fieldBrick.onCollision) {
+                        fieldBrick.onCollision = true
+                        println("colision")
+                        fieldBrick.onTargetCollision()
+                    }
+
+                } else {
+                    if (fieldBrick.onCollision) {
+                        fieldBrick.onCollision = false
+                        println("Notcolision")
+                        fieldBrick.onOutCollision()
+                    }
                 }
             }
         }

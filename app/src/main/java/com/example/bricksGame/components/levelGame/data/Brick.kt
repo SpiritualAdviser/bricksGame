@@ -18,6 +18,7 @@ data class Brick(
     var id: Int,
     var position: String,
     var color: Color,
+    var onCollision:Boolean = false
 ) {
     var x by mutableStateOf(innerX)
     var y by mutableStateOf(innerY)
@@ -40,5 +41,9 @@ data class Brick(
         this.globalHeight = coordinates.size.height.dp
         this.globalX = coordinates.positionInWindow().x.dp
         this.globalY = coordinates.positionInWindow().y.dp
+    }
+
+    fun onCollision() {
+        return
     }
 }
