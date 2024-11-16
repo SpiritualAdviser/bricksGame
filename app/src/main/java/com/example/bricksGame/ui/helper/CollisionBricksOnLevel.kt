@@ -16,47 +16,6 @@ object CollisionBricksOnLevel {
         fieldBricksList.add(fieldBrick)
     }
 
-    fun observeObjects(brick: Brick) {
-
-        if (isRun) {
-
-            var xCollision: Boolean
-            var yCollision: Boolean
-
-            fieldBricksList.forEach { fieldBrick ->
-                xCollision = false
-                yCollision = false
-                if (brick.globalX < fieldBrick.globalX + fieldBrick.globalWidth &&
-                    brick.globalX + brick.globalWidth > fieldBrick.globalX
-                ) {
-                    xCollision = true
-                }
-                if (brick.globalY < fieldBrick.globalY + fieldBrick.globalHeight &&
-                    brick.globalY + brick.globalHeight > fieldBrick.globalY
-                ) {
-                    yCollision = true
-                }
-
-                if (!xCollision && !yCollision) {
-
-                    if (!fieldBrick.onCollision) {
-
-//                        println("colision")
-                        fieldBrick.onTargetCollision(brick)
-                        fieldBrick.onCollision = true
-                    }
-
-                } else {
-                    if (fieldBrick.onCollision) {
-//                        println("Notcolision")
-                        fieldBrick.onOutCollision(brick)
-                        fieldBrick.onCollision = false
-                    }
-                }
-            }
-        }
-    }
-
     fun observeCenterObjects(brick: Brick) {
 
         var xCollision: Boolean
@@ -91,6 +50,42 @@ object CollisionBricksOnLevel {
             if (!onTarget!!.onCollision) {
                 onTarget!!.onCollision = true
                 onTarget!!.onTargetCollision(brick)
+            }
+        }
+    }
+
+    fun observeObjects(brick: Brick) {
+
+        if (isRun) {
+
+            var xCollision: Boolean
+            var yCollision: Boolean
+
+            fieldBricksList.forEach { fieldBrick ->
+                xCollision = false
+                yCollision = false
+                if (brick.globalX < fieldBrick.globalX + fieldBrick.globalWidth &&
+                    brick.globalX + brick.globalWidth > fieldBrick.globalX
+                ) {
+                    xCollision = true
+                }
+                if (brick.globalY < fieldBrick.globalY + fieldBrick.globalHeight &&
+                    brick.globalY + brick.globalHeight > fieldBrick.globalY
+                ) {
+                    yCollision = true
+                }
+
+                if (!xCollision && !yCollision) {
+
+                    if (!fieldBrick.onCollision) {
+                        return
+                    }
+
+                } else {
+                    if (fieldBrick.onCollision) {
+                        return
+                    }
+                }
             }
         }
     }

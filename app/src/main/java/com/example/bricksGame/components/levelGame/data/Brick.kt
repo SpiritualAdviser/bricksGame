@@ -14,19 +14,23 @@ import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 data class Brick(
     var id: Int,
     var position: String,
+    var color: Color,
+
+    var globalX: Float = 0f,
+    var globalY: Float = 0f,
+    var globalWidth: Int = 0,
+    var globalHeight: Int = 0,
+
     private var innerX: Dp = 0.dp,
     private var innerY: Dp = 0.dp,
     var width: Dp,
     var height: Dp,
-    var color: Color,
+
     var onCollision: Boolean = false,
 ) {
     var x by mutableStateOf(innerX)
     var y by mutableStateOf(innerY)
-    var globalX: Float = 0f
-    var globalY: Float = 0f
-    var globalWidth: Int = 0
-    var globalHeight: Int = 0
+
     private var collisionTarget: FieldBrick? = null
 
     fun addToCollision() {
