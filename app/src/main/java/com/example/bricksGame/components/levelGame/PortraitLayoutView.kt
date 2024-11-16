@@ -20,17 +20,18 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.ui.helper.ButtonController
+import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
+import kotlinx.coroutines.launch
 
 @Composable
 fun PortraitLayout() {
@@ -83,16 +84,14 @@ private fun GridFieldBox() {
 
     ) {
         items(FieldViewModel.brickOnField) {
+            it.addToCollision()
             Box(
                 Modifier
                     .size(it.width, it.height)
                     .background(it.color)
                     .border(2.dp, Color.Black)
                     .onGloballyPositioned() { coordinates ->
-
-                        it.x = coordinates.positionInWindow().x.dp
-                        it.y = coordinates.positionInWindow().y.dp
-                        println("${it.x}-- ${it.y}")
+                        it.setGloballyPosition(coordinates)
                     }
             )
         }
@@ -101,21 +100,29 @@ private fun GridFieldBox() {
 
 @Composable
 private fun BricksBlock() {
+    val coroutineScope = rememberCoroutineScope()
     Row(
         Modifier.fillMaxSize(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
         (BricksViewModel.bricks.forEach {
+            CollisionBricksOnLevel.runCollision(true)
             Box(
                 Modifier
                     .offset(it.x, it.y)
                     .size(it.width, it.height)
                     .background(it.color)
+                    .onGloballyPositioned { coordinates ->
+                        it.setGloballyPosition(coordinates)
+                    }
                     .pointerInput(Unit) {
                         detectDragGestures { _, dragAmount ->
                             it.x += dragAmount.x.toDp()
                             it.y += dragAmount.y.toDp()
+                            coroutineScope.launch {
+                                it.addToCollision()
+                            }
                         }
                     }
             )

@@ -1,10 +1,13 @@
 package com.example.bricksGame.components.levelGame.models
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.LayoutCoordinates
+import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.screenSize
+import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 import com.example.bricksGame.ui.theme.colorsBricks
 import kotlin.math.round
 
@@ -54,10 +57,10 @@ object FieldViewModel : ViewModel() {
     val matrixField = generateMatrix(true)
 
     private fun generateMatrix(
-        matrixPrint: Boolean = false
+        matrixPrint: Boolean = false,
 
 
-    ): Array<Array<Int>> {
+        ): Array<Array<Int>> {
 
         val counter = 0
         val matrix = Array(ROWS) { Array(COLUMNS) { counter } }
@@ -78,10 +81,25 @@ object FieldViewModel : ViewModel() {
 data class FieldBrick(
     var x: Dp = 0.dp,
     var y: Dp = 0.dp,
+    var globalX: Dp = 0.dp,
+    var globalY: Dp = 0.dp,
+    var globalWidth: Dp = 0.dp,
+    var globalHeight: Dp = 0.dp,
     val name: String = "FieldBricks",
-    val width: Dp = 0.dp,
-    val height: Dp = 0.dp,
+    var width: Dp = 0.dp,
+    var height: Dp = 0.dp,
     val id: String = "00",
     val color: Color = Color.Transparent,
     val position: Pair<Int, Int>,
-)
+) {
+    fun addToCollision() {
+        CollisionBricksOnLevel.addToCollision(this)
+    }
+
+    fun setGloballyPosition(coordinates: LayoutCoordinates) {
+        this.globalWidth = coordinates.size.width.dp
+        this.globalHeight = coordinates.size.height.dp
+        this.globalX = coordinates.positionInWindow().x.dp
+        this.globalY = coordinates.positionInWindow().y.dp
+    }
+}

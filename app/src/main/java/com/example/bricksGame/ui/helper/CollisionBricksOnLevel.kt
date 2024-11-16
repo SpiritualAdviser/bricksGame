@@ -2,11 +2,11 @@ package com.example.bricksGame.ui.helper
 
 import com.example.bricksGame.components.levelGame.models.Brick
 import com.example.bricksGame.components.levelGame.models.FieldBrick
+import kotlinx.coroutines.CoroutineScope
 
 object CollisionBricksOnLevel {
 
-    private lateinit var bricksList: MutableList<Brick>
-    private lateinit var fieldBricksList: MutableList<FieldBrick>
+    private var fieldBricksList: MutableList<FieldBrick> = mutableListOf()
     private var isRun = false
     private var colision = false
 
@@ -14,36 +14,30 @@ object CollisionBricksOnLevel {
         isRun = state
     }
 
-    fun addToCollision(brick: Brick? = null, fieldBrick: FieldBrick? = null) {
-
-        if (brick != null) {
-            bricksList.add(brick)
-        }
-        if (fieldBrick != null) {
-            fieldBricksList.add(fieldBrick)
-        }
+    fun addToCollision(fieldBrick: FieldBrick) {
+        fieldBricksList.add(fieldBrick)
     }
 
-    fun observeObjects() {
+    fun observeObjects(brick: Brick) {
+
         if (isRun) {
             var xCollision = false
             var yCollision = false
-            bricksList.forEach { brick ->
 
-                fieldBricksList.forEach { fieldBrick ->
-                    if (brick.x + brick.width > fieldBrick.x &&
-                        brick.x < fieldBrick.x + fieldBrick.width
-                    ) {
-                        xCollision = true
-                    }
-                    if (brick.y + brick.height > fieldBrick.y &&
-                        brick.y < fieldBrick.y + fieldBrick.height
-                    ) {
-                        yCollision = true
-                    }
+            fieldBricksList.forEach { fieldBrick ->
+                if (brick.globalX < fieldBrick.globalX + fieldBrick.globalWidth &&
+                    brick.globalX + brick.globalWidth > fieldBrick.globalX
+                ) {
+                    xCollision = true
+                }
+                if (brick.globalY < fieldBrick.globalY + fieldBrick.globalHeight &&
+                    brick.globalY + brick.globalHeight > fieldBrick.globalY
+                ) {
+                    yCollision = true
+                }
 
-                    colision = xCollision && yCollision
-                    println(colision)
+                if (xCollision && yCollision) {
+                    println("colision")
                 }
             }
         }
