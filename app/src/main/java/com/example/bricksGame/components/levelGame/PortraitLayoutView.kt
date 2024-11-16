@@ -80,7 +80,7 @@ private fun GridFieldBox() {
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier
 //            .size(FieldViewModel.width, FieldViewModel.height)
-            .padding(FieldViewModel.border)
+            .padding(FieldViewModel.padding)
 
     ) {
         items(FieldViewModel.brickOnField) {

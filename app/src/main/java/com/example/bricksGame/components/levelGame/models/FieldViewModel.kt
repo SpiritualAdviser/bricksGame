@@ -21,7 +21,6 @@ object FieldViewModel : ViewModel() {
     val fieldBrickWidth = round(this.width.value / ROWS).dp
     val fieldBrickHeight = round(this.height.value / (COLUMNS + COLUMNS_BLOCK_SHAPES)).dp
 
-
     val brickOnField = createBricksList()
 
     private fun createBricksList(): MutableList<FieldBrick> {
@@ -50,7 +49,6 @@ object FieldViewModel : ViewModel() {
             height = fieldBrickHeight,
             position = Pair(positionColumn, positionRow),
             id = "$positionColumn $positionRow",
-            color = colorsBricks.getValue(positionColumn),
             border = border
         )
     }

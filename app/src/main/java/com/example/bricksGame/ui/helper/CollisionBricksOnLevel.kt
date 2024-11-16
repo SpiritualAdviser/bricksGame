@@ -1,5 +1,6 @@
 package com.example.bricksGame.ui.helper
 
+import androidx.compose.ui.unit.Dp
 import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.components.levelGame.data.FieldBrick
 
@@ -19,6 +20,7 @@ object CollisionBricksOnLevel {
     fun observeObjects(brick: Brick) {
 
         if (isRun) {
+
             var xCollision: Boolean
             var yCollision: Boolean
 
@@ -41,15 +43,55 @@ object CollisionBricksOnLevel {
                     if (!fieldBrick.onCollision) {
                         fieldBrick.onCollision = true
                         println("colision")
-                        fieldBrick.onTargetCollision()
+                        fieldBrick.onTargetCollision(brick)
                     }
 
                 } else {
                     if (fieldBrick.onCollision) {
                         fieldBrick.onCollision = false
                         println("Notcolision")
-                        fieldBrick.onOutCollision()
+                        fieldBrick.onOutCollision(brick)
                     }
+                }
+            }
+        }
+    }
+
+    fun observeCenterObjects(brick: Brick) {
+
+        var xCollision: Boolean
+        var yCollision: Boolean
+
+        val brickX = brick.globalX + brick.globalWidth / 2
+        val brickY = brick.globalY + brick.globalHeight / 2
+
+        fieldBricksList.forEach { fieldBrick ->
+            xCollision = false
+            yCollision = false
+            if (brickX < fieldBrick.globalX + fieldBrick.globalWidth &&
+                brickX > fieldBrick.globalX
+            ) {
+                xCollision = true
+            }
+            if (brickY < fieldBrick.globalY + fieldBrick.globalHeight &&
+                brickY > fieldBrick.globalY
+            ) {
+                yCollision = true
+            }
+
+            if (xCollision && yCollision) {
+
+                if (!fieldBrick.onCollision) {
+                    fieldBrick.onCollision = true
+                    println("colision")
+                    fieldBrick.onTargetCollision(brick)
+                }
+
+            } else {
+                if (fieldBrick.onCollision) {
+                    fieldBrick.onCollision = false
+                    println("Notcolision")
+                    fieldBrick.onOutCollision(brick)
                 }
             }
         }

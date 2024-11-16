@@ -18,7 +18,7 @@ data class Brick(
     var id: Int,
     var position: String,
     var color: Color,
-    var onCollision:Boolean = false
+    var onCollision: Boolean = false,
 ) {
     var x by mutableStateOf(innerX)
     var y by mutableStateOf(innerY)
@@ -28,7 +28,7 @@ data class Brick(
     var globalHeight: Dp = 0.dp
 
     fun addToCollision() {
-        CollisionBricksOnLevel.observeObjects(this)
+        CollisionBricksOnLevel.observeCenterObjects(this)
     }
 
     fun dragging(dragAmountX: Dp = 0.dp, dragAmountY: Dp = 0.dp) {

@@ -41,12 +41,14 @@ data class FieldBrick(
         this.borderColor.value = color
     }
 
-    fun onTargetCollision() {
+    fun onTargetCollision(brick: Brick) {
         changeBorder(Color.Red)
         println(this.position)
     }
 
-    fun onOutCollision() {
+    fun onOutCollision(brick: Brick) {
+
+
         changeBorder(Color.Black)
     }
 }
