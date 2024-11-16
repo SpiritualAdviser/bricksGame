@@ -118,8 +118,8 @@ private fun BricksBlock() {
                     }
                     .pointerInput(Unit) {
                         detectDragGestures { _, dragAmount ->
-                            it.x += dragAmount.x.toDp()
-                            it.y += dragAmount.y.toDp()
+                            it.dragging(dragAmount.x.toDp(), dragAmount.y.toDp())
+
                             coroutineScope.launch {
                                 it.addToCollision()
                             }

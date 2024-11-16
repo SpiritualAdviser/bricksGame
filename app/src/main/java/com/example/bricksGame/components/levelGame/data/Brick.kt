@@ -30,6 +30,11 @@ data class Brick(
         CollisionBricksOnLevel.observeObjects(this)
     }
 
+    fun dragging(dragAmountX: Dp = 0.dp, dragAmountY: Dp = 0.dp) {
+        this.x += dragAmountX
+        this.y += dragAmountY
+    }
+
     fun setGloballyPosition(coordinates: LayoutCoordinates) {
         this.globalWidth = coordinates.size.width.dp
         this.globalHeight = coordinates.size.height.dp
