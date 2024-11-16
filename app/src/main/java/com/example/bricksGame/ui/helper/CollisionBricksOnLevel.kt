@@ -6,52 +6,62 @@ import com.example.bricksGame.components.levelGame.data.FieldBrick
 object CollisionBricksOnLevel {
 
     private var fieldBricksList: MutableList<FieldBrick> = mutableListOf()
+    private var bricksList: MutableList<Brick> = mutableListOf()
+
     private var isRun = false
+    private var onTargetFieldBricks: MutableList<FieldBrick> = mutableListOf()
 
     fun runCollision(state: Boolean) {
         isRun = state
     }
 
-    fun addToCollision(fieldBrick: FieldBrick) {
-        fieldBricksList.add(fieldBrick)
+    fun addToCollision(fieldBrick: FieldBrick? = null, brick: Brick? = null) {
+        if (fieldBrick != null) {
+            fieldBricksList.add(fieldBrick)
+        }
+        if (brick != null) {
+            bricksList.add(brick)
+        }
     }
 
-    fun observeCenterObjects(brick: Brick) {
+    fun observeCenterObjects() {
+        if (isRun) {
 
-        var xCollision: Boolean
-        var yCollision: Boolean
-        var onTarget: FieldBrick? = null
+            var xCollision: Boolean
+            var yCollision: Boolean
 
-        val brickX = brick.globalX + brick.globalWidth / 2
-        val brickY = brick.globalY + brick.globalHeight / 2
+            bricksList.forEach { brick ->
+                val brickX = brick.globalX + brick.globalWidth / 2
+                val brickY = brick.globalY + brick.globalHeight / 2
 
-        fieldBricksList.forEach { fieldBrick ->
+                fieldBricksList.forEach { fieldBrick ->
 
-            xCollision = brickX < fieldBrick.globalX + fieldBrick.globalWidth &&
-                    brickX > fieldBrick.globalX
+                    xCollision = brickX < fieldBrick.globalX + fieldBrick.globalWidth &&
+                            brickX > fieldBrick.globalX
 
-            yCollision = brickY < fieldBrick.globalY + fieldBrick.globalHeight &&
-                    brickY > fieldBrick.globalY
+                    yCollision = brickY < fieldBrick.globalY + fieldBrick.globalHeight &&
+                            brickY > fieldBrick.globalY
 
-            if (xCollision && yCollision) {
-                if (!fieldBrick.onCollision) {
-                    onTarget = fieldBrick
+                    if (xCollision && yCollision) {
+                        println("collision")
+                        if (!fieldBrick.onCollision) {
+                            fieldBrick.onCollision = true
+                            onTargetFieldBricks.add(fieldBrick)
+                            fieldBrick.onTargetCollision()
+                        }
+                    } else {
+
+                        onTargetFieldBricks.forEachIndexed { index, item ->
+                            if (item.onCollision) {
+                                println("outCl")
+                                item.onCollision = false
+                                item.onOutCollision()
+                                onTargetFieldBricks.removeAt(index)
+                            }
+                        }
+                    }
+//                    println(onTargetFieldBricks.size)
                 }
-
-            } else {
-                if (fieldBrick.onCollision) {
-                    fieldBrick.onOutCollision()
-                    brick.onOutCollision()
-                    fieldBrick.onCollision = false
-                }
-            }
-        }
-
-        if (onTarget != null) {
-            if (!onTarget!!.onCollision) {
-                onTarget!!.onCollision = true
-                onTarget!!.onTargetCollision()
-                brick.onCollision(onTarget!!)
             }
         }
     }

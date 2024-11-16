@@ -85,7 +85,7 @@ private fun GridFieldBox() {
 
     ) {
         items(FieldViewModel.brickOnField) {
-            it.addToCollision()
+
             Box(
                 Modifier
                     .size(it.width, it.height)
@@ -108,7 +108,6 @@ private fun BricksBlock() {
         horizontalArrangement = Arrangement.Center
     ) {
         (BricksViewModel.bricks.forEach {
-            CollisionBricksOnLevel.runCollision(true)
             Box(
                 Modifier
                     .offset(it.x, it.y)
@@ -126,7 +125,7 @@ private fun BricksBlock() {
                             onDrag = { changed, dragAmount ->
                                 it.dragging(dragAmount.x, dragAmount.y)
                                 coroutineScope.launch {
-                                    it.addToCollision()
+                                    CollisionBricksOnLevel.observeCenterObjects()
                                 }
                             },
                             onDragEnd = {
@@ -134,7 +133,7 @@ private fun BricksBlock() {
                                     it.stickPosition()
                                 }
                             },
-                            onDragCancel = { it.onOutCollision() },
+                            onDragCancel = { },
                         )
 
                     }

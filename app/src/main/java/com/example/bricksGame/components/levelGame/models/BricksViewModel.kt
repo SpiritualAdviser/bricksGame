@@ -5,16 +5,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.data.Brick
+import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 import com.example.bricksGame.ui.theme.colorsBricks
 
 object BricksViewModel : ViewModel() {
 
-    private val widthPadding = FieldViewModel.padding / FieldViewModel.ROWS + FieldViewModel.border*2
+    private val widthPadding =
+        FieldViewModel.padding / FieldViewModel.ROWS + FieldViewModel.border * 2
     private val heightPadding =
-        FieldViewModel.padding/2 / FieldViewModel.COLUMNS + FieldViewModel.border
+        FieldViewModel.padding / 2 / FieldViewModel.COLUMNS + FieldViewModel.border
 
     private val width = FieldViewModel.fieldBrickWidth - widthPadding
-    private val height = FieldViewModel.fieldBrickHeight-heightPadding
+    private val height = FieldViewModel.fieldBrickHeight - heightPadding
 
     private const val MAX_BRICKS = 3
 
@@ -27,15 +29,15 @@ object BricksViewModel : ViewModel() {
         val bricksList: MutableList<Brick> = mutableListOf()
 
         for (i in 0 until MAX_BRICKS) {
-            bricksList.add(
-                Brick(
-                    width = width,
-                    height = height,
-                    id = i,
-                    position = i.toString(),
-                    color = getRandomColor()
-                )
+            val brick = Brick(
+                width = width,
+                height = height,
+                id = i,
+                position = i.toString(),
+                color = getRandomColor()
             )
+            bricksList.add(brick)
+            CollisionBricksOnLevel.addToCollision(brick = brick)
         }
         return bricksList
     }

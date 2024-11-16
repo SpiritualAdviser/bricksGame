@@ -35,7 +35,7 @@ data class Brick(
     private var collisionTarget: FieldBrick? = null
 
     fun addToCollision() {
-        CollisionBricksOnLevel.observeCenterObjects(this)
+        CollisionBricksOnLevel.addToCollision(brick = this)
     }
 
     fun dragging(x: Float, y: Float) {
@@ -56,7 +56,7 @@ data class Brick(
             val offsetAmount = getOffsetAmount(collisionTarget!!)
             dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
 
-            collisionTarget?.onDragEnd()
+//            collisionTarget?.onDragEnd()
         } else {
             this.x = 0.dp
             this.y = 0.dp

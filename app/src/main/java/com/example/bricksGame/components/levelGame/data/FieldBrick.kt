@@ -28,7 +28,7 @@ data class FieldBrick(
     var onCollision: Boolean = false,
 ) {
     fun addToCollision() {
-        CollisionBricksOnLevel.addToCollision(this)
+        CollisionBricksOnLevel.addToCollision(fieldBrick = this)
     }
 
     fun setGloballyPosition(coordinates: LayoutCoordinates) {

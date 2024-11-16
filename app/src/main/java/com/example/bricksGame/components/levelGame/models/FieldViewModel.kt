@@ -4,6 +4,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.data.FieldBrick
 import com.example.bricksGame.screenSize
+import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 import com.example.bricksGame.ui.theme.colorsBricks
 import kotlin.math.round
 
@@ -35,10 +36,12 @@ object FieldViewModel : ViewModel() {
                 ++positionColumn
                 positionRow = 0
             }
-
-            bricksList.add(createBrick(positionColumn, positionRow))
+            val fieldBrick = createBrick(positionColumn, positionRow)
+            bricksList.add(fieldBrick)
+            CollisionBricksOnLevel.addToCollision(fieldBrick = fieldBrick)
             ++positionRow
         }
+        CollisionBricksOnLevel.runCollision(true)
         println(bricksList.toString())
         return bricksList
     }
