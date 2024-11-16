@@ -94,9 +94,7 @@ private fun GridFieldBox() {
                         it.y = coordinates.positionInWindow().y.dp
                         println("${it.x}-- ${it.y}")
                     }
-
             )
-
         }
     }
 }
