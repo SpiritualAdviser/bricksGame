@@ -9,12 +9,12 @@ import com.example.bricksGame.ui.theme.colorsBricks
 
 object BricksViewModel : ViewModel() {
 
-    private val widthPadding = FieldViewModel.padding / FieldViewModel.ROWS + FieldViewModel.border
+    private val widthPadding = FieldViewModel.padding / FieldViewModel.ROWS + FieldViewModel.border*2
     private val heightPadding =
-        FieldViewModel.padding / FieldViewModel.COLUMNS + FieldViewModel.border
+        FieldViewModel.padding/2 / FieldViewModel.COLUMNS + FieldViewModel.border
 
-    private val width = FieldViewModel.fieldBrickWidth - widthPadding-20.dp
-    private val height = FieldViewModel.fieldBrickHeight - heightPadding-20.dp
+    private val width = FieldViewModel.fieldBrickWidth - widthPadding
+    private val height = FieldViewModel.fieldBrickHeight-heightPadding
 
     private const val MAX_BRICKS = 3
 

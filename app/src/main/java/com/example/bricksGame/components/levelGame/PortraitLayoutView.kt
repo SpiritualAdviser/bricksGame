@@ -31,6 +31,7 @@ import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.ui.helper.ButtonController
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -119,18 +120,23 @@ private fun BricksBlock() {
 
                     .pointerInput(Unit) {
 
+
                         detectDragGestures(
                             onDragStart = { },
-                            onDragEnd = { it.stickPosition() },
-                            onDragCancel = {},
                             onDrag = { changed, dragAmount ->
-                                it.dragging(dragAmount.x , dragAmount.y)
-
+                                it.dragging(dragAmount.x, dragAmount.y)
                                 coroutineScope.launch {
                                     it.addToCollision()
                                 }
-                            }
+                            },
+                            onDragEnd = {
+                                coroutineScope.launch {
+                                    it.stickPosition()
+                                }
+                            },
+                            onDragCancel = { it.onOutCollision() },
                         )
+
                     }
             )
             Spacer(modifier = Modifier.size(8.dp))

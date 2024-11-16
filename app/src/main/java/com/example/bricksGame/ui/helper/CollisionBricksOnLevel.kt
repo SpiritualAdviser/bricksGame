@@ -40,7 +40,8 @@ object CollisionBricksOnLevel {
 
             } else {
                 if (fieldBrick.onCollision) {
-                    fieldBrick.onOutCollision(brick)
+                    fieldBrick.onOutCollision()
+                    brick.onOutCollision()
                     fieldBrick.onCollision = false
                 }
             }
@@ -49,43 +50,8 @@ object CollisionBricksOnLevel {
         if (onTarget != null) {
             if (!onTarget!!.onCollision) {
                 onTarget!!.onCollision = true
-                onTarget!!.onTargetCollision(brick)
-            }
-        }
-    }
-
-    fun observeObjects(brick: Brick) {
-
-        if (isRun) {
-
-            var xCollision: Boolean
-            var yCollision: Boolean
-
-            fieldBricksList.forEach { fieldBrick ->
-                xCollision = false
-                yCollision = false
-                if (brick.globalX < fieldBrick.globalX + fieldBrick.globalWidth &&
-                    brick.globalX + brick.globalWidth > fieldBrick.globalX
-                ) {
-                    xCollision = true
-                }
-                if (brick.globalY < fieldBrick.globalY + fieldBrick.globalHeight &&
-                    brick.globalY + brick.globalHeight > fieldBrick.globalY
-                ) {
-                    yCollision = true
-                }
-
-                if (!xCollision && !yCollision) {
-
-                    if (!fieldBrick.onCollision) {
-                        return
-                    }
-
-                } else {
-                    if (fieldBrick.onCollision) {
-                        return
-                    }
-                }
+                onTarget!!.onTargetCollision()
+                brick.onCollision(onTarget!!)
             }
         }
     }
