@@ -16,6 +16,8 @@ data class FieldBrick(
     var borderColor: MutableState<Color> = mutableStateOf(Color.Black),
     val color: Color = Color.Transparent,
 
+    var collisionId: Int? = null,
+
     var globalX: Float = 0f,
     var globalY: Float = 0f,
     var globalWidth: Int = 0,
@@ -26,6 +28,7 @@ data class FieldBrick(
     var indexUnderTarget: Int? = null,
     var onCollision: Boolean = false,
 ) {
+
 
     fun setGloballyPosition(coordinates: LayoutCoordinates) {
         this.globalWidth = coordinates.size.width
@@ -44,6 +47,7 @@ data class FieldBrick(
 
     fun onOutCollision() {
         changeBorder(Color.Black)
+        collisionId = null
     }
 
     fun onDragEnd() {

@@ -124,7 +124,7 @@ private fun BricksBlock() {
                             onDrag = { _, dragAmount ->
                                 it.dragging(dragAmount.x, dragAmount.y)
                                 coroutineScope.launch {
-                                    CollisionBricksOnLevel.observeCenterObjects()
+                                    CollisionBricksOnLevel.observeCenterObjects(it)
                                 }
                             },
                             onDragEnd = {
