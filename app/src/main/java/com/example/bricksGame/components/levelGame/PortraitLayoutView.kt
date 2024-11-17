@@ -31,7 +31,6 @@ import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.ui.helper.ButtonController
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -91,7 +90,7 @@ private fun GridFieldBox() {
                     .size(it.width, it.height)
                     .background(it.color)
                     .border(it.border, it.borderColor.value)
-                    .onGloballyPositioned() { coordinates ->
+                    .onGloballyPositioned { coordinates ->
                         it.setGloballyPosition(coordinates)
                     }
             )
@@ -122,7 +121,7 @@ private fun BricksBlock() {
 
                         detectDragGestures(
                             onDragStart = { },
-                            onDrag = { changed, dragAmount ->
+                            onDrag = { _, dragAmount ->
                                 it.dragging(dragAmount.x, dragAmount.y)
                                 coroutineScope.launch {
                                     CollisionBricksOnLevel.observeCenterObjects()

@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.data.FieldBrick
 import com.example.bricksGame.screenSize
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
-import com.example.bricksGame.ui.theme.colorsBricks
 import kotlin.math.round
 
 object FieldViewModel : ViewModel() {
@@ -38,10 +37,12 @@ object FieldViewModel : ViewModel() {
             }
             val fieldBrick = createBrick(positionColumn, positionRow)
             bricksList.add(fieldBrick)
-            CollisionBricksOnLevel.addToCollision(fieldBrick = fieldBrick)
+
+            addToCollision(fieldBrick)
+
             ++positionRow
         }
-        CollisionBricksOnLevel.runCollision(true)
+        runCollision()
         println(bricksList.toString())
         return bricksList
     }
@@ -56,27 +57,11 @@ object FieldViewModel : ViewModel() {
         )
     }
 
-    private
-    val matrixField = generateMatrix(true)
+    private fun addToCollision(fieldBrick: FieldBrick) {
+        CollisionBricksOnLevel.addToCollision(fieldBrick = fieldBrick)
+    }
 
-    private fun generateMatrix(
-        matrixPrint: Boolean = false,
-
-
-        ): Array<Array<Int>> {
-
-        val counter = 0
-        val matrix = Array(ROWS) { Array(COLUMNS) { counter } }
-
-        if (matrixPrint) {
-            matrix.forEach { columnValue ->
-
-                columnValue.forEach { rowValue ->
-                    print("$rowValue \t")
-                }
-                println()
-            }
-        }
-        return matrix
+    private fun runCollision() {
+        CollisionBricksOnLevel.runCollision(true)
     }
 }

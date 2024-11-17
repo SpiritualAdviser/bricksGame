@@ -9,7 +9,6 @@ import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.screenSize
-import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 import kotlinx.coroutines.delay
 
 data class Brick(
@@ -26,17 +25,12 @@ data class Brick(
     private var innerY: Dp = 0.dp,
     var width: Dp,
     var height: Dp,
+    var indexOnTarget: Int? = null,
+    private var collisionTarget: FieldBrick? = null,
 
-    var onCollision: Boolean = false,
-) {
+    ) {
     var x by mutableStateOf(innerX)
     var y by mutableStateOf(innerY)
-
-    private var collisionTarget: FieldBrick? = null
-
-    fun addToCollision() {
-        CollisionBricksOnLevel.addToCollision(brick = this)
-    }
 
     fun dragging(x: Float, y: Float) {
         this.x += toDp(x)
@@ -56,7 +50,7 @@ data class Brick(
             val offsetAmount = getOffsetAmount(collisionTarget!!)
             dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
 
-//            collisionTarget?.onDragEnd()
+            collisionTarget?.onDragEnd()
         } else {
             this.x = 0.dp
             this.y = 0.dp
@@ -84,12 +78,12 @@ data class Brick(
         return (x / screenSize.density).dp
     }
 
-    fun onCollision(fieldBrick: FieldBrick) {
-        collisionTarget = fieldBrick
+    fun onOutCollision() {
+        this.indexOnTarget = null
     }
 
-    fun onOutCollision() {
-        collisionTarget = null
+    fun setTarget(fieldBrick: FieldBrick?) {
+        collisionTarget = fieldBrick
     }
 }
 

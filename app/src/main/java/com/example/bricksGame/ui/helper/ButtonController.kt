@@ -1,7 +1,5 @@
 package com.example.bricksGame.ui.helper
 
-//import com.example.bricksGame.components.levelGame.models.BricksViewModel
-
 object ButtonController {
 
     fun navigateHome() {
@@ -12,7 +10,6 @@ object ButtonController {
     }
 
     fun navigateLevelGame() {
-//        BricksViewModel.createBricksList()
         AppNavigation.getInstance().getNavController().navigate(Routes.LevelGame.route) {
             popUpTo(Routes.LevelGame.route)
             launchSingleTop = true

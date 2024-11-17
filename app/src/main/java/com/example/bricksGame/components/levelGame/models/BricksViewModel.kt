@@ -2,7 +2,6 @@ package com.example.bricksGame.components.levelGame.models
 
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
@@ -37,7 +36,7 @@ object BricksViewModel : ViewModel() {
                 color = getRandomColor()
             )
             bricksList.add(brick)
-            CollisionBricksOnLevel.addToCollision(brick = brick)
+            addToCollision(brick)
         }
         return bricksList
     }
@@ -45,6 +44,10 @@ object BricksViewModel : ViewModel() {
     private fun getRandomColor(): Color {
         val currentColor: Color = colorsBricks.values.random()
         return currentColor
+    }
+
+    private fun addToCollision(brick: Brick) {
+        CollisionBricksOnLevel.addToCollision(brick = brick)
     }
 }
 

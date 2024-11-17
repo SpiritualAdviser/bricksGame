@@ -9,7 +9,6 @@ object CollisionBricksOnLevel {
     private var bricksList: MutableList<Brick> = mutableListOf()
 
     private var isRun = false
-    private var onTargetFieldBricks: MutableList<FieldBrick> = mutableListOf()
 
     fun runCollision(state: Boolean) {
         isRun = state
@@ -34,7 +33,7 @@ object CollisionBricksOnLevel {
                 val brickX = brick.globalX + brick.globalWidth / 2
                 val brickY = brick.globalY + brick.globalHeight / 2
 
-                fieldBricksList.forEach { fieldBrick ->
+                fieldBricksList.forEachIndexed { indexFieldBrick, fieldBrick ->
 
                     xCollision = brickX < fieldBrick.globalX + fieldBrick.globalWidth &&
                             brickX > fieldBrick.globalX
@@ -43,28 +42,33 @@ object CollisionBricksOnLevel {
                             brickY > fieldBrick.globalY
 
                     if (xCollision && yCollision) {
-                        println("collision")
-                        if (!fieldBrick.onCollision) {
-                            fieldBrick.onCollision = true
-                            onTargetFieldBricks.add(fieldBrick)
-                            fieldBrick.onTargetCollision()
-                        }
-                    } else {
 
-                        onTargetFieldBricks.forEachIndexed { index, item ->
-                            if (item.onCollision) {
-                                println("outCl")
-                                item.onCollision = false
-                                item.onOutCollision()
-                                onTargetFieldBricks.removeAt(index)
+                        if (brick.indexOnTarget != indexFieldBrick) {
+
+                            if (brick.indexOnTarget != null) {
+                                fieldBricksList[brick.indexOnTarget!!].onOutCollision()
                             }
+
+                            brick.indexOnTarget = indexFieldBrick
+                            brick.setTarget(fieldBrick)
+                            fieldBrick.onTargetCollision()
+                            println("col")
+                        }
+
+                    }
+                    else {
+                        if (brick.indexOnTarget == indexFieldBrick) {
+                            fieldBrick.onOutCollision()
+                            brick.onOutCollision()
+                            brick.setTarget(null)
+                            println("out")
                         }
                     }
-//                    println(onTargetFieldBricks.size)
                 }
             }
         }
     }
 }
+
 
 

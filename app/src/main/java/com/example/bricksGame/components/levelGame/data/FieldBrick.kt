@@ -7,7 +7,6 @@ import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 
 data class FieldBrick(
     val name: String = "FieldBricks",
@@ -24,12 +23,9 @@ data class FieldBrick(
 
     var width: Dp = 0.dp,
     var height: Dp = 0.dp,
-
+    var indexUnderTarget: Int? = null,
     var onCollision: Boolean = false,
 ) {
-    fun addToCollision() {
-        CollisionBricksOnLevel.addToCollision(fieldBrick = this)
-    }
 
     fun setGloballyPosition(coordinates: LayoutCoordinates) {
         this.globalWidth = coordinates.size.width
