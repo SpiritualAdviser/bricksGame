@@ -21,7 +21,11 @@ object FieldViewModel : ViewModel() {
     val fieldBrickWidth = round(this.width.value / ROWS).dp
     val fieldBrickHeight = round(this.height.value / (COLUMNS + COLUMNS_BLOCK_SHAPES)).dp
 
-    val brickOnField = createBricksList()
+    var brickOnField = createBricksList()
+
+    fun resetData() {
+        brickOnField = createBricksList()
+    }
 
     private fun createBricksList(): MutableList<FieldBrick> {
         val allBrickOnField = MAX_FIELD_BRICKS

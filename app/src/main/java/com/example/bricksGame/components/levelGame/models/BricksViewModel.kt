@@ -19,10 +19,14 @@ object BricksViewModel : ViewModel() {
 
     private const val MAX_BRICKS = 3
 
-    private val _bricksList = createBricksList().toMutableStateList()
+    private var _bricksList = createBricksList().toMutableStateList()
 
     val bricks: MutableList<Brick>
         get() = _bricksList
+
+    fun resetData() {
+        _bricksList = createBricksList().toMutableStateList()
+    }
 
     private fun createBricksList(): MutableList<Brick> {
         val bricksList: MutableList<Brick> = mutableListOf()
