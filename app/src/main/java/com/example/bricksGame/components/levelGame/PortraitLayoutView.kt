@@ -115,10 +115,7 @@ private fun BricksBlock() {
                     .onGloballyPositioned { coordinates ->
                         it.setGloballyPosition(coordinates)
                     }
-
                     .pointerInput(Unit) {
-
-
                         detectDragGestures(
                             onDragStart = { },
                             onDrag = { _, dragAmount ->
@@ -134,7 +131,6 @@ private fun BricksBlock() {
                             },
                             onDragCancel = { },
                         )
-
                     }
             )
             Spacer(modifier = Modifier.size(8.dp))

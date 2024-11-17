@@ -45,11 +45,13 @@ data class Brick(
     }
 
     suspend fun stickPosition() {
-       delay(50)
+        delay(20)
+        println("stickInit")
         if (collisionTarget != null) {
             val offsetAmount = getOffsetAmount(collisionTarget!!)
             dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
-            onOutCollision()
+            collisionTarget?.onDragEnd()
+            println("stick")
         } else {
             this.x = 0.dp
             this.y = 0.dp
@@ -78,9 +80,8 @@ data class Brick(
     }
 
     fun onOutCollision() {
-        collisionTarget?.onDragEnd()
-        this.collisionTarget = null
-        this.indexOnTarget=null
+        collisionTarget = null
+        println(collisionTarget)
     }
 
     fun setTarget(fieldBrick: FieldBrick?) {

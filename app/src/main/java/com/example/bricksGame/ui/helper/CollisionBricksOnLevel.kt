@@ -1,5 +1,6 @@
 package com.example.bricksGame.ui.helper
 
+import androidx.compose.ui.util.fastForEachIndexed
 import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.components.levelGame.data.FieldBrick
 
@@ -23,47 +24,44 @@ object CollisionBricksOnLevel {
         }
     }
 
-    fun observeCenterObjects(brick: Brick) {
+    suspend fun observeCenterObjects(brick: Brick) {
         if (isRun) {
 
             var xCollision: Boolean
             var yCollision: Boolean
 
-                val brickX = brick.globalX + brick.globalWidth / 2
-                val brickY = brick.globalY + brick.globalHeight / 2
+            val brickX = brick.globalX + brick.globalWidth / 2
+            val brickY = brick.globalY + brick.globalHeight / 2
 
-                fieldBricksList.forEachIndexed { indexFieldBrick, fieldBrick ->
+            fieldBricksList.fastForEachIndexed() { indexFieldBrick, fieldBrick ->
 
-                    xCollision = brickX < fieldBrick.globalX + fieldBrick.globalWidth &&
-                            brickX > fieldBrick.globalX
+                xCollision = brickX < fieldBrick.globalX + fieldBrick.globalWidth &&
+                        brickX > fieldBrick.globalX
 
-                    yCollision = brickY < fieldBrick.globalY + fieldBrick.globalHeight &&
-                            brickY > fieldBrick.globalY
+                yCollision = brickY < fieldBrick.globalY + fieldBrick.globalHeight &&
+                        brickY > fieldBrick.globalY
 
-                    if (xCollision && yCollision) {
+                if (xCollision && yCollision) {
 
-                        if (brick.indexOnTarget != indexFieldBrick) {
-
-                            if (brick.indexOnTarget != null) {
-                                fieldBricksList[brick.indexOnTarget!!].onOutCollision()
-                            }
-
-                            brick.indexOnTarget = indexFieldBrick
-                            brick.setTarget(fieldBrick)
+                    if (fieldBrick.hasOwnerId == null) {
+                        fieldBrick.hasOwnerId = brick.id
+                        fieldBrick.onTargetCollision()
+                        brick.setTarget(fieldBrick)
+                    } else {
+                        if (fieldBrick.hasOwnerId == brick.id) {
                             fieldBrick.onTargetCollision()
                         }
-
                     }
-                    else {
-                        if (brick.indexOnTarget == indexFieldBrick) {
-                            fieldBrick.onOutCollision()
-                            brick.onOutCollision()
-                            brick.setTarget(null)
-                        }
+
+                } else {
+                    if (fieldBrick.hasOwnerId == brick.id) {
+                        fieldBrick.onOutCollision()
+                        brick.onOutCollision()
                     }
                 }
             }
         }
+    }
 }
 
 
