@@ -23,61 +23,47 @@ object CollisionBricksOnLevel {
         }
     }
 
-    fun observeCenterObjects(brick:Brick) {
+    fun observeCenterObjects(brick: Brick) {
         if (isRun) {
 
             var xCollision: Boolean
             var yCollision: Boolean
 
-//            bricksList.forEach { brick ->
                 val brickX = brick.globalX + brick.globalWidth / 2
                 val brickY = brick.globalY + brick.globalHeight / 2
 
                 fieldBricksList.forEachIndexed { indexFieldBrick, fieldBrick ->
 
-                    xCollision =
-                        brickX < fieldBrick.globalX + fieldBrick.globalWidth && brickX > fieldBrick.globalX
+                    xCollision = brickX < fieldBrick.globalX + fieldBrick.globalWidth &&
+                            brickX > fieldBrick.globalX
 
-                    yCollision =
-                        brickY < fieldBrick.globalY + fieldBrick.globalHeight && brickY > fieldBrick.globalY
+                    yCollision = brickY < fieldBrick.globalY + fieldBrick.globalHeight &&
+                            brickY > fieldBrick.globalY
 
                     if (xCollision && yCollision) {
 
-                        if (fieldBrick.collisionId == null) {
-                            brick.indexOnTarget = indexFieldBrick
-                            fieldBrick.collisionId = brick.id
+                        if (brick.indexOnTarget != indexFieldBrick) {
 
+                            if (brick.indexOnTarget != null) {
+                                fieldBricksList[brick.indexOnTarget!!].onOutCollision()
+                            }
+
+                            brick.indexOnTarget = indexFieldBrick
                             brick.setTarget(fieldBrick)
                             fieldBrick.onTargetCollision()
-                        } else {
-                            if (fieldBrick.collisionId == brick.id) {
-                                brick.setTarget(fieldBrick)
-                                fieldBrick.onTargetCollision()
-                            }
                         }
 
-//                        if (brick.indexOnTarget != indexFieldBrick) {
-//
-//                            if (brick.id != brick.collisionId)
-//
-//                                if (brick.indexOnTarget != null) {
-//                                    fieldBricksList[brick.indexOnTarget!!].onOutCollision()
-//                                }
-//
-//
-//                        }
-
-                    } else {
-                        if (fieldBrick.collisionId == brick.id) {
+                    }
+                    else {
+                        if (brick.indexOnTarget == indexFieldBrick) {
                             fieldBrick.onOutCollision()
-//                            brick.onOutCollision()
+                            brick.onOutCollision()
                             brick.setTarget(null)
                         }
                     }
                 }
             }
         }
-//    }
 }
 
 
