@@ -49,7 +49,7 @@ data class Brick(
         if (collisionTarget != null) {
             val offsetAmount = getOffsetAmount(collisionTarget!!)
             dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
-            collisionTarget?.onDragEnd()
+            onOutCollision()
         } else {
             this.x = 0.dp
             this.y = 0.dp
@@ -78,7 +78,9 @@ data class Brick(
     }
 
     fun onOutCollision() {
-//        this.indexOnTarget = null
+        collisionTarget?.onDragEnd()
+        this.collisionTarget = null
+        this.indexOnTarget=null
     }
 
     fun setTarget(fieldBrick: FieldBrick?) {
