@@ -45,7 +45,7 @@ data class Brick(
     }
 
     suspend fun stickPosition() {
-        delay(30)
+       delay(50)
         if (collisionTarget != null) {
             val offsetAmount = getOffsetAmount(collisionTarget!!)
             dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
