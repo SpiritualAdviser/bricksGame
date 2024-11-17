@@ -52,7 +52,6 @@ object CollisionBricksOnLevel {
                             brick.indexOnTarget = indexFieldBrick
                             brick.setTarget(fieldBrick)
                             fieldBrick.onTargetCollision()
-                            println("col")
                         }
 
                     }
@@ -61,7 +60,6 @@ object CollisionBricksOnLevel {
                             fieldBrick.onOutCollision()
                             brick.onOutCollision()
                             brick.setTarget(null)
-                            println("out")
                         }
                     }
                 }
