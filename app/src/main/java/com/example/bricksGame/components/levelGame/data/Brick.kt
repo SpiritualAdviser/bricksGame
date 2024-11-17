@@ -25,8 +25,7 @@ data class Brick(
     private var innerY: Dp = 0.dp,
     var width: Dp,
     var height: Dp,
-    var indexOnTarget: Int? = null,
-    private var collisionTarget: FieldBrick? = null,
+    var collisionTarget: FieldBrick? = null,
 
     ) {
     var x by mutableStateOf(innerX)
@@ -45,17 +44,16 @@ data class Brick(
     }
 
     suspend fun stickPosition() {
-        delay(20)
-        println("stickInit")
+        delay(10)
         if (collisionTarget != null) {
             val offsetAmount = getOffsetAmount(collisionTarget!!)
             dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
             collisionTarget?.onDragEnd()
-            println("stick")
         } else {
             this.x = 0.dp
             this.y = 0.dp
         }
+        collisionTarget?.onDragEnd()
     }
 
     private fun getOffsetAmount(collisionTarget: FieldBrick): Map<String, Float> {
@@ -81,7 +79,6 @@ data class Brick(
 
     fun onOutCollision() {
         collisionTarget = null
-        println(collisionTarget)
     }
 
     fun setTarget(fieldBrick: FieldBrick?) {

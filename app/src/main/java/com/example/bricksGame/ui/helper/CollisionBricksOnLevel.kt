@@ -24,7 +24,8 @@ object CollisionBricksOnLevel {
         }
     }
 
-    suspend fun observeCenterObjects(brick: Brick) {
+
+    fun observeCenterObjects(brick: Brick) {
         if (isRun) {
 
             var xCollision: Boolean
@@ -33,7 +34,7 @@ object CollisionBricksOnLevel {
             val brickX = brick.globalX + brick.globalWidth / 2
             val brickY = brick.globalY + brick.globalHeight / 2
 
-            fieldBricksList.fastForEachIndexed() { indexFieldBrick, fieldBrick ->
+            fieldBricksList.asReversed().forEachIndexed() { indexFieldBrick, fieldBrick ->
 
                 xCollision = brickX < fieldBrick.globalX + fieldBrick.globalWidth &&
                         brickX > fieldBrick.globalX
@@ -50,6 +51,9 @@ object CollisionBricksOnLevel {
                     } else {
                         if (fieldBrick.hasOwnerId == brick.id) {
                             fieldBrick.onTargetCollision()
+                            if (brick.collisionTarget == null) {
+                                brick.setTarget(fieldBrick)
+                            }
                         }
                     }
 

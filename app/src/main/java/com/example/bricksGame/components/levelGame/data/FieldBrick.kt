@@ -26,10 +26,12 @@ data class FieldBrick(
 
     var width: Dp = 0.dp,
     var height: Dp = 0.dp,
-    var indexUnderTarget: Int? = null,
-    var onCollision: Boolean = false,
-) {
 
+    /**
+     * They were placed in an occupied room ONLY_EMPTY_PLEASES=true
+     */
+    private val ONLY_EMPTY_PLEASES: Boolean = true,
+) {
 
     fun setGloballyPosition(coordinates: LayoutCoordinates) {
         this.globalWidth = coordinates.size.width
@@ -52,6 +54,12 @@ data class FieldBrick(
     }
 
     fun onDragEnd() {
-        changeBorder(Color.Black)
+
+        if (ONLY_EMPTY_PLEASES) {
+            changeBorder(Color.Black)
+        } else {
+            changeBorder(Color.Black)
+            this.hasOwnerId = null
+        }
     }
 }
