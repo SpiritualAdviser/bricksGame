@@ -24,7 +24,9 @@ object FieldViewModel : ViewModel() {
     var brickOnField = createBricksList()
 
     fun resetData() {
-        brickOnField = createBricksList()
+        this.brickOnField.clear()
+        CollisionBricksOnLevel.resetData()
+        this.brickOnField = createBricksList()
     }
 
     private fun createBricksList(): MutableList<FieldBrick> {

@@ -13,9 +13,9 @@ object ButtonController {
     }
 
     fun navigateLevelGame() {
+        BricksViewModel.resetData()
+        FieldViewModel.resetData()
         AppNavigation.getInstance().getNavController().navigate(Routes.LevelGame.route) {
-            BricksViewModel.resetData()
-            FieldViewModel.resetData()
             popUpTo(Routes.LevelGame.route)
             launchSingleTop = true
         }

@@ -25,6 +25,7 @@ object BricksViewModel : ViewModel() {
         get() = _bricksList
 
     fun resetData() {
+        _bricksList.clear()
         _bricksList = createBricksList().toMutableStateList()
     }
 
@@ -40,7 +41,6 @@ object BricksViewModel : ViewModel() {
                 color = getRandomColor()
             )
             bricksList.add(brick)
-            addToCollision(brick)
         }
         return bricksList
     }
@@ -50,9 +50,6 @@ object BricksViewModel : ViewModel() {
         return currentColor
     }
 
-    private fun addToCollision(brick: Brick) {
-        CollisionBricksOnLevel.addToCollision(brick = brick)
-    }
 }
 
 

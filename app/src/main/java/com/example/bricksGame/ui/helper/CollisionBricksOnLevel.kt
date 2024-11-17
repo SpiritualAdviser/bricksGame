@@ -1,29 +1,28 @@
 package com.example.bricksGame.ui.helper
 
-import androidx.compose.ui.util.fastForEachIndexed
 import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.components.levelGame.data.FieldBrick
 
 object CollisionBricksOnLevel {
 
     private var fieldBricksList: MutableList<FieldBrick> = mutableListOf()
-    private var bricksList: MutableList<Brick> = mutableListOf()
 
     private var isRun = false
 
     fun runCollision(state: Boolean) {
         isRun = state
+        println(fieldBricksList.size)
     }
 
-    fun addToCollision(fieldBrick: FieldBrick? = null, brick: Brick? = null) {
+    fun resetData() {
+        this.fieldBricksList.clear()
+    }
+
+    fun addToCollision(fieldBrick: FieldBrick? = null) {
         if (fieldBrick != null) {
             fieldBricksList.add(fieldBrick)
         }
-        if (brick != null) {
-            bricksList.add(brick)
-        }
     }
-
 
     fun observeCenterObjects(brick: Brick) {
         if (isRun) {
@@ -34,7 +33,7 @@ object CollisionBricksOnLevel {
             val brickX = brick.globalX + brick.globalWidth / 2
             val brickY = brick.globalY + brick.globalHeight / 2
 
-            fieldBricksList.asReversed().forEachIndexed() { indexFieldBrick, fieldBrick ->
+            fieldBricksList.asReversed().forEachIndexed { indexFieldBrick, fieldBrick ->
 
                 xCollision = brickX < fieldBrick.globalX + fieldBrick.globalWidth &&
                         brickX > fieldBrick.globalX
