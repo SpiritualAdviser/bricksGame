@@ -44,13 +44,12 @@ data class FieldBrick(
         this.borderColor.value = color
     }
 
-    fun onTargetCollision() {
+    fun setBorderRed() {
         changeBorder(Color.Red)
     }
 
-    fun onOutCollision() {
+    fun setBorderBlack() {
         changeBorder(Color.Black)
-        this.hasOwnerId = null
     }
 
     fun onDragEnd() {

@@ -126,7 +126,7 @@ private fun BricksBlock() {
                             },
                             onDragEnd = {
                                 coroutineScope.launch {
-                                    CollisionBricksOnLevel.observeCenterObjects(it)
+//                                    CollisionBricksOnLevel.observeCenterObjects(it)
                                     it.stickPosition()
                                 }
                             },

@@ -77,12 +77,12 @@ data class Brick(
         return (x / screenSize.density).dp
     }
 
-    fun onOutCollision() {
-        collisionTarget = null
+    fun keepSpace(fieldBrick: FieldBrick) {
+        collisionTarget = fieldBrick
     }
 
-    fun setTarget(fieldBrick: FieldBrick?) {
-        collisionTarget = fieldBrick
+    fun freeSpace () {
+        collisionTarget = null
     }
 }
 
