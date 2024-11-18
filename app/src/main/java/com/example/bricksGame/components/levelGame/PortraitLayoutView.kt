@@ -107,6 +107,7 @@ private fun BricksBlock() {
         horizontalArrangement = Arrangement.Center
     ) {
         (BricksViewModel.bricks.forEach {
+
             Box(
                 Modifier
                     .offset(it.x, it.y)
@@ -121,12 +122,11 @@ private fun BricksBlock() {
                             onDrag = { _, dragAmount ->
                                 it.dragging(dragAmount.x, dragAmount.y)
                                 coroutineScope.launch {
-                                   CollisionBricksOnLevel.observeCenterObjects(it)
+                                    CollisionBricksOnLevel.observeCenterObjects(it)
                                 }
                             },
                             onDragEnd = {
                                 coroutineScope.launch {
-//                                    CollisionBricksOnLevel.observeCenterObjects(it)
                                     it.stickPosition()
                                 }
                             },

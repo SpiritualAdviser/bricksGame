@@ -6,7 +6,6 @@ import com.example.bricksGame.components.levelGame.data.FieldBrick
 object CollisionBricksOnLevel {
 
     private var fieldBricksList: MutableList<FieldBrick> = mutableListOf()
-
     private var isRun = false
 
     fun runCollision(state: Boolean) {
