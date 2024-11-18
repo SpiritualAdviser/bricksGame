@@ -21,15 +21,12 @@ data class Brick(
     var globalWidth: Int = 0,
     var globalHeight: Int = 0,
 
-    private var innerX: Dp = 0.dp,
-    private var innerY: Dp = 0.dp,
     var width: Dp,
     var height: Dp,
     var collisionTarget: FieldBrick? = null,
-
     ) {
-    var x by mutableStateOf(innerX)
-    var y by mutableStateOf(innerY)
+    var x by mutableStateOf(0.dp)
+    var y by mutableStateOf(0.dp)
 
     fun dragging(x: Float, y: Float) {
         this.x += toDp(x)
@@ -44,7 +41,7 @@ data class Brick(
     }
 
     suspend fun stickPosition() {
-        delay(10)
+        delay(25)
         if (collisionTarget != null) {
             val offsetAmount = getOffsetAmount(collisionTarget!!)
             dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
@@ -61,7 +58,6 @@ data class Brick(
 
         val globalX = collisionTarget.globalX + padding
         val globalY = collisionTarget.globalY + padding
-
 
         val xOffset = globalX - this.globalX
         val yOffset = globalY - this.globalY
