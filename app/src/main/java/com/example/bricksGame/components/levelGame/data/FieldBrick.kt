@@ -58,7 +58,11 @@ data class FieldBrick(
             changeBorder(Color.Black)
         } else {
             changeBorder(Color.Black)
-            this.hasOwnerId = null
+            this.freeSpace()
         }
+    }
+
+    fun freeSpace() {
+        this.hasOwnerId = null
     }
 }

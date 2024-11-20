@@ -1,13 +1,11 @@
 package com.example.bricksGame.components.levelGame.data
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.MutableIntState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.screenSize
 import kotlinx.coroutines.delay
 
@@ -21,16 +19,17 @@ data class Brick(
     var globalWidth: Int = 0,
     var globalHeight: Int = 0,
 
+    var x: MutableIntState,
+    var y: MutableIntState,
+
     var width: Dp,
     var height: Dp,
     var collisionTarget: FieldBrick? = null,
-    ) {
-    var x by mutableStateOf(0.dp)
-    var y by mutableStateOf(0.dp)
+) {
 
-    fun dragging(x: Float, y: Float) {
-        this.x += toDp(x)
-        this.y += toDp(y)
+    fun dragging(xDragAmount: Float, yDragAmount: Float) {
+        this.x.intValue += xDragAmount.toInt()
+        this.y.intValue += yDragAmount.toInt()
     }
 
     fun setGloballyPosition(coordinates: LayoutCoordinates) {
@@ -41,14 +40,15 @@ data class Brick(
     }
 
     suspend fun stickPosition() {
-        delay(25)
+       delay(25)
         if (collisionTarget != null) {
             val offsetAmount = getOffsetAmount(collisionTarget!!)
             dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
-            collisionTarget?.onDragEnd()
+//            BricksViewModel.removeBrick(this)
+
         } else {
-            this.x = 0.dp
-            this.y = 0.dp
+            this.x.intValue = 0
+            this.y.intValue = 0
         }
         collisionTarget?.onDragEnd()
     }
@@ -69,15 +69,11 @@ data class Brick(
         return dragAmount
     }
 
-    private fun toDp(x: Float): Dp {
-        return (x / screenSize.density).dp
-    }
-
     fun keepSpace(fieldBrick: FieldBrick) {
         collisionTarget = fieldBrick
     }
 
-    fun freeSpace () {
+    fun freeSpace() {
         collisionTarget = null
     }
 }

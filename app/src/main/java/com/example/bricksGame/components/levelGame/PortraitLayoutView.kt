@@ -20,12 +20,14 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
@@ -100,41 +102,43 @@ private fun GridFieldBox() {
 
 @Composable
 private fun BricksBlock() {
-    val coroutineScope = rememberCoroutineScope()
+    val coroutine = rememberCoroutineScope()
     Row(
         Modifier.fillMaxSize(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        (BricksViewModel.bricks.forEach {
+        horizontalArrangement = Arrangement.Center,
 
-            Box(
-                Modifier
-                    .offset(it.x, it.y)
-                    .size(it.width, it.height)
-                    .background(it.color)
-                    .onGloballyPositioned { coordinates ->
-                        it.setGloballyPosition(coordinates)
-                    }
-                    .pointerInput(Unit) {
-                        detectDragGestures(
-                            onDragStart = { },
-                            onDrag = { _, dragAmount ->
-                                it.dragging(dragAmount.x, dragAmount.y)
-                                coroutineScope.launch {
-                                    CollisionBricksOnLevel.observeCenterObjects(it)
-                                }
-                            },
-                            onDragEnd = {
-                                coroutineScope.launch {
-                                    it.stickPosition()
-                                }
-                            },
-                            onDragCancel = { },
-                        )
-                    }
-            )
-            Spacer(modifier = Modifier.size(8.dp))
+        ) {
+        (BricksViewModel.bricks.forEach {
+            key(it.id) {
+                Box(
+                    Modifier
+                        .offset { IntOffset(it.x.intValue, it.y.intValue) }
+                        .size(it.width, it.height)
+                        .background(it.color)
+                        .onGloballyPositioned { coordinates ->
+                            it.setGloballyPosition(coordinates)
+                        }
+                        .pointerInput(Unit) {
+                            detectDragGestures(
+                                onDragStart = { },
+                                onDrag = { _, dragAmount ->
+                                    it.dragging(dragAmount.x, dragAmount.y)
+                                    coroutine.launch {
+                                        CollisionBricksOnLevel.observeCenterObjects(it)
+                                    }
+                                },
+                                onDragEnd = {
+                                    coroutine.launch {
+                                        it.stickPosition()
+                                    }
+                                },
+                                onDragCancel = { },
+                            )
+                        }
+                )
+                Spacer(Modifier.size(10.dp))
+            }
         })
     }
 }
