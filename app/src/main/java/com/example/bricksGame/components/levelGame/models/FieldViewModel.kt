@@ -10,7 +10,7 @@ import kotlin.math.round
 
 object FieldViewModel : ViewModel() {
     const val COLUMNS: Int = 6
-    const val ROWS: Int = 5
+    const val ROWS: Int = 6
     private const val COLUMNS_BLOCK_SHAPES = 2.6
     private const val MAX_FIELD_BRICKS = COLUMNS * ROWS
     val padding = 10.dp
