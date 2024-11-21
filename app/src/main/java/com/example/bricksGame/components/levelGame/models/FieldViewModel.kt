@@ -9,26 +9,26 @@ import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 import kotlin.math.round
 
 object FieldViewModel : ViewModel() {
-    const val COLUMNS: Int = 6
+    const val COLUMNS: Int = 7
     const val ROWS: Int = 6
-    private const val COLUMNS_BLOCK_SHAPES = 2.6
+    private const val COLUMNS_BLOCK_SHAPES = 2.4
     private const val MAX_FIELD_BRICKS = COLUMNS * ROWS
     val padding = 10.dp
 
-    val bgWPadding = 40.dp
-    val bgHPadding = 50.dp
+    val bgWPadding = 20.dp
+    val bgHPadding = 30.dp
 
     val width = screenSize.screenWidthDp - padding * 2
-    private val levelScore = screenSize.screenHeightDp / 100 * 20
+    private val levelScore = screenSize.screenHeightDp / 100 * 16
     val height = screenSize.screenHeightDp - levelScore + padding * 2
-    val border = 1.dp
+    private val border = 1.dp
 
     val withBg = this.width
     val heightBg =
         round(this.height.value - (this.height.value / (COLUMNS + COLUMNS_BLOCK_SHAPES)) * COLUMNS_BLOCK_SHAPES).dp
 
-    val fieldBrickWidth = (withBg / ROWS) - bgWPadding / ROWS * 2
-    val fieldBrickHeight = (heightBg / COLUMNS) - bgHPadding / COLUMNS * 2
+    val fieldBrickWidth = (withBg / ROWS) - bgWPadding / 2
+    val fieldBrickHeight = (heightBg / COLUMNS) - bgWPadding / 2
 
 
     const val EMPTY_ID = "Color.Transparent"

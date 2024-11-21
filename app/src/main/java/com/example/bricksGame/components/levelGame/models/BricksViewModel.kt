@@ -20,13 +20,8 @@ object BricksViewModel : ViewModel() {
         7 to R.drawable.gold_brick,
         )
 
-    private val widthPadding =
-        FieldViewModel.padding / FieldViewModel.ROWS + FieldViewModel.border * 2
-    private val heightPadding =
-        FieldViewModel.padding / 2 / FieldViewModel.COLUMNS + FieldViewModel.border
-
-    private val width = FieldViewModel.fieldBrickWidth - widthPadding
-    private val height = FieldViewModel.fieldBrickHeight - heightPadding
+    private val width = FieldViewModel.fieldBrickWidth
+    private val height = FieldViewModel.fieldBrickHeight
 
     private const val MAX_BRICKS = 3
     private var brickId = 0
