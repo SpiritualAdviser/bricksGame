@@ -15,14 +15,16 @@ val Blue900 = Color(0xFF0D47A1)
 val Green900 = Color(0xFF1B5E20)
 val Yellow900 = Color(0xFFF57F17)
 val Purple900 = Color(0xFF4A148C)
-val white = Color(0xFFFFFFFF)
+val White = Color(0xFFFFFFFF)
+val DarkGray = Color(0xFF343434)
 
 
 val colorsBricks = mapOf(
-    0 to white,
+    0 to White,
     1 to Red900,
     2 to Blue900,
     3 to Green900,
     4 to Yellow900,
-    5 to Purple900
+    5 to Purple900,
+    6 to DarkGray
 )
