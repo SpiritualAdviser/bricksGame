@@ -21,8 +21,8 @@ data class Brick(
     var globalWidth: Int = 0,
     var globalHeight: Int = 0,
 
-    val border: Dp = 1.dp,
-    var borderColor: Color = Green900,
+    val border: Dp = 2.dp,
+    var borderColor: Color = Color.Black,
 
     var x: MutableIntState,
     var y: MutableIntState,

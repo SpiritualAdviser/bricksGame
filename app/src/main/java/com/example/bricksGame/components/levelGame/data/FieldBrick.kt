@@ -16,8 +16,8 @@ data class FieldBrick(
     val name: String = "FieldBricks",
     val position: Pair<Int, Int>,
     var id: String = "Color.Transparent",
-    val border: Dp = 1.dp,
-    var borderColor: MutableState<Color> = mutableStateOf(Green900),
+    val border: Dp = 2.dp,
+    var borderColor: MutableState<Color> = mutableStateOf(Color.Black),
     var assetImage: MutableState<Int> = mutableIntStateOf(R.drawable.bgfielbrickempty),
     var hasOwnerId: Int? = null,
 
@@ -57,15 +57,15 @@ data class FieldBrick(
     }
 
     fun setBorderBlack() {
-        changeBorder(Green900)
+        changeBorder(Color.Black)
     }
 
     fun onDragEnd() {
 
         if (ONLY_EMPTY_PLEASES) {
-            changeBorder(Green900)
+            changeBorder(Color.Black)
         } else {
-            changeBorder(Green900)
+            changeBorder(Color.Black)
             this.resetFieldBrick()
         }
     }
