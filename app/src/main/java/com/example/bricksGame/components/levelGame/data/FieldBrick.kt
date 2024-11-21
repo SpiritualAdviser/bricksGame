@@ -8,13 +8,14 @@ import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
+import com.example.bricksGame.ui.theme.Green900
 
 data class FieldBrick(
     val name: String = "FieldBricks",
     val position: Pair<Int, Int>,
     var id: String = "Color.Transparent",
     val border: Dp = 0.dp,
-    var borderColor: MutableState<Color> = mutableStateOf(Color.Black),
+    var borderColor: MutableState<Color> = mutableStateOf(Green900),
     var color: MutableState<Color> = mutableStateOf(Color.Transparent),
 
     var hasOwnerId: Int? = null,
@@ -55,15 +56,15 @@ data class FieldBrick(
     }
 
     fun setBorderBlack() {
-        changeBorder(Color.Black)
+        changeBorder(Green900)
     }
 
     fun onDragEnd() {
 
         if (ONLY_EMPTY_PLEASES) {
-            changeBorder(Color.Black)
+            changeBorder(Green900)
         } else {
-            changeBorder(Color.Black)
+            changeBorder(Green900)
             this.resetFieldBrick()
         }
     }

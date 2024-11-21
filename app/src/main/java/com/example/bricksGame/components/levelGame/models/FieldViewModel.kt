@@ -14,13 +14,23 @@ object FieldViewModel : ViewModel() {
     private const val COLUMNS_BLOCK_SHAPES = 3
     private const val MAX_FIELD_BRICKS = COLUMNS * ROWS
     val padding = 10.dp
+
+    val bgWPadding = 40.dp
+    val bgHPadding = 50.dp
+
     val width = screenSize.screenWidthDp - padding * 2
     private val levelScore = screenSize.screenHeightDp / 100 * 20
     val height = screenSize.screenHeightDp - levelScore + padding * 2
     val border = 2.dp
 
-    val fieldBrickWidth = round(this.width.value / ROWS).dp
-    val fieldBrickHeight = round(this.height.value / (COLUMNS + COLUMNS_BLOCK_SHAPES)).dp
+    val withBg = this.width
+    val heightBg =
+        round(this.height.value - (this.height.value / (COLUMNS + COLUMNS_BLOCK_SHAPES)) * COLUMNS_BLOCK_SHAPES).dp
+
+    val fieldBrickWidth = (withBg / ROWS) - bgWPadding / ROWS*2
+    val fieldBrickHeight = (heightBg / COLUMNS) - bgHPadding / COLUMNS*2
+
+
     const val EMPTY_ID = "Color.Transparent"
     var brickOnField = createBricksList()
 

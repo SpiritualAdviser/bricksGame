@@ -25,6 +25,7 @@ import androidx.compose.runtime.key
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
@@ -45,7 +46,7 @@ fun PortraitLayout() {
         painter = painterResource(id = R.drawable.bg_level),
         contentDescription = "levelBg",
         modifier = Modifier.fillMaxHeight(),
-     contentScale = ContentScale.Crop
+        contentScale = ContentScale.Crop
     )
 
     Column(
@@ -73,6 +74,7 @@ private fun RestartGame() {
 
 @Composable
 private fun FieldBox() {
+
     Column(
         Modifier
             .size(
@@ -88,27 +90,39 @@ private fun FieldBox() {
 
 @Composable
 private fun GridFieldBox() {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(FieldViewModel.ROWS),
-        horizontalArrangement = Arrangement.Center,
+    Box(
         modifier = Modifier
-//            .size(FieldViewModel.width, FieldViewModel.height)
-            .padding(FieldViewModel.padding)
-
-    ) {
-        items(FieldViewModel.brickOnField) {
-
-            Box(
-                Modifier
-                    .size(it.width, it.height)
-                    .background(it.color.value)
-                    .border(it.border, it.borderColor.value)
-                    .onGloballyPositioned { coordinates ->
-                        it.setGloballyPosition(coordinates)
-                    }
+            .size(FieldViewModel.withBg, FieldViewModel.heightBg)
+            .paint(
+                painter = painterResource(R.drawable.bgfieldallmosy),
+                sizeToIntrinsics = true,
+                contentScale = ContentScale.FillBounds
             )
+    ) {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(FieldViewModel.ROWS),
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .padding(FieldViewModel.bgWPadding, FieldViewModel.bgHPadding)
+
+        ) {
+
+            items(FieldViewModel.brickOnField) {
+
+                Box(
+                    Modifier
+                        .size(it.width, it.height)
+                        .background(it.color.value)
+                        .border(it.border, it.borderColor.value)
+                        .onGloballyPositioned { coordinates ->
+                            it.setGloballyPosition(coordinates)
+                        }
+                )
+            }
         }
     }
+
+
 }
 
 @Composable
