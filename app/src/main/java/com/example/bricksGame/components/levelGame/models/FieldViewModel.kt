@@ -21,7 +21,7 @@ object FieldViewModel : ViewModel() {
 
     val fieldBrickWidth = round(this.width.value / ROWS).dp
     val fieldBrickHeight = round(this.height.value / (COLUMNS + COLUMNS_BLOCK_SHAPES)).dp
-
+    const val EMPTY_ID = "Color.Transparent"
     var brickOnField = createBricksList()
 
     fun resetData() {
@@ -38,7 +38,7 @@ object FieldViewModel : ViewModel() {
 
         for (i in 0 until allBrickOnField) {
 
-            if (i != 0 && i % 5 == 0) {
+            if (i != 0 && i % ROWS == 0) {
                 ++positionColumn
                 positionRow = 0
             }
@@ -59,7 +59,6 @@ object FieldViewModel : ViewModel() {
             width = fieldBrickWidth,
             height = fieldBrickHeight,
             position = Pair(positionColumn, positionRow),
-            id = "$positionColumn $positionRow",
             border = border
         )
     }
@@ -73,7 +72,39 @@ object FieldViewModel : ViewModel() {
     }
 
     fun setBricksOnField(brick: Brick) {
-        brick.collisionTarget?.setColorOnStickBrick(brick.color)
+        val currentFieldBrick = brick.collisionTarget
+        currentFieldBrick?.setColorOnStickBrick(brick.color)
+        currentFieldBrick?.id = brick.color.toString()
+    }
 
+    fun checkFieldOnFinishRound() {
+        var column: List<FieldBrick>
+        brickOnField.forEachIndexed { index, _ ->
+
+            if (index % ROWS == 0) {
+                column = brickOnField.subList(index, index + ROWS)
+
+                if (column.isNotEmpty() && this.checkWin(column)) {
+                    this.resetColumnOnWin(column)
+                }
+            }
+
+        }
+    }
+
+    private fun checkWin(column: List<FieldBrick>): Boolean {
+        val currentId = column[0].id
+        val isWin = column.all { currentId == it.id && currentId != EMPTY_ID }
+        return isWin
+    }
+
+    private fun resetColumnOnWin(column: List<FieldBrick>) {
+        val wonColumn = column[0].position.first
+
+        brickOnField.forEach {
+            if (wonColumn == it.position.first) {
+                it.resetFieldBrick()
+            }
+        }
     }
 }

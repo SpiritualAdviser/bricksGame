@@ -131,6 +131,7 @@ private fun BricksBlock() {
                                 onDragEnd = {
                                     coroutine.launch {
                                         it.stickPosition()
+                                        FieldViewModel.checkFieldOnFinishRound()
                                     }
                                 },
                                 onDragCancel = { },

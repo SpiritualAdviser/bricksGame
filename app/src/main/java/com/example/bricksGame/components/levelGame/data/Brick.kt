@@ -6,6 +6,7 @@ import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.Dp
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
+import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.screenSize
 import kotlinx.coroutines.delay
 
@@ -40,11 +41,11 @@ data class Brick(
     }
 
     suspend fun stickPosition() {
-       delay(25)
+        delay(25)
         if (collisionTarget != null) {
             val offsetAmount = getOffsetAmount(collisionTarget!!)
             dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
-           BricksViewModel.removeBrick(this)
+            BricksViewModel.removeBrick(this)
 
         } else {
             this.x.intValue = 0

@@ -7,11 +7,12 @@ import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
 
 data class FieldBrick(
     val name: String = "FieldBricks",
     val position: Pair<Int, Int>,
-    val id: String = "00",
+    var id: String = "Color.Transparent",
     val border: Dp = 0.dp,
     var borderColor: MutableState<Color> = mutableStateOf(Color.Black),
     var color: MutableState<Color> = mutableStateOf(Color.Transparent),
@@ -63,11 +64,14 @@ data class FieldBrick(
             changeBorder(Color.Black)
         } else {
             changeBorder(Color.Black)
-            this.freeSpace()
+            this.resetFieldBrick()
         }
     }
 
-    fun freeSpace() {
+    fun resetFieldBrick() {
         this.hasOwnerId = null
+        this.setBorderBlack()
+        this.color.value = Color.Transparent
+        this.id = EMPTY_ID
     }
 }
