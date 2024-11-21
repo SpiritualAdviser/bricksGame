@@ -6,7 +6,6 @@ import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.Dp
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
-import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.screenSize
 import kotlinx.coroutines.delay
 
