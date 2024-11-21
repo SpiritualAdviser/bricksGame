@@ -42,10 +42,10 @@ import kotlinx.coroutines.launch
 @Composable
 fun PortraitLayout() {
     Image(
-        painter = painterResource(id = R.drawable.bglevel),
+        painter = painterResource(id = R.drawable.bg_level),
         contentDescription = "levelBg",
         modifier = Modifier.fillMaxHeight(),
-        contentScale = ContentScale.Crop
+     contentScale = ContentScale.Crop
     )
 
     Column(
