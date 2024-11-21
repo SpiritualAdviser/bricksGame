@@ -1,12 +1,14 @@
 package com.example.bricksGame.components.levelGame.data
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.bricksGame.R
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
 import com.example.bricksGame.ui.theme.Green900
 
@@ -14,10 +16,10 @@ data class FieldBrick(
     val name: String = "FieldBricks",
     val position: Pair<Int, Int>,
     var id: String = "Color.Transparent",
-    val border: Dp = 0.dp,
-    var borderColor: MutableState<Color> = mutableStateOf(Green900),
+    val border: Dp = 1.dp,
+    var borderColor: MutableState<Color> = mutableStateOf(Color.Black),
     var color: MutableState<Color> = mutableStateOf(Color.Transparent),
-
+    var assetImageEmpty: MutableState<Int> = mutableIntStateOf(R.drawable.bgfielbrickempty),
     var hasOwnerId: Int? = null,
 
     var globalX: Float = 0f,

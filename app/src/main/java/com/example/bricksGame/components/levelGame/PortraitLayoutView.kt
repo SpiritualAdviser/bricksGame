@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +26,7 @@ import androidx.compose.runtime.key
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -112,7 +114,12 @@ private fun GridFieldBox() {
                 Box(
                     Modifier
                         .size(it.width, it.height)
-                        .background(it.color.value)
+                        .paint(
+                            painterResource(it.assetImageEmpty.value),
+                            sizeToIntrinsics = true,
+                            contentScale = ContentScale.FillBounds
+                        )
+                        .clip(RoundedCornerShape(10.dp))
                         .border(it.border, it.borderColor.value)
                         .onGloballyPositioned { coordinates ->
                             it.setGloballyPosition(coordinates)
