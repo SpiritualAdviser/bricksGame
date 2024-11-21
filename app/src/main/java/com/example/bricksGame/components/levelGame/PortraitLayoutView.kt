@@ -1,6 +1,5 @@
 package com.example.bricksGame.components.levelGame
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -27,12 +26,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.example.bricksGame.R
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.ui.helper.ButtonController
@@ -41,12 +37,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun PortraitLayout() {
-    Image(
-        painter = painterResource(id = R.drawable.bglevel),
-        contentDescription = "levelBg",
-        modifier = Modifier.fillMaxHeight(),
-        contentScale = ContentScale.Crop
-    )
 
     Column(
         Modifier
@@ -75,6 +65,7 @@ private fun RestartGame() {
 private fun FieldBox() {
     Column(
         Modifier
+            .background(Color.Gray)
             .size(
                 FieldViewModel.width,
                 FieldViewModel.height
