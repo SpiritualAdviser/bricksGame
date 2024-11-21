@@ -14,11 +14,15 @@ object BricksViewModel : ViewModel() {
         1 to R.drawable.blue_brick,
         2 to R.drawable.green_brick,
         3 to R.drawable.purple_brick,
-        4 to R.drawable.yellow_brick,
-        5 to R.drawable.bronze_brick,
-        6 to R.drawable.dark_brick,
-        7 to R.drawable.gold_brick,
-        )
+        4 to R.drawable.orange_brick,
+        5 to R.drawable.pink_brick,
+        6 to R.drawable.dark_blue_brick,
+        7 to R.drawable.yellow_brick,
+
+//        5 to R.drawable.bronze_brick,
+//        6 to R.drawable.dark_brick,
+//        7 to R.drawable.gold_brick,
+    )
 
     private val width = FieldViewModel.fieldBrickWidth
     private val height = FieldViewModel.fieldBrickHeight
