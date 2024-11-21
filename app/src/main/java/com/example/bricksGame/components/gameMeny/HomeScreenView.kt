@@ -14,7 +14,7 @@ import com.example.bricksGame.ui.helper.ButtonController
 @Composable
 fun RunHomeScreen() {
     Image(
-        painter = painterResource(id = R.drawable.bg_level_bech),
+        painter = painterResource(id = R.drawable.bg_level_dor),
         contentDescription = "levelBg",
         modifier = Modifier.fillMaxHeight(),
         contentScale = ContentScale.Crop
