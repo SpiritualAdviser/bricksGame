@@ -14,7 +14,7 @@ data class FieldBrick(
     val id: String = "00",
     val border: Dp = 0.dp,
     var borderColor: MutableState<Color> = mutableStateOf(Color.Black),
-    val color: Color = Color.Transparent,
+    var color: MutableState<Color> = mutableStateOf(Color.Transparent),
 
     var hasOwnerId: Int? = null,
 
@@ -42,6 +42,11 @@ data class FieldBrick(
 
     private fun changeBorder(color: Color) {
         this.borderColor.value = color
+    }
+
+    fun setColorOnStickBrick(color: Color) {
+        this.color.value = color
+        this.setBorderBlack()
     }
 
     fun setBorderRed() {

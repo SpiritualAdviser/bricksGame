@@ -46,7 +46,7 @@ object BricksViewModel : ViewModel() {
     }
 
     fun removeBrick(brick: Brick) {
-        brick.collisionTarget?.freeSpace()
+        FieldViewModel.setBricksOnField(brick)
         brick.freeSpace()
         _bricksList.remove(brick)
         this.checkIfNeedNewBricksList()

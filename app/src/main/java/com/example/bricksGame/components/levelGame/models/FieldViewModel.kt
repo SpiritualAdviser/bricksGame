@@ -2,6 +2,7 @@ package com.example.bricksGame.components.levelGame.models
 
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
+import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.components.levelGame.data.FieldBrick
 import com.example.bricksGame.screenSize
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
@@ -69,5 +70,10 @@ object FieldViewModel : ViewModel() {
 
     private fun runCollision() {
         CollisionBricksOnLevel.runCollision(true)
+    }
+
+    fun setBricksOnField(brick: Brick) {
+        brick.collisionTarget?.setColorOnStickBrick(brick.color)
+
     }
 }

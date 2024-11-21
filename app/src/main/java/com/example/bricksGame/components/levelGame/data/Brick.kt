@@ -44,7 +44,7 @@ data class Brick(
         if (collisionTarget != null) {
             val offsetAmount = getOffsetAmount(collisionTarget!!)
             dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
-//            BricksViewModel.removeBrick(this)
+           BricksViewModel.removeBrick(this)
 
         } else {
             this.x.intValue = 0
