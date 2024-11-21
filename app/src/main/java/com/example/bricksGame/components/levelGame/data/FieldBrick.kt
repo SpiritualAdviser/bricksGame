@@ -10,7 +10,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
-import com.example.bricksGame.ui.theme.Green900
 
 data class FieldBrick(
     val name: String = "FieldBricks",
@@ -18,8 +17,7 @@ data class FieldBrick(
     var id: String = "Color.Transparent",
     val border: Dp = 1.dp,
     var borderColor: MutableState<Color> = mutableStateOf(Color.Black),
-    var color: MutableState<Color> = mutableStateOf(Color.Transparent),
-    var assetImageEmpty: MutableState<Int> = mutableIntStateOf(R.drawable.bgfielbrickempty),
+    var assetImage: MutableState<Int> = mutableIntStateOf(R.drawable.bgfielbrickempty),
     var hasOwnerId: Int? = null,
 
     var globalX: Float = 0f,
@@ -48,8 +46,8 @@ data class FieldBrick(
         this.borderColor.value = color
     }
 
-    fun setColorOnStickBrick(color: Color) {
-        this.color.value = color
+    fun setImageOnStickBrick(image: Int) {
+        this.assetImage.value = image
         this.setBorderBlack()
     }
 
@@ -58,15 +56,15 @@ data class FieldBrick(
     }
 
     fun setBorderBlack() {
-        changeBorder(Green900)
+        changeBorder(Color.Black)
     }
 
     fun onDragEnd() {
 
         if (ONLY_EMPTY_PLEASES) {
-            changeBorder(Green900)
+            changeBorder(Color.Black)
         } else {
-            changeBorder(Green900)
+            changeBorder(Color.Black)
             this.resetFieldBrick()
         }
     }
@@ -74,7 +72,7 @@ data class FieldBrick(
     fun resetFieldBrick() {
         this.hasOwnerId = null
         this.setBorderBlack()
-        this.color.value = Color.Transparent
+        this.assetImage.value = R.drawable.bgfielbrickempty
         this.id = EMPTY_ID
     }
 }

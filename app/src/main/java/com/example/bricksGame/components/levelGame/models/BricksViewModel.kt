@@ -2,12 +2,24 @@ package com.example.bricksGame.components.levelGame.models
 
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
+import com.example.bricksGame.R
 import com.example.bricksGame.components.levelGame.data.Brick
-import com.example.bricksGame.ui.theme.colorsBricks
 
 object BricksViewModel : ViewModel() {
+
+    private val imagesBricks: Map<Int, Int> = mapOf(
+
+        0 to R.drawable.red_brick,
+        1 to R.drawable.blue_brick,
+        2 to R.drawable.green_brick,
+        3 to R.drawable.purple_brick,
+        4 to R.drawable.yellow_brick,
+        5 to R.drawable.bronze_brick,
+//        6 to R.drawable.dark_brick,
+//        7 to R.drawable.gold_brick,
+
+    )
 
     private val widthPadding =
         FieldViewModel.padding / FieldViewModel.ROWS + FieldViewModel.border * 2
@@ -40,9 +52,8 @@ object BricksViewModel : ViewModel() {
         return bricksList
     }
 
-    private fun getRandomColor(): Color {
-        val currentColor: Color = colorsBricks.values.random()
-        return currentColor
+    private fun getRandomImage(): Int {
+        return imagesBricks.values.random()
     }
 
     fun removeBrick(brick: Brick) {
@@ -68,10 +79,9 @@ object BricksViewModel : ViewModel() {
             height = height,
             id = ++brickId,
             position = brickId.toString(),
-            color = getRandomColor()
+            assetImage = getRandomImage()
         )
     }
-
 }
 
 

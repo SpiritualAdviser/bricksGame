@@ -1,10 +1,13 @@
 package com.example.bricksGame.components.levelGame.data
 
 import androidx.compose.runtime.MutableIntState
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.screenSize
 import kotlinx.coroutines.delay
@@ -12,12 +15,15 @@ import kotlinx.coroutines.delay
 data class Brick(
     var id: Int,
     var position: String,
-    var color: Color,
+    var assetImage: Int,
 
     var globalX: Float = 0f,
     var globalY: Float = 0f,
     var globalWidth: Int = 0,
     var globalHeight: Int = 0,
+
+    val border: Dp = 1.dp,
+    var borderColor: Color = Color.Black,
 
     var x: MutableIntState,
     var y: MutableIntState,
@@ -25,7 +31,8 @@ data class Brick(
     var width: Dp,
     var height: Dp,
     var collisionTarget: FieldBrick? = null,
-) {
+
+    ) {
 
     fun dragging(xDragAmount: Float, yDragAmount: Float) {
         this.x.intValue += xDragAmount.toInt()

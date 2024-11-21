@@ -1,7 +1,6 @@
 package com.example.bricksGame.components.levelGame
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -28,7 +27,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -115,7 +113,7 @@ private fun GridFieldBox() {
                     Modifier
                         .size(it.width, it.height)
                         .paint(
-                            painterResource(it.assetImageEmpty.value),
+                            painterResource(it.assetImage.value),
                             sizeToIntrinsics = true,
                             contentScale = ContentScale.FillBounds
                         )
@@ -128,8 +126,6 @@ private fun GridFieldBox() {
             }
         }
     }
-
-
 }
 
 @Composable
@@ -147,7 +143,13 @@ private fun BricksBlock() {
                     Modifier
                         .offset { IntOffset(it.x.intValue, it.y.intValue) }
                         .size(it.width, it.height)
-                        .background(it.color)
+                        .paint(
+                            painterResource(it.assetImage),
+                            sizeToIntrinsics = true,
+                            contentScale = ContentScale.FillBounds
+                        )
+                        .clip(RoundedCornerShape(10.dp))
+                        .border(it.border, it.borderColor)
                         .onGloballyPositioned { coordinates ->
                             it.setGloballyPosition(coordinates)
                         }

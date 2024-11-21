@@ -27,8 +27,8 @@ object FieldViewModel : ViewModel() {
     val heightBg =
         round(this.height.value - (this.height.value / (COLUMNS + COLUMNS_BLOCK_SHAPES)) * COLUMNS_BLOCK_SHAPES).dp
 
-    val fieldBrickWidth = (withBg / ROWS) - bgWPadding / ROWS*2
-    val fieldBrickHeight = (heightBg / COLUMNS) - bgHPadding / COLUMNS*2
+    val fieldBrickWidth = (withBg / ROWS) - bgWPadding / ROWS * 2
+    val fieldBrickHeight = (heightBg / COLUMNS) - bgHPadding / COLUMNS * 2
 
 
     const val EMPTY_ID = "Color.Transparent"
@@ -83,8 +83,9 @@ object FieldViewModel : ViewModel() {
 
     fun setBricksOnField(brick: Brick) {
         val currentFieldBrick = brick.collisionTarget
-        currentFieldBrick?.setColorOnStickBrick(brick.color)
-        currentFieldBrick?.id = brick.color.toString()
+
+        currentFieldBrick?.setImageOnStickBrick(brick.assetImage)
+        currentFieldBrick?.id = brick.assetImage.toString()
     }
 
     fun checkFieldOnFinishRound() {
