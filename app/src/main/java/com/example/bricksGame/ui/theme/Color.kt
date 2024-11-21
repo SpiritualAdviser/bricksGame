@@ -26,5 +26,5 @@ val colorsBricks = mapOf(
     3 to Green900,
     4 to Yellow900,
     5 to Purple900,
-    6 to DarkGray
+//    6 to DarkGray
 )

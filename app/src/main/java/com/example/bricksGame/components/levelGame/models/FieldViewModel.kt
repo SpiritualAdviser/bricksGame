@@ -79,31 +79,49 @@ object FieldViewModel : ViewModel() {
 
     fun checkFieldOnFinishRound() {
         var column: List<FieldBrick>
-        brickOnField.forEachIndexed { index, _ ->
+        var row: List<FieldBrick>
+        var columnWin: List<FieldBrick> = listOf()
+        var rowWin: List<FieldBrick> = listOf()
+        brickOnField.forEachIndexed { index, fieldBrick ->
+
+            if (index < ROWS) {
+                row = brickOnField.filter { index == it.position.second }
+
+                if (row.isNotEmpty() && this.checkWin(row)) {
+                    rowWin = row
+                }
+            }
 
             if (index % ROWS == 0) {
                 column = brickOnField.subList(index, index + ROWS)
 
                 if (column.isNotEmpty() && this.checkWin(column)) {
-                    this.resetColumnOnWin(column)
+                    columnWin = column
                 }
             }
-
+        }
+        if (rowWin.isNotEmpty()) {
+            resetLineOnWin(rowWin)
+        }
+        if (columnWin.isNotEmpty()) {
+            resetLineOnWin(columnWin)
         }
     }
 
-    private fun checkWin(column: List<FieldBrick>): Boolean {
-        val currentId = column[0].id
-        val isWin = column.all { currentId == it.id && currentId != EMPTY_ID }
+    private fun checkWin(checkedList: List<FieldBrick>): Boolean {
+        val currentId = checkedList[0].id
+        val isWin = checkedList.all { currentId == it.id && currentId != EMPTY_ID }
         return isWin
     }
 
-    private fun resetColumnOnWin(column: List<FieldBrick>) {
-        val wonColumn = column[0].position.first
+    private fun resetLineOnWin(lineList: List<FieldBrick>) {
 
-        brickOnField.forEach {
-            if (wonColumn == it.position.first) {
-                it.resetFieldBrick()
+        lineList.forEach { wonItem ->
+            brickOnField.forEach {
+
+                if (wonItem.position.toString() == it.position.toString()) {
+                    it.resetFieldBrick()
+                }
             }
         }
     }

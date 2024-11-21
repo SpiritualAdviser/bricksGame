@@ -45,17 +45,17 @@ fun PortraitLayout() {
         verticalArrangement = Arrangement.SpaceEvenly,
 
         ) {
-        ButtonHome()
+        RestartGame()
         FieldBox()
     }
 }
 
 @Composable
-private fun ButtonHome() {
+private fun RestartGame() {
     Button(onClick = {
         ButtonController.navigateHome()
     }) {
-        Text("Home")
+        Text("restart the game")
     }
 }
 
