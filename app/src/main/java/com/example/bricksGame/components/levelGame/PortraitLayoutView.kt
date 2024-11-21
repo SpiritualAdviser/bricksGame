@@ -1,9 +1,11 @@
 package com.example.bricksGame.components.levelGame
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,10 +25,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -42,12 +45,27 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun PortraitLayout() {
-    Image(
-        painter = painterResource(id = R.drawable.bg_level),
-        contentDescription = "levelBg",
-        modifier = Modifier.fillMaxHeight(),
-        contentScale = ContentScale.Crop
-    )
+    Box(
+        Modifier.fillMaxSize(),
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.bg_level_cave),
+            contentDescription = "levelBg",
+            modifier = Modifier.fillMaxHeight(),
+            contentScale = ContentScale.Crop
+        )
+
+        Image(
+            painter = painterResource(id = R.drawable.wide_rock),
+            contentDescription = "levelBg",
+            modifier = Modifier.align(Alignment.BottomStart)
+        )
+        Image(
+            painter = painterResource(id = R.drawable.tin_rock),
+            contentDescription = "levelBg",
+            modifier = Modifier.align(Alignment.BottomEnd)
+        )
+    }
 
     Column(
         Modifier
@@ -131,6 +149,7 @@ private fun GridFieldBox() {
 @Composable
 private fun BricksBlock() {
     val coroutine = rememberCoroutineScope()
+
     Row(
         Modifier.fillMaxSize(),
         verticalAlignment = Alignment.CenterVertically,

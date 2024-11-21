@@ -1,8 +1,6 @@
 package com.example.bricksGame.components.levelGame.data
 
 import androidx.compose.runtime.MutableIntState
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
@@ -10,6 +8,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.screenSize
+import com.example.bricksGame.ui.theme.Green900
 import kotlinx.coroutines.delay
 
 data class Brick(
@@ -23,7 +22,7 @@ data class Brick(
     var globalHeight: Int = 0,
 
     val border: Dp = 1.dp,
-    var borderColor: Color = Color.Black,
+    var borderColor: Color = Green900,
 
     var x: MutableIntState,
     var y: MutableIntState,

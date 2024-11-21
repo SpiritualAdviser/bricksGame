@@ -11,7 +11,7 @@ import kotlin.math.round
 object FieldViewModel : ViewModel() {
     const val COLUMNS: Int = 6
     const val ROWS: Int = 5
-    private const val COLUMNS_BLOCK_SHAPES = 3
+    private const val COLUMNS_BLOCK_SHAPES = 2.6
     private const val MAX_FIELD_BRICKS = COLUMNS * ROWS
     val padding = 10.dp
 
@@ -21,7 +21,7 @@ object FieldViewModel : ViewModel() {
     val width = screenSize.screenWidthDp - padding * 2
     private val levelScore = screenSize.screenHeightDp / 100 * 20
     val height = screenSize.screenHeightDp - levelScore + padding * 2
-    val border = 2.dp
+    val border = 1.dp
 
     val withBg = this.width
     val heightBg =
