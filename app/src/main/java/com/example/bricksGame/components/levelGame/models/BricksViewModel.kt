@@ -3,14 +3,12 @@ package com.example.bricksGame.components.levelGame.models
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
-import com.example.bricksGame.R
 import com.example.bricksGame.components.levelGame.data.Brick
+import com.example.bricksGame.ui.GameConfig
 
 object BricksViewModel : ViewModel() {
 
-
     private var brickId = 0
-
     private var _bricksList = createBricksList().toMutableStateList()
 
     val bricks
@@ -24,7 +22,7 @@ object BricksViewModel : ViewModel() {
 
     private fun createBricksList(): MutableList<Brick> {
         val bricksList: MutableList<Brick> = mutableListOf()
-        for (i in 0 until MAX_BRICKS) {
+        for (i in 0 until GameConfig.MAX_BRICKS) {
 
             bricksList.add(createBrick())
         }
@@ -32,7 +30,7 @@ object BricksViewModel : ViewModel() {
     }
 
     private fun getRandomImage(): Int {
-        return imagesBricks.values.random()
+        return GameConfig.imagesBricks.values.random()
     }
 
     fun removeBrick(brick: Brick) {
@@ -44,7 +42,7 @@ object BricksViewModel : ViewModel() {
 
     private fun checkIfNeedNewBricksList() {
         if (_bricksList.size == 0) {
-            for (i in 0 until MAX_BRICKS) {
+            for (i in 0 until GameConfig.MAX_BRICKS) {
                 _bricksList.add(createBrick())
             }
         }
@@ -54,8 +52,6 @@ object BricksViewModel : ViewModel() {
         return Brick(
             x = mutableIntStateOf(0),
             y = mutableIntStateOf(0),
-            width = width,
-            height = height,
             id = ++brickId,
             position = brickId.toString(),
             assetImage = getRandomImage()

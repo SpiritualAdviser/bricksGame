@@ -5,10 +5,16 @@ import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.components.levelGame.data.FieldBrick
 import com.example.bricksGame.screenSize
+import com.example.bricksGame.ui.GameConfig
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
-import kotlin.math.round
 
 object FieldViewModel : ViewModel() {
+
+    private val fieldWith = screenSize.screenWidthDp - GameConfig.PADDING_BG_FIELD.dp * 2
+    private val fieldHeight = screenSize.screenHeightDp - GameConfig.PADDING_BG_FIELD.dp * 2
+
+    val brickSizePortrait = (fieldWith - GameConfig.PADDING_FIELD.dp * 2) / GameConfig.ROWS
+    val brickSizeLandscape = (fieldHeight - GameConfig.PADDING_FIELD.dp * 2) / GameConfig.COLUMNS
 
     const val EMPTY_ID = "Color.Transparent"
     var brickOnField = createBricksList()
@@ -20,14 +26,14 @@ object FieldViewModel : ViewModel() {
     }
 
     private fun createBricksList(): MutableList<FieldBrick> {
-        val allBrickOnField = MAX_FIELD_BRICKS
+        val allBrickOnField = GameConfig.ROWS * GameConfig.COLUMNS
         val bricksList: MutableList<FieldBrick> = mutableListOf()
         var positionColumn = 0
         var positionRow = 0
 
         for (i in 0 until allBrickOnField) {
 
-            if (i != 0 && i % ROWS == 0) {
+            if (i != 0 && i % GameConfig.ROWS == 0) {
                 ++positionColumn
                 positionRow = 0
             }
@@ -45,10 +51,7 @@ object FieldViewModel : ViewModel() {
 
     private fun createBrick(positionColumn: Int, positionRow: Int): FieldBrick {
         return FieldBrick(
-            width = fieldBrickWidth,
-            height = fieldBrickHeight,
             position = Pair(positionColumn, positionRow),
-            border = border
         )
     }
 
@@ -61,7 +64,7 @@ object FieldViewModel : ViewModel() {
     }
 
     fun setBricksOnField(brick: Brick) {
-        val currentFieldBrick = brick.collisionTarget
+        val currentFieldBrick = brick.fieldBrickOnCollision
 
         currentFieldBrick?.setImageOnStickBrick(brick.assetImage)
         currentFieldBrick?.id = brick.assetImage.toString()
@@ -72,9 +75,9 @@ object FieldViewModel : ViewModel() {
         var row: List<FieldBrick>
         var columnWin: List<FieldBrick> = listOf()
         var rowWin: List<FieldBrick> = listOf()
-        brickOnField.forEachIndexed { index, fieldBrick ->
+        brickOnField.forEachIndexed { index, _ ->
 
-            if (index < ROWS) {
+            if (index < GameConfig.ROWS) {
                 row = brickOnField.filter { index == it.position.second }
 
                 if (row.isNotEmpty() && this.checkWin(row)) {
@@ -82,8 +85,8 @@ object FieldViewModel : ViewModel() {
                 }
             }
 
-            if (index % ROWS == 0) {
-                column = brickOnField.subList(index, index + ROWS)
+            if (index % GameConfig.ROWS == 0) {
+                column = brickOnField.subList(index, index + GameConfig.ROWS)
 
                 if (column.isNotEmpty() && this.checkWin(column)) {
                     columnWin = column

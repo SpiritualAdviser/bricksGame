@@ -10,14 +10,14 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
-import com.example.bricksGame.ui.theme.Green900
+import com.example.bricksGame.ui.GameConfig
 
 data class FieldBrick(
     val name: String = "FieldBricks",
     val position: Pair<Int, Int>,
     var id: String = "Color.Transparent",
-    val border: Dp = 2.dp,
-    var borderColor: MutableState<Color> = mutableStateOf(Color.Black),
+
+    var borderColor: MutableState<Color> = mutableStateOf(GameConfig.BRICK_BORDER_COLOR),
     var assetImage: MutableState<Int> = mutableIntStateOf(R.drawable.bgfielbrickempty),
     var hasOwnerId: Int? = null,
 
@@ -26,9 +26,6 @@ data class FieldBrick(
 
     var globalWidth: Int = 0,
     var globalHeight: Int = 0,
-
-    var width: Dp = 0.dp,
-    var height: Dp = 0.dp,
 
     /**
      * They were placed in an occupied room ONLY_EMPTY_PLEASES=true
@@ -53,19 +50,19 @@ data class FieldBrick(
     }
 
     fun setBorderRed() {
-        changeBorder(Color.Red)
+        changeBorder(GameConfig.BRICK_BORDER_HOVER_COLOR)
     }
 
     fun setBorderBlack() {
-        changeBorder(Color.Black)
+        changeBorder(GameConfig.BRICK_BORDER_COLOR)
     }
 
     fun onDragEnd() {
 
         if (ONLY_EMPTY_PLEASES) {
-            changeBorder(Color.Black)
+            changeBorder(GameConfig.BRICK_BORDER_COLOR)
         } else {
-            changeBorder(Color.Black)
+            changeBorder(GameConfig.BRICK_BORDER_COLOR)
             this.resetFieldBrick()
         }
     }

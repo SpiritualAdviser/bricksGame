@@ -63,7 +63,7 @@ object CollisionBricksOnLevel {
         if (fieldBrick.hasOwnerId != null && fieldBrick.hasOwnerId == brick.id) {
             println(fieldBrick.position.toString())
 
-            if (fieldBrick.position.toString() == brick.collisionTarget?.position.toString()) {
+            if (fieldBrick.position.toString() == brick.fieldBrickOnCollision?.position.toString()) {
                 brick.freeSpace()
             }
             fieldBrick.hasOwnerId = null

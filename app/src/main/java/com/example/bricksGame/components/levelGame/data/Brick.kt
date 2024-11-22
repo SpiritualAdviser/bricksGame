@@ -4,11 +4,9 @@ import androidx.compose.runtime.MutableIntState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.screenSize
-import com.example.bricksGame.ui.theme.Green900
+import com.example.bricksGame.ui.GameConfig
 import kotlinx.coroutines.delay
 
 data class Brick(
@@ -21,17 +19,13 @@ data class Brick(
     var globalWidth: Int = 0,
     var globalHeight: Int = 0,
 
-    val border: Dp = 2.dp,
-    var borderColor: Color = Color.Black,
+    var borderColor: Color = GameConfig.BRICK_BORDER_COLOR,
 
     var x: MutableIntState,
     var y: MutableIntState,
 
-    var width: Dp,
-    var height: Dp,
-    var collisionTarget: FieldBrick? = null,
-
-    ) {
+    var fieldBrickOnCollision: FieldBrick? = null,
+) {
 
     fun dragging(xDragAmount: Float, yDragAmount: Float) {
         this.x.intValue += xDragAmount.toInt()
@@ -47,8 +41,8 @@ data class Brick(
 
     suspend fun stickPosition() {
         delay(25)
-        if (collisionTarget != null) {
-            val offsetAmount = getOffsetAmount(collisionTarget!!)
+        if (fieldBrickOnCollision != null) {
+            val offsetAmount = getOffsetAmount(fieldBrickOnCollision!!)
             dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
             BricksViewModel.removeBrick(this)
 
@@ -56,14 +50,14 @@ data class Brick(
             this.x.intValue = 0
             this.y.intValue = 0
         }
-        collisionTarget?.onDragEnd()
+        fieldBrickOnCollision?.onDragEnd()
     }
 
-    private fun getOffsetAmount(collisionTarget: FieldBrick): Map<String, Float> {
-        val padding: Float = collisionTarget.border.value * screenSize.density
+    private fun getOffsetAmount(fieldBrickOnCollision: FieldBrick): Map<String, Float> {
+        val padding: Float = GameConfig.BRICK_BORDER_SIZE * screenSize.density
 
-        val globalX = collisionTarget.globalX + padding
-        val globalY = collisionTarget.globalY + padding
+        val globalX = fieldBrickOnCollision.globalX + padding
+        val globalY = fieldBrickOnCollision.globalY + padding
 
         val xOffset = globalX - this.globalX
         val yOffset = globalY - this.globalY
@@ -76,11 +70,11 @@ data class Brick(
     }
 
     fun keepSpace(fieldBrick: FieldBrick) {
-        collisionTarget = fieldBrick
+        fieldBrickOnCollision = fieldBrick
     }
 
     fun freeSpace() {
-        collisionTarget = null
+        fieldBrickOnCollision = null
     }
 }
 

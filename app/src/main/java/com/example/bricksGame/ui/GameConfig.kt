@@ -1,31 +1,42 @@
 package com.example.bricksGame.ui
 
+import androidx.compose.ui.graphics.Color
 import com.example.bricksGame.R
 
 object GameConfig {
-
     /**
      * options for game designer Field Game
      * Is set COLUMNS and ROWS on game
      */
-    private const val COLUMNS: Int = 7
-    private const val ROWS: Int = 6
+    const val COLUMNS: Int = 7
+    const val ROWS: Int = 6
 
     /**
      * options MAX_BRICKS is count dragging bricks for game on button block
      */
-    private const val MAX_BRICKS = 3
+    const val MAX_BRICKS = 3
 
     /**
      * options for padding FieldGame in Dp
      */
-    private const val PADDING = 10
+    const val PADDING_BG_FIELD = 10
+    const val PADDING_FIELD = 25
+
+    /**
+     * options BRICK_BORDER_SIZE for brick border size in Dp
+     *  options BRICK_BORDER_COLOR ond BRICK_BORDER_HOVER_COLOR for brick border color
+     *  options BRICK_ROUNDED_CORNER for brick corner size
+     */
+    const val BRICK_BORDER_SIZE = 2
+    val BRICK_BORDER_COLOR = Color.Black
+    val BRICK_BORDER_HOVER_COLOR = Color.Red
+    const val BRICK_ROUNDED_CORNER = 0
 
     /**
      * options for image assets brick on game
      * Warning!! COLUMNS == imagesBricks size +1 brick
      */
-    private val imagesBricks: Map<Int, Int> = mapOf(
+    val imagesBricks: Map<Int, Int> = mapOf(
 
         0 to R.drawable.red_brick,
         1 to R.drawable.blue_brick,
