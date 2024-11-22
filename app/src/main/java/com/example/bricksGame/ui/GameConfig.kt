@@ -2,6 +2,7 @@ package com.example.bricksGame.ui
 
 import androidx.compose.ui.graphics.Color
 import com.example.bricksGame.R
+import com.example.bricksGame.ui.theme.DarkGray
 
 object GameConfig {
     /**
@@ -27,10 +28,13 @@ object GameConfig {
      *  options BRICK_BORDER_COLOR ond BRICK_BORDER_HOVER_COLOR for brick border color
      *  options BRICK_ROUNDED_CORNER for brick corner size
      */
-    const val BRICK_BORDER_SIZE = 2
+
+    val BRICK_BG_COLOR = Color.Transparent
+    val BRICK_BG_FIELD_COLOR = Color(0xFF212020)
+    const val BRICK_BORDER_SIZE = 1
     val BRICK_BORDER_COLOR = Color.Black
     val BRICK_BORDER_HOVER_COLOR = Color.Red
-    const val BRICK_ROUNDED_CORNER = 0
+    const val BRICK_ROUNDED_CORNER = 3
 
     /**
      * options for image assets brick on game
@@ -43,11 +47,12 @@ object GameConfig {
         2 to R.drawable.green_brick,
         3 to R.drawable.purple_brick,
         4 to R.drawable.orange_brick,
-        5 to R.drawable.pink_brick,
-        6 to R.drawable.dark_blue_brick,
-        7 to R.drawable.yellow_brick,
-//        5 to R.drawable.bronze_brick,
-//        6 to R.drawable.dark_brick,
-//        7 to R.drawable.gold_brick,
+        5 to R.drawable.gold_brick,
+        6 to R.drawable.dark_brick,
+//        6 to R.drawable.dark_blue_brick,
+     7 to R.drawable.pink_brick,
+//       7 to R.drawable.bronze_brick,
+
     )
+
 }

@@ -1,6 +1,7 @@
 package com.example.bricksGame.components.levelGame
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +28,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -126,6 +128,7 @@ private fun GridFieldBox() {
                 Box(
                     Modifier
                         .size(FieldViewModel.brickSizePortrait)
+                        .background(GameConfig.BRICK_BG_FIELD_COLOR)
                         .paint(
                             painterResource(it.assetImage.value),
                             sizeToIntrinsics = true,
@@ -156,13 +159,14 @@ private fun BricksBlock() {
                     Modifier
                         .offset { IntOffset(it.x.intValue, it.y.intValue) }
                         .size(FieldViewModel.brickSizePortrait)
+                        .background(GameConfig.BRICK_BG_COLOR)
                         .paint(
                             painterResource(it.assetImage),
                             sizeToIntrinsics = true,
                             contentScale = ContentScale.FillBounds
                         )
                         .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
-                        .border(GameConfig.BRICK_BORDER_SIZE.dp, GameConfig.BRICK_BORDER_COLOR)
+//                        .border(GameConfig.BRICK_BORDER_SIZE.dp, GameConfig.BRICK_BORDER_COLOR)
                         .onGloballyPositioned { coordinates ->
                             it.setGloballyPosition(coordinates)
                         }
