@@ -22,7 +22,7 @@ object BricksViewModel : ViewModel() {
 
     private fun createBricksList(): MutableList<Brick> {
         val bricksList: MutableList<Brick> = mutableListOf()
-        for (i in 0 until GameConfig.MAX_BRICKS) {
+        for (i in 0 until GameConfig.MAX_BRICKS_ON_LEVEL) {
 
             bricksList.add(createBrick())
         }
@@ -41,8 +41,8 @@ object BricksViewModel : ViewModel() {
     }
 
     private fun checkIfNeedNewBricksList() {
-        if (_bricksList.size == 0) {
-            for (i in 0 until GameConfig.MAX_BRICKS) {
+        if (_bricksList.size <= GameConfig.MIN_BRICKS_TO_ADD_NEXT) {
+            for (i in _bricksList.size until GameConfig.MAX_BRICKS_ON_LEVEL) {
                 _bricksList.add(createBrick())
             }
         }

@@ -49,7 +49,7 @@ fun PortraitLayout() {
         Modifier.fillMaxSize(),
     ) {
         Image(
-            painter = painterResource(id = R.drawable.bg_level_cave),
+            painter = painterResource(id = R.drawable.bg_level),
             contentDescription = "levelBg",
             modifier = Modifier.fillMaxHeight(),
             contentScale = ContentScale.Crop
@@ -114,6 +114,8 @@ private fun GridFieldBox() {
                 sizeToIntrinsics = true,
                 contentScale = ContentScale.FillBounds
             )
+
+
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(GameConfig.ROWS),
@@ -127,15 +129,19 @@ private fun GridFieldBox() {
 
                 Box(
                     Modifier
+                        .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
+                        .border(
+                            GameConfig.BRICK_BORDER_SIZE.dp, it.borderColor.value,
+                            RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp)
+                        )
                         .size(FieldViewModel.brickSizePortrait)
                         .background(GameConfig.BRICK_BG_FIELD_COLOR)
+                        .padding(2.dp)
                         .paint(
                             painterResource(it.assetImage.value),
                             sizeToIntrinsics = true,
                             contentScale = ContentScale.FillBounds
                         )
-                        .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
-                        .border(GameConfig.BRICK_BORDER_SIZE.dp, it.borderColor.value)
                         .onGloballyPositioned { coordinates ->
                             it.setGloballyPosition(coordinates)
                         }

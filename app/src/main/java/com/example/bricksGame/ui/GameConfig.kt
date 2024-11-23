@@ -15,13 +15,14 @@ object GameConfig {
     /**
      * options MAX_BRICKS is count dragging bricks for game on button block
      */
-    const val MAX_BRICKS = 3
+    const val MAX_BRICKS_ON_LEVEL = 3
+    const val MIN_BRICKS_TO_ADD_NEXT = 2
 
     /**
      * options for padding FieldGame in Dp
      */
     const val PADDING_BG_FIELD = 10
-    const val PADDING_FIELD = 25
+    const val PADDING_FIELD = 30
 
     /**
      * options BRICK_BORDER_SIZE for brick border size in Dp
@@ -30,11 +31,11 @@ object GameConfig {
      */
 
     val BRICK_BG_COLOR = Color.Transparent
-    val BRICK_BG_FIELD_COLOR = Color(0xFF212020)
+    val BRICK_BG_FIELD_COLOR = Color(0xC83E3A39)
     const val BRICK_BORDER_SIZE = 1
     val BRICK_BORDER_COLOR = Color.Black
     val BRICK_BORDER_HOVER_COLOR = Color.Red
-    const val BRICK_ROUNDED_CORNER = 3
+    const val BRICK_ROUNDED_CORNER = 5
 
     /**
      * options for image assets brick on game
@@ -49,10 +50,9 @@ object GameConfig {
         4 to R.drawable.orange_brick,
         5 to R.drawable.gold_brick,
         6 to R.drawable.dark_brick,
-//        6 to R.drawable.dark_blue_brick,
-     7 to R.drawable.pink_brick,
-//       7 to R.drawable.bronze_brick,
-
+        7 to R.drawable.dark_blue_brick,
+        8 to R.drawable.pink_brick,
+//        9 to R.drawable.bronze_brick,
     )
 
 }
