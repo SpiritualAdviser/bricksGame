@@ -127,7 +127,10 @@ private fun GridFieldBox() {
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .padding(GameConfig.PADDING_FIELD.dp)
-                .size(FieldViewModel.brickSizeLandscape * GameConfig.COLUMNS)
+                .size(
+                    FieldViewModel.brickSizeLandscape * GameConfig.ROWS,
+                    FieldViewModel.brickSizeLandscape * GameConfig.COLUMNS
+                )
 
         ) {
 
