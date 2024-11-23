@@ -20,8 +20,8 @@ object GameConfig {
     /**
      * options for padding FieldGame in Dp
      */
-    const val PADDING_BG_FIELD = 10
-    const val PADDING_FIELD = 30
+    const val PADDING_BG_FIELD = 15
+    const val PADDING_FIELD = 25
 
     /**
      * options BRICK_BORDER_SIZE for brick border size in Dp

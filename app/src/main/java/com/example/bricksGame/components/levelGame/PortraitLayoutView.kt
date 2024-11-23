@@ -21,6 +21,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
@@ -80,13 +81,22 @@ fun PortraitLayout() {
 
 @Composable
 private fun RestartGame() {
-    Box() {
-        Button(
-            onClick = {
-                ButtonController.navigateHome()
-            }) {
-            Text("restart the game")
-        }
+    Box(
+        Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.TopEnd
+    ) {
+        IconButton(
+            onClick = { ButtonController.navigateHome() },
+
+            modifier = Modifier
+                .padding(GameConfig.PADDING_BG_FIELD.dp, 30.dp)
+                .size(50.dp)
+                .paint(
+                    painter = painterResource(R.drawable.close),
+                    contentScale = ContentScale.FillWidth
+                )
+        )
+        {}
     }
 }
 
