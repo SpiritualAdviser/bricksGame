@@ -10,11 +10,14 @@ import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 
 object FieldViewModel : ViewModel() {
 
-    private val fieldWith = screenSize.screenWidthDp - GameConfig.PADDING_BG_FIELD.dp * 2
-    private val fieldHeight = screenSize.screenHeightDp - GameConfig.PADDING_BG_FIELD.dp * 2
+    private val fieldSize = if (screenSize.screenWidthDp > screenSize.screenHeightDp) {
+        screenSize.screenHeightDp - GameConfig.PADDING_BG_FIELD.dp * 2
+    } else {
+        screenSize.screenWidthDp - GameConfig.PADDING_BG_FIELD.dp * 2
+    }
 
-    val brickSizePortrait = (fieldWith - GameConfig.PADDING_FIELD.dp * 2) / GameConfig.ROWS
-    val brickSizeLandscape = (fieldHeight - GameConfig.PADDING_FIELD.dp * 2) / GameConfig.COLUMNS
+    val brickSizePortrait = (fieldSize - GameConfig.PADDING_FIELD.dp * 2) / GameConfig.ROWS
+    val brickSizeLandscape = (fieldSize - GameConfig.PADDING_FIELD.dp * 2) / GameConfig.COLUMNS
 
     const val EMPTY_ID = "Color.Transparent"
     var brickOnField = createBricksList()

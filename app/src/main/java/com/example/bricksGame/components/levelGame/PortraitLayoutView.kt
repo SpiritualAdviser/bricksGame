@@ -47,7 +47,7 @@ fun PortraitLayout() {
         Modifier.fillMaxSize(),
     ) {
         Image(
-            painter = painterResource(id = R.drawable.bg_main_portrait),
+            painter = painterResource(id = R.drawable.bg_level_portrait),
             contentDescription = "levelBg",
             modifier = Modifier.fillMaxHeight(),
             contentScale = ContentScale.Crop

@@ -122,11 +122,12 @@ private fun GridFieldBox() {
                 contentScale = ContentScale.FillBounds
             )
     ) {
-        LazyHorizontalGrid(
-            rows = GridCells.Fixed(GameConfig.COLUMNS),
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(GameConfig.ROWS),
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .padding(GameConfig.PADDING_FIELD.dp)
+                .size(FieldViewModel.brickSizeLandscape * GameConfig.COLUMNS)
 
         ) {
 
