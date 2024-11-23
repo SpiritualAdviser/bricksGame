@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,14 +43,14 @@ import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 import kotlinx.coroutines.launch
 
 @Composable
-fun PortraitLayout() {
+fun LandscapeLayout() {
     Box(
         Modifier.fillMaxSize(),
     ) {
         Image(
-            painter = painterResource(id = R.drawable.bg_main_portrait),
+            painter = painterResource(id = R.drawable.bg_level_landscape),
             contentDescription = "levelBg",
-            modifier = Modifier.fillMaxHeight(),
+            modifier = Modifier.fillMaxWidth(),
             contentScale = ContentScale.Crop
         )
 
@@ -65,11 +66,10 @@ fun PortraitLayout() {
         )
     }
 
-    Column(
+    Row(
         Modifier
             .fillMaxWidth(1f)
             .fillMaxHeight(1f),
-        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         RestartGame()
         FieldBox()
@@ -79,14 +79,14 @@ fun PortraitLayout() {
 @Composable
 private fun RestartGame() {
     Box(
-        Modifier.fillMaxWidth(),
-        contentAlignment = Alignment.TopEnd
+        Modifier.fillMaxHeight(),
+        contentAlignment = Alignment.TopStart
     ) {
         IconButton(
             onClick = { ButtonController.navigateHome() },
 
             modifier = Modifier
-                .padding(GameConfig.PADDING_BG_FIELD.dp, 30.dp)
+                .padding(GameConfig.PADDING_BG_FIELD.dp)
                 .size(50.dp)
                 .paint(
                     painter = painterResource(R.drawable.close),
@@ -100,11 +100,11 @@ private fun RestartGame() {
 @Composable
 private fun FieldBox() {
 
-    Column(
+    Row(
         Modifier
             .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
     ) {
         GridFieldBox()
         BricksBlock()
@@ -121,11 +121,9 @@ private fun GridFieldBox() {
                 sizeToIntrinsics = true,
                 contentScale = ContentScale.FillBounds
             )
-
-
     ) {
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(GameConfig.ROWS),
+        LazyHorizontalGrid(
+            rows = GridCells.Fixed(GameConfig.COLUMNS),
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .padding(GameConfig.PADDING_FIELD.dp)
@@ -141,7 +139,7 @@ private fun GridFieldBox() {
                             GameConfig.BRICK_BORDER_SIZE.dp, it.borderColor.value,
                             RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp)
                         )
-                        .size(FieldViewModel.brickSizePortrait)
+                        .size(FieldViewModel.brickSizeLandscape)
                         .background(GameConfig.BRICK_BG_FIELD_COLOR)
                         .padding(2.dp)
                         .paint(
@@ -162,16 +160,16 @@ private fun GridFieldBox() {
 private fun BricksBlock() {
     val coroutine = rememberCoroutineScope()
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
 
-        ) {
+    ) {
         (BricksViewModel.bricks.forEach {
             key(it.id) {
                 Box(
                     Modifier
                         .offset { IntOffset(it.x.intValue, it.y.intValue) }
-                        .size(FieldViewModel.brickSizePortrait)
+                        .size(FieldViewModel.brickSizeLandscape)
                         .background(GameConfig.BRICK_BG_COLOR)
                         .paint(
                             painterResource(it.assetImage),
@@ -179,7 +177,6 @@ private fun BricksBlock() {
                             contentScale = ContentScale.FillBounds
                         )
                         .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
-//                        .border(GameConfig.BRICK_BORDER_SIZE.dp, GameConfig.BRICK_BORDER_COLOR)
                         .onGloballyPositioned { coordinates ->
                             it.setGloballyPosition(coordinates)
                         }
