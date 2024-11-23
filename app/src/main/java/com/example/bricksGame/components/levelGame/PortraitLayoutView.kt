@@ -67,8 +67,7 @@ fun PortraitLayout() {
 
     Column(
         Modifier
-            .fillMaxWidth(1f)
-            .fillMaxHeight(1f),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         RestartGame()

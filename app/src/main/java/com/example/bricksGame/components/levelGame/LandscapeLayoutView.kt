@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -68,8 +67,7 @@ fun LandscapeLayout() {
 
     Row(
         Modifier
-            .fillMaxWidth(1f)
-            .fillMaxHeight(1f),
+            .fillMaxSize()
     ) {
         RestartGame()
         FieldBox()
@@ -131,7 +129,6 @@ private fun GridFieldBox() {
                     FieldViewModel.brickSizeLandscape * GameConfig.ROWS,
                     FieldViewModel.brickSizeLandscape * GameConfig.COLUMNS
                 )
-
         ) {
 
             items(FieldViewModel.brickOnField) {
