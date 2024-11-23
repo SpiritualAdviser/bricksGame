@@ -2,14 +2,19 @@ package com.example.bricksGame.components.gameMeny
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
 import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
 import com.example.bricksGame.components.levelGame.PortraitLayout
@@ -41,11 +46,16 @@ fun RunHomeScreen() {
         Arrangement.Center,
         Alignment.CenterHorizontally
     ) {
-        Button(onClick = {
-            ButtonController.navigateLevelGame()
-        }) {
-            Text("Start")
-        }
+        IconButton(
+            onClick = { ButtonController.navigateLevelGame() },
+            modifier = Modifier
+                .size(150.dp, 100.dp)
+                .paint(
+                    painter = painterResource(R.drawable.button_start),
+                    contentScale = ContentScale.FillWidth
+                )
+
+        ) {}
     }
 }
 
