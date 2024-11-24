@@ -14,7 +14,7 @@ import com.example.bricksGame.ui.helper.SoundController
 val screenSize = ScreenSize()
 
 @SuppressLint("StaticFieldLeak")
-val soundController = SoundController()
+val soundController = SoundController.getInstance()
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +23,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             screenSize.GetScreenSize()
             val context = LocalContext.current
-            soundController.setContext(context)
+            if (!soundController.isRun) {
+                soundController.setContext(context)
+                soundController.playMainTheme()
+            }
             AppNavigation.getInstance().CreateNavHost()
         }
     }

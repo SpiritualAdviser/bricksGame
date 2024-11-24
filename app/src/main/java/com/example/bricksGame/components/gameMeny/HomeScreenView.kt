@@ -25,7 +25,6 @@ import com.example.bricksGame.ui.helper.ButtonController
 
 @Composable
 fun RunHomeScreen() {
-    soundController.playMainTheme()
     val orientation = LocalConfiguration.current.orientation
     if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
         Image(

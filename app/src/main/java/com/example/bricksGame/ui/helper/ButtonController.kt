@@ -8,6 +8,7 @@ object ButtonController {
 
     fun navigateHome() {
         soundController.clickUi()
+        soundController.playMainTheme()
         AppNavigation.getInstance().getNavController().navigate(Routes.HomeScreen.route) {
             popUpTo(Routes.HomeScreen.route)
             launchSingleTop = true
@@ -16,6 +17,7 @@ object ButtonController {
 
     fun navigateLevelGame() {
         soundController.clickUi()
+        soundController.playLevelTheme()
         BricksViewModel.resetData()
         FieldViewModel.resetData()
         AppNavigation.getInstance().getNavController().navigate(Routes.LevelGame.route) {

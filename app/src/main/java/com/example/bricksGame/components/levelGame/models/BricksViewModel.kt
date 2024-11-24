@@ -35,18 +35,17 @@ object BricksViewModel : ViewModel() {
         return GameConfig.imagesBricks.values.random()
     }
 
-    suspend fun removeBrick(brick: Brick) {
+    fun removeBrick(brick: Brick) {
         FieldViewModel.setBricksOnField(brick)
         brick.freeSpace()
         _bricksList.remove(brick)
         this.checkIfNeedNewBricksList()
     }
 
-    private suspend fun checkIfNeedNewBricksList() {
+    private fun checkIfNeedNewBricksList() {
         if (_bricksList.size <= GameConfig.MIN_BRICKS_TO_ADD_NEXT) {
             for (i in _bricksList.size until GameConfig.MAX_BRICKS_ON_LEVEL) {
 //                soundController.cristalAdd()
-                delay(300)
                 _bricksList.add(createBrick())
             }
         }

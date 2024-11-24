@@ -14,7 +14,7 @@ import com.example.bricksGame.soundController
 
 @Composable
 fun RunLevelGame() {
-    soundController.playLevelTheme()
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier

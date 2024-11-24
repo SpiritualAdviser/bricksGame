@@ -15,7 +15,7 @@ object GameConfig {
      * options MAX_BRICKS is count dragging bricks for game on button block
      */
     const val MAX_BRICKS_ON_LEVEL = 3
-    const val MIN_BRICKS_TO_ADD_NEXT = 2
+    const val MIN_BRICKS_TO_ADD_NEXT = 1
 
     /**
      * options for padding FieldGame in Dp
