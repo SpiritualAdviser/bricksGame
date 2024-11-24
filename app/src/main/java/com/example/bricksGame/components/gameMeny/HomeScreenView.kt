@@ -1,6 +1,7 @@
 package com.example.bricksGame.components.gameMeny
 
 import android.content.res.Configuration
+import android.media.MediaPlayer
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -13,16 +14,18 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
 import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
 import com.example.bricksGame.components.levelGame.PortraitLayout
+import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.helper.ButtonController
 
 @Composable
 fun RunHomeScreen() {
-
+    soundController.playMainTheme()
     val orientation = LocalConfiguration.current.orientation
     if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
         Image(

@@ -6,6 +6,7 @@ import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.screenSize
+import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig
 import kotlinx.coroutines.delay
 
@@ -45,7 +46,7 @@ data class Brick(
             val offsetAmount = getOffsetAmount(fieldBrickOnCollision!!)
             dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
             BricksViewModel.removeBrick(this)
-
+            soundController.pushCristal()
         } else {
             this.x.intValue = 0
             this.y.intValue = 0

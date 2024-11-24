@@ -4,7 +4,9 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.data.Brick
+import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig
+import kotlinx.coroutines.delay
 
 object BricksViewModel : ViewModel() {
 
@@ -33,16 +35,18 @@ object BricksViewModel : ViewModel() {
         return GameConfig.imagesBricks.values.random()
     }
 
-    fun removeBrick(brick: Brick) {
+    suspend fun removeBrick(brick: Brick) {
         FieldViewModel.setBricksOnField(brick)
         brick.freeSpace()
         _bricksList.remove(brick)
         this.checkIfNeedNewBricksList()
     }
 
-    private fun checkIfNeedNewBricksList() {
+    private suspend fun checkIfNeedNewBricksList() {
         if (_bricksList.size <= GameConfig.MIN_BRICKS_TO_ADD_NEXT) {
             for (i in _bricksList.size until GameConfig.MAX_BRICKS_ON_LEVEL) {
+                soundController.cristalAdd()
+                delay(300)
                 _bricksList.add(createBrick())
             }
         }

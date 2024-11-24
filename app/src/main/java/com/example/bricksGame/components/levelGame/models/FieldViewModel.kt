@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.components.levelGame.data.FieldBrick
 import com.example.bricksGame.screenSize
+import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 
@@ -111,7 +112,7 @@ object FieldViewModel : ViewModel() {
     }
 
     private fun resetLineOnWin(lineList: List<FieldBrick>) {
-
+        soundController.winReel()
         lineList.forEach { wonItem ->
             brickOnField.forEach {
 
