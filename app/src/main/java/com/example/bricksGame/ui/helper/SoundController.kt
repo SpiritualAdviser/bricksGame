@@ -72,13 +72,13 @@ class SoundController {
 
     fun winReel() {
         winReel = MediaPlayer.create(context, R.raw.win_reel)
-        clickUi.setVolume(1.2f, 1.2f)
+        clickUi.setVolume(1f, 1f)
         winReel.start()
     }
 
     fun pushCristal() {
         pushCristal = MediaPlayer.create(context, R.raw.push_cristal)
-        pushCristal.setVolume(1.2f, 1.2f)
+        pushCristal.setVolume(1f, 1f)
         pushCristal.start()
     }
 

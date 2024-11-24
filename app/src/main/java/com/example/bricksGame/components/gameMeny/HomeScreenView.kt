@@ -52,7 +52,7 @@ fun RunHomeScreen() {
         IconButton(
             onClick = { ButtonController.navigateLevelGame() },
             modifier = Modifier
-                .size(150.dp, 100.dp)
+                .size(100.dp, 80.dp)
                 .paint(
                     painter = painterResource(R.drawable.button_start),
                     contentScale = ContentScale.FillWidth

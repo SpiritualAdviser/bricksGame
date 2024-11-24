@@ -45,7 +45,7 @@ object BricksViewModel : ViewModel() {
     private suspend fun checkIfNeedNewBricksList() {
         if (_bricksList.size <= GameConfig.MIN_BRICKS_TO_ADD_NEXT) {
             for (i in _bricksList.size until GameConfig.MAX_BRICKS_ON_LEVEL) {
-                soundController.cristalAdd()
+//                soundController.cristalAdd()
                 delay(300)
                 _bricksList.add(createBrick())
             }
