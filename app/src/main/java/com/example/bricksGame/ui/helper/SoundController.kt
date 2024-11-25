@@ -2,7 +2,6 @@ package com.example.bricksGame.ui.helper
 
 import android.content.Context
 import android.media.MediaPlayer
-import androidx.navigation.NavHostController
 import com.example.bricksGame.R
 
 class SoundController private constructor() {
@@ -55,7 +54,7 @@ class SoundController private constructor() {
 
         if (!mainmeny.isPlaying) {
             mainmeny.isLooping = true
-            mainmeny.setVolume(0.8f, 0.8f)
+            mainmeny.setVolume(1f, 1f)
             mainmeny.start()
         }
     }
@@ -68,19 +67,28 @@ class SoundController private constructor() {
             mainmeny.prepare()
         }
 
+        levelThemeOne.setOnCompletionListener {
+            levelThemeTwo.setVolume(1f, 1f)
+            levelThemeTwo.start()
+        }
+        levelThemeTwo.setOnCompletionListener {
+
+            levelThemeOne.setVolume(1f, 1f)
+            levelThemeOne.start()
+        }
+
         when (currentIdSound) {
             1 -> {
+
                 if (!levelThemeOne.isPlaying) {
-                    levelThemeOne.isLooping = true
-                    levelThemeOne.setVolume(0.5f, 0.5f)
+                    levelThemeOne.setVolume(1f, 1f)
                     levelThemeOne.start()
                 }
             }
 
             2 -> {
                 if (!levelThemeTwo.isPlaying) {
-                    levelThemeTwo.isLooping = true
-                    levelThemeTwo.setVolume(0.5f, 0.5f)
+                    levelThemeTwo.setVolume(1f, 1f)
                     levelThemeTwo.start()
                 }
             }
@@ -89,13 +97,13 @@ class SoundController private constructor() {
 
     fun winReel() {
         winReel = MediaPlayer.create(context, R.raw.win_reel)
-        clickUi.setVolume(1f, 1f)
+        clickUi.setVolume(0.6f, 0.6f)
         winReel.start()
     }
 
     fun pushCristal() {
         pushCristal = MediaPlayer.create(context, R.raw.push_cristal)
-        pushCristal.setVolume(1f, 1f)
+        pushCristal.setVolume(0.8f, 0.8f)
         pushCristal.start()
     }
 
