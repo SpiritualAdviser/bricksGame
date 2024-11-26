@@ -31,11 +31,13 @@ class SoundController private constructor() {
     private lateinit var clickUi: MediaPlayer
     private lateinit var levelTheme: MediaPlayer
     private lateinit var levelThemeTwo: MediaPlayer
+    private lateinit var levelThemeTree: MediaPlayer
+    private lateinit var levelThemeFour: MediaPlayer
+    private lateinit var levelThemeFive: MediaPlayer
     private lateinit var pushCristal: MediaPlayer
     private lateinit var winReel: MediaPlayer
     private lateinit var currentBgSound: MediaPlayer
-
-    val playListLevel = listOf(1, 2)
+    private lateinit var playListLevel: List<MediaPlayer>
 
     fun setContext(context: Context) {
         isRun = true
@@ -45,6 +47,14 @@ class SoundController private constructor() {
 
         levelTheme = MediaPlayer.create(context, R.raw.action_level_one)
         levelThemeTwo = MediaPlayer.create(context, R.raw.action_level_two)
+        levelThemeTree = MediaPlayer.create(context, R.raw.action_level_tree)
+        levelThemeFour = MediaPlayer.create(context, R.raw.action_level_four)
+        levelThemeFive = MediaPlayer.create(context, R.raw.action_level_five)
+
+        setLoopOnLevel()
+
+        playListLevel =
+            listOf(levelTheme, levelThemeTwo, levelThemeTree, levelThemeFour, levelThemeFive)
     }
 
     fun soundMute() {
@@ -57,11 +67,11 @@ class SoundController private constructor() {
 
     fun playMainTheme() {
 
-        if (levelTheme.isPlaying || levelThemeTwo.isPlaying) {
-            levelTheme.stop()
-            levelTheme.prepare()
-            levelThemeTwo.stop()
-            levelThemeTwo.prepare()
+        playListLevel.forEach {
+            if (it.isPlaying) {
+                it.stop()
+                it.prepare()
+            }
         }
 
         if (!mainmeny.isPlaying) {
@@ -81,52 +91,47 @@ class SoundController private constructor() {
 
     fun playLevelTheme() {
 
-        val soundPosition = playListLevel.random()
-
         if (mainmeny.isPlaying) {
             mainmeny.pause()
         }
 
+        currentBgSound = playListLevel.random()
+
+        if (!currentBgSound.isPlaying) {
+            if (!GameConfig.SOUND_MUTED) {
+                currentBgSound.start()
+            }
+        } else {
+            if (!GameConfig.SOUND_MUTED) {
+                currentBgSound.start()
+            }
+        }
+    }
+
+    private fun setLoopOnLevel() {
         levelTheme.setOnCompletionListener {
             currentBgSound = levelThemeTwo
             levelThemeTwo.start()
         }
 
         levelThemeTwo.setOnCompletionListener {
-            currentBgSound = levelTheme
-            levelTheme.start()
+            currentBgSound = levelThemeTree
+            levelThemeTree.start()
         }
 
-        when (soundPosition) {
-            1 -> {
-                if (!levelTheme.isPlaying) {
-                    levelTheme.setVolume(1f, 1f)
-                    currentBgSound = levelTheme
-                    if (!GameConfig.SOUND_MUTED) {
-                        levelTheme.start()
-                    }
-                } else {
-                    if (!GameConfig.SOUND_MUTED) {
-                        currentBgSound = levelTheme
-                        levelTheme.start()
-                    }
-                }
-            }
+        levelThemeTree.setOnCompletionListener {
+            currentBgSound = levelThemeFour
+            levelThemeFour.start()
+        }
 
-            2 -> {
-                if (!levelThemeTwo.isPlaying) {
-                    levelThemeTwo.setVolume(1f, 1f)
-                    currentBgSound = levelThemeTwo
-                    if (!GameConfig.SOUND_MUTED) {
-                        levelThemeTwo.start()
-                    }
-                } else {
-                    if (!GameConfig.SOUND_MUTED) {
-                        currentBgSound = levelThemeTwo
-                        levelThemeTwo.start()
-                    }
-                }
-            }
+        levelThemeFour.setOnCompletionListener {
+            currentBgSound = levelThemeFive
+            levelThemeFour.start()
+        }
+
+        levelThemeFive.setOnCompletionListener {
+            currentBgSound = levelTheme
+            levelTheme.start()
         }
     }
 
