@@ -53,4 +53,6 @@ object GameConfig {
 //        8 to R.drawable.dark_brick,
         7 to R.drawable.bronze_brick,
     )
+
+    var SOUND_MUTED = false
 }
