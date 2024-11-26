@@ -57,9 +57,11 @@ class SoundController private constructor() {
 
     fun playMainTheme() {
 
-        if (levelTheme.isPlaying) {
+        if (levelTheme.isPlaying || levelThemeTwo.isPlaying) {
             levelTheme.stop()
             levelTheme.prepare()
+            levelThemeTwo.stop()
+            levelThemeTwo.prepare()
         }
 
         if (!mainmeny.isPlaying) {
@@ -79,6 +81,8 @@ class SoundController private constructor() {
 
     fun playLevelTheme() {
 
+        val soundPosition = playListLevel.random()
+
         if (mainmeny.isPlaying) {
             mainmeny.pause()
         }
@@ -93,16 +97,35 @@ class SoundController private constructor() {
             levelTheme.start()
         }
 
-        if (!levelTheme.isPlaying) {
-            levelTheme.setVolume(1f, 1f)
-            currentBgSound = levelTheme
-            if (!GameConfig.SOUND_MUTED) {
-                levelTheme.start()
+        when (soundPosition) {
+            1 -> {
+                if (!levelTheme.isPlaying) {
+                    levelTheme.setVolume(1f, 1f)
+                    currentBgSound = levelTheme
+                    if (!GameConfig.SOUND_MUTED) {
+                        levelTheme.start()
+                    }
+                } else {
+                    if (!GameConfig.SOUND_MUTED) {
+                        currentBgSound = levelTheme
+                        levelTheme.start()
+                    }
+                }
             }
-        } else {
-            if (!GameConfig.SOUND_MUTED) {
-                currentBgSound = levelTheme
-                levelTheme.start()
+
+            2 -> {
+                if (!levelThemeTwo.isPlaying) {
+                    levelThemeTwo.setVolume(1f, 1f)
+                    currentBgSound = levelThemeTwo
+                    if (!GameConfig.SOUND_MUTED) {
+                        levelThemeTwo.start()
+                    }
+                } else {
+                    if (!GameConfig.SOUND_MUTED) {
+                        currentBgSound = levelThemeTwo
+                        levelThemeTwo.start()
+                    }
+                }
             }
         }
     }
