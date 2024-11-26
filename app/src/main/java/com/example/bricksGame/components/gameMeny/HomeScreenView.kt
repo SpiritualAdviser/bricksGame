@@ -53,7 +53,7 @@ fun RunHomeScreen() {
             modifier = Modifier
                 .size(100.dp, 80.dp)
                 .paint(
-                    painter = painterResource(R.drawable.button_start),
+                    painter = painterResource(R.drawable.buttons_start),
                     contentScale = ContentScale.FillWidth
                 )
 
