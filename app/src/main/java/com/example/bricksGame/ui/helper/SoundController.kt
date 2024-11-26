@@ -126,7 +126,7 @@ class SoundController private constructor() {
 
         levelThemeFour.setOnCompletionListener {
             currentBgSound = levelThemeFive
-            levelThemeFour.start()
+            levelThemeFive.start()
         }
 
         levelThemeFive.setOnCompletionListener {
