@@ -1,9 +1,14 @@
 package com.example.bricksGame.ui
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.ViewModel
 import com.example.bricksGame.R
 
-object GameConfig {
+object GameConfig : ViewModel() {
     /**
      * options for game designer Field Game
      * Is set COLUMNS and ROWS on game
@@ -54,5 +59,5 @@ object GameConfig {
         7 to R.drawable.bronze_brick,
     )
 
-    var SOUND_MUTED = false
+    var SOUND_MUTED by mutableStateOf(false)
 }
