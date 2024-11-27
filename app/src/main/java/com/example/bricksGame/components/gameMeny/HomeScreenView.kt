@@ -67,8 +67,6 @@ fun RunHomeScreen() {
 
         IconToggleButton(
             checked = GameConfig.SOUND_MUTED, onCheckedChange = {
-                GameConfig.SOUND_MUTED = !GameConfig.SOUND_MUTED
-                println(GameConfig.SOUND_MUTED)
                 soundController.soundMute()
             },
             modifier = Modifier

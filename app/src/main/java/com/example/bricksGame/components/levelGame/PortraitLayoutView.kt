@@ -90,7 +90,6 @@ private fun ButtonsBlock() {
     ) {
         IconToggleButton(
             checked = GameConfig.SOUND_MUTED, onCheckedChange = {
-                GameConfig.SOUND_MUTED = !GameConfig.SOUND_MUTED
                 soundController.soundMute()
             },
             modifier = Modifier

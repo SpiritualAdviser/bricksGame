@@ -10,6 +10,7 @@ object ButtonController {
         soundController.clickUi()
         soundController.playMainTheme()
         AppNavigation.getInstance().getNavController().navigate(Routes.HomeScreen.route) {
+
             popUpTo(Routes.HomeScreen.route)
             launchSingleTop = true
         }

@@ -57,7 +57,21 @@ class SoundController private constructor() {
             listOf(levelTheme, levelThemeTwo, levelThemeTree, levelThemeFour, levelThemeFive)
     }
 
+    fun soundMuteOnStop() {
+            currentBgSound.pause()
+    }
+
+    fun soundMuteOnRestart() {
+        if (GameConfig.SOUND_MUTED) {
+            currentBgSound.pause()
+        } else {
+            currentBgSound.start()
+        }
+    }
+
     fun soundMute() {
+        GameConfig.SOUND_MUTED = !GameConfig.SOUND_MUTED
+
         if (GameConfig.SOUND_MUTED) {
             currentBgSound.pause()
         } else {

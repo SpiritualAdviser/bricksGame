@@ -21,6 +21,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.runtime.rememberCoroutineScope
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
+import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig
 import com.example.bricksGame.ui.helper.ButtonController
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
@@ -76,15 +78,14 @@ fun LandscapeLayout() {
 
 @Composable
 private fun RestartGame() {
-    Box(
-        Modifier.fillMaxHeight(),
-        contentAlignment = Alignment.TopStart
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         IconButton(
             onClick = { ButtonController.navigateHome() },
 
             modifier = Modifier
-                .padding(GameConfig.PADDING_BG_FIELD.dp)
+                .padding(GameConfig.PADDING_BG_FIELD.dp, 30.dp)
                 .size(50.dp)
                 .paint(
                     painter = painterResource(R.drawable.close),
@@ -92,6 +93,18 @@ private fun RestartGame() {
                 )
         )
         {}
+        IconToggleButton(
+            checked = GameConfig.SOUND_MUTED, onCheckedChange = {
+                soundController.soundMute()
+            },
+            modifier = Modifier
+                .size(60.dp)
+                .paint(
+                    painter = if (GameConfig.SOUND_MUTED) painterResource(R.drawable.play_muted)
+                    else painterResource(R.drawable.play),
+                    contentScale = ContentScale.FillWidth
+                )
+        ) {}
     }
 }
 
