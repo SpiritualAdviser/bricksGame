@@ -1,20 +1,14 @@
 package com.example.bricksGame.components.gameMeny.models
 
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.lifecycle.ViewModel
+import com.example.bricksGame.R
 
-class HomeScreenViewModel : ViewModel() {
-    var titleDescription: MutableLiveData<String> = MutableLiveData("Home")
-    var count: MutableLiveData<Int> = MutableLiveData(0)
+object HomeScreenViewModel : ViewModel() {
 
-    fun setNameOnHomeScreen(description: String) {
-        titleDescription.value = description.toString()
-        println(titleDescription.value)
-    }
-
-    fun increase(number: Int) {
-        count.value = count.value?.plus(number)
-    }
+    val imageBgPortrait by mutableIntStateOf(R.drawable.bg_main_portrait)
+    val imageBgLandscape by mutableIntStateOf(R.drawable.bg_main_landscape)
 }
 
 

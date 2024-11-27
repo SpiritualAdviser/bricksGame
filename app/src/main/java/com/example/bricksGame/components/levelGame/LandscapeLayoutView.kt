@@ -24,9 +24,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
@@ -46,14 +44,14 @@ import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 import kotlinx.coroutines.launch
 
 @Composable
-fun PortraitLayout() {
+fun LandscapeLayout() {
     Box(
         Modifier.fillMaxSize(),
     ) {
         Image(
-            painter = painterResource(id = R.drawable.bg_level_portrait),
+            painter = painterResource(id = R.drawable.bg_level_landscape),
             contentDescription = "levelBg",
-            modifier = Modifier.fillMaxHeight(),
+            modifier = Modifier.fillMaxWidth(),
             contentScale = ContentScale.Crop
         )
 
@@ -69,37 +67,20 @@ fun PortraitLayout() {
         )
     }
 
-    Column(
+    Row(
         Modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
+            .fillMaxSize()
     ) {
-        ButtonsBlock()
+        RestartGame()
         FieldBox()
     }
 }
 
 @Composable
-private fun ButtonsBlock() {
-
+private fun RestartGame() {
     Row(
-        Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.End
-
     ) {
-        IconToggleButton(
-            checked = GameConfig.SOUND_MUTED, onCheckedChange = {
-                soundController.soundMute()
-            },
-            modifier = Modifier
-                .size(60.dp)
-                .paint(
-                    painter = if (GameConfig.SOUND_MUTED) painterResource(R.drawable.play_muted)
-                    else painterResource(R.drawable.play),
-                    contentScale = ContentScale.FillWidth
-                )
-        ) {}
         IconButton(
             onClick = { ButtonController.navigateHome() },
 
@@ -112,17 +93,29 @@ private fun ButtonsBlock() {
                 )
         )
         {}
+        IconToggleButton(
+            checked = GameConfig.SOUND_MUTED, onCheckedChange = {
+                soundController.soundMute()
+            },
+            modifier = Modifier
+                .size(60.dp)
+                .paint(
+                    painter = if (GameConfig.SOUND_MUTED) painterResource(R.drawable.play_muted)
+                    else painterResource(R.drawable.play),
+                    contentScale = ContentScale.FillWidth
+                )
+        ) {}
     }
 }
 
 @Composable
 private fun FieldBox() {
 
-    Column(
+    Row(
         Modifier
             .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
     ) {
         GridFieldBox()
         BricksBlock()
@@ -139,15 +132,16 @@ private fun GridFieldBox() {
                 sizeToIntrinsics = true,
                 contentScale = ContentScale.FillBounds
             )
-
-
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(GameConfig.ROWS),
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .padding(GameConfig.PADDING_FIELD.dp)
-
+                .size(
+                    FieldViewModel.brickSizeLandscape * GameConfig.ROWS,
+                    FieldViewModel.brickSizeLandscape * GameConfig.COLUMNS
+                )
         ) {
 
             items(FieldViewModel.brickOnField) {
@@ -159,7 +153,7 @@ private fun GridFieldBox() {
                             GameConfig.BRICK_BORDER_SIZE.dp, it.borderColor.value,
                             RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp)
                         )
-                        .size(FieldViewModel.brickSizePortrait)
+                        .size(FieldViewModel.brickSizeLandscape)
                         .background(GameConfig.BRICK_BG_FIELD_COLOR)
                         .padding(2.dp)
                         .paint(
@@ -180,16 +174,16 @@ private fun GridFieldBox() {
 private fun BricksBlock() {
     val coroutine = rememberCoroutineScope()
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
 
-        ) {
+    ) {
         (BricksViewModel.bricks.forEach {
             key(it.id) {
                 Box(
                     Modifier
                         .offset { IntOffset(it.x.intValue, it.y.intValue) }
-                        .size(FieldViewModel.brickSizePortrait)
+                        .size(FieldViewModel.brickSizeLandscape)
                         .background(GameConfig.BRICK_BG_COLOR)
                         .paint(
                             painterResource(it.assetImage),
@@ -197,7 +191,6 @@ private fun BricksBlock() {
                             contentScale = ContentScale.FillBounds
                         )
                         .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
-//                        .border(GameConfig.BRICK_BORDER_SIZE.dp, GameConfig.BRICK_BORDER_COLOR)
                         .onGloballyPositioned { coordinates ->
                             it.setGloballyPosition(coordinates)
                         }

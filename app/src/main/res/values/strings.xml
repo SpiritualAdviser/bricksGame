@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BriсksGame</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="app_name">CavesAndCrystals</string>
+    <string name="title_activity_main">CavesAndCrystals</string>
     <string name="title_activity_level_comp">LevelComp</string>
 </resources>

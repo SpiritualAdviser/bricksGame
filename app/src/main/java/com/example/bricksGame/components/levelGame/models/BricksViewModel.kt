@@ -2,24 +2,15 @@ package com.example.bricksGame.components.levelGame.models
 
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.data.Brick
-import com.example.bricksGame.ui.theme.colorsBricks
+import com.example.bricksGame.soundController
+import com.example.bricksGame.ui.GameConfig
+import kotlinx.coroutines.delay
 
 object BricksViewModel : ViewModel() {
 
-    private val widthPadding =
-        FieldViewModel.padding / FieldViewModel.ROWS + FieldViewModel.border * 2
-    private val heightPadding =
-        FieldViewModel.padding / 2 / FieldViewModel.COLUMNS + FieldViewModel.border
-
-    private val width = FieldViewModel.fieldBrickWidth - widthPadding
-    private val height = FieldViewModel.fieldBrickHeight - heightPadding
-
-    private const val MAX_BRICKS = 3
     private var brickId = 0
-
     private var _bricksList = createBricksList().toMutableStateList()
 
     val bricks
@@ -33,16 +24,15 @@ object BricksViewModel : ViewModel() {
 
     private fun createBricksList(): MutableList<Brick> {
         val bricksList: MutableList<Brick> = mutableListOf()
-        for (i in 0 until MAX_BRICKS) {
+        for (i in 0 until GameConfig.MAX_BRICKS_ON_LEVEL) {
 
             bricksList.add(createBrick())
         }
         return bricksList
     }
 
-    private fun getRandomColor(): Color {
-        val currentColor: Color = colorsBricks.values.random()
-        return currentColor
+    private fun getRandomImage(): Int {
+        return GameConfig.imagesBricks.values.random()
     }
 
     fun removeBrick(brick: Brick) {
@@ -53,8 +43,9 @@ object BricksViewModel : ViewModel() {
     }
 
     private fun checkIfNeedNewBricksList() {
-        if (_bricksList.size == 0) {
-            for (i in 0 until MAX_BRICKS) {
+        if (_bricksList.size <= GameConfig.MIN_BRICKS_TO_ADD_NEXT) {
+            for (i in _bricksList.size until GameConfig.MAX_BRICKS_ON_LEVEL) {
+//                soundController.cristalAdd()
                 _bricksList.add(createBrick())
             }
         }
@@ -64,14 +55,11 @@ object BricksViewModel : ViewModel() {
         return Brick(
             x = mutableIntStateOf(0),
             y = mutableIntStateOf(0),
-            width = width,
-            height = height,
             id = ++brickId,
             position = brickId.toString(),
-            color = getRandomColor()
+            assetImage = getRandomImage()
         )
     }
-
 }
 
 
