@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.data.Player
 
 object PlayerViewModel : ViewModel() {
-    val player = Player()
+    private val player = Player()
     var playerName by mutableStateOf(player.playerName)
     var playerScore by mutableIntStateOf(player.score)
     var playerAchievements by mutableIntStateOf(player.achievements)
