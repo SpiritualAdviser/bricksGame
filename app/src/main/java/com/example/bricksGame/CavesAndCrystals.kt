@@ -6,10 +6,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.platform.LocalContext
-import com.example.bricksGame.ui.GameConfig
 import com.example.bricksGame.ui.helper.AppNavigation
 import com.example.bricksGame.ui.helper.ScreenSize
 import com.example.bricksGame.ui.helper.SoundController
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 val screenSize = ScreenSize()
 
@@ -31,9 +33,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onStop() {
         super.onStop()
-        soundController.soundMuteOnStop()
+        GlobalScope.launch {
+            soundController.soundMuteOnStop()
+        }
     }
 
     override fun onRestart() {
@@ -46,7 +51,7 @@ class MainActivity : ComponentActivity() {
     override fun onContentChanged() {
         super.onContentChanged()
         if (soundController.isRun) {
-            soundController.soundMuteOnRestart()
+            soundController.onContentChanged()
         }
     }
 }

@@ -2,14 +2,14 @@ package com.example.bricksGame.ui.helper
 
 import android.content.Context
 import android.media.MediaPlayer
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import com.example.bricksGame.R
 import com.example.bricksGame.ui.GameConfig
+import kotlinx.coroutines.delay
 
 class SoundController private constructor() {
 
     var isRun = false
+    private var onStop = true
 
     companion object {
         private var instance: SoundController? = null
@@ -57,16 +57,25 @@ class SoundController private constructor() {
             listOf(levelTheme, levelThemeTwo, levelThemeTree, levelThemeFour, levelThemeFive)
     }
 
-    fun soundMuteOnStop() {
+    suspend fun soundMuteOnStop() {
+        onStop = true
+        delay(500)
+        if (onStop) {
             currentBgSound.pause()
+            println("soundMuteOnStop")
+        }
     }
 
     fun soundMuteOnRestart() {
+        onStop = false
         if (GameConfig.SOUND_MUTED) {
             currentBgSound.pause()
         } else {
             currentBgSound.start()
         }
+    }
+    fun onContentChanged(){
+        onStop = false
     }
 
     fun soundMute() {
