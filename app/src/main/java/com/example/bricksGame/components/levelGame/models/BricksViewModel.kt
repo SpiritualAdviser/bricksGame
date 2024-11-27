@@ -4,9 +4,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.data.Brick
-import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig
-import kotlinx.coroutines.delay
 
 object BricksViewModel : ViewModel() {
 
