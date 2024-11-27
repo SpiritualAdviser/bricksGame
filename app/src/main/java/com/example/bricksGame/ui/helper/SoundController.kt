@@ -51,6 +51,7 @@ class SoundController private constructor() {
         levelThemeFour = MediaPlayer.create(context, R.raw.action_level_four)
         levelThemeFive = MediaPlayer.create(context, R.raw.action_level_five)
 
+
         setLoopOnLevel()
 
         playListLevel =
@@ -163,7 +164,7 @@ class SoundController private constructor() {
             return
         }
         winReel = MediaPlayer.create(context, R.raw.win_reel)
-        clickUi.setVolume(0.6f, 0.6f)
+        winReel.setVolume(0.6f, 0.6f)
         winReel.start()
     }
 

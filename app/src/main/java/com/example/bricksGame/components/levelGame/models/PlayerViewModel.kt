@@ -12,4 +12,12 @@ object PlayerViewModel : ViewModel() {
     var playerName by mutableStateOf(player.playerName)
     var playerScore by mutableIntStateOf(player.score)
     var playerAchievements by mutableIntStateOf(player.achievements)
+
+    fun addScore(score: Int) {
+        playerScore += score
+    }
+
+    fun resetData() {
+        playerScore = 0
+    }
 }

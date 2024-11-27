@@ -117,6 +117,7 @@ object FieldViewModel : ViewModel() {
             brickOnField.forEach {
 
                 if (wonItem.position.toString() == it.position.toString()) {
+                    PlayerViewModel.addScore(lineList.size)
                     it.resetFieldBrick()
                 }
             }
