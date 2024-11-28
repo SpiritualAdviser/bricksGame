@@ -33,25 +33,18 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onStop() {
         super.onStop()
-        GlobalScope.launch {
-            soundController.soundMuteOnStop()
-        }
+
+      if (!isChangingConfigurations)  {
+          soundController.soundMuteOnStop()
+      }
     }
 
     override fun onRestart() {
         super.onRestart()
         if (soundController.isRun) {
             soundController.soundMuteOnRestart()
-        }
-    }
-
-    override fun onContentChanged() {
-        super.onContentChanged()
-        if (soundController.isRun) {
-            soundController.onContentChanged()
         }
     }
 }

@@ -9,7 +9,6 @@ import kotlinx.coroutines.delay
 class SoundController private constructor() {
 
     var isRun = false
-    private var onStop = true
 
     companion object {
         private var instance: SoundController? = null
@@ -58,25 +57,15 @@ class SoundController private constructor() {
             listOf(levelTheme, levelThemeTwo, levelThemeTree, levelThemeFour, levelThemeFive)
     }
 
-    suspend fun soundMuteOnStop() {
-        onStop = true
-        delay(500)
-        if (onStop) {
-            currentBgSound.pause()
-            println("soundMuteOnStop")
-        }
+    fun soundMuteOnStop() {
+        currentBgSound.pause()
     }
 
     fun soundMuteOnRestart() {
-        onStop = false
-        if (GameConfig.SOUND_MUTED) {
-            currentBgSound.pause()
-        } else {
+
+        if (!GameConfig.SOUND_MUTED) {
             currentBgSound.start()
         }
-    }
-    fun onContentChanged(){
-        onStop = false
     }
 
     fun soundMute() {
