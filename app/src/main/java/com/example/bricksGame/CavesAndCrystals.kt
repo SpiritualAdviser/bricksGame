@@ -9,9 +9,6 @@ import androidx.compose.ui.platform.LocalContext
 import com.example.bricksGame.ui.helper.AppNavigation
 import com.example.bricksGame.ui.helper.ScreenSize
 import com.example.bricksGame.ui.helper.SoundController
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 val screenSize = ScreenSize()
 
