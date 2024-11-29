@@ -138,7 +138,7 @@ private fun PlayerScore() {
         )
         Spacer(Modifier.size(10.dp))
         Text(
-            text = PlayerViewModel.playerScore.toString(),
+            text = "PlayerViewModel.playerScore.toString()",
             fontSize = 25.sp,
             color = Color.White
         )
