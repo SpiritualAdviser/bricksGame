@@ -1,4 +1,4 @@
-package com.example.bricksGame.components.levelGame.data
+package com.example.bricksGame.data.level
 
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.ui.graphics.Color

@@ -2,8 +2,8 @@ package com.example.bricksGame.components.levelGame.models
 
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
-import com.example.bricksGame.components.levelGame.data.Brick
-import com.example.bricksGame.components.levelGame.data.FieldBrick
+import com.example.bricksGame.data.level.Brick
+import com.example.bricksGame.data.level.FieldBrick
 import com.example.bricksGame.screenSize
 import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig

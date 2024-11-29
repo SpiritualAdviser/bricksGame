@@ -1,7 +1,7 @@
 package com.example.bricksGame.ui.helper
 
-import com.example.bricksGame.components.levelGame.data.Brick
-import com.example.bricksGame.components.levelGame.data.FieldBrick
+import com.example.bricksGame.data.level.Brick
+import com.example.bricksGame.data.level.FieldBrick
 
 object CollisionBricksOnLevel {
 

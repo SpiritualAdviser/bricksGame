@@ -1,4 +1,4 @@
-package com.example.bricksGame.components.levelGame.data
+package com.example.bricksGame.data.level
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf

@@ -1,14 +1,16 @@
 package com.example.bricksGame.ui
 
+import android.database.sqlite.SQLiteDatabase
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.R
 
 object GameConfig : ViewModel() {
+    lateinit var gameData: SQLiteDatabase
+
     /**
      * options for game designer Field Game
      * Is set COLUMNS and ROWS on game
