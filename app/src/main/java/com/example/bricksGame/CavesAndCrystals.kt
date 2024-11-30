@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.platform.LocalContext
+import com.example.bricksGame.data.player.Player
 import com.example.bricksGame.data.player.PlayerViewModel
 import com.example.bricksGame.ui.helper.AppNavigation
 import com.example.bricksGame.ui.helper.ScreenSize
@@ -24,16 +25,18 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-
             screenSize.GetScreenSize()
             val context = LocalContext.current
 
+//            val pvm = PlayerViewModel(applicationContext as Application)
+//            pvm.addPlayer(Player(0, "name", 0, 0))
+
+            context.deleteDatabase("player_database")
             if (!soundController.isRun) {
                 soundController.setContext(context)
                 soundController.playMainTheme()
             }
             AppNavigation.getInstance().CreateNavHost()
-
         }
     }
 

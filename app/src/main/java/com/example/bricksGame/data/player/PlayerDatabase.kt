@@ -1,6 +1,6 @@
 package com.example.bricksGame.data.player
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -13,13 +13,13 @@ abstract class PlayerDatabase : RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: PlayerDatabase? = null
-        fun getInstance(context: Context): PlayerDatabase {
+        fun getInstance(application: Application): PlayerDatabase {
 
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
                     instance = Room.databaseBuilder(
-                        context.applicationContext,
+                        application,
                         PlayerDatabase::class.java,
                         "player_database"
 

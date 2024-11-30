@@ -15,12 +15,12 @@ interface PlayerDAO {
     fun readAllData(): LiveData<List<Player>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addData(player: Player)
+    suspend fun addData(player: Player)
 
     @Update
-    fun update(player: Player)
+    suspend fun update(player: Player)
 
     @Delete
-    fun delete(player: Player)
+    suspend fun delete(player: Player)
 }
 
