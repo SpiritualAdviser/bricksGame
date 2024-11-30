@@ -22,13 +22,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//       val pvm = PlayerViewModel(applicationContext as Application)
-//        pvm.addPlayer(Player(0, "name", 0, 0))
-
         enableEdgeToEdge()
         setContent {
+
             screenSize.GetScreenSize()
             val context = LocalContext.current
+
             if (!soundController.isRun) {
                 soundController.setContext(context)
                 soundController.playMainTheme()
