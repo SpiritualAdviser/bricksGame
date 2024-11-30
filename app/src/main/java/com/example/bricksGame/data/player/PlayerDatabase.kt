@@ -19,7 +19,7 @@ abstract class PlayerDatabase : RoomDatabase() {
                 var instance = INSTANCE
                 if (instance == null) {
                     instance = Room.databaseBuilder(
-                        context.applicationContext,
+                        context,
                         PlayerDatabase::class.java,
                         "player_database"
 
