@@ -40,7 +40,6 @@ import androidx.compose.ui.unit.sp
 import com.example.bricksGame.R
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
-import com.example.bricksGame.components.levelGame.models.PlayerViewModel
 import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig
 import com.example.bricksGame.ui.helper.ButtonController
