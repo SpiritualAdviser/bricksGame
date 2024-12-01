@@ -1,19 +1,19 @@
 package com.example.bricksGame.components.players.data
 
-import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.bricksGame.MainActivity
 
 @Database(entities = [Player::class], version = 1, exportSchema = false)
 abstract class PlayerDatabase : RoomDatabase() {
 
-    abstract fun playerDao(): PlayerDAO
+    abstract fun getDao(): PlayerDAO
 
     companion object {
         @Volatile
         private var INSTANCE: PlayerDatabase? = null
-        fun getInstance(application: Application): PlayerDatabase {
+        fun getInstance(application: MainActivity): PlayerDatabase {
 
             synchronized(this) {
                 var instance = INSTANCE

@@ -1,27 +1,56 @@
 package com.example.bricksGame.components.players.models
 
-import android.app.Application
-import androidx.lifecycle.LiveData
+import android.annotation.SuppressLint
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.asLiveData
+import com.example.bricksGame.MainActivity
 
 import com.example.bricksGame.components.players.data.PlayerDatabase
 import com.example.bricksGame.components.players.data.Player
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PlayerViewModel(application: Application) : ViewModel() {
-    private val readAllData: LiveData<List<Player>>
-    private val repository: PlayerRepository
+class PlayerViewModel(context: MainActivity) : ViewModel() {
+    val playerDatabase = PlayerDatabase.getInstance(context)
 
-    init {
-        val playerDao = PlayerDatabase.Companion.getInstance(application).playerDao()
-        repository = PlayerRepository(playerDao)
-        readAllData = repository.readAllData
+    var players = mutableStateListOf<Player>()
+
+    @SuppressLint("StaticFieldLeak")
+    private val contextVm = context
+    var playerName = mutableStateOf("")
+
+
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+
+    fun addPlayer() {
+        coroutineScope.launch(Dispatchers.IO) {
+            playerDatabase.getDao().addData(
+                Player(
+                    playerName = playerName.value
+                )
+            )
+        }
     }
 
-    fun addPlayer(player: Player) {
-        viewModelScope.launch {
-            repository.addPlayer(player)
+    fun getAllData() {
+        playerDatabase.getDao().readAllData().asLiveData().observe(contextVm) {
+
+            if (it.isNotEmpty()) {
+                players.clear()
+            }
+            it.forEach {
+                players.add(it)
+            }
+        }
+    }
+
+    fun getPlayerByName(name: String) {
+        coroutineScope.launch(Dispatchers.IO) {
+
         }
     }
 }
