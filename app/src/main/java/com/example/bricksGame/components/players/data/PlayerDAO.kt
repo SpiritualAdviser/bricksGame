@@ -1,4 +1,4 @@
-package com.example.bricksGame.components.Players.data
+package com.example.bricksGame.components.players.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

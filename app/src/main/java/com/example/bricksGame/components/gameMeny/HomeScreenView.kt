@@ -75,7 +75,7 @@ fun RunHomeScreen() {
         ) { Text("Start") }
 
         IconButton(
-            onClick = { ButtonController.navigateLevelGame() },
+            onClick = { ButtonController.navigatePlayers() },
             modifier = Modifier
                 .size(100.dp, 80.dp)
                 .paint(

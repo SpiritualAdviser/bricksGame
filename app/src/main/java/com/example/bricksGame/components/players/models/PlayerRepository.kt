@@ -1,8 +1,9 @@
-package com.example.bricksGame.components.Players.models
+package com.example.bricksGame.components.players.models
 
 import androidx.lifecycle.LiveData
-import com.example.bricksGame.components.Players.data.Player
-import com.example.bricksGame.components.Players.data.PlayerDAO
+import com.example.bricksGame.components.players.data.PlayerDAO
+import com.example.bricksGame.components.players.data.Player
+
 
 class PlayerRepository(private val playerDAO: PlayerDAO) {
 
