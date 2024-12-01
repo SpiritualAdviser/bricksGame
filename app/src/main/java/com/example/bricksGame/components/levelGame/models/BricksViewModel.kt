@@ -3,7 +3,7 @@ package com.example.bricksGame.components.levelGame.models
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
-import com.example.bricksGame.data.level.Brick
+import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.ui.GameConfig
 
 object BricksViewModel : ViewModel() {

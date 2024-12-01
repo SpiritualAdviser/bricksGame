@@ -1,14 +1,11 @@
 package com.example.bricksGame
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.platform.LocalContext
-import com.example.bricksGame.data.player.Player
-import com.example.bricksGame.data.player.PlayerViewModel
 import com.example.bricksGame.ui.helper.AppNavigation
 import com.example.bricksGame.ui.helper.ScreenSize
 import com.example.bricksGame.ui.helper.SoundController

@@ -1,4 +1,4 @@
-package com.example.bricksGame.data.player
+package com.example.bricksGame.components.Players.data
 
 import android.app.Application
 import androidx.room.Database
