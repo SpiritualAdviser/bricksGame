@@ -42,7 +42,7 @@ fun RunHomeScreen() {
             .padding(20.dp)
             .fillMaxSize()
 
-        ) {
+    ) {
         IconToggleButton(
             checked = GameConfig.SOUND_MUTED, onCheckedChange = {
                 soundController.soundMute()
@@ -69,10 +69,20 @@ fun RunHomeScreen() {
             modifier = Modifier
                 .size(100.dp, 80.dp)
                 .paint(
-                    painter = painterResource(R.drawable.buttons_start),
+                    painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.FillWidth
                 )
-        ) {}
+        ) { Text("Start") }
+
+        IconButton(
+            onClick = { ButtonController.navigateLevelGame() },
+            modifier = Modifier
+                .size(100.dp, 80.dp)
+                .paint(
+                    painter = painterResource(R.drawable.buttons_empty),
+                    contentScale = ContentScale.FillWidth
+                )
+        ) { Text("Players") }
     }
 }
 
