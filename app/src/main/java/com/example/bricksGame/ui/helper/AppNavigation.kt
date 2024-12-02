@@ -9,9 +9,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.bricksGame.components.players.PlayerView
 import com.example.bricksGame.components.gameMeny.RunHomeScreen
 import com.example.bricksGame.components.levelGame.RunLevelGame
-import com.example.bricksGame.components.players.models.PlayerViewModel
-
-//import com.example.bricksGame.components.players.models.PlayerViewModel
 
 class AppNavigation private constructor() {
 
@@ -33,13 +30,13 @@ class AppNavigation private constructor() {
     }
 
     @Composable
-    fun CreateNavHost(playerViewModel: PlayerViewModel) {
+    fun CreateNavHost() {
         _navController = rememberNavController()
 
         NavHost(navController = _navController, startDestination = Routes.HomeScreen.route) {
             composable(Routes.HomeScreen.route) { RunHomeScreen() }
             composable(Routes.LevelGame.route) { RunLevelGame() }
-            composable(Routes.Players.route) { PlayerView(playerViewModel) }
+            composable(Routes.Players.route) { PlayerView() }
         }
     }
 

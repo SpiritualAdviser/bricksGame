@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.sp
 import com.example.bricksGame.R
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
+import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig
 import com.example.bricksGame.ui.helper.ButtonController
@@ -107,7 +108,7 @@ private fun PlayerScore() {
         )
         Spacer(Modifier.size(10.dp))
         Text(
-            text = "PlayerViewModel.playerScore.toString()",
+            text = "GamePlayer.playerScore.intValue.toString()",
             fontSize = 25.sp,
             color = Color.White
         )
@@ -134,7 +135,9 @@ private fun ButtonBlock() {
         ) {}
         Spacer(Modifier.size(10.dp))
         IconButton(
-            onClick = { ButtonController.navigateHome() },
+            onClick = {
+                ButtonController.navigateHome()
+            },
 
             modifier = Modifier
                 .size(50.dp)

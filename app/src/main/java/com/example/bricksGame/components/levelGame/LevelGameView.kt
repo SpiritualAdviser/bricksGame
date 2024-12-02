@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import com.example.bricksGame.R
-import com.example.bricksGame.soundController
+import com.example.bricksGame.components.players.models.PlayerViewModel
 
 @Composable
 fun RunLevelGame() {

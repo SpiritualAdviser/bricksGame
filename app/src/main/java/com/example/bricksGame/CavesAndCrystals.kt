@@ -1,16 +1,25 @@
 package com.example.bricksGame
 
 import android.annotation.SuppressLint
+import android.content.Context
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import com.example.bricksGame.components.players.models.PlayerViewModel
-//import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.ui.helper.AppNavigation
 import com.example.bricksGame.ui.helper.ScreenSize
 import com.example.bricksGame.ui.helper.SoundController
+import kotlinx.coroutines.DelicateCoroutinesApi
+import com.example.bricksGame.ui.data.DataRepository
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
+import com.example.bricksGame.components.players.models.PlayerViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 val screenSize = ScreenSize()
 
@@ -21,20 +30,20 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val playerViewModel = PlayerViewModel(this)
+        DataRepository.getPlayerDatabase(this)
 
         enableEdgeToEdge()
         setContent {
             screenSize.GetScreenSize()
             val context = LocalContext.current
-            playerViewModel.getAllData()
+            PlayerViewModel.getAllPlayers()
 
-//           context.deleteDatabase("player_database")
+//        context.deleteDatabase("player_database")
             if (!soundController.isRun) {
                 soundController.setContext(context)
                 soundController.playMainTheme()
             }
-            AppNavigation.getInstance().CreateNavHost(playerViewModel)
+            AppNavigation.getInstance().CreateNavHost()
         }
     }
 
@@ -53,6 +62,10 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+
+
+
 
 
 

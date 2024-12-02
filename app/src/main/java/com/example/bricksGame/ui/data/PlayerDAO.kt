@@ -1,19 +1,19 @@
-package com.example.bricksGame.components.players.data
+package com.example.bricksGame.ui.data
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PlayerDAO {
 
     @Query("SELECT * FROM players")
-    fun readAllData(): Flow<List<Player>>
+    suspend fun readAllData(): List<Player>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addData(player: Player)
 
     @Update
@@ -21,8 +21,5 @@ interface PlayerDAO {
 
     @Delete
     suspend fun delete(player: Player)
-
-    @Query("DELETE FROM players WHERE playerName == :playerName")
-    fun getPlayerByName(playerName: String)
 }
 

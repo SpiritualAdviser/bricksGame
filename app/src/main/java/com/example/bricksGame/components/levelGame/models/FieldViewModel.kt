@@ -113,7 +113,7 @@ object FieldViewModel : ViewModel() {
 
     private fun resetLineOnWin(lineList: List<FieldBrick>) {
         soundController.winReel()
-//        PlayerViewModel.addScore(lineList.size)
+
         lineList.forEach { wonItem ->
             brickOnField.forEach {
 

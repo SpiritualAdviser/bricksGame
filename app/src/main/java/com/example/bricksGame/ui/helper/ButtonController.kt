@@ -2,6 +2,7 @@ package com.example.bricksGame.ui.helper
 
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
+import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.soundController
 
 object ButtonController {

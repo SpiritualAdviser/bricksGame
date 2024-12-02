@@ -1,11 +1,12 @@
-package com.example.bricksGame.components.players.data
+package com.example.bricksGame.ui.data
 
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.bricksGame.MainActivity
 
-@Database(entities = [Player::class], version = 1, exportSchema = false)
+@Database(entities = [Player::class], version = 1)
 abstract class PlayerDatabase : RoomDatabase() {
 
     abstract fun getDao(): PlayerDAO
@@ -13,7 +14,7 @@ abstract class PlayerDatabase : RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: PlayerDatabase? = null
-        fun getInstance(application: MainActivity): PlayerDatabase {
+        fun getDatabase(application: MainActivity): PlayerDatabase {
 
             synchronized(this) {
                 var instance = INSTANCE
