@@ -11,15 +11,15 @@ import androidx.room.Update
 interface PlayerDAO {
 
     @Query("SELECT * FROM players")
-    suspend fun readAllData(): List<Player>
+    fun readAllData(): MutableList<Player>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addData(player: Player)
 
     @Update
-    suspend fun update(player: Player)
+    fun update(player: Player)
 
     @Delete
-    suspend fun delete(player: Player)
+    fun delete(player: Player)
 }
 

@@ -6,17 +6,25 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SnackbarHost
@@ -52,7 +60,7 @@ fun PlayerView() {
 
     val orientation = LocalConfiguration.current.orientation
     val snackState = remember { SnackbarHostState() }
-    val snackScope = rememberCoroutineScope()
+    val CoroutineScope = rememberCoroutineScope()
 
     if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
         Image(
@@ -93,12 +101,13 @@ fun PlayerView() {
         IconButton(
             onClick = {
                 if (true) {
-                    snackScope.launch {
-                        PlayerViewModel.addPlayer(PlayerViewModel.nameNewPlayer.value)
+                    PlayerViewModel.addPlayer(PlayerViewModel.nameNewPlayer.value)
+                    CoroutineScope.launch {
+
                         snackState.showSnackbar("The Player is added")
                     }
                 } else {
-                    snackScope.launch {
+                    CoroutineScope.launch {
                         snackState.showSnackbar("The name of Player can not be empty")
                     }
                 }
@@ -146,14 +155,42 @@ fun PlayersList() {
             .clip(RoundedCornerShape(5.dp))
             .background(Color.DarkGray)
             .border(1.dp, Color.Black, shape = RoundedCornerShape(5.dp))
+            .padding(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(5.dp)
+
     ) {
 
-        items(items = PlayerViewModel.playersList.orEmpty()) {
-            Row {
-                Text(it.id.toString())
-                Text(it.playerName)
-                Text(it.achievements.toString())
-                Text(it.score.toString())
+        items(items = PlayerViewModel.playersList) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(30.dp)
+                    .clip(RoundedCornerShape(5.dp))
+                    .background(Color.LightGray),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("№ ${it.id}")
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(2.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(Icons.Filled.AccountBox, contentDescription = "player")
+                    Text(it.playerName)
+                }
+                Row {
+                    Text("record: ${it.achievements}")
+                    Text("score: ${it.score}")
+                }
+                Box(
+                    Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.CenterEnd,
+                ) {
+                    IconButton(onClick = { }) {
+                        Icon(Icons.Filled.Delete, contentDescription = "delete player")
+                    }
+                }
             }
         }
     }

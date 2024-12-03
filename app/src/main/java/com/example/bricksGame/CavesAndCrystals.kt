@@ -1,25 +1,19 @@
 package com.example.bricksGame
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.app.Application
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.ui.helper.AppNavigation
 import com.example.bricksGame.ui.helper.ScreenSize
 import com.example.bricksGame.ui.helper.SoundController
-import kotlinx.coroutines.DelicateCoroutinesApi
 import com.example.bricksGame.ui.data.DataRepository
-import kotlinx.coroutines.launch
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
-import com.example.bricksGame.components.players.models.PlayerViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.example.bricksGame.ui.data.PlayerDatabase
 
 val screenSize = ScreenSize()
 
@@ -38,7 +32,7 @@ class MainActivity : ComponentActivity() {
             val context = LocalContext.current
             PlayerViewModel.getAllPlayers()
 
-//        context.deleteDatabase("player_database")
+//            context.deleteDatabase("player_database")
             if (!soundController.isRun) {
                 soundController.setContext(context)
                 soundController.playMainTheme()

@@ -14,13 +14,13 @@ abstract class PlayerDatabase : RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: PlayerDatabase? = null
-        fun getDatabase(application: MainActivity): PlayerDatabase {
+        fun getDatabase(context: Context): PlayerDatabase {
 
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
                     instance = Room.databaseBuilder(
-                        application,
+                        context,
                         PlayerDatabase::class.java,
                         "player_database"
 
