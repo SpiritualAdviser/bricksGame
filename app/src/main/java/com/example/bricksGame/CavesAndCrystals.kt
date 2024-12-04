@@ -24,15 +24,15 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         DataRepository.getPlayerDatabase(this)
 
         enableEdgeToEdge()
         setContent {
             screenSize.GetScreenSize()
             val context = LocalContext.current
-            PlayerViewModel.getAllPlayers()
 
-//            context.deleteDatabase("player_database")
+//           context.deleteDatabase("player_database")
             if (!soundController.isRun) {
                 soundController.setContext(context)
                 soundController.playMainTheme()

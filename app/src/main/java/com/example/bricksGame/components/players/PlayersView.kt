@@ -18,12 +18,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -32,6 +30,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -41,7 +40,6 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -49,8 +47,6 @@ import androidx.compose.ui.unit.sp
 import com.example.bricksGame.R
 import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel
-import com.example.bricksGame.ui.data.DataRepository
-import com.example.bricksGame.ui.data.Player
 import com.example.bricksGame.ui.helper.ButtonController
 import kotlinx.coroutines.launch
 
@@ -61,6 +57,7 @@ fun PlayerView() {
     val orientation = LocalConfiguration.current.orientation
     val snackState = remember { SnackbarHostState() }
     val CoroutineScope = rememberCoroutineScope()
+    val playerViewModel = PlayerViewModel()
 
     if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
         Image(
@@ -94,14 +91,14 @@ fun PlayerView() {
                 )
         ) { Text("Menu") }
 
-        PlayersList()
+        PlayersList(playerViewModel)
         Spacer(Modifier.size(10.dp))
-        AddPlayer()
+        AddPlayer(playerViewModel)
 
         IconButton(
             onClick = {
                 if (true) {
-                    PlayerViewModel.addPlayer(PlayerViewModel.nameNewPlayer.value)
+                    playerViewModel.addPlayer()
                     CoroutineScope.launch {
 
                         snackState.showSnackbar("The Player is added")
@@ -122,7 +119,7 @@ fun PlayerView() {
 
         IconButton(
             onClick = {
-                PlayerViewModel.getAllPlayers()
+//                playerViewModel.getAllPlayers()
             },
             modifier = Modifier
                 .size(100.dp, 80.dp)
@@ -145,7 +142,9 @@ fun PlayerView() {
 }
 
 @Composable
-fun PlayersList() {
+fun PlayersList(playerViewModel: PlayerViewModel) {
+
+    val playersList = playerViewModel.playersList.collectAsState(initial = mutableListOf())
 
     Text("Players", fontSize = 20.sp, color = Color.White)
     LazyColumn(
@@ -161,7 +160,7 @@ fun PlayersList() {
 
     ) {
 
-        items(items = PlayerViewModel.playersList) {
+        items(items = playersList.value) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -197,14 +196,14 @@ fun PlayersList() {
 }
 
 @Composable
-fun AddPlayer() {
+fun AddPlayer(playerViewModel: PlayerViewModel) {
 
     Text("Enter player name", fontSize = 20.sp, color = Color.White)
 
     OutlinedTextField(
-        value = PlayerViewModel.nameNewPlayer.value,
+        value = playerViewModel.nameNewPlayer.value,
         onValueChange = {
-            PlayerViewModel.nameNewPlayer.value = it
+            playerViewModel.nameNewPlayer.value = it
         },
 
         colors = TextFieldDefaults.colors(
