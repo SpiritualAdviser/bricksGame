@@ -1,19 +1,18 @@
 package com.example.bricksGame
 
 import android.annotation.SuppressLint
-import android.app.Application
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.ViewModelProvider
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.ui.helper.AppNavigation
 import com.example.bricksGame.ui.helper.ScreenSize
 import com.example.bricksGame.ui.helper.SoundController
 import com.example.bricksGame.ui.data.DataRepository
-import com.example.bricksGame.ui.data.PlayerDatabase
 
 val screenSize = ScreenSize()
 

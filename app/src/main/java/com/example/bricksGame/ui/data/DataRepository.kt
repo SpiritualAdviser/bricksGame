@@ -14,7 +14,7 @@ object DataRepository {
     }
 
     fun getAllPlayers(): Flow<MutableList<Player>>? {
-      return playerDatabase?.getDao()?.readAllData()
+        return playerDatabase?.getDao()?.readAllData()
 //        return playersList
     }
 
@@ -25,4 +25,9 @@ object DataRepository {
     fun delete(player: Player) {
         playerDatabase?.getDao()?.delete(player)
     }
+
+    fun update(player: Player) {
+        playerDatabase?.getDao()?.update(player)
+    }
+
 }

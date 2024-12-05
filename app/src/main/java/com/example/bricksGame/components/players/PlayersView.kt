@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import com.example.bricksGame.R
 import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel
+import com.example.bricksGame.ui.data.Player
 import com.example.bricksGame.ui.helper.ButtonController
 import kotlinx.coroutines.launch
 
@@ -57,7 +58,6 @@ fun PlayerView() {
     val orientation = LocalConfiguration.current.orientation
     val snackState = remember { SnackbarHostState() }
     val CoroutineScope = rememberCoroutineScope()
-    val playerViewModel = PlayerViewModel()
 
     if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
         Image(
@@ -91,14 +91,14 @@ fun PlayerView() {
                 )
         ) { Text("Menu") }
 
-        PlayersList(playerViewModel)
+        PlayersList()
         Spacer(Modifier.size(10.dp))
-        AddPlayer(playerViewModel)
+        AddPlayer()
 
         IconButton(
             onClick = {
                 if (true) {
-                    playerViewModel.addPlayer()
+                    PlayerViewModel.addPlayer()
                     CoroutineScope.launch {
 
                         snackState.showSnackbar("The Player is added")
@@ -119,7 +119,7 @@ fun PlayerView() {
 
         IconButton(
             onClick = {
-//                playerViewModel.getAllPlayers()
+//                PlayerViewModel.update()
             },
             modifier = Modifier
                 .size(100.dp, 80.dp)
@@ -142,9 +142,8 @@ fun PlayerView() {
 }
 
 @Composable
-fun PlayersList(playerViewModel: PlayerViewModel) {
-
-    val playersList = playerViewModel.playersList.collectAsState(initial = mutableListOf())
+fun PlayersList() {
+    val playersList = PlayerViewModel.playersList.collectAsState(initial = emptyList<Player>())
 
     Text("Players", fontSize = 20.sp, color = Color.White)
     LazyColumn(
@@ -166,7 +165,13 @@ fun PlayersList(playerViewModel: PlayerViewModel) {
                     .fillMaxWidth()
                     .height(30.dp)
                     .clip(RoundedCornerShape(5.dp))
-                    .background(Color.LightGray),
+                    .background(
+                        if (it.IsActive) {
+                            Color.Green
+                        } else {
+                            Color.LightGray
+                        }
+                    ),
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -186,7 +191,7 @@ fun PlayersList(playerViewModel: PlayerViewModel) {
                     Modifier.fillMaxWidth(),
                     contentAlignment = Alignment.CenterEnd,
                 ) {
-                    IconButton(onClick = { }) {
+                    IconButton(onClick = { PlayerViewModel.delete(it) }) {
                         Icon(Icons.Filled.Delete, contentDescription = "delete player")
                     }
                 }
@@ -196,14 +201,14 @@ fun PlayersList(playerViewModel: PlayerViewModel) {
 }
 
 @Composable
-fun AddPlayer(playerViewModel: PlayerViewModel) {
+fun AddPlayer() {
 
     Text("Enter player name", fontSize = 20.sp, color = Color.White)
 
     OutlinedTextField(
-        value = playerViewModel.nameNewPlayer.value,
+        value = PlayerViewModel.nameNewPlayer.value,
         onValueChange = {
-            playerViewModel.nameNewPlayer.value = it
+            PlayerViewModel.nameNewPlayer.value = it
         },
 
         colors = TextFieldDefaults.colors(
