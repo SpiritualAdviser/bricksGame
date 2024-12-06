@@ -9,5 +9,5 @@ class Player(
     var playerName: String,
     var score: Int = 0,
     var achievements: Int = 0,
-    var IsActive: Boolean = false
+    var isActive: Boolean = false
 )

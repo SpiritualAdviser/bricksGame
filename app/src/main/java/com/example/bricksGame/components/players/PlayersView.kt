@@ -189,7 +189,7 @@ fun PlayerCard(player: Player) {
             Icon(
                 Icons.Filled.AccountBox,
                 contentDescription = "player",
-                tint = if (player.IsActive) {
+                tint = if (player.isActive) {
                     Color.Green
                 } else {
                     Color.Black

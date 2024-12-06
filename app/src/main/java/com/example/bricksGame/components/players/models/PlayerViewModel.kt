@@ -6,30 +6,24 @@ import com.example.bricksGame.ui.data.DataRepository
 import com.example.bricksGame.ui.data.Player
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 
-
 object PlayerViewModel : ViewModel() {
-
-    var playersList = DataRepository.getAllPlayers() as Flow<MutableList<Player>>
-
-    var nameNewPlayer = mutableStateOf("")
     var newPlayer: Player = Player(
         playerName = "default",
-        IsActive = true
+        isActive = true
     )
+
+    var playersList = DataRepository.getAllPlayers() as Flow<MutableList<Player>>
+    var nameNewPlayer = mutableStateOf("")
     var activePlayer: Player = newPlayer
 
     fun addActivePlayer(player: Player) {
         CoroutineScope(Dispatchers.IO).launch {
             resetPlayers()
 
-            player.IsActive = true
+            player.isActive = true
             activePlayer = player
             update(player)
         }

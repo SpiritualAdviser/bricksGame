@@ -7,8 +7,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.ViewModelProvider
-import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.ui.helper.AppNavigation
 import com.example.bricksGame.ui.helper.ScreenSize
 import com.example.bricksGame.ui.helper.SoundController
@@ -31,7 +29,7 @@ class MainActivity : ComponentActivity() {
             screenSize.GetScreenSize()
             val context = LocalContext.current
 
-//           context.deleteDatabase("player_database")
+//          context.deleteDatabase("player_database")
             if (!soundController.isRun) {
                 soundController.setContext(context)
                 soundController.playMainTheme()
