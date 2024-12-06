@@ -64,7 +64,7 @@ fun PlayerName() {
         )
         Spacer(Modifier.size(10.dp))
         Text(
-            text = PlayerViewModel.nameNewPlayer.value.toString(),
+            text = PlayerViewModel.nameActivePlayer.value,
             fontSize = 16.sp,
             color = Color.White
         )

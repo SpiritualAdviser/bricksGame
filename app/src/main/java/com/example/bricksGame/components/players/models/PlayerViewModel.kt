@@ -22,20 +22,23 @@ object PlayerViewModel : ViewModel() {
     var activePlayer: Player = newPlayer
     var playerScore = mutableIntStateOf(0)
     var playerAchievements = mutableIntStateOf(activePlayer.achievements)
+    var nameActivePlayer = mutableStateOf(activePlayer.playerName)
 
     fun onStartLevel() {
         setPlayerOnGame()
+        playerScore.intValue = 0
     }
 
     fun setPlayerOnGame() {
         CoroutineScope(Dispatchers.IO).launch {
             var currentPlayer: Player? = DataRepository.getActivePlayer()
             if (currentPlayer == null) {
-                currentPlayer = newPlayer
-                nameNewPlayer.value = newPlayer.playerName
+                currentPlayer = activePlayer
+                nameNewPlayer.value = activePlayer.playerName
                 addPlayer()
+            } else {
+                setGamePlayerParams(currentPlayer)
             }
-            setGamePlayerParams(currentPlayer)
         }
     }
 
@@ -52,8 +55,7 @@ object PlayerViewModel : ViewModel() {
 
     fun setGamePlayerParams(player: Player) {
         activePlayer = player
-        playerScore.intValue = 0
-        nameNewPlayer.value = player.playerName
+        nameActivePlayer.value = player.playerName
         playerAchievements.intValue = player.achievements
     }
 
