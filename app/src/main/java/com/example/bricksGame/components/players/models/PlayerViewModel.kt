@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 object PlayerViewModel : ViewModel() {
     var newPlayer: Player = Player(
-        playerName = "default",
+        playerName = "Player",
         isActive = true
     )
 
@@ -20,20 +20,52 @@ object PlayerViewModel : ViewModel() {
     var nameNewPlayer = mutableStateOf("")
 
     var activePlayer: Player = newPlayer
-    var playerScore = mutableIntStateOf(activePlayer.score)
+    var playerScore = mutableIntStateOf(0)
+    var playerAchievements = mutableIntStateOf(activePlayer.achievements)
+
+    fun onStartLevel() {
+        setPlayerOnGame()
+    }
+
+    fun setPlayerOnGame() {
+        CoroutineScope(Dispatchers.IO).launch {
+            var currentPlayer: Player? = DataRepository.getActivePlayer()
+            if (currentPlayer == null) {
+                currentPlayer = newPlayer
+                nameNewPlayer.value = newPlayer.playerName
+                addPlayer()
+            }
+            setGamePlayerParams(currentPlayer)
+        }
+    }
 
     fun addActivePlayer(player: Player) {
         CoroutineScope(Dispatchers.IO).launch {
             resetPlayers()
 
             player.isActive = true
-            activePlayer = player
+
             update(player)
         }
+        setGamePlayerParams(player)
+    }
+
+    fun setGamePlayerParams(player: Player) {
+        activePlayer = player
+        playerScore.intValue = 0
+        nameNewPlayer.value = player.playerName
+        playerAchievements.intValue = player.achievements
     }
 
     fun addScore(score: Int) {
         playerScore.value += score
+
+        if (activePlayer.achievements < playerScore.intValue) {
+            activePlayer.achievements = playerScore.intValue
+            setGamePlayerParams(activePlayer)
+
+            update(activePlayer)
+        }
     }
 
     fun resetPlayers() {
@@ -41,12 +73,12 @@ object PlayerViewModel : ViewModel() {
     }
 
     fun addPlayer() {
+        newPlayer.playerName = nameNewPlayer.value
         CoroutineScope(Dispatchers.IO).launch {
-            newPlayer.playerName = nameNewPlayer.value
             DataRepository.addPlayer(newPlayer)
-            activePlayer = newPlayer
-
+            nameNewPlayer.value = ""
         }
+
         addActivePlayer(newPlayer)
     }
 

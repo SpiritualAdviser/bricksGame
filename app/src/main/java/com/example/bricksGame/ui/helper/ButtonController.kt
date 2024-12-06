@@ -22,7 +22,7 @@ object ButtonController {
         soundController.playLevelTheme()
         BricksViewModel.resetData()
         FieldViewModel.resetData()
-//        PlayerViewModel.resetData()
+        PlayerViewModel.onStartLevel()
 
         AppNavigation.getInstance().getNavController().navigate(Routes.LevelGame.route) {
             popUpTo(Routes.LevelGame.route)

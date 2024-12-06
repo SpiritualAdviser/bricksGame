@@ -14,6 +14,9 @@ interface PlayerDAO {
     @Query("SELECT * FROM players")
     fun readAllData(): Flow<MutableList<Player>>
 
+    @Query("SELECT * FROM players WHERE IsActive = 1")
+    fun getActivePlayer(): Player
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addData(player: Player)
 

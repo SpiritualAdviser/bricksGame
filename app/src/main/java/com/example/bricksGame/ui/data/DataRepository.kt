@@ -15,7 +15,10 @@ object DataRepository {
 
     fun getAllPlayers(): Flow<MutableList<Player>>? {
         return playerDatabase?.getDao()?.readAllData()
-//        return playersList
+    }
+
+    fun getActivePlayer(): Player? {
+        return playerDatabase?.getDao()?.getActivePlayer()
     }
 
     suspend fun addPlayer(player: Player) {
