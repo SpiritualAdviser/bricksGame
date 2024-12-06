@@ -1,5 +1,6 @@
 package com.example.bricksGame.components.players.models
 
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.ui.data.DataRepository
@@ -17,7 +18,9 @@ object PlayerViewModel : ViewModel() {
 
     var playersList = DataRepository.getAllPlayers() as Flow<MutableList<Player>>
     var nameNewPlayer = mutableStateOf("")
+
     var activePlayer: Player = newPlayer
+    var playerScore = mutableIntStateOf(activePlayer.score)
 
     fun addActivePlayer(player: Player) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -27,6 +30,10 @@ object PlayerViewModel : ViewModel() {
             activePlayer = player
             update(player)
         }
+    }
+
+    fun addScore(score: Int) {
+        playerScore.value += score
     }
 
     fun resetPlayers() {
