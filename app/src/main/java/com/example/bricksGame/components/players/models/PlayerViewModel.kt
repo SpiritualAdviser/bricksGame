@@ -8,6 +8,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 
 
@@ -20,28 +23,35 @@ object PlayerViewModel : ViewModel() {
         playerName = "default",
         IsActive = true
     )
-    var activePlayer = newPlayer
+    var activePlayer: Player = newPlayer
+
+    fun addActivePlayer(player: Player) {
+        CoroutineScope(Dispatchers.IO).launch {
+            resetPlayers()
+
+            player.IsActive = true
+            activePlayer = player
+            update(player)
+        }
+    }
+
+    fun resetPlayers() {
+        DataRepository.setInactiveAllPlayers()
+    }
 
     fun addPlayer() {
-
         CoroutineScope(Dispatchers.IO).launch {
             newPlayer.playerName = nameNewPlayer.value
             DataRepository.addPlayer(newPlayer)
             activePlayer = newPlayer
+
         }
+        addActivePlayer(newPlayer)
     }
 
-    fun update() {
+    fun update(player: Player) {
         CoroutineScope(Dispatchers.IO).launch {
-            playersList.collect {
-                it.forEach {
-                    if (it.id != activePlayer.id) {
-                        it.playerName = "update"
-                        it.IsActive = false
-                        DataRepository.update(it)
-                    }
-                }
-            }
+            DataRepository.update(player)
         }
     }
 

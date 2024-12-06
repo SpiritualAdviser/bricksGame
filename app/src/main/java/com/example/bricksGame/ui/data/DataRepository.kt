@@ -30,4 +30,8 @@ object DataRepository {
         playerDatabase?.getDao()?.update(player)
     }
 
+    fun setInactiveAllPlayers() {
+        playerDatabase?.getDao()?.setInactiveAllPlayers()
+    }
+
 }

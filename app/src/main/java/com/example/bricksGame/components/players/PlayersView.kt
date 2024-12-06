@@ -5,6 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -160,41 +161,52 @@ fun PlayersList() {
     ) {
 
         items(items = playersList.value) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(30.dp)
-                    .clip(RoundedCornerShape(5.dp))
-                    .background(
-                        if (it.IsActive) {
-                            Color.Green
-                        } else {
-                            Color.LightGray
-                        }
-                    ),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalAlignment = Alignment.CenterVertically
+            PlayerCard(it)
+        }
+    }
+}
+
+@Composable
+fun PlayerCard(player: Player) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = {
+                PlayerViewModel.addActivePlayer(player)
+            })
+            .height(30.dp)
+            .clip(RoundedCornerShape(5.dp))
+            .background(Color.LightGray),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(2.dp),
+            verticalAlignment = Alignment.CenterVertically,
+
             ) {
-                Text("№ ${it.id}")
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(2.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(Icons.Filled.AccountBox, contentDescription = "player")
-                    Text(it.playerName)
+            Icon(
+                Icons.Filled.AccountBox,
+                contentDescription = "player",
+                tint = if (player.IsActive) {
+                    Color.Green
+                } else {
+                    Color.Black
                 }
-                Row {
-                    Text("record: ${it.achievements}")
-                    Text("score: ${it.score}")
-                }
-                Box(
-                    Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.CenterEnd,
-                ) {
-                    IconButton(onClick = { PlayerViewModel.delete(it) }) {
-                        Icon(Icons.Filled.Delete, contentDescription = "delete player")
-                    }
-                }
+            )
+            Text(player.playerName)
+        }
+        Row {
+            Text("record: ${player.achievements}")
+            Text("score: ${player.score}")
+        }
+        Box(
+            Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.CenterEnd,
+        ) {
+            IconButton(onClick = { PlayerViewModel.delete(player) }) {
+                Icon(Icons.Filled.Delete, contentDescription = "delete player")
             }
         }
     }

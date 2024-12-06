@@ -17,10 +17,15 @@ interface PlayerDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addData(player: Player)
 
-    @Update
+    @Update()
     fun update(player: Player)
+
+    @Query("UPDATE players SET IsActive = 0")
+    fun setInactiveAllPlayers()
 
     @Delete
     fun delete(player: Player)
+
+
 }
 
