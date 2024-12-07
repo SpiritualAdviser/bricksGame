@@ -35,6 +35,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
+import com.example.bricksGame.components.NaviBar.ButtonNaviBar
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 
@@ -94,33 +95,10 @@ private fun TopBar() {
 @Composable
 private fun ButtonBlock() {
 
-    Row(
+    Row( modifier = Modifier.padding(top = 15.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        IconButton(
-            onClick = { ButtonController.navigateHome() },
-
-            modifier = Modifier
-                .size(50.dp)
-                .paint(
-                    painter = painterResource(R.drawable.close),
-                    contentScale = ContentScale.FillWidth
-                )
-        )
-        {}
-        Spacer(Modifier.size(10.dp))
-        IconToggleButton(
-            checked = GameConfig.SOUND_MUTED, onCheckedChange = {
-                soundController.soundMute()
-            },
-            modifier = Modifier
-                .size(60.dp)
-                .paint(
-                    painter = if (GameConfig.SOUND_MUTED) painterResource(R.drawable.play_muted)
-                    else painterResource(R.drawable.play),
-                    contentScale = ContentScale.FillWidth
-                )
-        ) {}
+        ButtonNaviBar()
     }
 }
 

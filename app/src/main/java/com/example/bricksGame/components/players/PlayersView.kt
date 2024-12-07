@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,6 +27,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -46,6 +48,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bricksGame.R
+import com.example.bricksGame.components.NaviBar.ButtonSound
 import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.ui.data.Player
@@ -58,7 +61,7 @@ fun PlayerView() {
 
     val orientation = LocalConfiguration.current.orientation
     val snackState = remember { SnackbarHostState() }
-    val CoroutineScope = rememberCoroutineScope()
+    val coroutineScope = rememberCoroutineScope()
 
     if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
         Image(
@@ -74,6 +77,17 @@ fun PlayerView() {
             modifier = Modifier.fillMaxHeight(),
             contentScale = ContentScale.Crop
         )
+    }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(25.dp, 30.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.End
+
+    ) {
+        ButtonSound()
     }
 
     Column(
@@ -93,19 +107,19 @@ fun PlayerView() {
         ) { Text("Menu") }
 
         PlayersList()
-        Spacer(Modifier.size(10.dp))
+        Spacer(Modifier.size(5.dp))
         AddPlayer()
 
         IconButton(
             onClick = {
                 if (true) {
                     PlayerViewModel.addPlayer()
-                    CoroutineScope.launch {
+                    coroutineScope.launch {
 
                         snackState.showSnackbar("The Player is added")
                     }
                 } else {
-                    CoroutineScope.launch {
+                    coroutineScope.launch {
                         snackState.showSnackbar("The name of Player can not be empty")
                     }
                 }
@@ -117,18 +131,6 @@ fun PlayerView() {
                     contentScale = ContentScale.FillWidth
                 )
         ) { Text("Create player") }
-
-        IconButton(
-            onClick = {
-//                PlayerViewModel.update()
-            },
-            modifier = Modifier
-                .size(100.dp, 80.dp)
-                .paint(
-                    painter = painterResource(R.drawable.buttons_empty),
-                    contentScale = ContentScale.FillWidth
-                )
-        ) { Text("get player") }
 
     }
     Column(
@@ -150,11 +152,11 @@ fun PlayersList() {
     LazyColumn(
         Modifier
             .fillMaxWidth(0.8f)
-            .fillMaxHeight(0.3f)
+            .fillMaxHeight(0.4f)
             .clip(RoundedCornerShape(5.dp))
             .background(Color.DarkGray)
             .border(1.dp, Color.Black, shape = RoundedCornerShape(5.dp))
-            .padding(8.dp),
+            .padding(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp)
 
@@ -218,7 +220,6 @@ fun AddPlayer() {
     Text("Enter player name", fontSize = 20.sp, color = Color.White)
 
     OutlinedTextField(
-
         value = PlayerViewModel.nameNewPlayer.value,
         onValueChange = {
             PlayerViewModel.nameNewPlayer.value = it

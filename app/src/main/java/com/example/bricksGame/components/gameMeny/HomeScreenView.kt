@@ -13,8 +13,9 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
+import com.example.bricksGame.components.NaviBar.ButtonNaviBar
+import com.example.bricksGame.components.NaviBar.ButtonSound
 import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
-import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig
 import com.example.bricksGame.ui.helper.ButtonController
 
@@ -37,25 +38,15 @@ fun RunHomeScreen() {
             contentScale = ContentScale.Crop
         )
     }
-    Box(
+    Row(
         modifier = Modifier
-            .padding(20.dp)
-            .fillMaxSize()
+            .fillMaxWidth()
+            .padding(25.dp, 30.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.End
 
     ) {
-        IconToggleButton(
-            checked = GameConfig.SOUND_MUTED, onCheckedChange = {
-                soundController.soundMute()
-            },
-            modifier = Modifier
-                .size(60.dp, 60.dp)
-                .align(Alignment.TopEnd)
-                .paint(
-                    painter = if (GameConfig.SOUND_MUTED) painterResource(R.drawable.play_muted)
-                    else painterResource(R.drawable.play),
-                    contentScale = ContentScale.FillWidth
-                )
-        ) {}
+        ButtonSound()
     }
 
     Column(
