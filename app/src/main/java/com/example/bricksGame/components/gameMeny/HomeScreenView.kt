@@ -13,10 +13,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
-import com.example.bricksGame.components.NaviBar.ButtonNaviBar
 import com.example.bricksGame.components.NaviBar.ButtonSound
 import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
-import com.example.bricksGame.ui.GameConfig
 import com.example.bricksGame.ui.helper.ButtonController
 
 @Composable
@@ -27,14 +25,14 @@ fun RunHomeScreen() {
         Image(
             painter = painterResource(HomeScreenViewModel.imageBgLandscape),
             contentDescription = "levelBg",
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
     } else {
         Image(
             painter = painterResource(HomeScreenViewModel.imageBgPortrait),
             contentDescription = "levelBg",
-            modifier = Modifier.fillMaxHeight(),
+            modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
     }

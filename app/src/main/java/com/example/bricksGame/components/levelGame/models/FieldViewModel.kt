@@ -12,7 +12,7 @@ import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 
 object FieldViewModel : ViewModel() {
 
-    private val fieldSize = if (screenSize.screenWidthDp > screenSize.screenHeightDp) {
+    val fieldSize = if (screenSize.screenWidthDp > screenSize.screenHeightDp) {
         screenSize.screenHeightDp - GameConfig.PADDING_BG_FIELD.dp * 2
     } else {
         screenSize.screenWidthDp - GameConfig.PADDING_BG_FIELD.dp * 2

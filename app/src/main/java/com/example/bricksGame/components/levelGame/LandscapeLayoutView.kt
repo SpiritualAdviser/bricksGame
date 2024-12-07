@@ -10,24 +10,21 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.IconButton
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.IconToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -38,11 +35,8 @@ import com.example.bricksGame.R
 import com.example.bricksGame.components.NaviBar.ButtonNaviBar
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
-
 import com.example.bricksGame.components.players.PlayerScoreBlock
-import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig
-import com.example.bricksGame.ui.helper.ButtonController
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 import kotlinx.coroutines.launch
 
@@ -54,7 +48,7 @@ fun LandscapeLayout() {
         Image(
             painter = painterResource(id = R.drawable.bg_level_landscape),
             contentDescription = "levelBg",
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
 
@@ -70,21 +64,16 @@ fun LandscapeLayout() {
         )
     }
 
-    Row(
-        Modifier
-            .fillMaxSize()
-    ) {
-        TopBar()
-        FieldBox()
-    }
+    LeftBar()
+    GridFieldBox()
+    BricksBlock()
 }
 
 @Composable
-private fun TopBar() {
+private fun LeftBar() {
     Column(
         Modifier
-            .fillMaxHeight()
-            .padding(GameConfig.PADDING_BG_FIELD.dp),
+            .fillMaxSize(),
     ) {
         ButtonBlock()
         Spacer(Modifier.size(10.dp))
@@ -95,24 +84,11 @@ private fun TopBar() {
 @Composable
 private fun ButtonBlock() {
 
-    Row( modifier = Modifier.padding(top = 15.dp),
+    Row(
+        Modifier.offset(18.dp, 30.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         ButtonNaviBar()
-    }
-}
-
-@Composable
-private fun FieldBox() {
-
-    Row(
-        Modifier
-            .fillMaxSize(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        GridFieldBox()
-        BricksBlock()
     }
 }
 
@@ -126,6 +102,7 @@ private fun GridFieldBox() {
                 sizeToIntrinsics = true,
                 contentScale = ContentScale.FillBounds
             )
+//            .border(4.dp, Color.Magenta),
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(GameConfig.ROWS),
@@ -169,7 +146,10 @@ private fun BricksBlock() {
     val coroutine = rememberCoroutineScope()
 
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier
+            .offset((FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 3)) / 2),
+//            .border(4.dp, Color.Magenta),
+        verticalArrangement = Arrangement.Center
 
     ) {
         (BricksViewModel.bricks.forEach {

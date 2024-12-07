@@ -1,6 +1,7 @@
 package com.example.bricksGame.components.players
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,9 +25,14 @@ import com.example.bricksGame.components.players.models.PlayerViewModel
 
 @Composable
 fun PlayerScoreBlock() {
-    Column {
+    Column(
+        Modifier
+            .offset(18.dp, 30.dp)
+//            .border(4.dp, Color.Magenta)
+    ) {
         PlayerScore()
         PlayerName()
+        Spacer(Modifier.size(4.dp))
         PlayerAchievements()
     }
 }
@@ -42,7 +48,7 @@ fun PlayerScore() {
             contentDescription = "scoreIcon",
             Modifier.size(30.dp)
         )
-        Spacer(Modifier.size(10.dp))
+        Spacer(Modifier.size(4.dp))
         Text(
             text = "Score: ${PlayerViewModel.playerScore.intValue}",
             fontSize = 20.sp,
@@ -85,7 +91,7 @@ fun PlayerAchievements() {
         Spacer(Modifier.size(10.dp))
         Text(
             text = "Achiv: ${PlayerViewModel.playerAchievements.intValue}",
-            fontSize = 15.sp,
+            fontSize = 16.sp,
             color = Color.White
         )
     }

@@ -7,20 +7,15 @@ import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.runtime.rememberCoroutineScope
@@ -39,21 +34,21 @@ import com.example.bricksGame.components.NaviBar.ButtonNaviBar
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
-import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig
-import com.example.bricksGame.ui.helper.ButtonController
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 import kotlinx.coroutines.launch
 
 @Composable
 fun PortraitLayout() {
     Box(
-        Modifier.fillMaxSize(),
+        Modifier
+            .fillMaxSize(),
+//            .border(4.dp, Color.Magenta),
     ) {
         Image(
             painter = painterResource(id = R.drawable.bg_level_portrait),
             contentDescription = "levelBg",
-            modifier = Modifier.fillMaxHeight(),
+            modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
 
@@ -68,23 +63,17 @@ fun PortraitLayout() {
             modifier = Modifier.align(Alignment.BottomEnd)
         )
     }
-
-    Column(
-        Modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        TopBar()
-        FieldBox()
-    }
+    TopBar()
+    GridFieldBox()
+    BricksBlock()
 }
 
 @Composable
 private fun TopBar() {
     Row(
         Modifier
-            .fillMaxWidth()
-            .padding(GameConfig.PADDING_BG_FIELD.dp),
+            .fillMaxSize(),
+//            .border(4.dp, Color.Magenta),
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Absolute.SpaceBetween
 
@@ -97,25 +86,14 @@ private fun TopBar() {
 @Composable
 private fun ButtonBlock() {
     Row(
-        modifier = Modifier.padding(3.dp, 15.dp),
+
+        modifier = Modifier
+            .offset((-18).dp, 30.dp),
+//            .border(4.dp, Color.Magenta),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End
     ) {
         ButtonNaviBar()
-    }
-}
-
-@Composable
-private fun FieldBox() {
-
-    Column(
-        Modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        GridFieldBox()
-        BricksBlock()
     }
 }
 
@@ -129,8 +107,7 @@ private fun GridFieldBox() {
                 sizeToIntrinsics = true,
                 contentScale = ContentScale.FillBounds
             )
-
-
+//            .border(4.dp, Color.Green)
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(GameConfig.ROWS),
@@ -171,8 +148,9 @@ private fun BricksBlock() {
     val coroutine = rememberCoroutineScope()
 
     Row(
-        verticalAlignment = Alignment.CenterVertically,
-
+        modifier = Modifier
+            .offset(y = (FieldViewModel.brickSizePortrait * (GameConfig.COLUMNS + 2)) / 2)
+//            .border(4.dp, Color.Magenta),
         ) {
         (BricksViewModel.bricks.forEach {
             key(it.id) {
