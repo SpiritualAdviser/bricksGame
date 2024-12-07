@@ -47,13 +47,11 @@ class SoundController private constructor() {
         levelTheme = MediaPlayer.create(context, R.raw.action_level_one)
         levelThemeTwo = MediaPlayer.create(context, R.raw.action_level_two)
         levelThemeTree = MediaPlayer.create(context, R.raw.action_level_tree)
-        levelThemeFour = MediaPlayer.create(context, R.raw.action_level_four)
-        levelThemeFive = MediaPlayer.create(context, R.raw.action_level_five)
 
         setLoopOnLevel()
 
         playListLevel =
-            listOf(levelTheme, levelThemeTwo, levelThemeTree, levelThemeFour, levelThemeFive)
+            listOf(levelTheme, levelThemeTwo, levelThemeTree)
     }
 
     fun soundMuteOnStop() {
@@ -132,16 +130,6 @@ class SoundController private constructor() {
         }
 
         levelThemeTree.setOnCompletionListener {
-            currentBgSound = levelThemeFour
-            levelThemeFour.start()
-        }
-
-        levelThemeFour.setOnCompletionListener {
-            currentBgSound = levelThemeFive
-            levelThemeFive.start()
-        }
-
-        levelThemeFive.setOnCompletionListener {
             currentBgSound = levelTheme
             levelTheme.start()
         }
