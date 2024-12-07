@@ -218,19 +218,21 @@ fun AddPlayer() {
     Text("Enter player name", fontSize = 20.sp, color = Color.White)
 
     OutlinedTextField(
+
         value = PlayerViewModel.nameNewPlayer.value,
         onValueChange = {
             PlayerViewModel.nameNewPlayer.value = it
         },
-
+        label = { Text("name") },
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = Color(0xFF816161),
             unfocusedTextColor = Color(0xFF868686),
             focusedContainerColor = Color(0xFFCEB3B3),
             focusedTextColor = Color(0xff222222),
             focusedIndicatorColor = Color.Green,
-            unfocusedIndicatorColor = Color.DarkGray
-        ),
+            unfocusedIndicatorColor = Color.DarkGray,
+
+            ),
 
         textStyle = TextStyle(
             fontSize = 20.sp,
