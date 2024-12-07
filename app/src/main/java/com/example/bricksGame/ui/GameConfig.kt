@@ -61,5 +61,5 @@ object GameConfig : ViewModel() {
 //        7 to R.drawable.bronze_brick,
     )
 
-    var SOUND_MUTED by mutableStateOf(true)
+    var SOUND_MUTED by mutableStateOf(false)
 }

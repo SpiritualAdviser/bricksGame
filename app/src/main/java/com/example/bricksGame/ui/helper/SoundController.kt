@@ -50,7 +50,6 @@ class SoundController private constructor() {
         levelThemeFour = MediaPlayer.create(context, R.raw.action_level_four)
         levelThemeFive = MediaPlayer.create(context, R.raw.action_level_five)
 
-
         setLoopOnLevel()
 
         playListLevel =
