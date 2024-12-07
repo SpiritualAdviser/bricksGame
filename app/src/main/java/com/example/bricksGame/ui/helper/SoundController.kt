@@ -55,7 +55,9 @@ class SoundController private constructor() {
     }
 
     fun soundMuteOnStop() {
-        currentBgSound.pause()
+        if (!GameConfig.SOUND_MUTED){
+            currentBgSound.pause()
+        }
     }
 
     fun soundMuteOnRestart() {
@@ -83,20 +85,24 @@ class SoundController private constructor() {
                 it.prepare()
             }
         }
-
-        if (!mainmeny.isPlaying) {
-            mainmeny.isLooping = true
-            mainmeny.setVolume(1f, 1f)
-            currentBgSound = mainmeny
-            if (!GameConfig.SOUND_MUTED) {
-                mainmeny.start()
-            }
-        } else {
-            currentBgSound = mainmeny
-            if (!GameConfig.SOUND_MUTED) {
-                mainmeny.start()
-            }
+        currentBgSound = mainmeny
+        if (!GameConfig.SOUND_MUTED) {
+            mainmeny.start()
         }
+
+//        if (!mainmeny.isPlaying) {
+//            mainmeny.isLooping = true
+//            mainmeny.setVolume(1f, 1f)
+//            currentBgSound = mainmeny
+//            if (!GameConfig.SOUND_MUTED) {
+//                mainmeny.start()
+//            }
+//        } else {
+//            currentBgSound = mainmeny
+//            if (!GameConfig.SOUND_MUTED) {
+//                mainmeny.start()
+//            }
+//        }
     }
 
     fun playLevelTheme() {
@@ -104,18 +110,21 @@ class SoundController private constructor() {
         if (mainmeny.isPlaying) {
             mainmeny.pause()
         }
+            currentBgSound = playListLevel.random()
 
-        currentBgSound = playListLevel.random()
-
-        if (!currentBgSound.isPlaying) {
-            if (!GameConfig.SOUND_MUTED) {
-                currentBgSound.start()
-            }
-        } else {
-            if (!GameConfig.SOUND_MUTED) {
-                currentBgSound.start()
-            }
+        if (!GameConfig.SOUND_MUTED) {
+            currentBgSound.start()
         }
+
+//        if (!currentBgSound.isPlaying) {
+//            if (!GameConfig.SOUND_MUTED) {
+//                currentBgSound.start()
+//            }
+//        } else {
+//            if (!GameConfig.SOUND_MUTED) {
+//                currentBgSound.start()
+//            }
+//        }
     }
 
     private fun setLoopOnLevel() {
