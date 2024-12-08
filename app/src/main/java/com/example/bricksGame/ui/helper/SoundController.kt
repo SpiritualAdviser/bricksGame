@@ -33,6 +33,8 @@ class SoundController private constructor() {
     private lateinit var levelThemeTree: MediaPlayer
     private lateinit var levelThemeFour: MediaPlayer
     private lateinit var levelThemeFive: MediaPlayer
+    private lateinit var levelThemeSix: MediaPlayer
+    private lateinit var levelThemeSeven: MediaPlayer
     private lateinit var pushCristal: MediaPlayer
     private lateinit var winReel: MediaPlayer
     private lateinit var currentBgSound: MediaPlayer
@@ -47,11 +49,23 @@ class SoundController private constructor() {
         levelTheme = MediaPlayer.create(context, R.raw.action_level_one)
         levelThemeTwo = MediaPlayer.create(context, R.raw.action_level_two)
         levelThemeTree = MediaPlayer.create(context, R.raw.action_level_tree)
+        levelThemeFour = MediaPlayer.create(context, R.raw.action_level_four)
+        levelThemeFive = MediaPlayer.create(context, R.raw.action_level_five)
+        levelThemeSix = MediaPlayer.create(context, R.raw.action_level_six)
+        levelThemeSeven = MediaPlayer.create(context, R.raw.action_level_seven)
 
         setLoopOnLevel()
 
         playListLevel =
-            listOf(levelTheme, levelThemeTwo, levelThemeTree)
+            listOf(
+                levelTheme,
+                levelThemeTwo,
+                levelThemeTree,
+                levelThemeFour,
+                levelThemeFive,
+                levelThemeSix,
+                levelThemeSeven
+            )
     }
 
     fun soundMuteOnStop() {
@@ -85,6 +99,7 @@ class SoundController private constructor() {
                 it.prepare()
             }
         }
+        mainmeny.isLooping = true
         currentBgSound = mainmeny
         if (!GameConfig.SOUND_MUTED) {
             mainmeny.start()
@@ -128,6 +143,16 @@ class SoundController private constructor() {
     }
 
     private fun setLoopOnLevel() {
+
+//        levelTheme,
+//        levelThemeTwo,
+//        levelThemeTree,
+//        levelThemeFour,
+//        levelThemeFive,
+//        levelThemeSix,
+//        levelThemeSeven
+
+
         levelTheme.setOnCompletionListener {
             currentBgSound = levelThemeTwo
             levelThemeTwo.start()
@@ -139,6 +164,26 @@ class SoundController private constructor() {
         }
 
         levelThemeTree.setOnCompletionListener {
+            currentBgSound = levelThemeFour
+            levelThemeFour.start()
+        }
+
+        levelThemeFour.setOnCompletionListener {
+            currentBgSound = levelThemeFive
+            levelThemeFive.start()
+        }
+
+        levelThemeFive.setOnCompletionListener {
+            currentBgSound = levelThemeSix
+            levelThemeSix.start()
+        }
+
+        levelThemeSix.setOnCompletionListener {
+            currentBgSound = levelThemeSeven
+            levelThemeSeven.start()
+        }
+
+        levelThemeSeven.setOnCompletionListener {
             currentBgSound = levelTheme
             levelTheme.start()
         }
