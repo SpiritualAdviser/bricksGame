@@ -55,7 +55,7 @@ class SoundController private constructor() {
     }
 
     fun soundMuteOnStop() {
-        if (!GameConfig.SOUND_MUTED){
+        if (!GameConfig.SOUND_MUTED) {
             currentBgSound.pause()
         }
     }
@@ -110,7 +110,7 @@ class SoundController private constructor() {
         if (mainmeny.isPlaying) {
             mainmeny.pause()
         }
-            currentBgSound = playListLevel.random()
+        currentBgSound = playListLevel.random()
 
         if (!GameConfig.SOUND_MUTED) {
             currentBgSound.start()
@@ -149,7 +149,7 @@ class SoundController private constructor() {
             return
         }
         winReel = MediaPlayer.create(context, R.raw.win_reel)
-        winReel.setVolume(0.6f, 0.6f)
+        winReel.setVolume(0.5f, 0.5f)
         winReel.start()
     }
 
@@ -158,7 +158,7 @@ class SoundController private constructor() {
             return
         }
         pushCristal = MediaPlayer.create(context, R.raw.push_cristal)
-        pushCristal.setVolume(0.8f, 0.8f)
+        pushCristal.setVolume(0.7f, 0.7f)
         pushCristal.start()
     }
 
