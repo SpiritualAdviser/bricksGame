@@ -31,7 +31,7 @@ class SoundController private constructor() {
     private lateinit var levelTheme: MediaPlayer
     private lateinit var levelThemeTwo: MediaPlayer
     private lateinit var levelThemeTree: MediaPlayer
-    private lateinit var levelThemeFour: MediaPlayer
+//    private lateinit var levelThemeFour: MediaPlayer
     private lateinit var levelThemeFive: MediaPlayer
     private lateinit var levelThemeSix: MediaPlayer
     private lateinit var levelThemeSeven: MediaPlayer
@@ -49,7 +49,7 @@ class SoundController private constructor() {
         levelTheme = MediaPlayer.create(context, R.raw.action_level_one)
         levelThemeTwo = MediaPlayer.create(context, R.raw.action_level_two)
         levelThemeTree = MediaPlayer.create(context, R.raw.action_level_tree)
-        levelThemeFour = MediaPlayer.create(context, R.raw.action_level_four)
+//        levelThemeFour = MediaPlayer.create(context, R.raw.action_level_four)
         levelThemeFive = MediaPlayer.create(context, R.raw.action_level_five)
         levelThemeSix = MediaPlayer.create(context, R.raw.action_level_six)
         levelThemeSeven = MediaPlayer.create(context, R.raw.action_level_seven)
@@ -61,7 +61,7 @@ class SoundController private constructor() {
                 levelTheme,
                 levelThemeTwo,
                 levelThemeTree,
-                levelThemeFour,
+//                levelThemeFour,
                 levelThemeFive,
                 levelThemeSix,
                 levelThemeSeven
@@ -164,14 +164,14 @@ class SoundController private constructor() {
         }
 
         levelThemeTree.setOnCompletionListener {
-            currentBgSound = levelThemeFour
-            levelThemeFour.start()
-        }
-
-        levelThemeFour.setOnCompletionListener {
             currentBgSound = levelThemeFive
             levelThemeFive.start()
         }
+
+//        levelThemeFour.setOnCompletionListener {
+//            currentBgSound = levelThemeFive
+//            levelThemeFive.start()
+//        }
 
         levelThemeFive.setOnCompletionListener {
             currentBgSound = levelThemeSix
