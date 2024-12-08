@@ -15,10 +15,12 @@ import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
 import com.example.bricksGame.components.NaviBar.ButtonSound
 import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
+import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.helper.ButtonController
 
 @Composable
 fun RunHomeScreen() {
+
     val orientation = LocalConfiguration.current.orientation
 
     if (orientation == Configuration.ORIENTATION_LANDSCAPE) {

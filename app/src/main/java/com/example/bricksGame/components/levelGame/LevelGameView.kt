@@ -1,6 +1,7 @@
 package com.example.bricksGame.components.levelGame
 
 import android.content.res.Configuration
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,9 +12,14 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import com.example.bricksGame.R
 import com.example.bricksGame.components.players.models.PlayerViewModel
+import com.example.bricksGame.soundController
+import com.example.bricksGame.ui.helper.ButtonController
 
 @Composable
 fun RunLevelGame() {
+    BackHandler {
+        ButtonController.navigateHome()
+    }
 
     Box(
         contentAlignment = Alignment.Center,
