@@ -78,32 +78,69 @@ object FieldViewModel : ViewModel() {
     fun checkFieldOnFinishRound() {
         var column: List<FieldBrick>
         var row: List<FieldBrick>
-        var columnWin: List<FieldBrick> = listOf()
-        var rowWin: List<FieldBrick> = listOf()
+        var itemsOnWin = mutableListOf<List<FieldBrick>>()
+
         brickOnField.forEachIndexed { index, _ ->
+
 
             if (index < GameConfig.ROWS) {
                 row = brickOnField.filter { index == it.position.second }
 
-                if (row.isNotEmpty() && this.checkWin(row)) {
-                    rowWin = row
+                if (GameConfig.WIN_NUMBER_LINE == 0) {
+
+                    if (row.isNotEmpty() && checkWin(row)) {
+                        itemsOnWin.add(row)
+                    }
+                } else {
+                    val subWin = getSubWinList(row)
+
+                    if (subWin.isNotEmpty()) {
+                        itemsOnWin.add(subWin)
+                    }
                 }
             }
 
             if (index % GameConfig.ROWS == 0) {
                 column = brickOnField.subList(index, index + GameConfig.ROWS)
 
-                if (column.isNotEmpty() && this.checkWin(column)) {
-                    columnWin = column
+                if (GameConfig.WIN_NUMBER_LINE == 0) {
+
+                    if (column.isNotEmpty() && checkWin(column)) {
+                        itemsOnWin.add(column)
+                    }
+                } else {
+                    val subColumn = getSubWinList(column)
+
+                    if (subColumn.isNotEmpty()) {
+                        itemsOnWin.add(subColumn)
+                    }
                 }
             }
         }
-        if (rowWin.isNotEmpty()) {
-            resetLineOnWin(rowWin)
+        if (itemsOnWin.isNotEmpty()) {
+            itemsOnWin.forEach {
+                resetLineOnWin(it)
+            }
         }
-        if (columnWin.isNotEmpty()) {
-            resetLineOnWin(columnWin)
+    }
+
+    private fun getSubWinList(list: List<FieldBrick>): List<FieldBrick> {
+        var border = GameConfig.WIN_NUMBER_LINE
+        var winList: List<FieldBrick> = listOf()
+
+        list.forEachIndexed { index, _ ->
+
+            border = index + GameConfig.WIN_NUMBER_LINE
+
+            if (border <= list.size) {
+                val sublist = list.subList(index, border)
+
+                if (sublist.isNotEmpty() && this.checkWin(sublist)) {
+                    winList = sublist
+                }
+            }
         }
+        return winList
     }
 
     private fun checkWin(checkedList: List<FieldBrick>): Boolean {

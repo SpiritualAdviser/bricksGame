@@ -33,7 +33,7 @@ class SoundController private constructor() {
     private lateinit var levelThemeTree: MediaPlayer
 //    private lateinit var levelThemeFour: MediaPlayer
     private lateinit var levelThemeFive: MediaPlayer
-    private lateinit var levelThemeSix: MediaPlayer
+//    private lateinit var levelThemeSix: MediaPlayer
     private lateinit var levelThemeSeven: MediaPlayer
     private lateinit var pushCristal: MediaPlayer
     private lateinit var winReel: MediaPlayer
@@ -51,7 +51,7 @@ class SoundController private constructor() {
         levelThemeTree = MediaPlayer.create(context, R.raw.action_level_tree)
 //        levelThemeFour = MediaPlayer.create(context, R.raw.action_level_four)
         levelThemeFive = MediaPlayer.create(context, R.raw.action_level_five)
-        levelThemeSix = MediaPlayer.create(context, R.raw.action_level_six)
+//        levelThemeSix = MediaPlayer.create(context, R.raw.action_level_six)
         levelThemeSeven = MediaPlayer.create(context, R.raw.action_level_seven)
 
         setLoopOnLevel()
@@ -63,7 +63,7 @@ class SoundController private constructor() {
                 levelThemeTree,
 //                levelThemeFour,
                 levelThemeFive,
-                levelThemeSix,
+//                levelThemeSix,
                 levelThemeSeven
             )
     }
@@ -174,14 +174,14 @@ class SoundController private constructor() {
 //        }
 
         levelThemeFive.setOnCompletionListener {
-            currentBgSound = levelThemeSix
-            levelThemeSix.start()
-        }
-
-        levelThemeSix.setOnCompletionListener {
             currentBgSound = levelThemeSeven
             levelThemeSeven.start()
         }
+
+//        levelThemeSix.setOnCompletionListener {
+//            currentBgSound = levelThemeSeven
+//            levelThemeSeven.start()
+//        }
 
         levelThemeSeven.setOnCompletionListener {
             currentBgSound = levelTheme

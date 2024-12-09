@@ -19,10 +19,17 @@ object GameConfig : ViewModel() {
     const val ROWS: Int = 6
 
     /**
+    The number indicates how many crystals in a row the same color will win.
+    0- full row and column are played.
+    3- Three crystals in a row -win
+     */
+    val WIN_NUMBER_LINE: Int = 0
+
+    /**
      * options MAX_BRICKS is count dragging bricks for game on button block
      */
-    const val MAX_BRICKS_ON_LEVEL = 3
-    const val MIN_BRICKS_TO_ADD_NEXT = 0
+    const val MAX_BRICKS_ON_LEVEL = 4
+    const val MIN_BRICKS_TO_ADD_NEXT = 2
 
     /**
      * options for padding FieldGame in Dp
@@ -52,11 +59,11 @@ object GameConfig : ViewModel() {
         0 to R.drawable.red_brick,
         1 to R.drawable.blue_brick,
         2 to R.drawable.green_brick,
-        3 to R.drawable.purple_brick,
-        4 to R.drawable.orange_brick,
-        5 to R.drawable.dark_blue_brick,
-        6 to R.drawable.pink_brick,
-        7 to R.drawable.bronze_brick,
+//        3 to R.drawable.purple_brick,
+//        4 to R.drawable.orange_brick,
+//        5 to R.drawable.dark_blue_brick,
+//        6 to R.drawable.pink_brick,
+//        7 to R.drawable.bronze_brick,
 //        8 to R.drawable.gold_brick,
 //        9 to R.drawable.dark_brick,
     )
