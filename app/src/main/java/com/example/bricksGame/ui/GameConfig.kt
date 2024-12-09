@@ -1,4 +1,4 @@
-package com.example.bricksGame
+package com.example.bricksGame.ui
 
 import android.database.sqlite.SQLiteDatabase
 import androidx.compose.runtime.getValue
@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
+import com.example.bricksGame.R
 
 object GameConfig : ViewModel() {
     lateinit var gameData: SQLiteDatabase

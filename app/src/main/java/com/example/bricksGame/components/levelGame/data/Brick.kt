@@ -7,7 +7,7 @@ import androidx.compose.ui.layout.positionInWindow
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.screenSize
 import com.example.bricksGame.soundController
-import com.example.bricksGame.GameConfig
+import com.example.bricksGame.ui.GameConfig
 import kotlinx.coroutines.delay
 
 data class Brick(

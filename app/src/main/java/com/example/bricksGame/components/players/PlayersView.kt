@@ -1,8 +1,6 @@
 package com.example.bricksGame.components.players
 
-import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -17,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,7 +24,6 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -42,42 +38,26 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bricksGame.R
+import com.example.bricksGame.components.NaviBar.ButtonNavigateHome
 import com.example.bricksGame.components.NaviBar.ButtonSound
-import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel
+import com.example.bricksGame.ui.MainMenuBg
 import com.example.bricksGame.ui.data.Player
-import com.example.bricksGame.ui.helper.ButtonController
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PlayerView() {
 
-    val orientation = LocalConfiguration.current.orientation
     val snackState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
-    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-        Image(
-            painter = painterResource(HomeScreenViewModel.imageBgLandscape),
-            contentDescription = "levelBg",
-            modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.Crop
-        )
-    } else {
-        Image(
-            painter = painterResource(HomeScreenViewModel.imageBgPortrait),
-            contentDescription = "levelBg",
-            modifier = Modifier.fillMaxHeight(),
-            contentScale = ContentScale.Crop
-        )
-    }
+    MainMenuBg()
 
     Row(
         modifier = Modifier
@@ -95,16 +75,7 @@ fun PlayerView() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        IconButton(
-            onClick = { ButtonController.navigateHome() },
-            modifier = Modifier
-                .size(100.dp, 80.dp)
-                .paint(
-                    painter = painterResource(R.drawable.buttons_empty),
-                    contentScale = ContentScale.FillWidth
-                )
-        ) { Text("Menu") }
+        ButtonNavigateHome()
 
         PlayersList()
         Spacer(Modifier.size(5.dp))

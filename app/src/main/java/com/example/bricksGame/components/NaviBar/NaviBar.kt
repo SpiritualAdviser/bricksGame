@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -12,7 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
 import com.example.bricksGame.soundController
-import com.example.bricksGame.GameConfig
+import com.example.bricksGame.ui.GameConfig
 import com.example.bricksGame.ui.helper.ButtonController
 
 @Composable
@@ -53,6 +54,19 @@ fun ButtonClose() {
             )
     )
     {}
+}
+
+@Composable
+fun ButtonNavigateHome() {
+    IconButton(
+        onClick = { ButtonController.navigateHome() },
+        modifier = Modifier
+            .size(100.dp, 80.dp)
+            .paint(
+                painter = painterResource(R.drawable.buttons_empty),
+                contentScale = ContentScale.FillWidth
+            )
+    ) { Text("Menu") }
 }
 
 

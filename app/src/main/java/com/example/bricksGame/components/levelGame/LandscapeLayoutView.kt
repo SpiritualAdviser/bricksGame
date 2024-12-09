@@ -35,34 +35,14 @@ import com.example.bricksGame.components.NaviBar.ButtonNaviBar
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
-import com.example.bricksGame.GameConfig
+import com.example.bricksGame.ui.GameConfig
+import com.example.bricksGame.ui.LevelLandscapeBg
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 import kotlinx.coroutines.launch
 
 @Composable
 fun LandscapeLayout() {
-    Box(
-        Modifier.fillMaxSize(),
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.bg_level_landscape),
-            contentDescription = "levelBg",
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
-
-        Image(
-            painter = painterResource(id = R.drawable.wide_rock),
-            contentDescription = "wide_rock",
-            modifier = Modifier.align(Alignment.BottomStart)
-        )
-        Image(
-            painter = painterResource(id = R.drawable.thin_rock),
-            contentDescription = "tin_rock",
-            modifier = Modifier.align(Alignment.BottomEnd)
-        )
-    }
-
+    LevelLandscapeBg()
     LeftBar()
     GridFieldBox()
     BricksBlock()

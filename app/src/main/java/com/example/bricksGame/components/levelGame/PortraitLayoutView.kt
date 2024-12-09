@@ -1,6 +1,5 @@
 package com.example.bricksGame.components.levelGame
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -34,35 +33,14 @@ import com.example.bricksGame.components.NaviBar.ButtonNaviBar
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
-import com.example.bricksGame.GameConfig
+import com.example.bricksGame.ui.GameConfig
+import com.example.bricksGame.ui.LevelPortraitBg
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 import kotlinx.coroutines.launch
 
 @Composable
 fun PortraitLayout() {
-    Box(
-        Modifier
-            .fillMaxSize(),
-//            .border(4.dp, Color.Magenta),
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.bg_level_portrait),
-            contentDescription = "levelBg",
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
-
-        Image(
-            painter = painterResource(id = R.drawable.wide_rock),
-            contentDescription = "wide_rock",
-            modifier = Modifier.align(Alignment.BottomStart)
-        )
-        Image(
-            painter = painterResource(id = R.drawable.thin_rock),
-            contentDescription = "tin_rock",
-            modifier = Modifier.align(Alignment.BottomEnd)
-        )
-    }
+    LevelPortraitBg()
     TopBar()
     GridFieldBox()
     BricksBlock()
