@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
 import com.example.bricksGame.components.NaviBar.ButtonSound
 import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
-import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.helper.ButtonController
 
 @Composable
@@ -58,7 +57,7 @@ fun RunHomeScreen() {
         IconButton(
             onClick = { ButtonController.navigateLevelGame() },
             modifier = Modifier
-                .size(100.dp, 80.dp)
+                .size(100.dp, 60.dp)
                 .paint(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.FillWidth
@@ -68,12 +67,22 @@ fun RunHomeScreen() {
         IconButton(
             onClick = { ButtonController.navigatePlayers() },
             modifier = Modifier
-                .size(100.dp, 80.dp)
+                .size(100.dp, 60.dp)
                 .paint(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.FillWidth
                 )
         ) { Text("Players") }
+
+        IconButton(
+            onClick = { ButtonController.navigateOptions() },
+            modifier = Modifier
+                .size(100.dp, 60.dp)
+                .paint(
+                    painter = painterResource(R.drawable.buttons_empty),
+                    contentScale = ContentScale.FillWidth
+                )
+        ) { Text("Options") }
     }
 }
 

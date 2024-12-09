@@ -1,4 +1,4 @@
-package com.example.bricksGame.ui
+package com.example.bricksGame
 
 import android.database.sqlite.SQLiteDatabase
 import androidx.compose.runtime.getValue
@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
-import com.example.bricksGame.R
 
 object GameConfig : ViewModel() {
     lateinit var gameData: SQLiteDatabase
@@ -59,13 +58,13 @@ object GameConfig : ViewModel() {
         0 to R.drawable.red_brick,
         1 to R.drawable.blue_brick,
         2 to R.drawable.green_brick,
-//        3 to R.drawable.purple_brick,
-//        4 to R.drawable.orange_brick,
-//        5 to R.drawable.dark_blue_brick,
-//        6 to R.drawable.pink_brick,
-//        7 to R.drawable.bronze_brick,
-//        8 to R.drawable.gold_brick,
-//        9 to R.drawable.dark_brick,
+        3 to R.drawable.purple_brick,
+        4 to R.drawable.orange_brick,
+        5 to R.drawable.dark_blue_brick,
+        6 to R.drawable.pink_brick,
+        7 to R.drawable.bronze_brick,
+        8 to R.drawable.gold_brick,
+        9 to R.drawable.dark_brick,
     )
 
     var SOUND_MUTED by mutableStateOf(false)

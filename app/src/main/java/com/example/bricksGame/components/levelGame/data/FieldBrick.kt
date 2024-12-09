@@ -8,7 +8,7 @@ import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
 import com.example.bricksGame.R
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
-import com.example.bricksGame.ui.GameConfig
+import com.example.bricksGame.GameConfig
 
 data class FieldBrick(
     val name: String = "FieldBricks",

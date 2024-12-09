@@ -12,7 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
 import com.example.bricksGame.soundController
-import com.example.bricksGame.ui.GameConfig
+import com.example.bricksGame.GameConfig
 import com.example.bricksGame.ui.helper.ButtonController
 
 @Composable

@@ -34,7 +34,7 @@ import com.example.bricksGame.components.NaviBar.ButtonNaviBar
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
-import com.example.bricksGame.ui.GameConfig
+import com.example.bricksGame.GameConfig
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 import kotlinx.coroutines.launch
 

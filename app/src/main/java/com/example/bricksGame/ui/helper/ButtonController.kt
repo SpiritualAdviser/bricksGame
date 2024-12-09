@@ -38,4 +38,12 @@ object ButtonController {
             launchSingleTop = true
         }
     }
+
+    fun navigateOptions() {
+        soundController.clickUi()
+        AppNavigation.getInstance().getNavController().navigate(Routes.Options.route) {
+            popUpTo(Routes.Options.route)
+            launchSingleTop = true
+        }
+    }
 }
