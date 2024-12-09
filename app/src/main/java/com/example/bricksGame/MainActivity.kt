@@ -9,7 +9,7 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.platform.LocalContext
-import com.example.bricksGame.components.players.PlayerView
+import com.example.bricksGame.components.options.models.OptionsViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.ui.helper.AppNavigation
 import com.example.bricksGame.ui.helper.ScreenSize
@@ -24,9 +24,10 @@ val soundController = SoundController.getInstance()
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-       enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
-       navigationBarStyle = SystemBarStyle.dark(Color.TRANSPARENT)
-       )
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
+            navigationBarStyle = SystemBarStyle.dark(Color.TRANSPARENT)
+        )
         super.onCreate(savedInstanceState)
 
         DataRepository.getPlayerDatabase(this)
@@ -36,7 +37,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             screenSize.GetScreenSize()
             val context = LocalContext.current
-
+            OptionsViewModel.activeCard("FullRange")
 //          context.deleteDatabase("player_database")
             if (!soundController.isRun) {
                 soundController.setContext(context)

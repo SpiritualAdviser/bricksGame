@@ -23,7 +23,7 @@ object GameConfig : ViewModel() {
     0- full row and column are played.
     3- Three crystals in a row -win
      */
-    val WIN_NUMBER_LINE: Int = 0
+    var WIN_NUMBER_LINE: Int = 0
 
     /**
      * options MAX_BRICKS is count dragging bricks for game on button block
