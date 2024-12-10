@@ -53,8 +53,10 @@ object CollisionBricksOnLevel {
 
         if (brick.name == "Bonus") {
             if (fieldBrick.hasOwnerId != null) {
+                fieldBrick.hasBonusOwnerId = brick.position
                 brick.hasBonusOwnerId = fieldBrick
                 fieldBrick.setBorderRed()
+                println("Bonus Collision")
             }
         } else {
             if (fieldBrick.hasOwnerId == null) {
@@ -68,8 +70,14 @@ object CollisionBricksOnLevel {
     private fun outOfCollision(brick: Brick, fieldBrick: FieldBrick) {
 
         if (brick.name == "Bonus") {
-            fieldBrick.setBorderBlack()
-            fieldBrick.hasBonusOwnerId = null
+
+            if (brick.hasBonusOwnerId != null && brick.position == fieldBrick.hasBonusOwnerId) {
+                brick.hasBonusOwnerId = null
+                fieldBrick.hasBonusOwnerId = null
+                fieldBrick.setBorderBlack()
+                println("Bonus utOfCollision")
+            }
+
         }
 
         if (fieldBrick.hasOwnerId != null && fieldBrick.hasOwnerId == brick.id) {

@@ -68,6 +68,7 @@ data class FieldBrick(
 
     fun resetFieldBrick() {
         this.hasOwnerId = null
+        this.hasBonusOwnerId = null
         this.setBorderBlack()
         this.assetImage.value = R.drawable.bgfielbrickempty
         this.id = EMPTY_ID

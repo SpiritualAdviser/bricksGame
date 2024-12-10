@@ -44,6 +44,7 @@ data class Brick(
     }
 
     suspend fun stickPosition() {
+        delay(25)
         if (this.name == "Bonus") {
             FieldViewModel.onBonus(this)
             this.x.intValue = 0
@@ -51,7 +52,6 @@ data class Brick(
 
         } else {
 
-            delay(25)
             if (fieldBrickOnCollision != null) {
 
                 val offsetAmount = getOffsetAmount(fieldBrickOnCollision!!)
@@ -63,7 +63,7 @@ data class Brick(
                 this.y.intValue = 0
             }
         }
-        hasBonusOwnerId?.setBorderBlack()
+        hasBonusOwnerId?.onDragEnd()
         fieldBrickOnCollision?.onDragEnd()
     }
 

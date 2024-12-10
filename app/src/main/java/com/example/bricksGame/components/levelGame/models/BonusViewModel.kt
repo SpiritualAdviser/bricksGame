@@ -34,7 +34,7 @@ object BonusViewModel : ViewModel() {
         return Brick(
             x = mutableIntStateOf(0),
             y = mutableIntStateOf(0),
-            id = i,
+            id = 0,
             position = position,
             name = "Bonus",
             assetImage = GameConfig.imagesBricksBonus[i]
