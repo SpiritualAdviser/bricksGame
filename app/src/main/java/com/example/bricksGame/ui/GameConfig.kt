@@ -30,8 +30,8 @@ object GameConfig : ViewModel() {
     /**
      * options MAX_BRICKS is count dragging bricks for game on button block
      */
-    var MAX_BRICKS_ON_LEVEL = 4
-    const val MIN_BRICKS_TO_ADD_NEXT = 2
+    var MAX_BRICKS_ON_LEVEL = 3
+    const val MIN_BRICKS_TO_ADD_NEXT = 0
     const val MAX_BRICKS_SIZE = 60
 
     /**
@@ -58,7 +58,7 @@ object GameConfig : ViewModel() {
      * Warning!! COLUMNS == imagesBricks size +1 brick
      */
 
-    var SPEED_OPEN_BONUS = 0.51f
+    var SPEED_OPEN_BONUS = 0.01f
     val imagesBricks = listOf(
 
         R.drawable.red_brick,

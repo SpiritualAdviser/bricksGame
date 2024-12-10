@@ -11,6 +11,7 @@ import com.example.compose.primaryLight
 object OptionsViewModel : ViewModel() {
 
     var threeInRowCardColor = mutableStateOf(outlineDarkMediumContrast)
+    var fourInRowCardColor = mutableStateOf(outlineDarkMediumContrast)
     var fullRangeCardColor = mutableStateOf(outlineDarkMediumContrast)
     var fieldScheme3x4 = mutableStateOf(outlineDarkMediumContrast)
     var fieldScheme4x5 = mutableStateOf(outlineDarkMediumContrast)
@@ -35,22 +36,23 @@ object OptionsViewModel : ViewModel() {
     }
 
     fun activeCard(nameCard: String = "") {
+        threeInRowCardColor.value = outlineDarkMediumContrast
+        fourInRowCardColor.value = outlineDarkMediumContrast
+        fullRangeCardColor.value = outlineDarkMediumContrast
         when (nameCard) {
             "ThreeInRow" -> {
                 GameConfig.WIN_NUMBER_LINE = 3
+                threeInRowCardColor.value = primaryLight
             }
 
             "FullRange" -> {
                 GameConfig.WIN_NUMBER_LINE = 0
+                fullRangeCardColor.value = primaryLight
             }
-        }
-
-        if (GameConfig.WIN_NUMBER_LINE == 3) {
-            threeInRowCardColor.value = primaryLight
-            fullRangeCardColor.value = outlineDarkMediumContrast
-        } else {
-            fullRangeCardColor.value = primaryLight
-            threeInRowCardColor.value = outlineDarkMediumContrast
+            "FourInRow" -> {
+                GameConfig.WIN_NUMBER_LINE = 4
+                fourInRowCardColor.value = primaryLight
+            }
         }
     }
 

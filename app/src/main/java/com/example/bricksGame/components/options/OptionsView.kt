@@ -123,6 +123,26 @@ fun ThreeInRow() {
 }
 
 @Composable
+fun FourInRow() {
+    Card(
+        onClick = { OptionsViewModel.activeCard("FourInRow") },
+        shape = RoundedCornerShape(10.dp),
+        colors = CardDefaults.cardColors(OptionsViewModel.fourInRowCardColor.value),
+        modifier = Modifier
+            .fillMaxWidth(0.9f)
+            .height(40.dp)
+    ) {
+        Column(
+            Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = "Three in row", textAlign = TextAlign.Center,  color = backgroundDark)
+        }
+    }
+}
+
+@Composable
 fun FullRange() {
     Card(
         onClick = { OptionsViewModel.activeCard("FullRange") },

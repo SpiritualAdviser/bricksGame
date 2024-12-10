@@ -35,9 +35,10 @@ object BonusViewModel : ViewModel() {
     fun setAlpha(countAlpha: Float) {
 
         bonuses.forEach {
-            if (it.alpha.value < 1) {
+            if (it.alpha.value + countAlpha < 1) {
                 it.alpha.value += countAlpha
             } else {
+                it.alpha.value = 1f
                 it.canDrag = true
                 it.activeBonusBorder.value = primaryContainerDark
             }
