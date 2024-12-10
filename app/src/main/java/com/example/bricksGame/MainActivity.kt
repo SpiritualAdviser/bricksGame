@@ -37,7 +37,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             screenSize.GetScreenSize()
             val context = LocalContext.current
-            OptionsViewModel.activeCard("FullRange")
+            OptionsViewModel.setOption()
+
 //          context.deleteDatabase("player_database")
             if (!soundController.isRun) {
                 soundController.setContext(context)

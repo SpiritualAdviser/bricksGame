@@ -75,22 +75,18 @@ private fun ButtonBlock() {
 private fun GridFieldBox() {
     Box(
         modifier = Modifier
-            .padding(GameConfig.PADDING_BG_FIELD.dp)
-            .paint(
-                painter = painterResource(R.drawable.bgfieldallmosy),
-                sizeToIntrinsics = true,
-                contentScale = ContentScale.FillBounds
-            )
-//            .border(4.dp, Color.Magenta),
+            .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
+            .background(GameConfig.FIELD_BG_COLOR),
+//            .border(4.dp, Color.Green)
     ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(GameConfig.ROWS),
             horizontalArrangement = Arrangement.Center,
+            userScrollEnabled = false,
             modifier = Modifier
-                .padding(GameConfig.PADDING_FIELD.dp)
                 .size(
                     FieldViewModel.brickSizeLandscape * GameConfig.ROWS,
-                    FieldViewModel.brickSizeLandscape * GameConfig.COLUMNS
+                    FieldViewModel.brickSizeLandscape * GameConfig.COLUMNS + GameConfig.BRICK_BORDER_SIZE.dp
                 )
         ) {
 
@@ -105,7 +101,7 @@ private fun GridFieldBox() {
                         )
                         .size(FieldViewModel.brickSizeLandscape)
                         .background(GameConfig.BRICK_BG_FIELD_COLOR)
-                        .padding(2.dp)
+                        .padding(5.dp)
                         .paint(
                             painterResource(it.assetImage.value),
                             sizeToIntrinsics = true,

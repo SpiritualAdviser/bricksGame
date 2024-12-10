@@ -15,8 +15,9 @@ object GameConfig : ViewModel() {
      * options for game designer Field Game
      * Is set COLUMNS and ROWS on game
      */
-    const val COLUMNS: Int = 7
-    const val ROWS: Int = 6
+
+    var ROWS: Int = 6
+    var COLUMNS: Int = 7
 
     /**
     The number indicates how many crystals in a row the same color will win.
@@ -28,14 +29,14 @@ object GameConfig : ViewModel() {
     /**
      * options MAX_BRICKS is count dragging bricks for game on button block
      */
-    const val MAX_BRICKS_ON_LEVEL = 4
+    var MAX_BRICKS_ON_LEVEL = 4
     const val MIN_BRICKS_TO_ADD_NEXT = 2
+    const val MAX_BRICKS_SIZE = 60
 
     /**
      * options for padding FieldGame in Dp
      */
-    const val PADDING_BG_FIELD = 15
-    const val PADDING_FIELD = 25
+    const val PADDING_FIELD = 35
 
     /**
      * options BRICK_BORDER_SIZE for brick border size in Dp
@@ -44,7 +45,8 @@ object GameConfig : ViewModel() {
      */
 
     val BRICK_BG_COLOR = Color.Transparent
-    val BRICK_BG_FIELD_COLOR = Color(0xC83E3A39)
+    val BRICK_BG_FIELD_COLOR = Color(0x943E3A39)
+    val FIELD_BG_COLOR = Color(0xC8181717)
     const val BRICK_BORDER_SIZE = 1
     val BRICK_BORDER_COLOR = Color.Black
     val BRICK_BORDER_HOVER_COLOR = Color.Red
@@ -54,18 +56,18 @@ object GameConfig : ViewModel() {
      * options for image assets brick on game
      * Warning!! COLUMNS == imagesBricks size +1 brick
      */
-    val imagesBricks: Map<Int, Int> = mapOf(
+    val imagesBricks = listOf(
 
-        0 to R.drawable.red_brick,
-        1 to R.drawable.blue_brick,
-        2 to R.drawable.green_brick,
-        3 to R.drawable.purple_brick,
-        4 to R.drawable.orange_brick,
-        5 to R.drawable.dark_blue_brick,
-        6 to R.drawable.pink_brick,
-        7 to R.drawable.bronze_brick,
-        8 to R.drawable.gold_brick,
-        9 to R.drawable.dark_brick,
+        R.drawable.red_brick,
+        R.drawable.blue_brick,
+        R.drawable.green_brick,
+        R.drawable.purple_brick,
+        R.drawable.orange_brick,
+        R.drawable.dark_blue_brick,
+        R.drawable.pink_brick,
+        R.drawable.bronze_brick,
+        R.drawable.gold_brick,
+        R.drawable.dark_brick,
     )
 
     var SOUND_MUTED by mutableStateOf(false)

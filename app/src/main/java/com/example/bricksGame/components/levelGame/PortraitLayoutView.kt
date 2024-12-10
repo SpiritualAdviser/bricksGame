@@ -79,20 +79,20 @@ private fun ButtonBlock() {
 private fun GridFieldBox() {
     Box(
         modifier = Modifier
-            .padding(GameConfig.PADDING_BG_FIELD.dp)
-            .paint(
-                painter = painterResource(R.drawable.bgfieldallmosy),
-                sizeToIntrinsics = true,
-                contentScale = ContentScale.FillBounds
-            )
+            .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
+            .background(GameConfig.FIELD_BG_COLOR),
 //            .border(4.dp, Color.Green)
     ) {
+
         LazyVerticalGrid(
             columns = GridCells.Fixed(GameConfig.ROWS),
             horizontalArrangement = Arrangement.Center,
+            userScrollEnabled = false,
             modifier = Modifier
-                .padding(GameConfig.PADDING_FIELD.dp)
-
+                .size(
+                    FieldViewModel.brickSizePortrait * GameConfig.ROWS,
+                    FieldViewModel.brickSizePortrait * GameConfig.COLUMNS + GameConfig.BRICK_BORDER_SIZE.dp
+                )
         ) {
 
             items(FieldViewModel.brickOnField) {
@@ -106,7 +106,7 @@ private fun GridFieldBox() {
                         )
                         .size(FieldViewModel.brickSizePortrait)
                         .background(GameConfig.BRICK_BG_FIELD_COLOR)
-                        .padding(2.dp)
+//                        .padding(2.dp)
                         .paint(
                             painterResource(it.assetImage.value),
                             sizeToIntrinsics = true,
@@ -129,7 +129,7 @@ private fun BricksBlock() {
         modifier = Modifier
             .offset(y = (FieldViewModel.brickSizePortrait * (GameConfig.COLUMNS + 2)) / 2)
 //            .border(4.dp, Color.Magenta),
-        ) {
+    ) {
         (BricksViewModel.bricks.forEach {
             key(it.id) {
                 Box(

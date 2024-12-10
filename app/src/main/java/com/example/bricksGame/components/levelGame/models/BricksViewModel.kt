@@ -30,7 +30,30 @@ object BricksViewModel : ViewModel() {
     }
 
     private fun getRandomImage(): Int {
-        return GameConfig.imagesBricks.values.random()
+        var maxColors: Int = 0
+        var column = GameConfig.COLUMNS
+        var rows = GameConfig.ROWS
+
+        maxColors = if (GameConfig.WIN_NUMBER_LINE == 0) {
+
+            if (column > rows) {
+                GameConfig.COLUMNS
+            } else {
+                GameConfig.ROWS
+            }
+
+        } else {
+            if (column > rows) {
+                GameConfig.COLUMNS + 1
+            } else {
+                GameConfig.ROWS + 1
+            }
+        }
+
+        if (maxColors > GameConfig.imagesBricks.size - 1) {
+            maxColors = GameConfig.imagesBricks.size - 1
+        }
+        return GameConfig.imagesBricks[(0..maxColors).random()]
     }
 
     fun removeBrick(brick: Brick) {
