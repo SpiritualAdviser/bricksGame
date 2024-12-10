@@ -27,8 +27,7 @@ object FieldViewModel : ViewModel() {
 
     fun onOptionChange() {
         brickSizePortrait = fieldMAxWidthSize / GameConfig.ROWS
-        brickSizeLandscape =
-            fieldMAxWidthSize / GameConfig.COLUMNS
+        brickSizeLandscape = fieldMAxWidthSize / GameConfig.COLUMNS
 
         if (brickSizePortrait > GameConfig.MAX_BRICKS_SIZE.dp) {
             brickSizePortrait = GameConfig.MAX_BRICKS_SIZE.dp
@@ -99,30 +98,33 @@ object FieldViewModel : ViewModel() {
     fun onBonusFire(brick: Brick) {
         val row =
             brickOnField.filter { brick.hasBonusOwnerId?.position?.second == it.position.second }
+        val winRow = mutableListOf<FieldBrick>()
 
         CoroutineScope(Dispatchers.IO).launch {
             row.forEach {
                 if (it.hasOwnerId != null) {
                     it.assetImage.value = GameConfig.imagesBricksBonus[1]
+                    winRow.add(it)
                 }
             }
             delay(300)
-            resetLineOnWin(row)
+            resetLineOnWin(winRow)
         }
     }
 
     fun onBonusIce(brick: Brick) {
         val column =
             brickOnField.filter { brick.hasBonusOwnerId?.position?.first == it.position.first }
-
+        val winColumn = mutableListOf<FieldBrick>()
         CoroutineScope(Dispatchers.IO).launch {
             column.forEach {
                 if (it.hasOwnerId != null) {
                     it.assetImage.value = GameConfig.imagesBricksBonus[0]
+                    winColumn.add(it)
                 }
             }
             delay(300)
-            resetLineOnWin(column)
+            resetLineOnWin(winColumn)
         }
     }
 
