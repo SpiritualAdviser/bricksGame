@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -36,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -48,6 +50,20 @@ import com.example.bricksGame.components.NaviBar.ButtonSound
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.ui.MainMenuBg
 import com.example.bricksGame.ui.data.Player
+import com.example.compose.backgroundDark
+import com.example.compose.errorLight
+import com.example.compose.onBackgroundLight
+import com.example.compose.onPrimaryContainerLight
+import com.example.compose.onPrimaryLight
+import com.example.compose.onSurfaceVariantLight
+import com.example.compose.outlineDarkMediumContrast
+import com.example.compose.outlineLight
+import com.example.compose.outlineVariantLight
+import com.example.compose.primaryContainerDark
+import com.example.compose.primaryContainerDarkMediumContrast
+import com.example.compose.primaryLight
+import com.example.compose.secondaryContainerDark
+import com.example.compose.secondaryLight
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -81,7 +97,7 @@ fun PlayerView() {
         Spacer(Modifier.size(5.dp))
         AddPlayer()
 
-        IconButton(
+        Button(
             onClick = {
                 if (true) {
                     PlayerViewModel.addPlayer()
@@ -95,12 +111,12 @@ fun PlayerView() {
                     }
                 }
             },
-            modifier = Modifier
-                .size(100.dp, 80.dp)
-                .paint(
-                    painter = painterResource(R.drawable.buttons_empty),
-                    contentScale = ContentScale.FillWidth
-                )
+            modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
+//                .size(100.dp, 80.dp)
+//                .paint(
+//                    painter = painterResource(R.drawable.buttons_empty),
+//                    contentScale = ContentScale.FillWidth
+//                )
         ) { Text("Create player") }
 
     }
@@ -119,13 +135,13 @@ fun PlayerView() {
 fun PlayersList() {
     val playersList = PlayerViewModel.playersList.collectAsState(initial = emptyList<Player>())
 
-    Text("Players", fontSize = 20.sp, color = Color.White)
+    Text("Players", fontSize = 20.sp, color = onPrimaryLight)
     LazyColumn(
         Modifier
             .fillMaxWidth(0.8f)
             .fillMaxHeight(0.4f)
             .clip(RoundedCornerShape(5.dp))
-            .background(Color.DarkGray)
+            .background(onSurfaceVariantLight)
             .border(1.dp, Color.Black, shape = RoundedCornerShape(5.dp))
             .padding(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -147,9 +163,9 @@ fun PlayerCard(player: Player) {
             .clickable(onClick = {
                 PlayerViewModel.addActivePlayer(player)
             })
-            .height(30.dp)
+            .height(40.dp)
             .clip(RoundedCornerShape(5.dp))
-            .background(Color.LightGray),
+            .background(outlineDarkMediumContrast),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -163,16 +179,15 @@ fun PlayerCard(player: Player) {
                 Icons.Filled.AccountBox,
                 contentDescription = "player",
                 tint = if (player.isActive) {
-                    Color.Green
+                    errorLight
                 } else {
-                    Color.Black
+                    backgroundDark
                 }
             )
-            Text(player.playerName)
+            Text(player.playerName, color = backgroundDark)
         }
         Row {
-            Text("record: ${player.achievements}")
-            Text("score: ${player.score}")
+            Text("achiev..: ${player.achievements}", color = backgroundDark)
         }
         Box(
             Modifier.fillMaxWidth(),
@@ -188,7 +203,7 @@ fun PlayerCard(player: Player) {
 @Composable
 fun AddPlayer() {
 
-    Text("Enter player name", fontSize = 20.sp, color = Color.White)
+    Text("Enter player name", fontSize = 20.sp, color = onPrimaryLight)
 
     OutlinedTextField(
         value = PlayerViewModel.nameNewPlayer.value,
@@ -197,14 +212,9 @@ fun AddPlayer() {
         },
         label = { Text("name") },
         colors = TextFieldDefaults.colors(
-            unfocusedContainerColor = Color(0xFF816161),
-            unfocusedTextColor = Color(0xFF868686),
-            focusedContainerColor = Color(0xFFCEB3B3),
-            focusedTextColor = Color(0xff222222),
-            focusedIndicatorColor = Color.Green,
-            unfocusedIndicatorColor = Color.DarkGray,
-
-            ),
+            unfocusedContainerColor = outlineLight,
+            focusedContainerColor = outlineVariantLight,
+        ),
 
         textStyle = TextStyle(
             fontSize = 20.sp,

@@ -2,12 +2,15 @@ package com.example.bricksGame.components.NaviBar
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -58,14 +61,15 @@ fun ButtonClose() {
 
 @Composable
 fun ButtonNavigateHome() {
-    IconButton(
+    Button(
         onClick = { ButtonController.navigateHome() },
-        modifier = Modifier
-            .size(100.dp, 80.dp)
-            .paint(
-                painter = painterResource(R.drawable.buttons_empty),
-                contentScale = ContentScale.FillWidth
-            )
+        modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
+//        modifier = Modifier
+//            .size(100.dp, 80.dp)
+//            .paint(
+//                painter = painterResource(R.drawable.buttons_empty),
+//                contentScale = ContentScale.FillWidth
+//            )
     ) { Text("Menu") }
 }
 

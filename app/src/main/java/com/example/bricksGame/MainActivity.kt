@@ -15,6 +15,7 @@ import com.example.bricksGame.ui.helper.AppNavigation
 import com.example.bricksGame.ui.helper.ScreenSize
 import com.example.bricksGame.ui.helper.SoundController
 import com.example.bricksGame.ui.data.DataRepository
+import com.example.compose.AppTheme
 
 val screenSize = ScreenSize()
 
@@ -44,7 +45,9 @@ class MainActivity : ComponentActivity() {
                 soundController.setContext(context)
                 soundController.playMainTheme()
             }
-            AppNavigation.getInstance().CreateNavHost()
+            AppTheme{
+                AppNavigation.getInstance().CreateNavHost()
+            }
         }
     }
 

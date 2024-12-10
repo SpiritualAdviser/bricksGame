@@ -6,6 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -35,34 +37,34 @@ fun RunHomeScreen() {
         Arrangement.Center,
         Alignment.CenterHorizontally
     ) {
-        IconButton(
+        Button(
             onClick = { ButtonController.navigateLevelGame() },
-            modifier = Modifier
-                .size(100.dp, 60.dp)
-                .paint(
-                    painter = painterResource(R.drawable.buttons_empty),
-                    contentScale = ContentScale.FillWidth
-                )
+            modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
+//                .size(100.dp, 40.dp)
+//                .paint(
+//                    painter = painterResource(R.drawable.buttons_empty),
+//                    contentScale = ContentScale.FillWidth
+//                )
         ) { Text("Start") }
 
-        IconButton(
+        Button(
             onClick = { ButtonController.navigatePlayers() },
-            modifier = Modifier
-                .size(100.dp, 60.dp)
-                .paint(
-                    painter = painterResource(R.drawable.buttons_empty),
-                    contentScale = ContentScale.FillWidth
-                )
+            modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
+//                .size(100.dp, 40.dp)
+//                .paint(
+//                    painter = painterResource(R.drawable.buttons_empty),
+//                    contentScale = ContentScale.FillWidth
+//                )
         ) { Text("Players") }
 
-        IconButton(
+        Button(
             onClick = { ButtonController.navigateOptions() },
-            modifier = Modifier
-                .size(100.dp, 60.dp)
-                .paint(
-                    painter = painterResource(R.drawable.buttons_empty),
-                    contentScale = ContentScale.FillWidth
-                )
+            modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
+//                .size(100.dp, 40.dp)
+//                .paint(
+//                    painter = painterResource(R.drawable.buttons_empty),
+//                    contentScale = ContentScale.FillWidth
+//                )
         ) { Text("Options") }
     }
 }

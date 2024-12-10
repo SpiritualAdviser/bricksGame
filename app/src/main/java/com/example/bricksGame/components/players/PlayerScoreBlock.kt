@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bricksGame.R
 import com.example.bricksGame.components.players.models.PlayerViewModel
+import com.example.compose.primaryContainerDark
 
 @Composable
 fun PlayerScoreBlock() {
@@ -66,7 +67,7 @@ fun PlayerName() {
             Icons.Filled.AccountBox,
             contentDescription = "Achievements",
             modifier = Modifier.size(20.dp),
-            tint = Color.Green
+            tint = primaryContainerDark
         )
         Spacer(Modifier.size(10.dp))
         Text(
@@ -86,7 +87,7 @@ fun PlayerAchievements() {
             Icons.Filled.AccountCircle,
             contentDescription = "Achievements",
             modifier = Modifier.size(20.dp),
-            tint = Color.Green
+            tint = primaryContainerDark
         )
         Spacer(Modifier.size(10.dp))
         Text(
