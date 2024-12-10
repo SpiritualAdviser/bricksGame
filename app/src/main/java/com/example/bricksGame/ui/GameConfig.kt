@@ -71,7 +71,8 @@ object GameConfig : ViewModel() {
     )
 
     val imagesBricksBonus=listOf(
-        R.drawable.red_brick,
+        R.drawable.fire_bonus,
+        R.drawable.hammer_bonus,
         )
 
     var SOUND_MUTED by mutableStateOf(false)

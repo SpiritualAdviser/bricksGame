@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
 import com.example.bricksGame.components.NaviBar.ButtonNaviBar
+import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
@@ -44,6 +46,7 @@ fun PortraitLayout() {
     TopBar()
     GridFieldBox()
     BricksBlock()
+    BonusBlock()
 }
 
 @Composable
@@ -163,6 +166,54 @@ private fun BricksBlock() {
                                     coroutine.launch {
                                         it.stickPosition()
                                         FieldViewModel.checkFieldOnFinishRound()
+                                    }
+                                },
+                                onDragCancel = { },
+                            )
+                        }
+                )
+                Spacer(Modifier.size(10.dp))
+            }
+        })
+    }
+}
+
+@Composable
+private fun BonusBlock() {
+    val coroutine = rememberCoroutineScope()
+
+    Row(
+        modifier = Modifier
+           .offset(y = -(FieldViewModel.brickSizePortrait * (GameConfig.COLUMNS + 2)) / 2)
+//            .border(4.dp, Color.Magenta),
+    ) {
+        (BonusViewModel.bonuses.forEach {
+            key(it.id) {
+                Box(
+                    Modifier
+                        .offset { IntOffset(it.x.intValue, it.y.intValue) }
+                        .size(FieldViewModel.brickSizePortrait)
+                        .paint(
+                            painterResource(it.assetImage),
+                            sizeToIntrinsics = true,
+                            contentScale = ContentScale.FillBounds
+                        )
+//                        .onGloballyPositioned { coordinates ->
+//                            it.setGloballyPosition(coordinates)
+//                        }
+                        .pointerInput(Unit) {
+                            detectDragGestures(
+                                onDragStart = { },
+                                onDrag = { _, dragAmount ->
+                                    it.dragging(dragAmount.x, dragAmount.y)
+                                    coroutine.launch {
+//                                        CollisionBricksOnLevel.observeCenterObjects(it)
+                                    }
+                                },
+                                onDragEnd = {
+                                    coroutine.launch {
+                                        it.stickPosition()
+//                                        FieldViewModel.checkFieldOnFinishRound()
                                     }
                                 },
                                 onDragCancel = { },
