@@ -56,6 +56,8 @@ object GameConfig : ViewModel() {
      * options for image assets brick on game
      * Warning!! COLUMNS == imagesBricks size +1 brick
      */
+
+    var SPEED_OPEN_BONUS = 0.1f
     val imagesBricks = listOf(
 
         R.drawable.red_brick,
@@ -70,11 +72,11 @@ object GameConfig : ViewModel() {
         R.drawable.dark_brick,
     )
 
-    val imagesBricksBonus=listOf(
+    val imagesBricksBonus = listOf(
         R.drawable.ice_bonus,
         R.drawable.fire_bonus,
         R.drawable.hammer_bonus,
-        )
+    )
 
     var SOUND_MUTED by mutableStateOf(false)
 }

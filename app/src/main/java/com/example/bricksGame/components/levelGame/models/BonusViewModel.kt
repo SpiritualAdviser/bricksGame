@@ -18,8 +18,26 @@ object BonusViewModel : ViewModel() {
         bonusList.add(createBonus(0))
         bonusList.add(createBonus(1))
         bonusList.add(createBonus(2))
-
+        bonusList.forEach {
+            setOfBonus(it)
+        }
         return bonusList
+    }
+
+    fun setAlpha(countAlpha: Float) {
+
+        bonuses.forEach {
+            if (it.alpha.value < 1) {
+                it.alpha.value += countAlpha
+            } else {
+                it.canDrag = true
+            }
+        }
+    }
+
+    fun setOfBonus(brick: Brick) {
+        brick.alpha.value = 0.05f
+        brick.canDrag = false
     }
 
     private fun createBonus(i: Int): Brick {
@@ -34,6 +52,7 @@ object BonusViewModel : ViewModel() {
         return Brick(
             x = mutableIntStateOf(0),
             y = mutableIntStateOf(0),
+            canDrag = false,
             id = 0,
             position = position,
             name = "Bonus",

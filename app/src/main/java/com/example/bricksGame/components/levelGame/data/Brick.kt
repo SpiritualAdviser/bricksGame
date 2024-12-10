@@ -1,9 +1,13 @@
 package com.example.bricksGame.components.levelGame.data
 
 import androidx.compose.runtime.MutableIntState
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
+import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.screenSize
@@ -21,6 +25,8 @@ data class Brick(
     var globalY: Float = 0f,
     var globalWidth: Int = 0,
     var globalHeight: Int = 0,
+    var canDrag: Boolean = true,
+    var alpha: MutableState<Float> = mutableFloatStateOf(1f),
 
     var borderColor: Color = GameConfig.BRICK_BORDER_COLOR,
 
@@ -46,7 +52,10 @@ data class Brick(
     suspend fun stickPosition() {
         delay(25)
         if (this.name == "Bonus") {
-            FieldViewModel.onBonus(this)
+            if (this.hasBonusOwnerId != null) {
+                FieldViewModel.onBonus(this)
+                BonusViewModel.setOfBonus(this)
+            }
             this.x.intValue = 0
             this.y.intValue = 0
 

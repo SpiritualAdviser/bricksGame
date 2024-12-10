@@ -182,7 +182,7 @@ private fun BonusBlock() {
 
     Row(
         modifier = Modifier
-           .offset(y = -(FieldViewModel.brickSizePortrait * (GameConfig.COLUMNS + 2)) / 2)
+            .offset(y = -(FieldViewModel.brickSizePortrait * (GameConfig.COLUMNS + 2)) / 2)
 //            .border(4.dp, Color.Magenta),
     ) {
         (BonusViewModel.bonuses.forEach {
@@ -193,6 +193,7 @@ private fun BonusBlock() {
                         .size(FieldViewModel.brickSizePortrait)
                         .paint(
                             painterResource(it.assetImage),
+                            alpha = it.alpha.value,
                             sizeToIntrinsics = true,
                             contentScale = ContentScale.FillBounds
                         )
@@ -203,15 +204,19 @@ private fun BonusBlock() {
                             detectDragGestures(
                                 onDragStart = { },
                                 onDrag = { _, dragAmount ->
-                                    it.dragging(dragAmount.x, dragAmount.y)
-                                    coroutine.launch {
-                                        CollisionBricksOnLevel.observeCenterObjects(it)
+                                    if (it.canDrag) {
+                                        it.dragging(dragAmount.x, dragAmount.y)
+                                        coroutine.launch {
+                                            CollisionBricksOnLevel.observeCenterObjects(it)
+                                        }
                                     }
                                 },
                                 onDragEnd = {
-                                    coroutine.launch {
-                                        it.stickPosition()
+                                    if (it.canDrag) {
+                                        coroutine.launch {
+                                            it.stickPosition()
 //                                        FieldViewModel.checkFieldOnFinishRound()
+                                        }
                                     }
                                 },
                                 onDragCancel = { },
