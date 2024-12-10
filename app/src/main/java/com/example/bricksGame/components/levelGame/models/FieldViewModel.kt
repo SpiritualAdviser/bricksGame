@@ -84,7 +84,6 @@ object FieldViewModel : ViewModel() {
 
     fun setBricksOnField(brick: Brick) {
         val currentFieldBrick = brick.fieldBrickOnCollision
-
         currentFieldBrick?.setImageOnStickBrick(brick.assetImage)
         currentFieldBrick?.id = brick.assetImage.toString()
     }

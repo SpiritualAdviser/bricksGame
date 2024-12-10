@@ -11,7 +11,6 @@ object CollisionBricksOnLevel {
 
     fun runCollision(state: Boolean) {
         isRun = state
-        println(fieldBricksList.size)
     }
 
     fun resetData() {
@@ -52,14 +51,26 @@ object CollisionBricksOnLevel {
 
     private fun onCollision(brick: Brick, fieldBrick: FieldBrick) {
 
-        if (fieldBrick.hasOwnerId == null) {
-            fieldBrick.hasOwnerId = brick.id
-            brick.keepSpace(fieldBrick)
-            fieldBrick.setBorderRed()
+        if (brick.name == "Bonus") {
+            if (fieldBrick.hasOwnerId != null) {
+                brick.hasBonusOwnerId = fieldBrick
+                fieldBrick.setBorderRed()
+            }
+        } else {
+            if (fieldBrick.hasOwnerId == null) {
+                fieldBrick.hasOwnerId = brick.id
+                brick.keepSpace(fieldBrick)
+                fieldBrick.setBorderRed()
+            }
         }
     }
 
     private fun outOfCollision(brick: Brick, fieldBrick: FieldBrick) {
+
+        if (brick.name == "Bonus") {
+            fieldBrick.setBorderBlack()
+            fieldBrick.hasBonusOwnerId = null
+        }
 
         if (fieldBrick.hasOwnerId != null && fieldBrick.hasOwnerId == brick.id) {
             println(fieldBrick.position.toString())

@@ -198,16 +198,16 @@ private fun BonusBlock() {
                             sizeToIntrinsics = true,
                             contentScale = ContentScale.FillBounds
                         )
-//                        .onGloballyPositioned { coordinates ->
-//                            it.setGloballyPosition(coordinates)
-//                        }
+                        .onGloballyPositioned { coordinates ->
+                            it.setGloballyPosition(coordinates)
+                        }
                         .pointerInput(Unit) {
                             detectDragGestures(
                                 onDragStart = { },
                                 onDrag = { _, dragAmount ->
                                     it.dragging(dragAmount.x, dragAmount.y)
                                     coroutine.launch {
-//                                        CollisionBricksOnLevel.observeCenterObjects(it)
+                                        CollisionBricksOnLevel.observeCenterObjects(it)
                                     }
                                 },
                                 onDragEnd = {

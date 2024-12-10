@@ -18,6 +18,7 @@ data class FieldBrick(
     var borderColor: MutableState<Color> = mutableStateOf(GameConfig.BRICK_BORDER_COLOR),
     var assetImage: MutableState<Int> = mutableIntStateOf(R.drawable.bgfielbrickempty),
     var hasOwnerId: Int? = null,
+    var hasBonusOwnerId: String? = null,
 
     var globalX: Float = 0f,
     var globalY: Float = 0f,
@@ -28,7 +29,7 @@ data class FieldBrick(
     /**
      * They were placed in an occupied room ONLY_EMPTY_PLEASES=true
      */
-    private val ONLY_EMPTY_PLEASES: Boolean = true,
+    private val ONLY_EMPTY_PLEASES: Boolean = false,
 ) {
 
     fun setGloballyPosition(coordinates: LayoutCoordinates) {

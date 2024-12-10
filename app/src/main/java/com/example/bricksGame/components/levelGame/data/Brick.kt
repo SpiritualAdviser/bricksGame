@@ -11,6 +11,7 @@ import com.example.bricksGame.ui.GameConfig
 import kotlinx.coroutines.delay
 
 data class Brick(
+    var name: String = "brick",
     var id: Int,
     var position: String,
     var assetImage: Int,
@@ -25,6 +26,7 @@ data class Brick(
     var x: MutableIntState,
     var y: MutableIntState,
 
+    var hasBonusOwnerId: FieldBrick? = null,
     var fieldBrickOnCollision: FieldBrick? = null,
 ) {
 
@@ -41,15 +43,27 @@ data class Brick(
     }
 
     suspend fun stickPosition() {
-        delay(25)
-        if (fieldBrickOnCollision != null) {
-            val offsetAmount = getOffsetAmount(fieldBrickOnCollision!!)
-            dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
-            BricksViewModel.removeBrick(this)
-            soundController.pushCristal()
-        } else {
+        if (this.name == "Bonus") {
+
+            if (this.position == "hammerBonus") {
+                hasBonusOwnerId?.onDragEnd()
+            }else{
+                hasBonusOwnerId?.setBorderBlack()
+            }
             this.x.intValue = 0
             this.y.intValue = 0
+        } else {
+            delay(25)
+            if (fieldBrickOnCollision != null) {
+
+                val offsetAmount = getOffsetAmount(fieldBrickOnCollision!!)
+                dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
+                BricksViewModel.removeBrick(this)
+                soundController.pushCristal()
+            } else {
+                this.x.intValue = 0
+                this.y.intValue = 0
+            }
         }
         fieldBrickOnCollision?.onDragEnd()
     }
