@@ -29,6 +29,7 @@ data class Brick(
     var alpha: MutableState<Float> = mutableFloatStateOf(1f),
 
     var borderColor: Color = GameConfig.BRICK_BORDER_COLOR,
+    var activeBonusBorder: MutableState<Color> = mutableStateOf(GameConfig.BRICK_BORDER_COLOR),
 
     var x: MutableIntState,
     var y: MutableIntState,
@@ -53,8 +54,7 @@ data class Brick(
         delay(25)
         if (this.name == "Bonus") {
             if (this.hasBonusOwnerId != null) {
-                FieldViewModel.onBonus(this)
-                BonusViewModel.setOfBonus(this)
+                BonusViewModel.onBonus(this)
             }
             this.x.intValue = 0
             this.y.intValue = 0

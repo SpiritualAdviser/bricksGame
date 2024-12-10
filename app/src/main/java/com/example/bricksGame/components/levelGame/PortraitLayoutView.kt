@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -43,8 +44,8 @@ fun PortraitLayout() {
     LevelPortraitBg()
     TopBar()
     GridFieldBox()
-    BricksBlock()
     BonusBlock()
+    BricksBlock()
 }
 
 @Composable
@@ -185,7 +186,27 @@ private fun BonusBlock() {
             .offset(y = -(FieldViewModel.brickSizePortrait * (GameConfig.COLUMNS + 2)) / 2)
 //            .border(4.dp, Color.Magenta),
     ) {
-        (BonusViewModel.bonuses.forEach {
+        BonusViewModel.bonuses.forEach {
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
+                    .border(
+                        GameConfig.BRICK_BORDER_SIZE.dp, color = it.activeBonusBorder.value,
+                        shape = RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp)
+                    )
+                    .size(FieldViewModel.brickSizePortrait)
+                    .background(GameConfig.FIELD_BG_COLOR)
+            ) {}
+            Spacer(Modifier.size(10.dp))
+        }
+    }
+
+    Row(
+        modifier = Modifier
+            .offset(y = -(FieldViewModel.brickSizePortrait * (GameConfig.COLUMNS + 2)) / 2)
+//            .border(4.dp, Color.Magenta),
+    ) {
+        BonusViewModel.bonuses.forEach {
             key(it.id) {
                 Box(
                     Modifier
@@ -225,6 +246,6 @@ private fun BonusBlock() {
                 )
                 Spacer(Modifier.size(10.dp))
             }
-        })
+        }
     }
 }

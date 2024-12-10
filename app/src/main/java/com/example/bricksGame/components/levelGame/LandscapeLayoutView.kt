@@ -45,8 +45,8 @@ fun LandscapeLayout() {
     ButtonBlock()
     LeftBar()
     GridFieldBox()
-    BricksBlock()
     BonusBlock()
+    BricksBlock()
 }
 
 @Composable
@@ -63,8 +63,9 @@ private fun LeftBar() {
 private fun ButtonBlock() {
 
     Row(
-       Modifier.fillMaxSize()
-        .offset((-35).dp, 30.dp),
+        Modifier
+            .fillMaxSize()
+            .offset((-35).dp, 30.dp),
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.End
     ) {
@@ -172,7 +173,27 @@ private fun BricksBlock() {
 private fun BonusBlock() {
     val coroutine = rememberCoroutineScope()
 
-    Column (
+    Column(
+        modifier = Modifier
+            .offset(x = -(FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 2)) / 2)
+//            .border(4.dp, Color.Magenta),
+    ) {
+        BonusViewModel.bonuses.forEach {
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
+                    .border(
+                        GameConfig.BRICK_BORDER_SIZE.dp, color = it.activeBonusBorder.value,
+                        shape = RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp)
+                    )
+                    .size(FieldViewModel.brickSizePortrait)
+                    .background(GameConfig.FIELD_BG_COLOR)
+            ) {}
+            Spacer(Modifier.size(10.dp))
+        }
+    }
+
+    Column(
         modifier = Modifier
             .offset(x = -(FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 2)) / 2)
 //            .border(4.dp, Color.Magenta),
@@ -185,6 +206,7 @@ private fun BonusBlock() {
                         .size(FieldViewModel.brickSizePortrait)
                         .paint(
                             painterResource(it.assetImage),
+                            alpha = it.alpha.value,
                             sizeToIntrinsics = true,
                             contentScale = ContentScale.FillBounds
                         )
@@ -195,15 +217,19 @@ private fun BonusBlock() {
                             detectDragGestures(
                                 onDragStart = { },
                                 onDrag = { _, dragAmount ->
-                                    it.dragging(dragAmount.x, dragAmount.y)
-                                    coroutine.launch {
-                                        CollisionBricksOnLevel.observeCenterObjects(it)
+                                    if (it.canDrag) {
+                                        it.dragging(dragAmount.x, dragAmount.y)
+                                        coroutine.launch {
+                                            CollisionBricksOnLevel.observeCenterObjects(it)
+                                        }
                                     }
                                 },
                                 onDragEnd = {
-                                    coroutine.launch {
-                                        it.stickPosition()
+                                    if (it.canDrag) {
+                                        coroutine.launch {
+                                            it.stickPosition()
 //                                        FieldViewModel.checkFieldOnFinishRound()
+                                        }
                                     }
                                 },
                                 onDragCancel = { },

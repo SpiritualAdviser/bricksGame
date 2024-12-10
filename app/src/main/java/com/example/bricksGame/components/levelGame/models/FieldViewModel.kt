@@ -91,51 +91,6 @@ object FieldViewModel : ViewModel() {
         currentFieldBrick?.id = brick.assetImage.toString()
     }
 
-    fun onBonusHammer(brick: Brick) {
-        brick.hasBonusOwnerId?.onDragEnd()
-    }
-
-    fun onBonusFire(brick: Brick) {
-        val row =
-            brickOnField.filter { brick.hasBonusOwnerId?.position?.second == it.position.second }
-        val winRow = mutableListOf<FieldBrick>()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            row.forEach {
-                if (it.hasOwnerId != null) {
-                    it.assetImage.value = GameConfig.imagesBricksBonus[1]
-                    winRow.add(it)
-                }
-            }
-            delay(300)
-            resetLineOnWin(winRow)
-        }
-    }
-
-    fun onBonusIce(brick: Brick) {
-        val column =
-            brickOnField.filter { brick.hasBonusOwnerId?.position?.first == it.position.first }
-        val winColumn = mutableListOf<FieldBrick>()
-        CoroutineScope(Dispatchers.IO).launch {
-            column.forEach {
-                if (it.hasOwnerId != null) {
-                    it.assetImage.value = GameConfig.imagesBricksBonus[0]
-                    winColumn.add(it)
-                }
-            }
-            delay(300)
-            resetLineOnWin(winColumn)
-        }
-    }
-
-    fun onBonus(brick: Brick) {
-
-        when (brick.position) {
-            "fireBonus" -> onBonusFire(brick)
-            "hammerBonus" -> onBonusHammer(brick)
-            "iceBonus" -> onBonusIce(brick)
-        }
-    }
 
     fun checkFieldOnFinishRound() {
         var column: List<FieldBrick>
@@ -211,10 +166,13 @@ object FieldViewModel : ViewModel() {
         return isWin
     }
 
-    private fun resetLineOnWin(lineList: List<FieldBrick>) {
+    fun resetLineOnWin(lineList: List<FieldBrick>, onBonus: Boolean = false) {
         soundController.winReel()
         PlayerViewModel.addScore(lineList.size)
-        BonusViewModel.setAlpha(GameConfig.SPEED_OPEN_BONUS * lineList.size)
+        if (!onBonus) {
+            BonusViewModel.setAlpha(GameConfig.SPEED_OPEN_BONUS * lineList.size)
+        }
+
         lineList.forEach { wonItem ->
             brickOnField.forEach {
 
