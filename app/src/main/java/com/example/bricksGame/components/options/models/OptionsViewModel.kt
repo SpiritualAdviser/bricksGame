@@ -30,7 +30,7 @@ object OptionsViewModel : ViewModel() {
         )
 
     fun setOption() {
-        activeCard()
+        activeCard("FullRange")
         val fieldSchemeSelector = "FieldScheme${GameConfig.ROWS}x${GameConfig.COLUMNS}"
         setFieldScheme(fieldSchemeSelector)
     }

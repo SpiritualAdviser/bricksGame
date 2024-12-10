@@ -78,6 +78,9 @@ fun Options() {
                 ThreeInRow()
             }
             item {
+                FourInRow()
+            }
+            item {
                 Text("Field scheme" , color = onPrimaryLight)
             }
             item {
@@ -137,7 +140,7 @@ fun FourInRow() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Three in row", textAlign = TextAlign.Center,  color = backgroundDark)
+            Text(text = "Four in row", textAlign = TextAlign.Center,  color = backgroundDark)
         }
     }
 }
