@@ -29,6 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.components.NaviBar.ButtonNaviBar
+import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
@@ -39,10 +40,13 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun LandscapeLayout() {
+
     LevelLandscapeBg()
+    ButtonBlock()
     LeftBar()
     GridFieldBox()
     BricksBlock()
+    BonusBlock()
 }
 
 @Composable
@@ -51,8 +55,6 @@ private fun LeftBar() {
         Modifier
             .fillMaxSize(),
     ) {
-        ButtonBlock()
-        Spacer(Modifier.size(10.dp))
         PlayerScoreBlock()
     }
 }
@@ -61,8 +63,10 @@ private fun LeftBar() {
 private fun ButtonBlock() {
 
     Row(
-        Modifier.offset(18.dp, 30.dp),
-        verticalAlignment = Alignment.CenterVertically,
+       Modifier.fillMaxSize()
+        .offset((-35).dp, 30.dp),
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.End
     ) {
         ButtonNaviBar()
     }
@@ -118,7 +122,7 @@ private fun BricksBlock() {
 
     Column(
         modifier = Modifier
-            .offset((FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 3)) / 2),
+            .offset((FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 2)) / 2),
 //            .border(4.dp, Color.Magenta),
         verticalArrangement = Arrangement.Center
 
@@ -152,6 +156,54 @@ private fun BricksBlock() {
                                     coroutine.launch {
                                         it.stickPosition()
                                         FieldViewModel.checkFieldOnFinishRound()
+                                    }
+                                },
+                                onDragCancel = { },
+                            )
+                        }
+                )
+                Spacer(Modifier.size(10.dp))
+            }
+        })
+    }
+}
+
+@Composable
+private fun BonusBlock() {
+    val coroutine = rememberCoroutineScope()
+
+    Column (
+        modifier = Modifier
+            .offset(x = -(FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 2)) / 2)
+//            .border(4.dp, Color.Magenta),
+    ) {
+        (BonusViewModel.bonuses.forEach {
+            key(it.id) {
+                Box(
+                    Modifier
+                        .offset { IntOffset(it.x.intValue, it.y.intValue) }
+                        .size(FieldViewModel.brickSizePortrait)
+                        .paint(
+                            painterResource(it.assetImage),
+                            sizeToIntrinsics = true,
+                            contentScale = ContentScale.FillBounds
+                        )
+                        .onGloballyPositioned { coordinates ->
+                            it.setGloballyPosition(coordinates)
+                        }
+                        .pointerInput(Unit) {
+                            detectDragGestures(
+                                onDragStart = { },
+                                onDrag = { _, dragAmount ->
+                                    it.dragging(dragAmount.x, dragAmount.y)
+                                    coroutine.launch {
+                                        CollisionBricksOnLevel.observeCenterObjects(it)
+                                    }
+                                },
+                                onDragEnd = {
+                                    coroutine.launch {
+                                        it.stickPosition()
+//                                        FieldViewModel.checkFieldOnFinishRound()
                                     }
                                 },
                                 onDragCancel = { },
