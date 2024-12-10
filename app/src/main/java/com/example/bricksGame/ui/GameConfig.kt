@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.R
+import com.example.compose.errorLight
 
 object GameConfig : ViewModel() {
     lateinit var gameData: SQLiteDatabase
@@ -49,7 +50,7 @@ object GameConfig : ViewModel() {
     val FIELD_BG_COLOR = Color(0xC8181717)
     const val BRICK_BORDER_SIZE = 1
     val BRICK_BORDER_COLOR = Color.Black
-    val BRICK_BORDER_HOVER_COLOR = Color.Red
+    val BRICK_BORDER_HOVER_COLOR = errorLight
     const val BRICK_ROUNDED_CORNER = 5
 
     /**
@@ -57,7 +58,7 @@ object GameConfig : ViewModel() {
      * Warning!! COLUMNS == imagesBricks size +1 brick
      */
 
-    var SPEED_OPEN_BONUS = 0.01f
+    var SPEED_OPEN_BONUS = 0.51f
     val imagesBricks = listOf(
 
         R.drawable.red_brick,

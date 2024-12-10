@@ -8,6 +8,7 @@ import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.components.levelGame.data.FieldBrick
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.brickOnField
 import com.example.bricksGame.ui.GameConfig
+import com.example.compose.primaryContainerDark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -38,7 +39,7 @@ object BonusViewModel : ViewModel() {
                 it.alpha.value += countAlpha
             } else {
                 it.canDrag = true
-                it.activeBonusBorder.value = Color.Green
+                it.activeBonusBorder.value = primaryContainerDark
             }
         }
     }
