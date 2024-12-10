@@ -71,6 +71,7 @@ object GameConfig : ViewModel() {
     )
 
     val imagesBricksBonus=listOf(
+        R.drawable.ice_bonus,
         R.drawable.fire_bonus,
         R.drawable.hammer_bonus,
         )

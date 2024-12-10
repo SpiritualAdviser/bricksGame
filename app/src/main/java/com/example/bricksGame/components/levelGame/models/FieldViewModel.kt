@@ -9,6 +9,10 @@ import com.example.bricksGame.screenSize
 import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 object FieldViewModel : ViewModel() {
 
@@ -86,6 +90,49 @@ object FieldViewModel : ViewModel() {
         val currentFieldBrick = brick.fieldBrickOnCollision
         currentFieldBrick?.setImageOnStickBrick(brick.assetImage)
         currentFieldBrick?.id = brick.assetImage.toString()
+    }
+
+    fun onBonusHammer(brick: Brick) {
+        brick.hasBonusOwnerId?.onDragEnd()
+    }
+
+    fun onBonusFire(brick: Brick) {
+        val row =
+            brickOnField.filter { brick.hasBonusOwnerId?.position?.second == it.position.second }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            row.forEach {
+                if (it.hasOwnerId != null) {
+                    it.assetImage.value = GameConfig.imagesBricksBonus[1]
+                }
+            }
+            delay(300)
+            resetLineOnWin(row)
+        }
+    }
+
+    fun onBonusIce(brick: Brick) {
+        val column =
+            brickOnField.filter { brick.hasBonusOwnerId?.position?.first == it.position.first }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            column.forEach {
+                if (it.hasOwnerId != null) {
+                    it.assetImage.value = GameConfig.imagesBricksBonus[0]
+                }
+            }
+            delay(300)
+            resetLineOnWin(column)
+        }
+    }
+
+    fun onBonus(brick: Brick) {
+
+        when (brick.position) {
+            "fireBonus" -> onBonusFire(brick)
+            "hammerBonus" -> onBonusHammer(brick)
+            "iceBonus" -> onBonusIce(brick)
+        }
     }
 
     fun checkFieldOnFinishRound() {

@@ -14,23 +14,28 @@ object BonusViewModel : ViewModel() {
         get() = _bonusList
 
     private fun createBonusList(): MutableList<Brick> {
-        val bricksList: MutableList<Brick> = mutableListOf()
-        bricksList.add(createBonus(0))
-        bricksList.add(createBonus(1))
+        val bonusList: MutableList<Brick> = mutableListOf()
+        bonusList.add(createBonus(0))
+        bonusList.add(createBonus(1))
+        bonusList.add(createBonus(2))
 
-        return bricksList
+        return bonusList
     }
 
     private fun createBonus(i: Int): Brick {
+        var position = ""
+        when (i) {
+
+            0 -> position = "iceBonus"
+            1 -> position = "fireBonus"
+            2 -> position = "hammerBonus"
+
+        }
         return Brick(
             x = mutableIntStateOf(0),
             y = mutableIntStateOf(0),
             id = i,
-            position = if (i == 0) {
-                "fireBonus"
-            } else {
-                "hammerBonus"
-            },
+            position = position,
             name = "Bonus",
             assetImage = GameConfig.imagesBricksBonus[i]
         )

@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
+import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.screenSize
 import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig
@@ -44,15 +45,12 @@ data class Brick(
 
     suspend fun stickPosition() {
         if (this.name == "Bonus") {
-
-            if (this.position == "hammerBonus") {
-                hasBonusOwnerId?.onDragEnd()
-            }else{
-                hasBonusOwnerId?.setBorderBlack()
-            }
+            FieldViewModel.onBonus(this)
             this.x.intValue = 0
             this.y.intValue = 0
+
         } else {
+
             delay(25)
             if (fieldBrickOnCollision != null) {
 
@@ -65,6 +63,7 @@ data class Brick(
                 this.y.intValue = 0
             }
         }
+        hasBonusOwnerId?.setBorderBlack()
         fieldBrickOnCollision?.onDragEnd()
     }
 
