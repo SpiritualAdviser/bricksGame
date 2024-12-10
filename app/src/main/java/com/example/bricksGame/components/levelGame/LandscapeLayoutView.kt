@@ -101,7 +101,6 @@ private fun GridFieldBox() {
                         )
                         .size(FieldViewModel.brickSizeLandscape)
                         .background(GameConfig.BRICK_BG_FIELD_COLOR)
-                        .padding(5.dp)
                         .paint(
                             painterResource(it.assetImage.value),
                             sizeToIntrinsics = true,
