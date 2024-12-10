@@ -62,9 +62,8 @@ data class Brick(
                 this.x.intValue = 0
                 this.y.intValue = 0
             }
+            fieldBrickOnCollision?.onDragEnd()
         }
-        hasBonusOwnerId?.onDragEnd()
-        fieldBrickOnCollision?.onDragEnd()
     }
 
     private fun getOffsetAmount(fieldBrickOnCollision: FieldBrick): Map<String, Float> {
