@@ -103,67 +103,69 @@ object FieldViewModel : ViewModel() {
             if (index < GameConfig.ROWS) {
                 row = brickOnField.filter { index == it.position.second }
 
-                if (GameConfig.WIN_NUMBER_LINE == 0) {
+                val isWinList = checkWin(row)
 
-                    if (row.isNotEmpty() && checkWin(row)) {
-                        itemsOnWin.add(row)
-                    }
-                } else {
-                    val subWin = getSubWinList(row)
-
-                    if (subWin.isNotEmpty()) {
-                        itemsOnWin.add(subWin)
-                    }
+                if (isWinList != null) {
+                    itemsOnWin.add(isWinList)
                 }
             }
 
             if (index % GameConfig.ROWS == 0) {
                 column = brickOnField.subList(index, index + GameConfig.ROWS)
 
-                if (GameConfig.WIN_NUMBER_LINE == 0) {
+                val isWinList = checkWin(column)
 
-                    if (column.isNotEmpty() && checkWin(column)) {
-                        itemsOnWin.add(column)
-                    }
-                } else {
-                    val subColumn = getSubWinList(column)
-
-                    if (subColumn.isNotEmpty()) {
-                        itemsOnWin.add(subColumn)
-                    }
+                if (isWinList != null) {
+                    itemsOnWin.add(isWinList)
                 }
             }
         }
-        if (itemsOnWin.isNotEmpty()) {
-            itemsOnWin.forEach {
-                resetLineOnWin(it)
-            }
+        itemsOnWin.forEach {
+            resetLineOnWin(it)
         }
+        itemsOnWin.clear()
     }
 
-    private fun getSubWinList(list: List<FieldBrick>): List<FieldBrick> {
+    private fun checkWin(checkedList: List<FieldBrick>): MutableList<FieldBrick>? {
+
+        var checkList = mutableListOf<FieldBrick>()
+        var winList = mutableListOf<FieldBrick>()
         var border = GameConfig.WIN_NUMBER_LINE
-        var winList: List<FieldBrick> = listOf()
+        var wasWin = false
 
-        list.forEachIndexed { index, _ ->
+        checkedList.forEachIndexed { index, cristal ->
+            if (wasWin) {
+                checkList.forEach {
+                    winList.add(it)
+                }
+                checkList.clear()
+            } else {
+                checkList.clear()
+                checkedList.forEachIndexed { innerIndex, innerItem ->
 
-            border = index + GameConfig.WIN_NUMBER_LINE
+                    if (index <= innerIndex) {
 
-            if (border <= list.size) {
-                val sublist = list.subList(index, border)
-
-                if (sublist.isNotEmpty() && this.checkWin(sublist)) {
-                    winList = sublist
+                        if (cristal.id == innerItem.id && cristal.id != EMPTY_ID) {
+                            checkList.add(innerItem)
+                            if (checkList.size >= border) {
+                                wasWin = true
+                            }
+                        } else {
+                            if (checkList.size >= border) {
+                                wasWin = true
+                            } else {
+                                checkList.clear()
+                            }
+                        }
+                    }
                 }
             }
         }
-        return winList
-    }
-
-    private fun checkWin(checkedList: List<FieldBrick>): Boolean {
-        val currentId = checkedList[0].id
-        val isWin = checkedList.all { currentId == it.id && currentId != EMPTY_ID }
-        return isWin
+        if (winList.isNotEmpty()) {
+            return winList
+        } else {
+            return null
+        }
     }
 
     fun resetLineOnWin(lineList: List<FieldBrick>, onBonus: Boolean = false) {
