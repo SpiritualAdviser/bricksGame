@@ -9,10 +9,6 @@ import com.example.bricksGame.screenSize
 import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 object FieldViewModel : ViewModel() {
 
@@ -61,9 +57,7 @@ object FieldViewModel : ViewModel() {
             }
             val fieldBrick = createBrick(positionColumn, positionRow)
             bricksList.add(fieldBrick)
-
             addToCollision(fieldBrick)
-
             ++positionRow
         }
         runCollision()
@@ -91,80 +85,88 @@ object FieldViewModel : ViewModel() {
         currentFieldBrick?.id = brick.assetImage.toString()
     }
 
-
     fun checkFieldOnFinishRound() {
         var column: List<FieldBrick>
         var row: List<FieldBrick>
         var itemsOnWin = mutableListOf<List<FieldBrick>>()
 
         brickOnField.forEachIndexed { index, _ ->
-
-
             if (index < GameConfig.ROWS) {
                 row = brickOnField.filter { index == it.position.second }
-
-                val isWinList = checkWin(row)
-
-                if (isWinList != null) {
-                    itemsOnWin.add(isWinList)
-                }
+                setWinLine(row, itemsOnWin)
             }
 
             if (index % GameConfig.ROWS == 0) {
                 column = brickOnField.subList(index, index + GameConfig.ROWS)
-
-                val isWinList = checkWin(column)
-
-                if (isWinList != null) {
-                    itemsOnWin.add(isWinList)
-                }
+                setWinLine(column, itemsOnWin)
             }
         }
-        itemsOnWin.forEach {
-            resetLineOnWin(it)
+        if (itemsOnWin.isNotEmpty()) {
+            itemsOnWin.forEach {
+                resetLineOnWin(it)
+            }
+            itemsOnWin.clear()
         }
-        itemsOnWin.clear()
     }
 
-    private fun checkWin(checkedList: List<FieldBrick>): MutableList<FieldBrick>? {
-
-        var checkList = mutableListOf<FieldBrick>()
+    private fun setWinLine(
+        checkedList: List<FieldBrick>,
+        itemsOnWin: MutableList<List<FieldBrick>>
+    ) {
+        var temporaryList = mutableListOf<FieldBrick>()
         var winList = mutableListOf<FieldBrick>()
-        var border = GameConfig.WIN_NUMBER_LINE
+        var winNumberBricks = GameConfig.WIN_NUMBER_LINE
+        var startIndex = GameConfig.WIN_NUMBER_LINE - 1
+        var endIndex = checkedList.size - GameConfig.WIN_NUMBER_LINE
         var wasWin = false
 
-        checkedList.forEachIndexed { index, cristal ->
+        if (winNumberBricks == 0 || winNumberBricks == checkedList.size) {
+            startIndex = 0
+            endIndex = 0
+            winNumberBricks = checkedList.size
+        }
+
+        for (i in startIndex..endIndex) {
             if (wasWin) {
-                checkList.forEach {
-                    winList.add(it)
-                }
-                checkList.clear()
-            } else {
-                checkList.clear()
-                checkedList.forEachIndexed { innerIndex, innerItem ->
+                break
+            }
+            val currentBrick = checkedList[i]
+            if (currentBrick.id != EMPTY_ID) {
 
-                    if (index <= innerIndex) {
-
-                        if (cristal.id == innerItem.id && cristal.id != EMPTY_ID) {
-                            checkList.add(innerItem)
-                            if (checkList.size >= border) {
-                                wasWin = true
-                            }
-                        } else {
-                            if (checkList.size >= border) {
-                                wasWin = true
-                            } else {
-                                checkList.clear()
-                            }
+                checkedList.forEach {
+                    if (currentBrick.id == it.id && it.id != EMPTY_ID) {
+                        temporaryList.add(it)
+                    } else {
+                        if (!wasWin) {
+                            wasWin = checkWin(temporaryList, winList, winNumberBricks)
                         }
                     }
+                }
+                if (!wasWin) {
+                    wasWin = checkWin(temporaryList, winList, winNumberBricks)
                 }
             }
         }
         if (winList.isNotEmpty()) {
-            return winList
+            itemsOnWin.add(winList)
+        }
+    }
+
+    private fun checkWin(
+        temporaryList: MutableList<FieldBrick>,
+        winList: MutableList<FieldBrick>,
+        winNumberBricks: Int,
+    ): Boolean {
+
+        if (temporaryList.size >= winNumberBricks) {
+            temporaryList.forEach {
+                winList.add(it)
+            }
+            temporaryList.clear()
+            return true
         } else {
-            return null
+            temporaryList.clear()
+            return false
         }
     }
 
@@ -184,4 +186,5 @@ object FieldViewModel : ViewModel() {
             }
         }
     }
+
 }
