@@ -44,9 +44,9 @@ object BricksViewModel : ViewModel() {
 
         } else {
             if (column > rows) {
-                GameConfig.COLUMNS + 2
+                GameConfig.COLUMNS + 1
             } else {
-                GameConfig.ROWS + 2
+                GameConfig.ROWS + 1
             }
         }
 
