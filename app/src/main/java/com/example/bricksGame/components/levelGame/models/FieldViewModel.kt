@@ -117,7 +117,7 @@ object FieldViewModel : ViewModel() {
         var winList = mutableListOf<FieldBrick>()
         var winNumberBricks = GameConfig.WIN_NUMBER_LINE
         winNumberBricks =
-            if (checkedList.size < winNumberBricks || winNumberBricks == 0) checkedList.size - 1 else winNumberBricks
+            if (checkedList.size < winNumberBricks || winNumberBricks == 0) checkedList.size else winNumberBricks
 
         var startIndex = GameConfig.WIN_NUMBER_LINE - 1
         startIndex =
