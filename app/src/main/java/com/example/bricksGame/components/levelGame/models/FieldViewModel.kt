@@ -118,6 +118,8 @@ object FieldViewModel : ViewModel() {
         var winNumberBricks = GameConfig.WIN_NUMBER_LINE
         var startIndex = GameConfig.WIN_NUMBER_LINE - 1
         var endIndex = checkedList.size - GameConfig.WIN_NUMBER_LINE
+        endIndex = if (startIndex > endIndex) startIndex else endIndex
+
         var wasWin = false
 
         if (winNumberBricks == 0 || winNumberBricks == checkedList.size) {
