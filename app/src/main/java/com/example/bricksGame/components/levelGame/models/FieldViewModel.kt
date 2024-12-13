@@ -116,19 +116,17 @@ object FieldViewModel : ViewModel() {
         var temporaryList = mutableListOf<FieldBrick>()
         var winList = mutableListOf<FieldBrick>()
         var winNumberBricks = GameConfig.WIN_NUMBER_LINE
-        var startIndex = GameConfig.WIN_NUMBER_LINE - 1
-        startIndex = if (startIndex > (checkedList.size - 1)) checkedList.size - 1 else startIndex
+        winNumberBricks =
+            if (checkedList.size < winNumberBricks || winNumberBricks == 0) checkedList.size - 1 else winNumberBricks
 
-        var endIndex = checkedList.size - GameConfig.WIN_NUMBER_LINE
+        var startIndex = GameConfig.WIN_NUMBER_LINE - 1
+        startIndex =
+            if (startIndex >= checkedList.size || startIndex < 0) checkedList.size - 1 else startIndex
+
+        var endIndex = checkedList.size - GameConfig.WIN_NUMBER_LINE - 1
         endIndex = if (startIndex > endIndex || endIndex < 0) startIndex else endIndex
 
         var wasWin = false
-
-        if (winNumberBricks == 0 || winNumberBricks == checkedList.size) {
-            startIndex = 0
-            endIndex = 0
-            winNumberBricks = checkedList.size
-        }
 
         for (i in startIndex..endIndex) {
             if (wasWin) {
