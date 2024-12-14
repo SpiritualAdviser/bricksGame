@@ -17,12 +17,14 @@ data class ActiveLevelList(
     var activeLevelList: List<LevelPlayer> = listOf(
         LevelPlayer(
             numberLevel = 1,
-            numberLevelPasses = 1
+            numberLevelPasses = 0,
+            isActive = true
         )
     )
 )
 
 class LevelPlayer(
     var numberLevel: Int,
-    var numberLevelPasses: Int
+    var numberLevelPasses: Int,
+    var isActive: Boolean = false
 )

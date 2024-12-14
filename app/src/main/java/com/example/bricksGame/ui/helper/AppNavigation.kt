@@ -54,7 +54,7 @@ sealed class Routes(val route: String) {
     data object LevelGame : Routes("LevelGame")
     data object Players : Routes("Players")
     data object Options : Routes("Options")
-    data object Map : Routes("Options")
+    data object Map : Routes("Map")
 }
 
 

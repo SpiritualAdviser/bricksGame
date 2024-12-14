@@ -2,12 +2,14 @@ package com.example.bricksGame.components.levelGame.models
 
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
+import com.example.bricksGame.components.Map.models.MapModel
 import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.components.levelGame.data.FieldBrick
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.screenSize
 import com.example.bricksGame.soundController
 import com.example.bricksGame.ui.GameConfig
+import com.example.bricksGame.ui.helper.ButtonController
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 
 object FieldViewModel : ViewModel() {
@@ -188,6 +190,16 @@ object FieldViewModel : ViewModel() {
                 }
             }
         }
+        checkEndLevel()
     }
 
+    fun checkEndLevel() {
+        val currentLevel = MapModel.currentLevel
+
+        if (currentLevel != null && PlayerViewModel.playerScore.intValue >= currentLevel.numberOfScoreToWin) {
+            PlayerViewModel.updatePlayerOnLevelWin()
+
+            ButtonController.navigateToMap()
+        }
+    }
 }

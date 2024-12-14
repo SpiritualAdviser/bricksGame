@@ -8,7 +8,7 @@ object LevelsConfig {
             numberLevel = 1,
             fieldGameRow = 2,
             fieldGameColumn = 2,
-            numberOfScoreToWin = 20,
+            numberOfScoreToWin = 5,
             additionalBrick = 2,
             numberOfBricksToWin = 0,
             bonusFillSpeed = 0.2f

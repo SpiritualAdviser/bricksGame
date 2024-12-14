@@ -3,8 +3,10 @@ package com.example.bricksGame.components.players.models
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.bricksGame.components.Map.models.MapModel
 import com.example.bricksGame.ui.data.ActiveLevelList
 import com.example.bricksGame.ui.data.DataRepository
+import com.example.bricksGame.ui.data.LevelPlayer
 import com.example.bricksGame.ui.data.Player
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -68,6 +70,27 @@ object PlayerViewModel : ViewModel() {
             activePlayer.achievements = playerScore.intValue
             setGamePlayerParams(activePlayer)
 
+            update(activePlayer)
+        }
+    }
+
+    fun updatePlayerOnLevelWin() {
+        val currentLevel = MapModel.currentLevel
+        var dataPlayerList = activePlayer.activeLevelList.activeLevelList
+
+
+        if (currentLevel != null) {
+            dataPlayerList[currentLevel.numberLevel - 1].numberLevelPasses += 1
+
+            val nextLevel = listOf(
+                LevelPlayer(
+                    numberLevel = currentLevel.numberLevel + 1,
+                    numberLevelPasses = 0,
+                    isActive = true
+                )
+            )
+            val newDataPlayerList = dataPlayerList.plus(nextLevel)
+            activePlayer.activeLevelList.activeLevelList = newDataPlayerList
             update(activePlayer)
         }
     }

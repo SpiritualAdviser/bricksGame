@@ -11,12 +11,13 @@ import com.example.bricksGame.ui.helper.ButtonController
 object MapModel : ViewModel() {
 
     val levelList = LevelsConfig.gameLevels.toMutableStateList()
+    var currentLevel: Level? = null
 
     fun openLevelOnMap() {
         val playerLevels = PlayerViewModel.activePlayer.activeLevelList.activeLevelList
 
-        playerLevels.forEachIndexed { index, level ->
-            if (level.numberLevelPasses > 0) {
+        levelList.forEachIndexed { index, level ->
+            if (index < playerLevels.size && playerLevels[index].isActive) {
                 levelList[index].isActive = true
                 levelList[index].numberLevelPasses = level.numberLevelPasses
             } else {
@@ -27,6 +28,7 @@ object MapModel : ViewModel() {
     }
 
     fun runLevel(level: Level) {
+        currentLevel = level
         setLevelOptions(level)
         ButtonController.navigateToLevelGame()
     }

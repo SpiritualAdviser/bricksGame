@@ -8,8 +8,8 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(
-    entities = [ Player::class], version = 2, autoMigrations = [
-        AutoMigration(from = 1, to = 2 )
+    entities = [ Player::class], version = 3, autoMigrations = [
+        AutoMigration(from = 2, to = 3 )
     ],
     exportSchema = true
 )
