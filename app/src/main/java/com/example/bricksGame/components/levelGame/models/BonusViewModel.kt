@@ -80,7 +80,7 @@ object BonusViewModel : ViewModel() {
             brickOnField.filter { brick.hasBonusOwnerId?.position?.second == it.position.second }
         val winRow = mutableListOf<FieldBrick>()
 
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Main).launch {
 
             row.forEach {
                 it.assetImage.value = GameConfig.imagesBricksBonus[1]
@@ -101,7 +101,7 @@ object BonusViewModel : ViewModel() {
             brickOnField.filter { brick.hasBonusOwnerId?.position?.first == it.position.first }
         val winColumn = mutableListOf<FieldBrick>()
 
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             column.forEach {
                 it.assetImage.value = GameConfig.imagesBricksBonus[0]
                 if (it.hasOwnerId != null) {

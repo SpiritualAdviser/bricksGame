@@ -11,7 +11,7 @@ object LevelsConfig {
             numberOfScoreToWin = 5,
             additionalBrick = 2,
             numberOfBricksToWin = 0,
-            bonusFillSpeed = 0.2f
+            bonusFillSpeed = 0.5f
         ),
         Level(
             numberLevel = 2,
@@ -36,7 +36,7 @@ object LevelsConfig {
             fieldGameRow = 3,
             fieldGameColumn = 4,
             additionalBrick = 3,
-            numberOfScoreToWin = 50,
+            numberOfScoreToWin = 10,
             numberOfBricksToWin = 3,
             bonusFillSpeed = 0.1f
         ),
