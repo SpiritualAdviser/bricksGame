@@ -80,4 +80,5 @@ object GameConfig : ViewModel() {
     )
 
     var SOUND_MUTED by mutableStateOf(false)
+    var GAME_TYPE_FREE = true
 }

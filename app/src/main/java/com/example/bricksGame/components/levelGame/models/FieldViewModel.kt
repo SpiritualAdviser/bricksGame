@@ -190,7 +190,9 @@ object FieldViewModel : ViewModel() {
                 }
             }
         }
-        checkEndLevel()
+        if (!GameConfig.GAME_TYPE_FREE) {
+            checkEndLevel()
+        }
     }
 
     fun checkEndLevel() {

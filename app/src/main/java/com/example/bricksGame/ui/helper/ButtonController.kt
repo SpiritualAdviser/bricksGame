@@ -5,12 +5,14 @@ import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.soundController
+import com.example.bricksGame.ui.GameConfig
 
 object ButtonController {
 
     fun navigateToHome() {
         soundController.clickUi()
         soundController.playMainTheme()
+        GameConfig.GAME_TYPE_FREE = true
         AppNavigation.getInstance().getNavController().navigate(Routes.HomeScreen.route) {
 
             popUpTo(Routes.HomeScreen.route)
@@ -44,6 +46,7 @@ object ButtonController {
         soundController.clickUi()
         soundController.playMainTheme()
         MapModel.openLevelOnMap()
+        GameConfig.GAME_TYPE_FREE = false
         AppNavigation.getInstance().getNavController().navigate(Routes.Map.route) {
 
             popUpTo(Routes.Players.route)
