@@ -14,15 +14,19 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.bricksGame.ui.MainMenuBg
 import com.example.compose.errorContainerLight
+import com.example.compose.onBackgroundLight
 
 
 @Composable
 fun Map() {
+    MainMenuBg()
     Box(
         Modifier.fillMaxSize(),
 
@@ -30,8 +34,9 @@ fun Map() {
         LazyVerticalGrid(
             modifier = Modifier
                 .fillMaxSize()
-                .background(errorContainerLight)
                 .padding(50.dp),
+//                .background(onBackgroundLight),
+
             columns = GridCells.Adaptive(minSize = 50.dp),
             verticalArrangement = Arrangement.spacedBy(15.dp),
             horizontalArrangement = Arrangement.spacedBy(15.dp)
