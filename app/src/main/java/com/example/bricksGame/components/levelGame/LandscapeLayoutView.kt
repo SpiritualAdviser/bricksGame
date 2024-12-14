@@ -54,8 +54,10 @@ private fun LeftBar() {
     Column(
         Modifier
             .fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(35.dp)
     ) {
         PlayerScoreBlock()
+        LevelTargetBlockLandscape()
     }
 }
 

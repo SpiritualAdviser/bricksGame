@@ -1,5 +1,6 @@
 package com.example.bricksGame.components.Map.models
 
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel
@@ -12,6 +13,10 @@ object MapModel : ViewModel() {
 
     val levelList = LevelsConfig.gameLevels.toMutableStateList()
     var currentLevel: Level? = null
+
+    var levelTarget = mutableIntStateOf(0)
+    var levelWinLine: String = ""
+    var levelTime = mutableIntStateOf(0)
 
     fun openLevelOnMap() {
         val playerLevels = PlayerViewModel.activePlayer.activeLevelList.activeLevelList
@@ -34,11 +39,22 @@ object MapModel : ViewModel() {
     }
 
     fun setLevelOptions(level: Level) {
+        levelTarget.intValue = level.numberOfScoreToWin
+        levelWinLine =
+            if (level.numberOfBricksToWin == 0) "Full" else level.numberOfBricksToWin.toString()
+        levelTime.intValue = level.levelTime
+
         GameConfig.ROWS = level.fieldGameRow
         GameConfig.COLUMNS = level.fieldGameColumn
         GameConfig.WIN_NUMBER_LINE = level.numberOfBricksToWin
         GameConfig.SPEED_OPEN_BONUS = level.bonusFillSpeed
         GameConfig.MAX_BRICKS_ON_LEVEL = level.additionalBrick
+    }
+
+    fun changeLevelTargetOnRound(score: Int) {
+        levelTarget.intValue =
+            if (levelTarget.intValue - score <= 0) 0 else levelTarget.intValue - score
+        levelTime.intValue = if (levelTime.intValue - 1 <= 0) 0 else levelTime.intValue - 1
     }
 
 }

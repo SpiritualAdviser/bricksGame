@@ -6,9 +6,11 @@ import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -50,17 +52,25 @@ fun PortraitLayout() {
 
 @Composable
 private fun TopBar() {
-    Row(
-        Modifier
-            .fillMaxSize(),
-//            .border(4.dp, Color.Magenta),
-        verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.Absolute.SpaceBetween
-
+    Column(
+        Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(35.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        PlayerScoreBlock()
-        ButtonBlock()
+        Row(
+            Modifier
+                .fillMaxWidth(),
+//            .border(4.dp, Color.Magenta),
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.Absolute.SpaceBetween
+
+        ) {
+            PlayerScoreBlock()
+            ButtonBlock()
+        }
+        LevelTargetBlockPortrait()
     }
+
 }
 
 @Composable

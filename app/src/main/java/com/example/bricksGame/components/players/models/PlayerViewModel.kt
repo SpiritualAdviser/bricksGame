@@ -65,6 +65,7 @@ object PlayerViewModel : ViewModel() {
 
     fun addScore(score: Int) {
         playerScore.value += score
+        MapModel.changeLevelTargetOnRound(score)
 
         if (activePlayer.achievements < playerScore.intValue) {
             activePlayer.achievements = playerScore.intValue
