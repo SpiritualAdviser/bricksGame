@@ -58,7 +58,7 @@ object GameConfig : ViewModel() {
      * Warning!! COLUMNS == imagesBricks size +1 brick
      */
 
-    var SPEED_OPEN_BONUS = 0.01f
+    var SPEED_OPEN_BONUS = 0.1f
     val imagesBricks = listOf(
 
         R.drawable.red_brick,

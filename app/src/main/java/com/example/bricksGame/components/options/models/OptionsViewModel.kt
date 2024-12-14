@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.ui.GameConfig
 import com.example.compose.outlineDarkMediumContrast
-import com.example.compose.outlineLight
 import com.example.compose.primaryLight
 
 object OptionsViewModel : ViewModel() {
@@ -49,6 +48,7 @@ object OptionsViewModel : ViewModel() {
                 GameConfig.WIN_NUMBER_LINE = 0
                 fullRangeCardColor.value = primaryLight
             }
+
             "FourInRow" -> {
                 GameConfig.WIN_NUMBER_LINE = 4
                 fourInRowCardColor.value = primaryLight
@@ -96,5 +96,9 @@ object OptionsViewModel : ViewModel() {
             }
         }
         FieldViewModel.onOptionChange()
+    }
+
+    fun setBonusSpeedFill(speed: Float) {
+        GameConfig.SPEED_OPEN_BONUS = speed
     }
 }

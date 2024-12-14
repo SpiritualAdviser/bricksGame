@@ -8,13 +8,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,13 +26,14 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.bricksGame.components.NaviBar.ButtonSound
 import com.example.bricksGame.components.options.models.OptionsViewModel
 import com.example.bricksGame.ui.MainMenuBg
 import com.example.bricksGame.ui.helper.ButtonController
 import com.example.compose.backgroundDark
-import com.example.compose.onPrimaryContainerLight
 import com.example.compose.onPrimaryLight
+import com.example.compose.outlineDarkMediumContrast
 
 @Composable
 fun Options() {
@@ -69,7 +74,7 @@ fun Options() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
-                Text("Win lines" , color = onPrimaryLight)
+                Text("Win lines", color = onPrimaryLight)
             }
             item {
                 FullRange()
@@ -81,7 +86,14 @@ fun Options() {
                 FourInRow()
             }
             item {
-                Text("Field scheme" , color = onPrimaryLight)
+                Text("Bonus speed fill", color = onPrimaryLight)
+            }
+            item {
+                BonusSpeedFill()
+            }
+
+            item {
+                Text("Field scheme", color = onPrimaryLight)
             }
             item {
                 FieldScheme3x4()
@@ -112,7 +124,7 @@ fun ThreeInRow() {
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(OptionsViewModel.threeInRowCardColor.value),
         modifier = Modifier
-            .fillMaxWidth(0.9f)
+            .fillMaxWidth(0.6f)
             .height(40.dp)
     ) {
         Column(
@@ -120,7 +132,7 @@ fun ThreeInRow() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Three in row", textAlign = TextAlign.Center,  color = backgroundDark)
+            Text(text = "Three in row", textAlign = TextAlign.Center, color = backgroundDark)
         }
     }
 }
@@ -132,7 +144,7 @@ fun FourInRow() {
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(OptionsViewModel.fourInRowCardColor.value),
         modifier = Modifier
-            .fillMaxWidth(0.9f)
+            .fillMaxWidth(0.6f)
             .height(40.dp)
     ) {
         Column(
@@ -140,7 +152,7 @@ fun FourInRow() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Four in row", textAlign = TextAlign.Center,  color = backgroundDark)
+            Text(text = "Four in row", textAlign = TextAlign.Center, color = backgroundDark)
         }
     }
 }
@@ -152,7 +164,7 @@ fun FullRange() {
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(OptionsViewModel.fullRangeCardColor.value),
         modifier = Modifier
-            .fillMaxWidth(0.9f)
+            .fillMaxWidth(0.6f)
             .height(40.dp)
     ) {
         Column(
@@ -160,7 +172,7 @@ fun FullRange() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Full range", textAlign = TextAlign.Center,  color = backgroundDark)
+            Text(text = "Full range", textAlign = TextAlign.Center, color = backgroundDark)
         }
     }
 }
@@ -172,7 +184,7 @@ fun FieldScheme3x4() {
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(OptionsViewModel.fieldScheme3x4.value),
         modifier = Modifier
-            .fillMaxWidth(0.9f)
+            .fillMaxWidth(0.6f)
             .height(40.dp)
     ) {
         Column(
@@ -180,7 +192,7 @@ fun FieldScheme3x4() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Field 3x4", textAlign = TextAlign.Center,  color = backgroundDark)
+            Text(text = "Field 3x4", textAlign = TextAlign.Center, color = backgroundDark)
         }
     }
 }
@@ -192,7 +204,7 @@ fun FieldScheme4x5() {
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(OptionsViewModel.fieldScheme4x5.value),
         modifier = Modifier
-            .fillMaxWidth(0.9f)
+            .fillMaxWidth(0.6f)
             .height(40.dp)
     ) {
         Column(
@@ -200,7 +212,7 @@ fun FieldScheme4x5() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Field 4x5", textAlign = TextAlign.Center,  color = backgroundDark)
+            Text(text = "Field 4x5", textAlign = TextAlign.Center, color = backgroundDark)
         }
     }
 }
@@ -212,7 +224,7 @@ fun FieldScheme5x6() {
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(OptionsViewModel.fieldScheme5x6.value),
         modifier = Modifier
-            .fillMaxWidth(0.9f)
+            .fillMaxWidth(0.6f)
             .height(40.dp)
     ) {
         Column(
@@ -220,7 +232,7 @@ fun FieldScheme5x6() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Field 5x6", textAlign = TextAlign.Center,  color = backgroundDark)
+            Text(text = "Field 5x6", textAlign = TextAlign.Center, color = backgroundDark)
         }
     }
 }
@@ -232,7 +244,7 @@ fun FieldScheme6x7() {
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(OptionsViewModel.fieldScheme6x7.value),
         modifier = Modifier
-            .fillMaxWidth(0.9f)
+            .fillMaxWidth(0.6f)
             .height(40.dp)
     ) {
         Column(
@@ -240,7 +252,7 @@ fun FieldScheme6x7() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Field 6x7", textAlign = TextAlign.Center,  color = backgroundDark)
+            Text(text = "Field 6x7", textAlign = TextAlign.Center, color = backgroundDark)
         }
     }
 }
@@ -252,7 +264,7 @@ fun FieldScheme7x8() {
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(OptionsViewModel.fieldScheme7x8.value),
         modifier = Modifier
-            .fillMaxWidth(0.9f)
+            .fillMaxWidth(0.6f)
             .height(40.dp)
     ) {
         Column(
@@ -260,20 +272,19 @@ fun FieldScheme7x8() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Field 7x8", textAlign = TextAlign.Center,  color = backgroundDark)
+            Text(text = "Field 7x8", textAlign = TextAlign.Center, color = backgroundDark)
         }
     }
 }
 
 @Composable
-
 fun FieldScheme8x9() {
     Card(
         onClick = { OptionsViewModel.setFieldScheme("FieldScheme8x9") },
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(OptionsViewModel.fieldScheme8x9.value),
         modifier = Modifier
-            .fillMaxWidth(0.9f)
+            .fillMaxWidth(0.6f)
             .height(40.dp)
     ) {
         Column(
@@ -281,7 +292,53 @@ fun FieldScheme8x9() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Field 8x9", textAlign = TextAlign.Center,  color = backgroundDark)
+            Text(text = "Field 8x9", textAlign = TextAlign.Center, color = backgroundDark)
+        }
+    }
+}
+
+@Composable
+fun BonusSpeedFill() {
+    val checkedState = remember { mutableStateOf(false) }
+    val textColor = remember { mutableStateOf(Color.Unspecified) }
+    Card(
+        shape = RoundedCornerShape(10.dp),
+        colors = CardDefaults.cardColors(outlineDarkMediumContrast),
+        modifier = Modifier
+            .fillMaxWidth(0.6f)
+            .height(40.dp)
+    ) {
+        Row(
+            Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                "slow",
+                fontSize = 15.sp,
+                color = textColor.value,
+                modifier = Modifier.padding(8.dp, 0.dp)
+            )
+            Switch(
+               modifier =  Modifier.size(50.dp, 20.dp),
+                checked = checkedState.value,
+                onCheckedChange = {
+                    checkedState.value = it
+                    if (checkedState.value) {
+                        OptionsViewModel.setBonusSpeedFill(0.1f)
+                        textColor.value = Color(0xFF6650a4)
+                    } else {
+                        OptionsViewModel.setBonusSpeedFill(0.01f)
+                        textColor.value = Color.Unspecified
+                    }
+                }
+            )
+            Text(
+                "fast",
+                fontSize = 15.sp,
+                color = textColor.value,
+                modifier = Modifier.padding(8.dp, 0.dp)
+            )
         }
     }
 }
