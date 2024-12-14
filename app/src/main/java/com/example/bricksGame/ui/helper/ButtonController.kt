@@ -42,6 +42,7 @@ object ButtonController {
 
     fun navigateToMap() {
         soundController.clickUi()
+        soundController.playMainTheme()
         MapModel.openLevelOnMap()
         AppNavigation.getInstance().getNavController().navigate(Routes.Map.route) {
 

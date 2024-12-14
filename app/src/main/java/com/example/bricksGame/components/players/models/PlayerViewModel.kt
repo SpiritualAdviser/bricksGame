@@ -78,19 +78,20 @@ object PlayerViewModel : ViewModel() {
         val currentLevel = MapModel.currentLevel
         var dataPlayerList = activePlayer.activeLevelList.activeLevelList
 
-
         if (currentLevel != null) {
             dataPlayerList[currentLevel.numberLevel - 1].numberLevelPasses += 1
 
-            val nextLevel = listOf(
-                LevelPlayer(
-                    numberLevel = currentLevel.numberLevel + 1,
-                    numberLevelPasses = 0,
-                    isActive = true
+            if (dataPlayerList.size <= currentLevel.numberLevel) {
+                val nextLevel = listOf(
+                    LevelPlayer(
+                        numberLevel = currentLevel.numberLevel + 1,
+                        numberLevelPasses = 0,
+                        isActive = true
+                    )
                 )
-            )
-            val newDataPlayerList = dataPlayerList.plus(nextLevel)
-            activePlayer.activeLevelList.activeLevelList = newDataPlayerList
+                val newDataPlayerList = dataPlayerList.plus(nextLevel)
+                activePlayer.activeLevelList.activeLevelList = newDataPlayerList
+            }
             update(activePlayer)
         }
     }
