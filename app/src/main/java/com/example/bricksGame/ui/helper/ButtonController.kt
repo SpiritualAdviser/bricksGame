@@ -1,5 +1,6 @@
 package com.example.bricksGame.ui.helper
 
+import com.example.bricksGame.components.Map.models.MapModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel
@@ -41,6 +42,7 @@ object ButtonController {
 
     fun navigateToMap() {
         soundController.clickUi()
+        MapModel.openLevelOnMap()
         AppNavigation.getInstance().getNavController().navigate(Routes.Map.route) {
 
             popUpTo(Routes.Players.route)

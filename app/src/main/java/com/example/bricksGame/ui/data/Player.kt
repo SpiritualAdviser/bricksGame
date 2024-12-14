@@ -17,7 +17,7 @@ data class ActiveLevelList(
     var activeLevelList: List<LevelPlayer> = listOf(
         LevelPlayer(
             numberLevel = 1,
-            numberLevelPasses = 0
+            numberLevelPasses = 1
         )
     )
 )

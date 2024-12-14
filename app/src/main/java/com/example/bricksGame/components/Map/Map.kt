@@ -11,16 +11,21 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bricksGame.components.Map.models.MapModel
 import com.example.bricksGame.ui.Level
 import com.example.bricksGame.ui.MainMenuBg
+import com.example.compose.onSurfaceVariantLight
 
 
 @Composable
@@ -55,7 +60,12 @@ fun LevelOnMap(level: Level) {
             .size(50.dp, 60.dp)
             .paint(
                 painter = painterResource(R.drawable.map_levels_bg),
-                contentScale = ContentScale.FillBounds
+                contentScale = ContentScale.FillBounds,
+                colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply {
+                    setToSaturation(
+                        if (level.isActive) 1F else 0.1F
+                    )
+                })
             )
     ) {
         Text("${level.numberLevel}", fontSize = 20.sp)

@@ -31,15 +31,15 @@ class MainActivity : ComponentActivity() {
         )
         super.onCreate(savedInstanceState)
 
-
         setContent {
             screenSize.GetScreenSize()
             val context = LocalContext.current
             OptionsViewModel.setOption()
 
-       context.deleteDatabase("player_database")
+//       context.deleteDatabase("player_database")
             DataRepository.getPlayerDatabase(this)
             PlayerViewModel.setPlayerOnGame()
+
             if (!soundController.isRun) {
                 soundController.setContext(context)
                 soundController.playMainTheme()

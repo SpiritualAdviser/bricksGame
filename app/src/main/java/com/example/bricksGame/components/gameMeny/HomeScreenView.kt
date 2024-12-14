@@ -34,7 +34,7 @@ fun RunHomeScreen() {
         Alignment.CenterHorizontally
     ) {
         Button(
-            onClick = { ButtonController.navigateToOptions() },
+            onClick = { ButtonController.navigateToMap() },
             modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
 //                .size(100.dp, 40.dp)
 //                .paint(
