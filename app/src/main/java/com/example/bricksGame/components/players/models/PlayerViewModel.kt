@@ -3,6 +3,7 @@ package com.example.bricksGame.components.players.models
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.bricksGame.ui.data.ActiveLevelList
 import com.example.bricksGame.ui.data.DataRepository
 import com.example.bricksGame.ui.data.Player
 import kotlinx.coroutines.CoroutineScope
@@ -13,7 +14,8 @@ import kotlinx.coroutines.launch
 object PlayerViewModel : ViewModel() {
     var newPlayer: Player = Player(
         playerName = "Player",
-        isActive = true
+        isActive = true,
+        activeLevelList = ActiveLevelList(),
     )
 
     var playersList = DataRepository.getAllPlayers() as Flow<MutableList<Player>>

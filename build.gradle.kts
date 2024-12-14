@@ -4,4 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.devtoolsKsp)
+    kotlin("jvm") version "2.1.0"
+    kotlin("plugin.serialization") version "2.1.0"
 }

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.devtoolsKsp)
+
 }
 
 android {
@@ -10,6 +11,11 @@ android {
     compileSdk = 35
 
     defaultConfig {
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+
         applicationId = "com.example.bricksGame"
         minSdk = 24
         targetSdk = 35
@@ -86,4 +92,6 @@ dependencies {
     annotationProcessor(libs.androidx.room.room.compiler)
     ksp(libs.androidx.room.room.compiler)
 
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+    implementation ("com.google.code.gson:gson:2.9.0")
 }

@@ -5,9 +5,24 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "players")
 class Player(
-    @PrimaryKey(autoGenerate = true) var id: Int = 0,
+    @PrimaryKey(autoGenerate = true) var id: Long = 0,
     var playerName: String,
-    var score: Int = 0,
     var achievements: Int = 0,
-    var isActive: Boolean = false
+    var isActive: Boolean = false,
+
+    var activeLevelList: ActiveLevelList
+)
+
+data class ActiveLevelList(
+    var activeLevelList: List<LevelPlayer> = listOf(
+        LevelPlayer(
+            numberLevel = 1,
+            numberLevelPasses = 0
+        )
+    )
+)
+
+class LevelPlayer(
+    var numberLevel: Int,
+    var numberLevelPasses: Int
 )

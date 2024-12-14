@@ -1,12 +1,20 @@
 package com.example.bricksGame.ui.data
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.bricksGame.MainActivity
+import androidx.room.TypeConverters
 
-@Database(entities = [Player::class], version = 1)
+@Database(
+    entities = [ Player::class], version = 2, autoMigrations = [
+        AutoMigration(from = 1, to = 2 )
+    ],
+    exportSchema = true
+)
+
+@TypeConverters(ConverterTypes::class)
 abstract class PlayerDatabase : RoomDatabase() {
 
     abstract fun getDao(): PlayerDAO
