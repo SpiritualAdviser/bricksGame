@@ -46,7 +46,7 @@ fun ButtonSound() {
 fun ButtonClose() {
     IconButton(
         onClick = {
-            ButtonController.navigateHome()
+            ButtonController.navigateToHome()
         },
 
         modifier = Modifier
@@ -62,7 +62,7 @@ fun ButtonClose() {
 @Composable
 fun ButtonNavigateHome() {
     Button(
-        onClick = { ButtonController.navigateHome() },
+        onClick = { ButtonController.navigateToHome() },
         modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
 //        modifier = Modifier
 //            .size(100.dp, 80.dp)

@@ -34,7 +34,7 @@ fun RunHomeScreen() {
         Alignment.CenterHorizontally
     ) {
         Button(
-            onClick = { ButtonController.navigateOptions() },
+            onClick = { ButtonController.navigateToOptions() },
             modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
 //                .size(100.dp, 40.dp)
 //                .paint(
@@ -45,7 +45,7 @@ fun RunHomeScreen() {
         Spacer(Modifier.size(10.dp))
 
         Button(
-            onClick = { ButtonController.navigateLevelGame() },
+            onClick = { ButtonController.navigateToLevelGame() },
             modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
 //                .size(100.dp, 40.dp)
 //                .paint(
@@ -55,7 +55,7 @@ fun RunHomeScreen() {
         ) { Text("Free game") }
         Spacer(Modifier.size(10.dp))
         Button(
-            onClick = { ButtonController.navigatePlayers() },
+            onClick = { ButtonController.navigateToPlayers() },
             modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
 //                .size(100.dp, 40.dp)
 //                .paint(
@@ -65,7 +65,7 @@ fun RunHomeScreen() {
         ) { Text("Players") }
         Spacer(Modifier.size(10.dp))
         Button(
-            onClick = { ButtonController.navigateOptions() },
+            onClick = { ButtonController.navigateToOptions() },
             modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
 //                .size(100.dp, 40.dp)
 //                .paint(

@@ -7,7 +7,7 @@ import com.example.bricksGame.soundController
 
 object ButtonController {
 
-    fun navigateHome() {
+    fun navigateToHome() {
         soundController.clickUi()
         soundController.playMainTheme()
         AppNavigation.getInstance().getNavController().navigate(Routes.HomeScreen.route) {
@@ -17,7 +17,7 @@ object ButtonController {
         }
     }
 
-    fun navigateLevelGame() {
+    fun navigateToLevelGame() {
         soundController.clickUi()
         soundController.playLevelTheme()
         BricksViewModel.resetData()
@@ -30,7 +30,7 @@ object ButtonController {
         }
     }
 
-    fun navigatePlayers() {
+    fun navigateToPlayers() {
         soundController.clickUi()
         AppNavigation.getInstance().getNavController().navigate(Routes.Players.route) {
 
@@ -39,7 +39,16 @@ object ButtonController {
         }
     }
 
-    fun navigateOptions() {
+    fun navigateToMap() {
+        soundController.clickUi()
+        AppNavigation.getInstance().getNavController().navigate(Routes.Map.route) {
+
+            popUpTo(Routes.Players.route)
+            launchSingleTop = true
+        }
+    }
+
+    fun navigateToOptions() {
         soundController.clickUi()
         AppNavigation.getInstance().getNavController().navigate(Routes.Options.route) {
             popUpTo(Routes.Options.route)

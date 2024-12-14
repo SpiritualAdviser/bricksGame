@@ -57,7 +57,7 @@ fun Options() {
         verticalArrangement = Arrangement.Top
     ) {
         Button(
-            onClick = { ButtonController.navigateHome() },
+            onClick = { ButtonController.navigateToHome() },
             modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
 //                .size(100.dp, 80.dp)
 //                .paint(
