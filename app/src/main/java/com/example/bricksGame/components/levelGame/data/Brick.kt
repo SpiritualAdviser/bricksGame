@@ -20,6 +20,7 @@ data class Brick(
     var id: Int,
     var position: String,
     var assetImage: Int,
+    var life: Int = 1,
 
     var globalX: Float = 0f,
     var globalY: Float = 0f,

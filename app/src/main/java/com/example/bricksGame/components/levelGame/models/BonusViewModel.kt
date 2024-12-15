@@ -81,16 +81,14 @@ object BonusViewModel : ViewModel() {
         CoroutineScope(Dispatchers.Main).launch {
 
             row.forEach {
-                it.assetImage.value = GameConfig.imagesBricksBonuses[1]
+
                 if (it.hasOwnerId != null) {
+                    it.assetImage.value = GameConfig.imagesBricksBonuses[1]
                     winRow.add(it)
                 }
             }
             delay(300)
             FieldViewModel.resetLineOnWin(winRow, onBonus = true)
-            row.forEach {
-                it.resetFieldBrick()
-            }
         }
     }
 
@@ -101,16 +99,14 @@ object BonusViewModel : ViewModel() {
 
         CoroutineScope(Dispatchers.Main).launch {
             column.forEach {
-                it.assetImage.value = GameConfig.imagesBricksBonuses[0]
+
                 if (it.hasOwnerId != null) {
+                    it.assetImage.value = GameConfig.imagesBricksBonuses[0]
                     winColumn.add(it)
                 }
             }
             delay(300)
             FieldViewModel.resetLineOnWin(winColumn, onBonus = true)
-            column.forEach {
-                it.resetFieldBrick()
-            }
         }
     }
 
@@ -135,20 +131,34 @@ object BonusViewModel : ViewModel() {
             randomFieldBrick.setImageOnStickBrick(randomNegativeBonus.assetImage)
             randomFieldBrick.id = randomNegativeBonus.assetImage.toString()
             randomFieldBrick.hasOwnerId = randomNegativeBonus.id
+            randomFieldBrick.life = randomNegativeBonus.life
+            println()
         }
     }
 
     private fun createNegativeBonus(i: Int): Brick {
         var name = ""
+        var id = 0
+        var life = 0
         when (i) {
-            0 -> name = "negativeLives"
-            1 -> name = "negativeRock"
+            0 -> {
+                name = "negativeLives"
+                id = GameConfig.NEGATIVE_BONUS_LIVES
+                life = GameConfig.NEGATIVE_BONUS_LIVES_LIFE
+            }
+
+            1 -> {
+                name = "negativeRock"
+                id = GameConfig.NEGATIVE_BONUS_ROCK
+                life = GameConfig.NEGATIVE_BONUS_ROCK_LIFE
+            }
         }
         return Brick(
             x = mutableIntStateOf(0),
             y = mutableIntStateOf(0),
+            life = life,
             canDrag = false,
-            id = 0,
+            id = id,
             position = "negativeBonus",
             name = name,
             assetImage = GameConfig.imagesNegativeBonuses[i]

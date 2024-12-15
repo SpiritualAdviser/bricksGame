@@ -31,7 +31,7 @@ object GameConfig : ViewModel() {
      * options MAX_BRICKS is count dragging bricks for game on button block
      */
     var MAX_BRICKS_ON_LEVEL = 3
-    var MAX_NEGATIVE_BRICKS_ON_LEVEL = 5
+    var MAX_NEGATIVE_BRICKS_ON_LEVEL = 3
     const val MIN_BRICKS_TO_ADD_NEXT = 0
     const val MAX_BRICKS_SIZE = 60
 
@@ -84,7 +84,10 @@ object GameConfig : ViewModel() {
         R.drawable.bg_close_lives,
         R.drawable.bg_close_brick,
     )
-
+    const val NEGATIVE_BONUS_LIVES = 998
+    const val NEGATIVE_BONUS_LIVES_LIFE = 1
+    const val NEGATIVE_BONUS_ROCK = 999
+    const val NEGATIVE_BONUS_ROCK_LIFE = 2
     var SOUND_MUTED by mutableStateOf(false)
     var GAME_TYPE_FREE = true
 }

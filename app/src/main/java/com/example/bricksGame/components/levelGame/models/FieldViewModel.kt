@@ -2,6 +2,7 @@ package com.example.bricksGame.components.levelGame.models
 
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
+import com.example.bricksGame.R
 import com.example.bricksGame.components.Map.models.MapModel
 import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.components.levelGame.data.FieldBrick
@@ -59,10 +60,8 @@ object FieldViewModel : ViewModel() {
             }
             val fieldBrick = createBrick(positionColumn, positionRow)
             bricksList.add(fieldBrick)
-            addToCollision(fieldBrick)
             ++positionRow
         }
-        runCollision()
         println(bricksList.toString())
         return bricksList
     }
@@ -73,8 +72,11 @@ object FieldViewModel : ViewModel() {
         )
     }
 
-    private fun addToCollision(fieldBrick: FieldBrick) {
-        CollisionBricksOnLevel.addToCollision(fieldBrick = fieldBrick)
+    fun addToCollision() {
+        brickOnField.forEach() {
+            CollisionBricksOnLevel.addToCollision(fieldBrick = it)
+        }
+        runCollision()
     }
 
     private fun runCollision() {
@@ -186,12 +188,36 @@ object FieldViewModel : ViewModel() {
             brickOnField.forEach {
 
                 if (wonItem.position.toString() == it.position.toString()) {
-                    it.resetFieldBrick()
+                    resetOrNotFieldBrick(it)
                 }
             }
         }
         if (!GameConfig.GAME_TYPE_FREE) {
             checkEndLevel()
+        }
+    }
+
+    fun resetOrNotFieldBrick(fieldBrick: FieldBrick) {
+        if (fieldBrick.life > 0) {
+            fieldBrick.life -= 1
+        } else {
+            fieldBrick.resetFieldBrick()
+        }
+        setImageOnField(fieldBrick)
+    }
+
+    fun setImageOnField(fieldBrick: FieldBrick) {
+
+        when (fieldBrick.hasOwnerId) {
+            GameConfig.NEGATIVE_BONUS_LIVES -> {
+                fieldBrick.assetImage.value = GameConfig.imagesNegativeBonuses[0]
+            }
+
+            GameConfig.NEGATIVE_BONUS_ROCK -> {
+                fieldBrick.assetImage.value = GameConfig.imagesNegativeBonuses[1]
+            }
+
+            else -> fieldBrick.assetImage.value = R.drawable.bgfielbrickempty
         }
     }
 

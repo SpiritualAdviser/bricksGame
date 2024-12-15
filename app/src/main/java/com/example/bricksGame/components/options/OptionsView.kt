@@ -325,7 +325,7 @@ fun BonusSpeedFill() {
                 onCheckedChange = {
                     checkedState.value = it
                     if (checkedState.value) {
-                        OptionsViewModel.setBonusSpeedFill(0.1f)
+                        OptionsViewModel.setBonusSpeedFill(0.5f)
                         textColor.value = Color(0xFF6650a4)
                     } else {
                         OptionsViewModel.setBonusSpeedFill(0.01f)

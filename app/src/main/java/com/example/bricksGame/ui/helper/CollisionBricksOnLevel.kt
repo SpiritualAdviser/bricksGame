@@ -2,6 +2,7 @@ package com.example.bricksGame.ui.helper
 
 import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.components.levelGame.data.FieldBrick
+import com.example.bricksGame.ui.GameConfig
 
 
 object CollisionBricksOnLevel {
@@ -51,7 +52,12 @@ object CollisionBricksOnLevel {
 
     private fun onCollision(brick: Brick, fieldBrick: FieldBrick) {
 
+        if (fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_ROCK || fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_LIVES) {
+            return
+        }
+
         if (brick.position == "Bonus") {
+
             if (fieldBrick.hasOwnerId != null) {
                 fieldBrick.hasBonusOwnerId = brick.name
                 brick.hasBonusOwnerId = fieldBrick
@@ -68,6 +74,10 @@ object CollisionBricksOnLevel {
     }
 
     private fun outOfCollision(brick: Brick, fieldBrick: FieldBrick) {
+
+        if (fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_ROCK || fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_LIVES) {
+            return
+        }
 
         if (brick.position == "Bonus") {
 

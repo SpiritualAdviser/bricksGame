@@ -14,6 +14,7 @@ data class FieldBrick(
     val name: String = "FieldBricks",
     val position: Pair<Int, Int>,
     var id: String = "Color.Transparent",
+    var life: Int = 0,
 
     var borderColor: MutableState<Color> = mutableStateOf(GameConfig.BRICK_BORDER_COLOR),
     var assetImage: MutableState<Int> = mutableIntStateOf(R.drawable.bgfielbrickempty),
@@ -67,6 +68,7 @@ data class FieldBrick(
     }
 
     fun resetFieldBrick() {
+
         this.hasOwnerId = null
         this.hasBonusOwnerId = null
         this.setBorderBlack()

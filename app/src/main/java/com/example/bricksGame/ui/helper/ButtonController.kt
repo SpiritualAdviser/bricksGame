@@ -28,7 +28,7 @@ object ButtonController {
         FieldViewModel.resetData()
         PlayerViewModel.onStartLevel()
         BonusViewModel.setNegativeBonusOnLevelField()
-
+        FieldViewModel.addToCollision()
         AppNavigation.getInstance().getNavController().navigate(Routes.LevelGame.route) {
             popUpTo(Routes.LevelGame.route)
             launchSingleTop = true
