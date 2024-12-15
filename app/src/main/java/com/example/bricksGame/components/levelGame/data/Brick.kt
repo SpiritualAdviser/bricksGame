@@ -20,7 +20,7 @@ data class Brick(
     var id: Int,
     var position: String,
     var assetImage: Int,
-    var life: Int = 1,
+    var life: Int = 0,
 
     var globalX: Float = 0f,
     var globalY: Float = 0f,
@@ -56,6 +56,7 @@ data class Brick(
         if (this.position == "Bonus") {
             if (this.hasBonusOwnerId != null) {
                 BonusViewModel.onBonus(this)
+                this.hasBonusOwnerId = null
             }
             this.x.intValue = 0
             this.y.intValue = 0

@@ -200,6 +200,7 @@ object FieldViewModel : ViewModel() {
     fun resetOrNotFieldBrick(fieldBrick: FieldBrick) {
         if (fieldBrick.life > 0) {
             fieldBrick.life -= 1
+            fieldBrick.hasBonusOwnerId = null
         } else {
             fieldBrick.resetFieldBrick()
         }

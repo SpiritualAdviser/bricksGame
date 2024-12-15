@@ -52,7 +52,9 @@ object CollisionBricksOnLevel {
 
     private fun onCollision(brick: Brick, fieldBrick: FieldBrick) {
 
-        if (fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_ROCK || fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_LIVES) {
+        if (fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_ROCK ||
+            fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_LIVES) {
+            println()
             return
         }
 
@@ -75,9 +77,9 @@ object CollisionBricksOnLevel {
 
     private fun outOfCollision(brick: Brick, fieldBrick: FieldBrick) {
 
-        if (fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_ROCK || fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_LIVES) {
-            return
-        }
+//        if (fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_ROCK || fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_LIVES) {
+//            return
+//        }
 
         if (brick.position == "Bonus") {
 
