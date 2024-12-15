@@ -122,7 +122,7 @@ object BonusViewModel : ViewModel() {
 
     fun setNegativeBonusOnLevelField() {
 
-        for (i in 0..GameConfig.MAX_NEGATIVE_BRICKS_ON_LEVEL) {
+        for (i in 0 until GameConfig.MAX_NEGATIVE_BRICKS_ON_LEVEL) {
             val randomFieldBrick = brickOnField.random()
 
             val randomNegativeBonus =

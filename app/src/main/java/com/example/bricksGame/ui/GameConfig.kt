@@ -85,9 +85,9 @@ object GameConfig : ViewModel() {
         R.drawable.bg_close_brick,
     )
     const val NEGATIVE_BONUS_LIVES = 998
-    const val NEGATIVE_BONUS_LIVES_LIFE = 1
+    const val NEGATIVE_BONUS_LIVES_LIFE = 0
     const val NEGATIVE_BONUS_ROCK = 999
-    const val NEGATIVE_BONUS_ROCK_LIFE = 2
+    const val NEGATIVE_BONUS_ROCK_LIFE = 1
     var SOUND_MUTED by mutableStateOf(false)
     var GAME_TYPE_FREE = true
 }
