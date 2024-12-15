@@ -1,5 +1,6 @@
 package com.example.bricksGame.components.levelGame.models
 
+
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
@@ -53,11 +54,9 @@ object BonusViewModel : ViewModel() {
     private fun createBonus(i: Int): Brick {
         var name = ""
         when (i) {
-
             0 -> name = "iceBonus"
             1 -> name = "fireBonus"
             2 -> name = "hammerBonus"
-
         }
         return Brick(
             x = mutableIntStateOf(0),
@@ -66,7 +65,7 @@ object BonusViewModel : ViewModel() {
             id = 0,
             position = "Bonus",
             name = name,
-            assetImage = GameConfig.imagesBricksBonus[i]
+            assetImage = GameConfig.imagesBricksBonuses[i]
         )
     }
 
@@ -82,7 +81,7 @@ object BonusViewModel : ViewModel() {
         CoroutineScope(Dispatchers.Main).launch {
 
             row.forEach {
-                it.assetImage.value = GameConfig.imagesBricksBonus[1]
+                it.assetImage.value = GameConfig.imagesBricksBonuses[1]
                 if (it.hasOwnerId != null) {
                     winRow.add(it)
                 }
@@ -102,7 +101,7 @@ object BonusViewModel : ViewModel() {
 
         CoroutineScope(Dispatchers.Main).launch {
             column.forEach {
-                it.assetImage.value = GameConfig.imagesBricksBonus[0]
+                it.assetImage.value = GameConfig.imagesBricksBonuses[0]
                 if (it.hasOwnerId != null) {
                     winColumn.add(it)
                 }
@@ -124,6 +123,39 @@ object BonusViewModel : ViewModel() {
         }
         setOfBonus(brick)
     }
+
+    fun setNegativeBonusOnLevelField() {
+
+        for (i in 0..GameConfig.MAX_NEGATIVE_BRICKS_ON_LEVEL) {
+            val randomFieldBrick = brickOnField.random()
+
+            val randomNegativeBonus =
+                createNegativeBonus((Math.random() * GameConfig.imagesNegativeBonuses.size).toInt())
+
+            randomFieldBrick.setImageOnStickBrick(randomNegativeBonus.assetImage)
+            randomFieldBrick.id = randomNegativeBonus.assetImage.toString()
+            randomFieldBrick.hasOwnerId = randomNegativeBonus.id
+        }
+    }
+
+    private fun createNegativeBonus(i: Int): Brick {
+        var name = ""
+        when (i) {
+            0 -> name = "negativeLives"
+            1 -> name = "negativeRock"
+        }
+        return Brick(
+            x = mutableIntStateOf(0),
+            y = mutableIntStateOf(0),
+            canDrag = false,
+            id = 0,
+            position = "negativeBonus",
+            name = name,
+            assetImage = GameConfig.imagesNegativeBonuses[i]
+        )
+    }
+
+
 }
 
 
