@@ -11,6 +11,7 @@ object LevelsConfig {
             numberOfScoreToWin = 5,
             additionalBrick = 2,
             numberOfBricksToWin = 0,
+            negativeBonusNumber = 1,
             bonusFillSpeed = 0.5f
         ),
         Level(
@@ -20,6 +21,7 @@ object LevelsConfig {
             additionalBrick = 2,
             numberOfScoreToWin = 30,
             numberOfBricksToWin = 2,
+            negativeBonusNumber = 1,
             bonusFillSpeed = 0.2f
         ),
         Level(
@@ -29,6 +31,7 @@ object LevelsConfig {
             additionalBrick = 3,
             numberOfScoreToWin = 40,
             numberOfBricksToWin = 0,
+            negativeBonusNumber = 2,
             bonusFillSpeed = 0.2f
         ),
         Level(
@@ -38,6 +41,7 @@ object LevelsConfig {
             additionalBrick = 3,
             numberOfScoreToWin = 10,
             numberOfBricksToWin = 3,
+            negativeBonusNumber = 2,
             bonusFillSpeed = 0.1f
         ),
         Level(
@@ -47,6 +51,7 @@ object LevelsConfig {
             additionalBrick = 3,
             numberOfScoreToWin = 60,
             numberOfBricksToWin = 0,
+            negativeBonusNumber = 3,
             bonusFillSpeed = 0.1f
         ),
         Level(
@@ -56,6 +61,7 @@ object LevelsConfig {
             additionalBrick = 3,
             numberOfScoreToWin = 70,
             numberOfBricksToWin = 4,
+            negativeBonusNumber = 3,
             bonusFillSpeed = 0.1f
         ),
         Level(
@@ -65,6 +71,7 @@ object LevelsConfig {
             additionalBrick = 3,
             numberOfScoreToWin = 80,
             numberOfBricksToWin = 4,
+            negativeBonusNumber = 4,
             bonusFillSpeed = 0.05f
         ),
         Level(
@@ -74,6 +81,7 @@ object LevelsConfig {
             additionalBrick = 3,
             numberOfScoreToWin = 90,
             numberOfBricksToWin = 0,
+            negativeBonusNumber = 4,
             bonusFillSpeed = 0.05f
         ),
         Level(
@@ -83,6 +91,7 @@ object LevelsConfig {
             additionalBrick = 4,
             numberOfScoreToWin = 100,
             numberOfBricksToWin = 4,
+            negativeBonusNumber = 4,
             bonusFillSpeed = 0.01f
         ),
         Level(
@@ -92,6 +101,7 @@ object LevelsConfig {
             additionalBrick = 4,
             numberOfScoreToWin = 110,
             numberOfBricksToWin = 0,
+            negativeBonusNumber = 4,
             bonusFillSpeed = 0.01f
         )
     )
@@ -107,6 +117,7 @@ data class Level(
     var levelTime: Int = 100,
     var bonusFillSpeed: Float = 0.01F,
     var additionalBrick: Int = 3,
+    var negativeBonusNumber: Int = 0,
 
     var numberLevelPasses: Int = 0,
     var isActive: Boolean = false,
