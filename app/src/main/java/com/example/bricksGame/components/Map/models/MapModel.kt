@@ -16,7 +16,7 @@ object MapModel : ViewModel() {
 
     var levelTarget = mutableIntStateOf(0)
     var levelWinLine: String = ""
-    var levelTime = mutableIntStateOf(0)
+    var levelStep = mutableIntStateOf(0)
 
     fun openLevelOnMap() {
         val playerLevels = PlayerViewModel.activePlayer.activeLevelList.activeLevelList
@@ -42,7 +42,7 @@ object MapModel : ViewModel() {
         levelTarget.intValue = level.numberOfScoreToWin
         levelWinLine =
             if (level.numberOfBricksToWin == 0) "Full" else level.numberOfBricksToWin.toString()
-        levelTime.intValue = level.levelTime
+        levelStep.intValue = level.levelTime
 
         GameConfig.ROWS = level.fieldGameRow
         GameConfig.COLUMNS = level.fieldGameColumn
@@ -54,7 +54,7 @@ object MapModel : ViewModel() {
     fun changeLevelTargetOnRound(score: Int) {
         levelTarget.intValue =
             if (levelTarget.intValue - score <= 0) 0 else levelTarget.intValue - score
-        levelTime.intValue = if (levelTime.intValue - 1 <= 0) 0 else levelTime.intValue - 1
+        levelStep.intValue = if (levelStep.intValue - 1 <= 0) 0 else levelStep.intValue - 1
     }
 
 }

@@ -2,7 +2,6 @@ package com.example.bricksGame.components.levelGame.models
 
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.components.levelGame.data.FieldBrick
@@ -52,12 +51,12 @@ object BonusViewModel : ViewModel() {
     }
 
     private fun createBonus(i: Int): Brick {
-        var position = ""
+        var name = ""
         when (i) {
 
-            0 -> position = "iceBonus"
-            1 -> position = "fireBonus"
-            2 -> position = "hammerBonus"
+            0 -> name = "iceBonus"
+            1 -> name = "fireBonus"
+            2 -> name = "hammerBonus"
 
         }
         return Brick(
@@ -65,8 +64,8 @@ object BonusViewModel : ViewModel() {
             y = mutableIntStateOf(0),
             canDrag = false,
             id = 0,
-            position = position,
-            name = "Bonus",
+            position = "Bonus",
+            name = name,
             assetImage = GameConfig.imagesBricksBonus[i]
         )
     }
@@ -118,7 +117,7 @@ object BonusViewModel : ViewModel() {
 
     fun onBonus(brick: Brick) {
 
-        when (brick.position) {
+        when (brick.name) {
             "fireBonus" -> onBonusFire(brick)
             "hammerBonus" -> onBonusHammer(brick)
             "iceBonus" -> onBonusIce(brick)

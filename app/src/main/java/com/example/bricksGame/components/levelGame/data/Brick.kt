@@ -52,7 +52,7 @@ data class Brick(
 
     suspend fun stickPosition() {
         delay(25)
-        if (this.name == "Bonus") {
+        if (this.position == "Bonus") {
             if (this.hasBonusOwnerId != null) {
                 BonusViewModel.onBonus(this)
             }

@@ -5,6 +5,7 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.ui.GameConfig
+import kotlin.math.max
 
 object BricksViewModel : ViewModel() {
 
@@ -31,36 +32,21 @@ object BricksViewModel : ViewModel() {
 
     private fun getRandomImage(): Int {
         var maxColors: Int = 0
-        var column = GameConfig.COLUMNS
-        var rows = GameConfig.ROWS
+        maxColors = max(GameConfig.COLUMNS, GameConfig.ROWS)
 
-        maxColors = if (GameConfig.WIN_NUMBER_LINE == 0) {
+        if (GameConfig.WIN_NUMBER_LINE == 0) maxColors + 1 else maxColors + 2
 
-            if (column > rows) {
-                GameConfig.COLUMNS
-            } else {
-                GameConfig.ROWS
-            }
-
-        } else {
-            if (column > rows) {
-                GameConfig.COLUMNS + 1
-            } else {
-                GameConfig.ROWS + 1
-            }
-        }
-
-        if (maxColors > GameConfig.imagesBricks.size - 1) {
+        if (GameConfig.imagesBricks.elementAtOrNull(maxColors) == null) {
             maxColors = GameConfig.imagesBricks.size - 1
         }
         return GameConfig.imagesBricks[(0..maxColors).random()]
     }
 
     fun removeBrick(brick: Brick) {
-            FieldViewModel.setBricksOnField(brick)
-            brick.freeSpace()
-            _bricksList.remove(brick)
-            this.checkIfNeedNewBricksList()
+        FieldViewModel.setBricksOnField(brick)
+        brick.freeSpace()
+        _bricksList.remove(brick)
+        this.checkIfNeedNewBricksList()
     }
 
     private fun checkIfNeedNewBricksList() {

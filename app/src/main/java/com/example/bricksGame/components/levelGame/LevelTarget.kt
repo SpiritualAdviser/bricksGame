@@ -37,5 +37,5 @@ fun LevelTargetBlockLandscape() {
 fun BlockLevelTarget() {
     Text(text = "Target: ${MapModel.levelTarget.value}", color = onPrimaryLight)
     Text("winLine: ${MapModel.levelWinLine}", color = onPrimaryLight)
-    Text("Time: ${MapModel.levelTime.intValue}", color = onPrimaryLight)
+    Text("Step: ${MapModel.levelStep.intValue}", color = onPrimaryLight)
 }
