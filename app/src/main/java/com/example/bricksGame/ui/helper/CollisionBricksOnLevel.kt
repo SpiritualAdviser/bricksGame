@@ -51,9 +51,9 @@ object CollisionBricksOnLevel {
 
     private fun onCollision(brick: Brick, fieldBrick: FieldBrick) {
 
-        if (brick.name == "Bonus") {
+        if (brick.position == "Bonus") {
             if (fieldBrick.hasOwnerId != null) {
-                fieldBrick.hasBonusOwnerId = brick.position
+                fieldBrick.hasBonusOwnerId = brick.name
                 brick.hasBonusOwnerId = fieldBrick
                 fieldBrick.setBorderRed()
                 println("Bonus Collision")
@@ -69,9 +69,9 @@ object CollisionBricksOnLevel {
 
     private fun outOfCollision(brick: Brick, fieldBrick: FieldBrick) {
 
-        if (brick.name == "Bonus") {
+        if (brick.position == "Bonus") {
 
-            if (brick.hasBonusOwnerId != null && brick.position == fieldBrick.hasBonusOwnerId) {
+            if (brick.hasBonusOwnerId != null && brick.name == fieldBrick.hasBonusOwnerId) {
                 brick.hasBonusOwnerId = null
                 fieldBrick.hasBonusOwnerId = null
                 fieldBrick.setBorderBlack()

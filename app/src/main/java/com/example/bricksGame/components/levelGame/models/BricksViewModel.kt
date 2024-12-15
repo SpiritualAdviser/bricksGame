@@ -34,7 +34,7 @@ object BricksViewModel : ViewModel() {
         var maxColors: Int = 0
         maxColors = max(GameConfig.COLUMNS, GameConfig.ROWS)
 
-        if (GameConfig.WIN_NUMBER_LINE == 0) maxColors + 1 else maxColors + 2
+        if (GameConfig.WIN_NUMBER_LINE == 0) maxColors else maxColors += 1
 
         if (GameConfig.imagesBricks.elementAtOrNull(maxColors) == null) {
             maxColors = GameConfig.imagesBricks.size - 1

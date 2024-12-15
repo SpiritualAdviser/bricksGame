@@ -127,7 +127,7 @@ object FieldViewModel : ViewModel() {
 
         var endIndex = checkedList.size - GameConfig.WIN_NUMBER_LINE
         endIndex =
-            if (startIndex <= endIndex || checkedList.elementAtOrNull(endIndex) != null) endIndex else startIndex
+            if (startIndex <= endIndex && checkedList.elementAtOrNull(endIndex) != null) endIndex else startIndex
 
         var wasWin = false
 
