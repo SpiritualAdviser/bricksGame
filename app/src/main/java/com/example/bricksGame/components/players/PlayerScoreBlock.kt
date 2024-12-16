@@ -28,12 +28,12 @@ import com.example.compose.primaryContainerDark
 fun PlayerScoreBlock() {
     Column(
         Modifier
-            .offset(18.dp, 30.dp)
+//            .offset(18.dp, 30.dp)
 //            .border(4.dp, Color.Magenta)
     ) {
         PlayerScore()
         PlayerName()
-        Spacer(Modifier.size(4.dp))
+//        Spacer(Modifier.size(4.dp))
         PlayerAchievements()
     }
 }
@@ -42,7 +42,7 @@ fun PlayerScoreBlock() {
 fun PlayerScore() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.offset((-3).dp)
+//        modifier = Modifier.offset((-3).dp)
     ) {
         Image(
             painterResource(R.drawable.score_icon),

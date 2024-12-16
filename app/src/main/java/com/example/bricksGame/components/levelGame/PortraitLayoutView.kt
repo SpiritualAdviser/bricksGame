@@ -9,13 +9,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.runtime.rememberCoroutineScope
@@ -44,17 +47,36 @@ import kotlinx.coroutines.launch
 @Composable
 fun PortraitLayout() {
     LevelPortraitBg()
-    TopBar()
-    GridFieldBox()
-    BonusBlock()
-    BricksBlock()
+    Column(
+        Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        TopBar()
+        FieldBlock()
+    }
+}
+
+@Composable
+fun FieldBlock() {
+    Column(
+       Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        BonusBlock()
+        GridFieldBox()
+        BricksBlock()
+        Spacer(Modifier.size(30.dp))
+    }
 }
 
 @Composable
 private fun TopBar() {
     Column(
-        Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(35.dp),
+        Modifier
+            .fillMaxWidth()
+            .padding(top = 35.dp, start = 15.dp, end = 15.dp, bottom = 0.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
@@ -70,15 +92,13 @@ private fun TopBar() {
         }
         LevelTargetBlockPortrait()
     }
-
 }
 
 @Composable
 private fun ButtonBlock() {
     Row(
 
-        modifier = Modifier
-            .offset((-18).dp, 30.dp),
+//        modifier = Modifier
 //            .border(4.dp, Color.Magenta),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End
@@ -92,13 +112,12 @@ private fun GridFieldBox() {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
-            .background(GameConfig.FIELD_BG_COLOR),
+            .background(GameConfig.FIELD_BG_COLOR)
 //            .border(4.dp, Color.Green)
     ) {
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(GameConfig.ROWS),
-            horizontalArrangement = Arrangement.Center,
             userScrollEnabled = false,
             modifier = Modifier
                 .size(
@@ -143,7 +162,6 @@ private fun BricksBlock() {
 
     Row(
         modifier = Modifier
-            .offset(y = (FieldViewModel.brickSizePortrait * (GameConfig.COLUMNS + 2)) / 2)
 //            .border(4.dp, Color.Magenta),
     ) {
         (BricksViewModel.bricks.forEach {
@@ -190,71 +208,69 @@ private fun BricksBlock() {
 @Composable
 private fun BonusBlock() {
     val coroutine = rememberCoroutineScope()
-
-    Row(
-        modifier = Modifier
-            .offset(y = -(FieldViewModel.brickSizePortrait * (GameConfig.COLUMNS + 2)) / 2)
-//            .border(4.dp, Color.Magenta),
-    ) {
-        BonusViewModel.bonuses.forEach {
-            Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
-                    .border(
-                        GameConfig.BRICK_BORDER_SIZE.dp, color = it.activeBonusBorder.value,
-                        shape = RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp)
-                    )
-                    .size(FieldViewModel.brickSizePortrait)
-                    .background(GameConfig.FIELD_BG_COLOR)
-            ) {}
-            Spacer(Modifier.size(10.dp))
-        }
-    }
-
-    Row(
-        modifier = Modifier
-            .offset(y = -(FieldViewModel.brickSizePortrait * (GameConfig.COLUMNS + 2)) / 2)
-//            .border(4.dp, Color.Magenta),
-    ) {
-        BonusViewModel.bonuses.forEach {
-            key(it.id) {
+    Box {
+        Row(
+            modifier = Modifier
+//                .border(4.dp, Color.Magenta),
+        ) {
+            BonusViewModel.bonuses.forEach {
                 Box(
-                    Modifier
-                        .offset { IntOffset(it.x.intValue, it.y.intValue) }
-                        .size(FieldViewModel.brickSizePortrait)
-                        .paint(
-                            painterResource(it.assetImage),
-                            alpha = it.alpha.value,
-                            sizeToIntrinsics = true,
-                            contentScale = ContentScale.FillBounds
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
+                        .border(
+                            GameConfig.BRICK_BORDER_SIZE.dp, color = it.activeBonusBorder.value,
+                            shape = RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp)
                         )
-                        .onGloballyPositioned { coordinates ->
-                            it.setGloballyPosition(coordinates)
-                        }
-                        .pointerInput(Unit) {
-                            detectDragGestures(
-                                onDragStart = { },
-                                onDrag = { _, dragAmount ->
-                                    if (it.canDrag) {
-                                        it.dragging(dragAmount.x, dragAmount.y)
-                                        coroutine.launch {
-                                            CollisionBricksOnLevel.observeCenterObjects(it)
-                                        }
-                                    }
-                                },
-                                onDragEnd = {
-                                    if (it.canDrag) {
-                                        coroutine.launch {
-                                            it.stickPosition()
-//                                        FieldViewModel.checkFieldOnFinishRound()
-                                        }
-                                    }
-                                },
-                                onDragCancel = { },
-                            )
-                        }
-                )
+                        .size(FieldViewModel.brickSizePortrait)
+                        .background(GameConfig.FIELD_BG_COLOR)
+                ) {}
                 Spacer(Modifier.size(10.dp))
+            }
+        }
+
+        Row(
+            modifier = Modifier
+        ) {
+            BonusViewModel.bonuses.forEach {
+                key(it.id) {
+                    Box(
+                        Modifier
+                            .offset { IntOffset(it.x.intValue, it.y.intValue) }
+                            .size(FieldViewModel.brickSizePortrait)
+                            .paint(
+                                painterResource(it.assetImage),
+                                alpha = it.alpha.value,
+                                sizeToIntrinsics = true,
+                                contentScale = ContentScale.FillBounds
+                            )
+                            .onGloballyPositioned { coordinates ->
+                                it.setGloballyPosition(coordinates)
+                            }
+                            .pointerInput(Unit) {
+                                detectDragGestures(
+                                    onDragStart = { },
+                                    onDrag = { _, dragAmount ->
+                                        if (it.canDrag) {
+                                            it.dragging(dragAmount.x, dragAmount.y)
+                                            coroutine.launch {
+                                                CollisionBricksOnLevel.observeCenterObjects(it)
+                                            }
+                                        }
+                                    },
+                                    onDragEnd = {
+                                        if (it.canDrag) {
+                                            coroutine.launch {
+                                                it.stickPosition()
+//                                        FieldViewModel.checkFieldOnFinishRound()
+                                            }
+                                        }
+                                    },
+                                    onDragCancel = { },
+                                )
+                            }
+                    )
+                    Spacer(Modifier.size(10.dp))
+                }
             }
         }
     }

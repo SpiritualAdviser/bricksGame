@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
+import com.example.bricksGame.components.Map.models.MapModel
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
@@ -57,6 +58,7 @@ data class Brick(
             if (this.hasBonusOwnerId != null) {
                 BonusViewModel.onBonus(this)
                 this.hasBonusOwnerId = null
+                MapModel.changeLevelStepOnRound()
             }
             this.x.intValue = 0
             this.y.intValue = 0
@@ -69,6 +71,7 @@ data class Brick(
                 dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
                 BricksViewModel.removeBrick(this)
                 soundController.pushCristal()
+                MapModel.changeLevelStepOnRound()
             } else {
                 this.x.intValue = 0
                 this.y.intValue = 0

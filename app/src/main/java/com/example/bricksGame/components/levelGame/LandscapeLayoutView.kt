@@ -53,8 +53,9 @@ fun LandscapeLayout() {
 private fun LeftBar() {
     Column(
         Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(35.dp)
+            .fillMaxSize()
+            .offset(15.dp, 30.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         PlayerScoreBlock()
         LevelTargetBlockLandscape()
@@ -177,7 +178,7 @@ private fun BonusBlock() {
 
     Column(
         modifier = Modifier
-            .offset(x = -(FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 2)) / 2)
+            .offset(x = -((FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 2)) / 2) + 5.dp)
 //            .border(4.dp, Color.Magenta),
     ) {
         BonusViewModel.bonuses.forEach {
@@ -188,7 +189,7 @@ private fun BonusBlock() {
                         GameConfig.BRICK_BORDER_SIZE.dp, color = it.activeBonusBorder.value,
                         shape = RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp)
                     )
-                    .size(FieldViewModel.brickSizePortrait)
+                    .size(FieldViewModel.brickSizePortrait - 8.dp)
                     .background(GameConfig.FIELD_BG_COLOR)
             ) {}
             Spacer(Modifier.size(10.dp))

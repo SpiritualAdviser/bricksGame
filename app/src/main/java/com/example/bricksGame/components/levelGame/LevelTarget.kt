@@ -27,7 +27,6 @@ fun LevelTargetBlockPortrait() {
 @Composable
 fun LevelTargetBlockLandscape() {
     Column(
-        Modifier.offset(18.dp)
     ) {
         BlockLevelTarget()
     }
@@ -35,7 +34,7 @@ fun LevelTargetBlockLandscape() {
 
 @Composable
 fun BlockLevelTarget() {
-    Text(text = "Target: ${MapModel.levelTarget.value}", color = onPrimaryLight)
+    Text(text = "Target: ${MapModel.levelTarget.intValue}", color = onPrimaryLight)
     Text("winLine: ${MapModel.levelWinLine}", color = onPrimaryLight)
     Text("Step: ${MapModel.levelStep.intValue}", color = onPrimaryLight)
 }

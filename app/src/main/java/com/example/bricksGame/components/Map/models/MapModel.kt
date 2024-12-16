@@ -57,5 +57,8 @@ object MapModel : ViewModel() {
             if (levelTarget.intValue - score <= 0) 0 else levelTarget.intValue - score
         levelStep.intValue = if (levelStep.intValue - 1 <= 0) 0 else levelStep.intValue - 1
     }
+    fun changeLevelStepOnRound() {
+        levelStep.intValue = if (levelStep.intValue - 1 <= 0) 0 else levelStep.intValue - 1
+    }
 
 }
