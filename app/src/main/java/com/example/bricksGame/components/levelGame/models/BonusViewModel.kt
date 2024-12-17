@@ -8,6 +8,7 @@ import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.components.levelGame.data.FieldBrick
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.brickOnField
 import com.example.bricksGame.ui.GameConfig
+import com.example.bricksGame.ui.RoundLogic
 import com.example.compose.primaryContainerDark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -88,7 +89,7 @@ object BonusViewModel : ViewModel() {
                 }
             }
             delay(300)
-            FieldViewModel.resetLineOnWin(winRow, onBonus = true)
+            RoundLogic.resetLineOnWin(winRow, onBonus = true)
         }
     }
 
@@ -106,7 +107,7 @@ object BonusViewModel : ViewModel() {
                 }
             }
             delay(300)
-            FieldViewModel.resetLineOnWin(winColumn, onBonus = true)
+            RoundLogic.resetLineOnWin(winColumn, onBonus = true)
         }
     }
 

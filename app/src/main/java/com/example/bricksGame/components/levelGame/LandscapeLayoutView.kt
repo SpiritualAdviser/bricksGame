@@ -35,6 +35,7 @@ import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
 import com.example.bricksGame.ui.GameConfig
 import com.example.bricksGame.ui.LevelLandscapeBg
+import com.example.bricksGame.ui.RoundLogic
 import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 import kotlinx.coroutines.launch
 
@@ -159,7 +160,7 @@ private fun BricksBlock() {
                                 onDragEnd = {
                                     coroutine.launch {
                                         it.stickPosition()
-                                        FieldViewModel.checkFieldOnFinishRound()
+                                        RoundLogic.checkFieldOnFinishRound()
                                     }
                                 },
                                 onDragCancel = { },
