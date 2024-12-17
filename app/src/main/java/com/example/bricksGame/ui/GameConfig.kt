@@ -88,6 +88,7 @@ object GameConfig : ViewModel() {
     const val NEGATIVE_BONUS_LIVES_LIFE = 0
     const val NEGATIVE_BONUS_ROCK = 999
     const val NEGATIVE_BONUS_ROCK_LIFE = 1
+    var WIN_LINE_DESTROY_NEGATIVE_BONUS = true
     var SOUND_MUTED by mutableStateOf(false)
     var GAME_TYPE_FREE = true
 }

@@ -164,7 +164,7 @@ object FieldViewModel : ViewModel() {
     }
 
     fun needAddToList(currentBrick: FieldBrick, brick: FieldBrick): Boolean {
-        if (isClosedBrick(brick)
+        if (GameConfig.WIN_LINE_DESTROY_NEGATIVE_BONUS && isClosedBrick(brick)
         ) {
             ++numberOfCloseFieldBrickOnLine
             return true
@@ -182,10 +182,7 @@ object FieldViewModel : ViewModel() {
     }
 
     fun isClosedBrick(fieldBrick: FieldBrick): Boolean {
-
-        var tt =
-            fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_LIVES || fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_ROCK
-        return tt
+        return fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_LIVES || fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_ROCK
     }
 
     private fun checkWin(
