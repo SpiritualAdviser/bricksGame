@@ -15,14 +15,18 @@ import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 
 object FieldViewModel : ViewModel() {
 
+    const val EMPTY_ID = "Color.Transparent"
+    var brickOnField = createBricksList()
+    var numberOfCloseFieldBrickOnLine = 0
+
+    var brickSizePortrait = 0.dp
+    var brickSizeLandscape = 0.dp
+
     var fieldMAxWidthSize = if (screenSize.screenWidthDp > screenSize.screenHeightDp) {
         screenSize.screenHeightDp - GameConfig.PADDING_FIELD.dp
     } else {
         screenSize.screenWidthDp - GameConfig.PADDING_FIELD.dp
     }
-
-    var brickSizePortrait = 0.dp
-    var brickSizeLandscape = 0.dp
 
     fun onOptionChange() {
         brickSizePortrait = fieldMAxWidthSize / GameConfig.ROWS
@@ -36,9 +40,6 @@ object FieldViewModel : ViewModel() {
             brickSizeLandscape = GameConfig.MAX_BRICKS_SIZE.dp
         }
     }
-
-    const val EMPTY_ID = "Color.Transparent"
-    var brickOnField = createBricksList()
 
     fun resetData() {
         this.brickOnField.clear()
@@ -120,28 +121,31 @@ object FieldViewModel : ViewModel() {
         var temporaryList = mutableListOf<FieldBrick>()
         var winList = mutableListOf<FieldBrick>()
         var winNumberBricks = GameConfig.WIN_NUMBER_LINE
+        var startIndex = GameConfig.WIN_NUMBER_LINE - 1
+        var endIndex = checkedList.size - GameConfig.WIN_NUMBER_LINE
+        var wasWin = false
+
         winNumberBricks =
             if (checkedList.size < winNumberBricks || winNumberBricks == 0) checkedList.size else winNumberBricks
 
-        var startIndex = GameConfig.WIN_NUMBER_LINE - 1
         startIndex =
             if (checkedList.elementAtOrNull(startIndex) != null) startIndex else checkedList.size - 1
 
-        var endIndex = checkedList.size - GameConfig.WIN_NUMBER_LINE
         endIndex =
             if (startIndex <= endIndex && checkedList.elementAtOrNull(endIndex) != null) endIndex else startIndex
 
-        var wasWin = false
+        numberOfCloseFieldBrickOnLine = 0
 
         for (i in startIndex..endIndex) {
             if (wasWin) {
                 break
             }
             val currentBrick = checkedList[i]
-            if (currentBrick.id != EMPTY_ID) {
+
+            if (checkNeedToCompareBrick(currentBrick)) {
 
                 checkedList.forEach {
-                    if (currentBrick.id == it.id && it.id != EMPTY_ID) {
+                    if (needAddToList(currentBrick, it)) {
                         temporaryList.add(it)
                     } else {
                         if (!wasWin) {
@@ -159,21 +163,81 @@ object FieldViewModel : ViewModel() {
         }
     }
 
+    fun needAddToList(currentBrick: FieldBrick, brick: FieldBrick): Boolean {
+        if (isClosedBrick(brick)
+        ) {
+            ++numberOfCloseFieldBrickOnLine
+            return true
+        } else {
+            return currentBrick.id == brick.id && brick.id != EMPTY_ID
+        }
+    }
+
+    fun checkNeedToCompareBrick(currentBrick: FieldBrick): Boolean {
+        return if (isClosedBrick(currentBrick)) {
+            false
+        } else {
+            currentBrick.id != EMPTY_ID
+        }
+    }
+
+    fun isClosedBrick(fieldBrick: FieldBrick): Boolean {
+
+        var tt =
+            fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_LIVES || fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_ROCK
+        return tt
+    }
+
     private fun checkWin(
         temporaryList: MutableList<FieldBrick>,
         winList: MutableList<FieldBrick>,
         winNumberBricks: Int,
     ): Boolean {
+        var isWin = false
+        var sameColorList = mutableListOf<FieldBrick>()
+        if (temporaryList.size >= (winNumberBricks + numberOfCloseFieldBrickOnLine)) {
 
-        if (temporaryList.size >= winNumberBricks) {
-            temporaryList.forEach {
-                winList.add(it)
+            temporaryList.forEachIndexed { index, brick ->
+                val start = index
+                var end = index + winNumberBricks - 1
+
+                if (!isClosedBrick(brick) && !isWin && temporaryList.getOrNull(end) != null) {
+
+                    sameColorList = temporaryList.subList(start, end + 1)
+                    val color = sameColorList[0].id
+
+                    if (sameColorList.all { it.id == color }) {
+                        needAddCloseBrickOrNot(temporaryList, winList, start, end)
+
+                        sameColorList.forEach {
+                            winList.add(it)
+                        }
+                        isWin = true
+                    }
+                }
             }
-            temporaryList.clear()
-            return true
+
         } else {
-            temporaryList.clear()
-            return false
+            isWin = false
+        }
+        temporaryList.clear()
+        return isWin
+    }
+
+    fun needAddCloseBrickOrNot(
+        temporaryList: MutableList<FieldBrick>,
+        winList: MutableList<FieldBrick>,
+        start: Int,
+        end: Int
+    ) {
+        val firstClose = temporaryList.getOrNull(start - 1)
+        val lastClose = temporaryList.getOrNull(end + 1)
+
+        if (firstClose != null) {
+            winList.add(firstClose)
+        }
+        if (lastClose != null) {
+            winList.add(lastClose)
         }
     }
 
