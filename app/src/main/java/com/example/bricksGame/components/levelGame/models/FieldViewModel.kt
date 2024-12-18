@@ -24,9 +24,9 @@ object FieldViewModel : ViewModel() {
     var brickSizeLandscape = 0.dp
 
     var fieldMAxWidthSize = if (screenSize.screenWidthDp > screenSize.screenHeightDp) {
-        screenSize.screenHeightDp - GameConfig.PADDING_FIELD.dp
+        screenSize.screenHeightDp - (GameConfig.PADDING_FIELD.dp*2)
     } else {
-        screenSize.screenWidthDp - GameConfig.PADDING_FIELD.dp
+        screenSize.screenWidthDp - (GameConfig.PADDING_FIELD.dp * 2)
     }
 
     var zIndex = mutableFloatStateOf(0F)

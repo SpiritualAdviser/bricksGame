@@ -38,7 +38,7 @@ object GameConfig : ViewModel() {
     /**
      * options for padding FieldGame in Dp
      */
-    const val PADDING_FIELD = 35
+    const val PADDING_FIELD = 30
 
     /**
      * options BRICK_BORDER_SIZE for brick border size in Dp
