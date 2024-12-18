@@ -42,6 +42,7 @@ import com.example.bricksGame.helper.LevelPortraitBg
 import com.example.bricksGame.components.levelGame.logic.RoundLogic
 import com.example.bricksGame.components.levelGame.logic.CollisionBricksOnLevel
 import com.example.bricksGame.components.popups.WinPopup
+import com.example.bricksGame.components.popups.models.OnFinishGameViewModel.showPopupOnFinishGame
 import kotlinx.coroutines.launch
 
 @Composable
@@ -55,7 +56,9 @@ fun PortraitLayout() {
         TopBar()
         FieldBlock()
     }
-    WinPopup()
+    if (showPopupOnFinishGame.value) {
+        WinPopup()
+    }
 }
 
 @Composable

@@ -33,7 +33,7 @@ fun WinPopup() {
 fun WinBlock() {
 
     Text(
-        text = OnFinishGameViewModel.textOnWinPopup.value,
+        text = OnFinishGameViewModel.textOnWinPopup,
         textAlign = TextAlign.Center,
         fontSize = 40.sp,
         color = tertiaryContainerLight

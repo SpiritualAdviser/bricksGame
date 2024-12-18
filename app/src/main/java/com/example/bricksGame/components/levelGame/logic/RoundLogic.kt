@@ -1,5 +1,6 @@
 package com.example.bricksGame.components.levelGame.logic
 
+import androidx.compose.runtime.LaunchedEffect
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.components.levelGame.models.FieldBrick
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
@@ -8,9 +9,14 @@ import com.example.bricksGame.components.levelGame.models.FieldViewModel.brickOn
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.numberOfCloseFieldBrickOnLine
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.setImageOnField
 import com.example.bricksGame.components.players.models.PlayerViewModel
+import com.example.bricksGame.components.popups.models.OnFinishGameViewModel
 import com.example.bricksGame.soundController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.ButtonController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.collections.forEach
 
 object RoundLogic {
@@ -197,10 +203,11 @@ object RoundLogic {
     private fun addScore(lineList: List<FieldBrick>) {
         var score = 0
         var overBonus = 1
-
+        val numberWin =
+            if (GameConfig.WIN_NUMBER_LINE == 0) lineList.size else GameConfig.WIN_NUMBER_LINE
         lineList.forEach {
             if (!isClosedBrick(it)) {
-                if (score < GameConfig.WIN_NUMBER_LINE) {
+                if (score < numberWin) {
                     ++score
                 } else {
                     ++overBonus
@@ -226,8 +233,17 @@ object RoundLogic {
 
         if (currentLevel != null && PlayerViewModel.playerScore.intValue >= currentLevel.numberOfScoreToWin) {
             PlayerViewModel.updatePlayerOnLevelWin()
-
-            ButtonController.navigateToMap()
+            OnFinishGameViewModel.setWinOnLevel(true)
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(500)
+                closeLevel()
+            }
         }
+    }
+
+    suspend fun closeLevel() {
+        ButtonController.navigateToMap()
+        delay(100)
+        OnFinishGameViewModel.setWinOnLevel(false)
     }
 }

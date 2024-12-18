@@ -5,14 +5,16 @@ import androidx.lifecycle.ViewModel
 
 object OnFinishGameViewModel : ViewModel() {
 
+    var showPopupOnFinishGame = mutableStateOf(false)
     private const val WIN_TEXT = "You win!!!"
     private const val LOSE_TEXT = "You lose!!!"
-    val textOnWinPopup = mutableStateOf(LOSE_TEXT)
+    var textOnWinPopup = "You win!!!"
 
     fun setWinOnLevel(wasWin: Boolean) {
         when {
-            wasWin -> textOnWinPopup.value = WIN_TEXT
-            else -> textOnWinPopup.value = LOSE_TEXT
+            wasWin -> textOnWinPopup = WIN_TEXT
+            else -> textOnWinPopup = LOSE_TEXT
         }
+        showPopupOnFinishGame.value = wasWin
     }
 }
