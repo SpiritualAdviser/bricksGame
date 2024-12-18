@@ -33,8 +33,10 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.example.bricksGame.R
 import com.example.bricksGame.components.NaviBar.ButtonNaviBar
+import com.example.bricksGame.components.levelGame.data.Brick
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
@@ -61,7 +63,7 @@ fun PortraitLayout() {
 @Composable
 fun FieldBlock() {
     Column(
-       Modifier.fillMaxSize(),
+        Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -185,6 +187,7 @@ private fun BricksBlock() {
                             detectDragGestures(
                                 onDragStart = { },
                                 onDrag = { _, dragAmount ->
+
                                     it.dragging(dragAmount.x, dragAmount.y)
                                     coroutine.launch {
                                         CollisionBricksOnLevel.observeCenterObjects(it)
@@ -209,7 +212,10 @@ private fun BricksBlock() {
 @Composable
 private fun BonusBlock() {
     val coroutine = rememberCoroutineScope()
-    Box {
+    Box(
+        Modifier
+            .zIndex(FieldViewModel.zIndex.floatValue)
+    ) {
         Row(
             modifier = Modifier
 //                .border(4.dp, Color.Magenta),
@@ -234,8 +240,10 @@ private fun BonusBlock() {
         ) {
             BonusViewModel.bonuses.forEach {
                 key(it.id) {
+                    val currentBrick = it
                     Box(
                         Modifier
+                            .zIndex(it.zIndex.value)
                             .offset { IntOffset(it.x.intValue, it.y.intValue) }
                             .size(FieldViewModel.brickSizePortrait)
                             .paint(
@@ -247,9 +255,12 @@ private fun BonusBlock() {
                             .onGloballyPositioned { coordinates ->
                                 it.setGloballyPosition(coordinates)
                             }
-                            .pointerInput(Unit) {
+                            .pointerInput(it) {
                                 detectDragGestures(
-                                    onDragStart = { },
+                                    onDragStart = {
+                                        FieldViewModel.changeZIndex(1F)
+                                        currentBrick.changeZIndex(1F)
+                                    },
                                     onDrag = { _, dragAmount ->
                                         if (it.canDrag) {
                                             it.dragging(dragAmount.x, dragAmount.y)
@@ -265,8 +276,13 @@ private fun BonusBlock() {
 //                                        FieldViewModel.checkFieldOnFinishRound()
                                             }
                                         }
+                                        FieldViewModel.changeZIndex(0F)
+                                        it.changeZIndex(0F)
                                     },
-                                    onDragCancel = { },
+                                    onDragCancel = {
+                                        FieldViewModel.changeZIndex(0F)
+                                        it.changeZIndex(0F)
+                                    },
                                 )
                             }
                     )

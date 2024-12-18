@@ -1,5 +1,6 @@
 package com.example.bricksGame.components.levelGame.models
 
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.R
@@ -27,6 +28,8 @@ object FieldViewModel : ViewModel() {
     } else {
         screenSize.screenWidthDp - GameConfig.PADDING_FIELD.dp
     }
+
+    var zIndex = mutableFloatStateOf(0F)
 
     fun onOptionChange() {
         brickSizePortrait = fieldMAxWidthSize / GameConfig.ROWS
@@ -78,6 +81,10 @@ object FieldViewModel : ViewModel() {
             CollisionBricksOnLevel.addToCollision(fieldBrick = it)
         }
         runCollision()
+    }
+
+    fun changeZIndex(index: Float) {
+        zIndex.floatValue = index
     }
 
     private fun runCollision() {

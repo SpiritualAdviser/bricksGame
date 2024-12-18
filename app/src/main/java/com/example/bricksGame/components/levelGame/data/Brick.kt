@@ -29,6 +29,7 @@ data class Brick(
     var globalHeight: Int = 0,
     var canDrag: Boolean = true,
     var alpha: MutableState<Float> = mutableFloatStateOf(1f),
+    var zIndex: MutableState<Float> = mutableFloatStateOf(0f),
 
     var borderColor: Color = GameConfig.BRICK_BORDER_COLOR,
     var activeBonusBorder: MutableState<Color> = mutableStateOf(GameConfig.BRICK_BORDER_COLOR),
@@ -39,6 +40,10 @@ data class Brick(
     var hasBonusOwnerId: FieldBrick? = null,
     var fieldBrickOnCollision: FieldBrick? = null,
 ) {
+
+    fun changeZIndex(index: Float) {
+        zIndex.value = index
+    }
 
     fun dragging(xDragAmount: Float, yDragAmount: Float) {
         this.x.intValue += xDragAmount.toInt()
