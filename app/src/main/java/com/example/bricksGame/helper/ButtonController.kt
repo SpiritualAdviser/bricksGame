@@ -25,6 +25,7 @@ object ButtonController {
     fun navigateToLevelGame() {
         soundController.clickUi()
         soundController.playLevelTheme()
+        FieldViewModel.onOptionChange()
         BricksViewModel.resetData()
         FieldViewModel.resetData()
         PlayerViewModel.onStartLevel()

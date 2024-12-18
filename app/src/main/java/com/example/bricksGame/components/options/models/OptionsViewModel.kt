@@ -95,7 +95,6 @@ object OptionsViewModel : ViewModel() {
                 fieldScheme8x9.value = primaryLight
             }
         }
-        FieldViewModel.onOptionChange()
     }
 
     fun setBonusSpeedFill(speed: Float) {
