@@ -70,7 +70,7 @@ object RoundLogic {
             if (checkNeedToCompareBrick(currentBrick)) {
 
                 checkedList.forEach {
-                    if (needAddToList(currentBrick, it)) {
+                    if (needAddToTemporaryListList(currentBrick, it)) {
                         temporaryList.add(it)
                     } else {
                         if (!wasWin) {
@@ -88,7 +88,7 @@ object RoundLogic {
         }
     }
 
-    fun needAddToList(currentBrick: FieldBrick, brick: FieldBrick): Boolean {
+    fun needAddToTemporaryListList(currentBrick: FieldBrick, brick: FieldBrick): Boolean {
         if (GameConfig.WIN_LINE_DESTROY_NEGATIVE_BONUS && isClosedBrick(brick)
         ) {
             ++numberOfCloseFieldBrickOnLine
@@ -116,28 +116,19 @@ object RoundLogic {
         winNumberBricks: Int,
     ): Boolean {
         var isWin = false
-        var sameColorList = mutableListOf<FieldBrick>()
+        val indexColoredBrickList: MutableList<Int> = mutableListOf()
+
         if (temporaryList.size >= (winNumberBricks + numberOfCloseFieldBrickOnLine)) {
 
             temporaryList.forEachIndexed { index, brick ->
-                val start = index
-                var end = index + winNumberBricks - 1
+                if (!isClosedBrick(brick)) {
+                    indexColoredBrickList.add(index)
 
-                if (!isClosedBrick(brick) && !isWin && temporaryList.getOrNull(end) != null) {
-
-                    sameColorList = temporaryList.subList(start, end + 1)
-                    val color = sameColorList[0].id
-
-                    if (sameColorList.all { it.id == color }) {
-                        needAddCloseBrickOrNot(temporaryList, winList, start, end)
-
-                        sameColorList.forEach {
-                            winList.add(it)
-                        }
-                        isWin = true
-                    }
+                } else {
+                    isWin = canAddToWinList(indexColoredBrickList, temporaryList, winList)
                 }
             }
+            isWin = canAddToWinList(indexColoredBrickList, temporaryList, winList)
 
         } else {
             isWin = false
@@ -146,26 +137,46 @@ object RoundLogic {
         return isWin
     }
 
+    fun canAddToWinList(
+        indexColoredBrickList: MutableList<Int>,
+        temporaryList: MutableList<FieldBrick>,
+        winList: MutableList<FieldBrick>
+    ): Boolean {
+        var isWin = false
+
+        if (indexColoredBrickList.size >= GameConfig.WIN_NUMBER_LINE) {
+            needAddCloseBrickOrNot(temporaryList, winList, indexColoredBrickList)
+
+            indexColoredBrickList.forEach { indexColoredBrick ->
+                winList.add(temporaryList[indexColoredBrick])
+            }
+
+            isWin = true
+        }
+        indexColoredBrickList.clear()
+        return isWin
+    }
+
     fun needAddCloseBrickOrNot(
         temporaryList: MutableList<FieldBrick>,
         winList: MutableList<FieldBrick>,
-        start: Int,
-        end: Int
-    ) {
-        val firstClose = temporaryList.getOrNull(start - 1)
-        val lastClose = temporaryList.getOrNull(end + 1)
+        indexColoredBrickList: MutableList<Int>,
 
-        if (firstClose != null) {
-            winList.add(firstClose)
+        ) {
+        val firstBrick = temporaryList.getOrNull(indexColoredBrickList.first() - 1)
+        val lastBrick = temporaryList.getOrNull(indexColoredBrickList.last() + 1)
+
+        if (firstBrick != null && isClosedBrick(firstBrick)) {
+            winList.add(firstBrick)
         }
-        if (lastClose != null) {
-            winList.add(lastClose)
+        if (lastBrick != null && isClosedBrick(lastBrick)) {
+            winList.add(lastBrick)
         }
     }
 
     fun resetLineOnWin(lineList: List<FieldBrick>, onBonus: Boolean = false) {
         soundController.winReel()
-        PlayerViewModel.addScore(lineList.size)
+        addScore(lineList)
         if (!onBonus) {
             BonusViewModel.setAlpha(GameConfig.SPEED_OPEN_BONUS * lineList.size)
         }
@@ -181,6 +192,23 @@ object RoundLogic {
         if (!GameConfig.GAME_TYPE_FREE) {
             checkEndLevel()
         }
+    }
+
+    private fun addScore(lineList: List<FieldBrick>) {
+        var score = 0
+        var overBonus = 1
+
+        lineList.forEach {
+            if (!isClosedBrick(it)) {
+                if (score < GameConfig.WIN_NUMBER_LINE) {
+                    ++score
+                } else {
+                    ++overBonus
+                }
+            }
+        }
+
+        PlayerViewModel.addScore(score * overBonus)
     }
 
     fun resetOrNotFieldBrick(fieldBrick: FieldBrick) {
