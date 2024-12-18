@@ -10,11 +10,18 @@ object OnFinishGameViewModel : ViewModel() {
     private const val LOSE_TEXT = "You lose!!!"
     var textOnWinPopup = "You win!!!"
 
-    fun setWinOnLevel(wasWin: Boolean) {
+    fun setTextOnLevel(wasWin: Boolean) {
         when {
             wasWin -> textOnWinPopup = WIN_TEXT
             else -> textOnWinPopup = LOSE_TEXT
         }
-        showPopupOnFinishGame.value = wasWin
+    }
+
+    fun closePopupOnFinishGame() {
+        showPopupOnFinishGame.value = false
+    }
+
+    fun showPopupOnFinishGame() {
+        showPopupOnFinishGame.value = true
     }
 }

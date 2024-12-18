@@ -42,7 +42,7 @@ object MapModel : ViewModel() {
         levelTarget.intValue = level.numberOfScoreToWin
         levelWinLine =
             if (level.numberOfBricksToWin == 0) "Full" else level.numberOfBricksToWin.toString()
-        levelStep.intValue = level.levelTime
+        levelStep.intValue = level.levelMaxStep
 
         GameConfig.ROWS = level.fieldGameRow
         GameConfig.COLUMNS = level.fieldGameColumn
@@ -55,7 +55,6 @@ object MapModel : ViewModel() {
     fun changeLevelTargetOnRound(score: Int) {
         levelTarget.intValue =
             if (levelTarget.intValue - score <= 0) 0 else levelTarget.intValue - score
-        levelStep.intValue = if (levelStep.intValue - 1 <= 0) 0 else levelStep.intValue - 1
     }
     fun changeLevelStepOnRound() {
         levelStep.intValue = if (levelStep.intValue - 1 <= 0) 0 else levelStep.intValue - 1

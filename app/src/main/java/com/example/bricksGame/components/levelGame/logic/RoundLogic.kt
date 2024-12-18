@@ -4,11 +4,14 @@ import androidx.compose.runtime.LaunchedEffect
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.components.levelGame.models.FieldBrick
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
+import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.brickOnField
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.numberOfCloseFieldBrickOnLine
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.setImageOnField
+import com.example.bricksGame.components.map.models.MapModel.currentLevel
 import com.example.bricksGame.components.players.models.PlayerViewModel
+import com.example.bricksGame.components.players.models.PlayerViewModel.updatePlayerOnLevelWin
 import com.example.bricksGame.components.popups.models.OnFinishGameViewModel
 import com.example.bricksGame.soundController
 import com.example.bricksGame.config.GameConfig
@@ -42,6 +45,9 @@ object RoundLogic {
                 resetLineOnWin(it)
             }
             itemsOnWin.clear()
+        }
+        if (!GameConfig.GAME_TYPE_FREE) {
+            checkEndLevel()
         }
     }
 
@@ -195,9 +201,6 @@ object RoundLogic {
                 }
             }
         }
-        if (!GameConfig.GAME_TYPE_FREE) {
-            checkEndLevel()
-        }
     }
 
     private fun addScore(lineList: List<FieldBrick>) {
@@ -229,21 +232,40 @@ object RoundLogic {
     }
 
     fun checkEndLevel() {
-        val currentLevel = MapModel.currentLevel
+        val stepsOnLevel = MapModel.levelStep.intValue
+        val noPlaceOnFieldGame = brickOnField.all { it.id != EMPTY_ID }
 
-        if (currentLevel != null && PlayerViewModel.playerScore.intValue >= currentLevel.numberOfScoreToWin) {
-            PlayerViewModel.updatePlayerOnLevelWin()
-            OnFinishGameViewModel.setWinOnLevel(true)
+        if (stepsOnLevel > 0 && !noPlaceOnFieldGame) {
+            if (checkWinLevelOrNot()) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    closeLevel(true)
+                }
+            }
+
+        } else {
+
             CoroutineScope(Dispatchers.Main).launch {
-                delay(500)
-                closeLevel()
+                closeLevel(checkWinLevelOrNot())
             }
         }
     }
 
-    suspend fun closeLevel() {
+    fun checkWinLevelOrNot(): Boolean {
+        val currentLevel = currentLevel
+        return currentLevel != null && PlayerViewModel.playerScore.intValue >= currentLevel.numberOfScoreToWin
+    }
+
+    suspend fun closeLevel(onWin: Boolean) {
+        if (onWin) {
+            updatePlayerOnLevelWin()
+        }
+        OnFinishGameViewModel.setTextOnLevel(onWin)
+        delay(200)
+        OnFinishGameViewModel.showPopupOnFinishGame()
+        delay(1200)
         ButtonController.navigateToMap()
-        delay(100)
-        OnFinishGameViewModel.setWinOnLevel(false)
+        delay(200)
+        OnFinishGameViewModel.closePopupOnFinishGame()
+
     }
 }

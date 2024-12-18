@@ -13,6 +13,7 @@ object LevelsConfig {
             negativeBonusNumber = 0,
             bonusFillSpeed = 0.5f,
             numberOfScoreToWin = 10,
+            levelMaxStep = 12
         ),
         Level(
             numberLevel = 2,
@@ -794,7 +795,7 @@ data class Level(
     var numberOfBricksToWin: Int = 0,
 
     var numberOfScoreToWin: Int,
-    var levelTime: Int = 100,
+    var levelMaxStep: Int = 100,
     var bonusFillSpeed: Float = 0.01F,
     var additionalBrick: Int = 3,
     var negativeBonusNumber: Int = 0,
