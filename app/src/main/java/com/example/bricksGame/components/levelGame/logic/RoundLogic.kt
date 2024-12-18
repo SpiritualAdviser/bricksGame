@@ -1,10 +1,9 @@
 package com.example.bricksGame.components.levelGame.logic
 
-import androidx.compose.runtime.LaunchedEffect
+
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.components.levelGame.models.FieldBrick
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
-import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.brickOnField
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.numberOfCloseFieldBrickOnLine
@@ -87,6 +86,9 @@ object RoundLogic {
                     } else {
                         if (!wasWin) {
                             wasWin = checkWin(temporaryList, winList, winNumberBricks)
+                            if (!wasWin) {
+                                numberOfCloseFieldBrickOnLine = 0
+                            }
                         }
                     }
                 }

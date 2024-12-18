@@ -32,7 +32,7 @@ object GameConfig : ViewModel() {
      */
     var MAX_BRICKS_ON_LEVEL = 3
     var MAX_NEGATIVE_BRICKS_ON_LEVEL = 3
-    const val MIN_BRICKS_TO_ADD_NEXT = 0
+    var MIN_BRICKS_TO_ADD_NEXT = 0
     const val MAX_BRICKS_SIZE = 60
 
     /**
