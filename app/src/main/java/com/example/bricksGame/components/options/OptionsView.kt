@@ -27,13 +27,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bricksGame.components.NaviBar.ButtonSound
+import com.example.bricksGame.components.naviBar.ButtonSound
 import com.example.bricksGame.components.options.models.OptionsViewModel
-import com.example.bricksGame.ui.MainMenuBg
-import com.example.bricksGame.ui.helper.ButtonController
-import com.example.compose.backgroundDark
-import com.example.compose.onPrimaryLight
-import com.example.compose.outlineDarkMediumContrast
+import com.example.bricksGame.helper.MainMenuBg
+import com.example.bricksGame.helper.ButtonController
+import com.example.bricksGame.ui.theme.backgroundDark
+import com.example.bricksGame.ui.theme.onPrimaryLight
+import com.example.bricksGame.ui.theme.outlineDarkMediumContrast
 
 @Composable
 fun Options() {

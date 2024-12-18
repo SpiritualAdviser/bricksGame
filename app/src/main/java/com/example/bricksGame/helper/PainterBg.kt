@@ -1,4 +1,4 @@
-package com.example.bricksGame.ui
+package com.example.bricksGame.helper
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image

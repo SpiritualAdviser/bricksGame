@@ -8,9 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.bricksGame.components.NaviBar.ButtonSound
-import com.example.bricksGame.ui.MainMenuBg
-import com.example.bricksGame.ui.helper.ButtonController
+import com.example.bricksGame.components.naviBar.ButtonSound
+import com.example.bricksGame.helper.MainMenuBg
+import com.example.bricksGame.helper.ButtonController
 
 @Composable
 fun RunHomeScreen() {

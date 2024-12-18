@@ -1,4 +1,4 @@
-package com.example.bricksGame.components.levelGame.data
+package com.example.bricksGame.components.levelGame.models
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
@@ -8,7 +8,7 @@ import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
 import com.example.bricksGame.R
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
-import com.example.bricksGame.ui.GameConfig
+import com.example.bricksGame.config.GameConfig
 
 data class FieldBrick(
     val name: String = "FieldBricks",
@@ -68,7 +68,6 @@ data class FieldBrick(
     }
 
     fun resetFieldBrick() {
-
         this.hasOwnerId = null
         this.hasBonusOwnerId = null
         this.setBorderBlack()

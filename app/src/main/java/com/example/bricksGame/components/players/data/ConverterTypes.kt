@@ -1,8 +1,7 @@
-package com.example.bricksGame.ui.data
+package com.example.bricksGame.components.players.data
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-
 
 class ConverterTypes {
     @TypeConverter

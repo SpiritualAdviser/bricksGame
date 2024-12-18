@@ -1,7 +1,7 @@
-package com.example.bricksGame.ui
+package com.example.bricksGame.components.levelGame.logic
 
-import com.example.bricksGame.components.Map.models.MapModel
-import com.example.bricksGame.components.levelGame.data.FieldBrick
+import com.example.bricksGame.components.map.models.MapModel
+import com.example.bricksGame.components.levelGame.models.FieldBrick
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.brickOnField
@@ -9,7 +9,8 @@ import com.example.bricksGame.components.levelGame.models.FieldViewModel.numberO
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.setImageOnField
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.soundController
-import com.example.bricksGame.ui.helper.ButtonController
+import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.helper.ButtonController
 import kotlin.collections.forEach
 
 object RoundLogic {

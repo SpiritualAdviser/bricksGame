@@ -1,9 +1,9 @@
-package com.example.bricksGame.ui.helper
+package com.example.bricksGame.helper
 
 import android.content.Context
 import android.media.MediaPlayer
 import com.example.bricksGame.R
-import com.example.bricksGame.ui.GameConfig
+import com.example.bricksGame.config.GameConfig
 
 class SoundController private constructor() {
 

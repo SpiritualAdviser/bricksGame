@@ -1,4 +1,4 @@
-package com.example.bricksGame.ui
+package com.example.bricksGame.config
 
 object LevelsConfig {
 

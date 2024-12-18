@@ -1,12 +1,9 @@
 package com.example.bricksGame.components.players
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
@@ -22,18 +19,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bricksGame.R
 import com.example.bricksGame.components.players.models.PlayerViewModel
-import com.example.compose.primaryContainerDark
+import com.example.bricksGame.ui.theme.primaryContainerDark
 
 @Composable
 fun PlayerScoreBlock() {
     Column(
         Modifier
-//            .offset(18.dp, 30.dp)
 //            .border(4.dp, Color.Magenta)
     ) {
         PlayerScore()
         PlayerName()
-//        Spacer(Modifier.size(4.dp))
         PlayerAchievements()
     }
 }
@@ -42,7 +37,6 @@ fun PlayerScoreBlock() {
 fun PlayerScore() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-//        modifier = Modifier.offset((-3).dp)
     ) {
         Image(
             painterResource(R.drawable.score_icon),

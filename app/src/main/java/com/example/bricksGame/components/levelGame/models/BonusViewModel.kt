@@ -4,12 +4,10 @@ package com.example.bricksGame.components.levelGame.models
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
-import com.example.bricksGame.components.levelGame.data.Brick
-import com.example.bricksGame.components.levelGame.data.FieldBrick
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.brickOnField
-import com.example.bricksGame.ui.GameConfig
-import com.example.bricksGame.ui.RoundLogic
-import com.example.compose.primaryContainerDark
+import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.components.levelGame.logic.RoundLogic
+import com.example.bricksGame.ui.theme.primaryContainerDark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -46,7 +44,7 @@ object BonusViewModel : ViewModel() {
         }
     }
 
-    fun setOfBonus(brick: Brick) {
+   private fun setOfBonus(brick: Brick) {
         brick.alpha.value = 0.05f
         brick.canDrag = false
         brick.activeBonusBorder.value = GameConfig.BRICK_BORDER_COLOR
@@ -70,11 +68,11 @@ object BonusViewModel : ViewModel() {
         )
     }
 
-    fun onBonusHammer(brick: Brick) {
+   private fun onBonusHammer(brick: Brick) {
         brick.hasBonusOwnerId?.onDragEnd()
     }
 
-    fun onBonusFire(brick: Brick) {
+    private fun onBonusFire(brick: Brick) {
         val row =
             brickOnField.filter { brick.hasBonusOwnerId?.position?.second == it.position.second }
         val winRow = mutableListOf<FieldBrick>()
@@ -93,7 +91,7 @@ object BonusViewModel : ViewModel() {
         }
     }
 
-    fun onBonusIce(brick: Brick) {
+    private fun onBonusIce(brick: Brick) {
         val column =
             brickOnField.filter { brick.hasBonusOwnerId?.position?.first == it.position.first }
         val winColumn = mutableListOf<FieldBrick>()
@@ -165,8 +163,6 @@ object BonusViewModel : ViewModel() {
             assetImage = GameConfig.imagesNegativeBonuses[i]
         )
     }
-
-
 }
 
 

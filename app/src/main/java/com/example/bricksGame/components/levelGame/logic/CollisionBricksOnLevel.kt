@@ -1,9 +1,8 @@
-package com.example.bricksGame.ui.helper
+package com.example.bricksGame.components.levelGame.logic
 
-import com.example.bricksGame.components.levelGame.data.Brick
-import com.example.bricksGame.components.levelGame.data.FieldBrick
-import com.example.bricksGame.ui.GameConfig
-
+import com.example.bricksGame.components.levelGame.models.Brick
+import com.example.bricksGame.components.levelGame.models.FieldBrick
+import com.example.bricksGame.config.GameConfig
 
 object CollisionBricksOnLevel {
 
@@ -76,10 +75,6 @@ object CollisionBricksOnLevel {
     }
 
     private fun outOfCollision(brick: Brick, fieldBrick: FieldBrick) {
-
-//        if (fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_ROCK || fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_LIVES) {
-//            return
-//        }
 
         if (brick.position == "Bonus") {
 

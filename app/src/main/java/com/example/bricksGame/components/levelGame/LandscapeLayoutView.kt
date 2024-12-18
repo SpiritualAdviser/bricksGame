@@ -28,15 +28,15 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.example.bricksGame.components.NaviBar.ButtonNaviBar
+import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
-import com.example.bricksGame.ui.GameConfig
-import com.example.bricksGame.ui.LevelLandscapeBg
-import com.example.bricksGame.ui.RoundLogic
-import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
+import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.helper.LevelLandscapeBg
+import com.example.bricksGame.components.levelGame.logic.RoundLogic
+import com.example.bricksGame.components.levelGame.logic.CollisionBricksOnLevel
 import kotlinx.coroutines.launch
 
 @Composable

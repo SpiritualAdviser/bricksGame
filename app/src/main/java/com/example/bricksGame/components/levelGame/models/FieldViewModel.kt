@@ -4,34 +4,31 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.R
-import com.example.bricksGame.components.Map.models.MapModel
-import com.example.bricksGame.components.levelGame.data.Brick
-import com.example.bricksGame.components.levelGame.data.FieldBrick
-import com.example.bricksGame.components.players.models.PlayerViewModel
+import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.components.levelGame.logic.CollisionBricksOnLevel
 import com.example.bricksGame.screenSize
-import com.example.bricksGame.soundController
-import com.example.bricksGame.ui.GameConfig
-import com.example.bricksGame.ui.helper.ButtonController
-import com.example.bricksGame.ui.helper.CollisionBricksOnLevel
 
 object FieldViewModel : ViewModel() {
 
     const val EMPTY_ID = "Color.Transparent"
     var brickOnField = createBricksList()
     var numberOfCloseFieldBrickOnLine = 0
+    var zIndex = mutableFloatStateOf(0F)
 
     var brickSizePortrait = 0.dp
     var brickSizeLandscape = 0.dp
+    var fieldMAxWidthSize = 0.dp
 
-    var fieldMAxWidthSize = if (screenSize.screenWidthDp > screenSize.screenHeightDp) {
-        screenSize.screenHeightDp - (GameConfig.PADDING_FIELD.dp*2)
-    } else {
-        screenSize.screenWidthDp - (GameConfig.PADDING_FIELD.dp * 2)
+    private fun setFieldMAxWidthSize() {
+        fieldMAxWidthSize = if (screenSize.screenWidthDp > screenSize.screenHeightDp) {
+            screenSize.screenHeightDp - (GameConfig.PADDING_FIELD.dp * 2)
+        } else {
+            screenSize.screenWidthDp - (GameConfig.PADDING_FIELD.dp * 2)
+        }
     }
 
-    var zIndex = mutableFloatStateOf(0F)
-
     fun onOptionChange() {
+        setFieldMAxWidthSize()
         brickSizePortrait = fieldMAxWidthSize / GameConfig.ROWS
         brickSizeLandscape = fieldMAxWidthSize / GameConfig.COLUMNS
 

@@ -1,7 +1,6 @@
-package com.example.bricksGame.ui.data
+package com.example.bricksGame.components.players.data
 
 import android.content.Context
-import com.example.bricksGame.MainActivity
 import kotlinx.coroutines.flow.Flow
 
 object DataRepository {

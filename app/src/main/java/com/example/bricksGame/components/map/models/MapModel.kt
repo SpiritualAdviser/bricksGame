@@ -1,13 +1,13 @@
-package com.example.bricksGame.components.Map.models
+package com.example.bricksGame.components.map.models
 
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel
-import com.example.bricksGame.ui.GameConfig
-import com.example.bricksGame.ui.Level
-import com.example.bricksGame.ui.LevelsConfig
-import com.example.bricksGame.ui.helper.ButtonController
+import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.config.Level
+import com.example.bricksGame.config.LevelsConfig
+import com.example.bricksGame.helper.ButtonController
 
 object MapModel : ViewModel() {
 

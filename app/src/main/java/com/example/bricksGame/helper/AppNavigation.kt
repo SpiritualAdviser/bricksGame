@@ -1,4 +1,4 @@
-package com.example.bricksGame.ui.helper
+package com.example.bricksGame.helper
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.bricksGame.components.Map.Map
+import com.example.bricksGame.components.map.Map
 import com.example.bricksGame.components.players.PlayerView
 import com.example.bricksGame.components.gameMeny.RunHomeScreen
 import com.example.bricksGame.components.levelGame.RunLevelGame

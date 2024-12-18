@@ -3,8 +3,7 @@ package com.example.bricksGame.components.levelGame.models
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
-import com.example.bricksGame.components.levelGame.data.Brick
-import com.example.bricksGame.ui.GameConfig
+import com.example.bricksGame.config.GameConfig
 import kotlin.math.max
 
 object BricksViewModel : ViewModel() {

@@ -1,16 +1,17 @@
-package com.example.bricksGame.ui.helper
+package com.example.bricksGame.helper
 
-import com.example.bricksGame.components.Map.models.MapModel
+import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel
+import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.soundController
-import com.example.bricksGame.ui.GameConfig
 
 object ButtonController {
 
     fun navigateToHome() {
+
         soundController.clickUi()
         soundController.playMainTheme()
         GameConfig.GAME_TYPE_FREE = true

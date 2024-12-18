@@ -1,4 +1,4 @@
-package com.example.bricksGame.ui.data
+package com.example.bricksGame.components.players.data
 
 import androidx.room.Dao
 import androidx.room.Delete

@@ -1,4 +1,4 @@
-package com.example.bricksGame.components.NaviBar
+package com.example.bricksGame.components.naviBar
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -16,8 +16,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
 import com.example.bricksGame.soundController
-import com.example.bricksGame.ui.GameConfig
-import com.example.bricksGame.ui.helper.ButtonController
+import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.helper.ButtonController
 
 @Composable
 fun ButtonNaviBar() {

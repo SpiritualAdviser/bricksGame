@@ -10,12 +10,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.platform.LocalContext
 import com.example.bricksGame.components.options.models.OptionsViewModel
+import com.example.bricksGame.components.players.data.DataRepository
 import com.example.bricksGame.components.players.models.PlayerViewModel
-import com.example.bricksGame.ui.helper.AppNavigation
-import com.example.bricksGame.ui.helper.ScreenSize
-import com.example.bricksGame.ui.helper.SoundController
-import com.example.bricksGame.ui.data.DataRepository
-import com.example.compose.AppTheme
+import com.example.bricksGame.helper.AppNavigation
+import com.example.bricksGame.helper.ScreenSize
+import com.example.bricksGame.helper.SoundController
+import com.example.bricksGame.ui.theme.AppTheme
 
 val screenSize = ScreenSize()
 

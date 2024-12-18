@@ -3,17 +3,18 @@ package com.example.bricksGame.components.players.models
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.bricksGame.components.Map.models.MapModel
-import com.example.bricksGame.ui.data.ActiveLevelList
-import com.example.bricksGame.ui.data.DataRepository
-import com.example.bricksGame.ui.data.LevelPlayer
-import com.example.bricksGame.ui.data.Player
+import com.example.bricksGame.components.map.models.MapModel
+import com.example.bricksGame.components.players.data.ActiveLevelList
+import com.example.bricksGame.components.players.data.Player
+import com.example.bricksGame.components.players.data.DataRepository
+import com.example.bricksGame.components.players.data.LevelPlayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 object PlayerViewModel : ViewModel() {
+
     var newPlayer: Player = Player(
         playerName = "Player",
         isActive = true,

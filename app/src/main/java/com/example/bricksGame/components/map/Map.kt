@@ -1,4 +1,4 @@
-package com.example.bricksGame.components.Map
+package com.example.bricksGame.components.map
 
 import com.example.bricksGame.R
 import androidx.compose.ui.res.painterResource
@@ -24,11 +24,10 @@ import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bricksGame.components.Map.models.MapModel
-import com.example.bricksGame.components.NaviBar.ButtonNaviBar
-import com.example.bricksGame.ui.Level
-import com.example.bricksGame.ui.MainMenuBg
-
+import com.example.bricksGame.components.map.models.MapModel
+import com.example.bricksGame.components.naviBar.ButtonNaviBar
+import com.example.bricksGame.config.Level
+import com.example.bricksGame.helper.MainMenuBg
 
 @Composable
 fun Map() {
@@ -53,7 +52,6 @@ fun Map() {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = 100.dp, start = 50.dp, end = 50.dp, bottom = 50.dp),
-//                .background(onBackgroundLight),
 
             columns = GridCells.Adaptive(minSize = 50.dp),
             verticalArrangement = Arrangement.spacedBy(15.dp),

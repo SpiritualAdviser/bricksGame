@@ -1,13 +1,10 @@
-package com.example.bricksGame.ui.data
+package com.example.bricksGame.components.players.data
 
 import android.content.Context
-import androidx.annotation.VisibleForTesting
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 
 //@VisibleForTesting
 //internal val MIGRATION_1_2 = object : Migration(1, 2) {

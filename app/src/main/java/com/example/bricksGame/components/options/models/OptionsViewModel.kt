@@ -3,9 +3,9 @@ package com.example.bricksGame.components.options.models
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
-import com.example.bricksGame.ui.GameConfig
-import com.example.compose.outlineDarkMediumContrast
-import com.example.compose.primaryLight
+import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.ui.theme.outlineDarkMediumContrast
+import com.example.bricksGame.ui.theme.primaryLight
 
 object OptionsViewModel : ViewModel() {
 
