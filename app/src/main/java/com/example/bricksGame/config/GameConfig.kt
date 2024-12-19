@@ -84,6 +84,8 @@ object GameConfig : ViewModel() {
         R.drawable.bg_close_lives,
         R.drawable.bg_close_brick,
     )
+
+    val NEGATIVE_BONUS_ROCK_BG_DAMAGE = R.drawable.bg_close_brick_damage
     const val NEGATIVE_BONUS_LIVES = 998
     const val NEGATIVE_BONUS_LIVES_LIFE = 0
     const val NEGATIVE_BONUS_ROCK = 999
