@@ -1,9 +1,9 @@
 package com.example.bricksGame.components.levelGame.logic
 
-import androidx.compose.runtime.LaunchedEffect
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.components.levelGame.models.FieldBrick
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
+import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.brickOnField
@@ -22,7 +22,35 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.collections.forEach
 
-object RoundLogic {
+object LevelLogic {
+
+    var levelRows = mutableListOf<List<FieldBrick>>()
+    var levelColumns = mutableListOf<List<FieldBrick>>()
+
+    fun onStartLevel() {
+        BricksViewModel.resetData()
+        FieldViewModel.resetData()
+        BonusViewModel.setNegativeBonusOnLevelField()
+        setLevelRowsAndColumn()
+        FieldViewModel.addToCollision()
+    }
+
+    fun setLevelRowsAndColumn() {
+        var column: List<FieldBrick>
+        var row: List<FieldBrick>
+        levelRows.clear()
+        levelColumns.clear()
+
+        for (index in 0 until GameConfig.ROWS) {
+            row = brickOnField.filter { index == it.position.second }
+            levelRows.add(row)
+        }
+
+        for (index in 0 until GameConfig.COLUMNS) {
+            column = brickOnField.filter { index == it.position.first }
+            levelColumns.add(column)
+        }
+    }
 
     fun checkFieldOnFinishRound() {
         var column: List<FieldBrick>

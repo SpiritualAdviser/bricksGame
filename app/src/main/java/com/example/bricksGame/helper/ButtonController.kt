@@ -1,8 +1,7 @@
 package com.example.bricksGame.helper
 
+import com.example.bricksGame.components.levelGame.logic.LevelLogic
 import com.example.bricksGame.components.map.models.MapModel
-import com.example.bricksGame.components.levelGame.models.BonusViewModel
-import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.config.GameConfig
@@ -26,11 +25,8 @@ object ButtonController {
         soundController.clickUi()
         soundController.playLevelTheme()
         FieldViewModel.onOptionChange()
-        BricksViewModel.resetData()
-        FieldViewModel.resetData()
         PlayerViewModel.onStartLevel()
-        BonusViewModel.setNegativeBonusOnLevelField()
-        FieldViewModel.addToCollision()
+        LevelLogic.onStartLevel()
         AppNavigation.getInstance().getNavController().navigate(Routes.LevelGame.route) {
             popUpTo(Routes.LevelGame.route)
             launchSingleTop = true

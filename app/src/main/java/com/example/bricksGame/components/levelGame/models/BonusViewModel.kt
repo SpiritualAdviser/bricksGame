@@ -6,7 +6,7 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.brickOnField
 import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.components.levelGame.logic.RoundLogic
+import com.example.bricksGame.components.levelGame.logic.LevelLogic
 import com.example.bricksGame.ui.theme.primaryContainerDark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -87,7 +87,7 @@ object BonusViewModel : ViewModel() {
                 }
             }
             delay(300)
-            RoundLogic.resetLineOnWin(winRow, onBonus = true)
+            LevelLogic.resetLineOnWin(winRow, onBonus = true)
         }
     }
 
@@ -105,7 +105,7 @@ object BonusViewModel : ViewModel() {
                 }
             }
             delay(300)
-            RoundLogic.resetLineOnWin(winColumn, onBonus = true)
+            LevelLogic.resetLineOnWin(winColumn, onBonus = true)
         }
     }
 
