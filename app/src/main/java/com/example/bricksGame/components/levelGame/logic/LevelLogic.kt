@@ -53,6 +53,10 @@ object LevelLogic {
         }
     }
 
+    fun checkRoundOnBonus(winningPositions: MutableList<Pair<Int, Int>>, onBonus: Boolean) {
+        onEndRound(winningPositions, onBonus)
+    }
+
     fun checkRound(brick: Brick) {
         val columnIndex = brick.fieldBrickOnCollision?.position?.first
         val rowIndex = brick.fieldBrickOnCollision?.position?.second
@@ -74,12 +78,21 @@ object LevelLogic {
         onEndRound(winningPositions)
     }
 
-    private fun onEndRound(winningPositions: MutableList<Pair<Int, Int>>) {
+    private fun onEndRound(
+        winningPositions: MutableList<Pair<Int, Int>>,
+        onBonus: Boolean = false
+    ) {
         if (winningPositions.isNotEmpty()) {
 
-            onWin(winningPositions)
+            onWin(winningPositions, onBonus)
         }
         checkEndLevel()
+    }
+
+    private fun onWin(winningPositions: MutableList<Pair<Int, Int>>, onBonus: Boolean) {
+        soundController.winReel()
+        addScore(winningPositions)
+        resetLineOnWin(winningPositions, onBonus)
     }
 
     private fun getWinningPositions(bricks: List<FieldBrick>): MutableList<Pair<Int, Int>> {
@@ -89,7 +102,6 @@ object LevelLogic {
         val numberWinLine = getNumberWinLine(bricks)
         var startIndex = numberWinLine - 1
         var endIndex = getEndIndex(bricks, startIndex, numberWinLine)
-
 
         for (index in startIndex..endIndex) {
             if (!wasWin) {
@@ -106,7 +118,6 @@ object LevelLogic {
         }
         return indexesOnField
     }
-
 
     private fun runComparator(
         brick: FieldBrick,
@@ -160,12 +171,6 @@ object LevelLogic {
 
     private fun isClosedBrick(fieldBrick: FieldBrick): Boolean {
         return fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_LIVES || fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_ROCK
-    }
-
-    private fun onWin(winningPositions: MutableList<Pair<Int, Int>>) {
-        soundController.winReel()
-        addScore(winningPositions)
-        resetLineOnWin(winningPositions)
     }
 
     private fun getClosedFieldBricks(indexList: MutableList<Int>, bricks: List<FieldBrick>) {

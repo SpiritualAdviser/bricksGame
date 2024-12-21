@@ -75,7 +75,7 @@ object BonusViewModel : ViewModel() {
     private fun onBonusFire(brick: Brick) {
         val row =
             brickOnField.filter { brick.hasBonusOwnerId?.position?.second == it.position.second }
-        val winRow = mutableListOf<FieldBrick>()
+        val winRow = mutableListOf<Pair<Int, Int>>()
 
         CoroutineScope(Dispatchers.Main).launch {
 
@@ -83,29 +83,29 @@ object BonusViewModel : ViewModel() {
 
                 if (it.hasOwnerId != null) {
                     it.assetImage.value = GameConfig.imagesBricksBonuses[1]
-                    winRow.add(it)
+                    winRow.add(it.position)
                 }
             }
             delay(300)
-//            LevelLogic.resetLineOnWin(winRow, onBonus = true)
+           LevelLogic.checkRoundOnBonus(winRow, onBonus = true)
         }
     }
 
     private fun onBonusIce(brick: Brick) {
         val column =
             brickOnField.filter { brick.hasBonusOwnerId?.position?.first == it.position.first }
-        val winColumn = mutableListOf<FieldBrick>()
+        val winColumn = mutableListOf<Pair<Int, Int>>()
 
         CoroutineScope(Dispatchers.Main).launch {
             column.forEach {
 
                 if (it.hasOwnerId != null) {
                     it.assetImage.value = GameConfig.imagesBricksBonuses[0]
-                    winColumn.add(it)
+                    winColumn.add(it.position)
                 }
             }
             delay(300)
-//            LevelLogic.resetLineOnWin(winColumn, onBonus = true)
+           LevelLogic.checkRoundOnBonus(winColumn, onBonus = true)
         }
     }
 
