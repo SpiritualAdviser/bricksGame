@@ -32,7 +32,7 @@ object GameConfig : ViewModel() {
      */
     var MAX_BRICKS_ON_LEVEL = 3
     var MAX_NEGATIVE_BRICKS_ON_LEVEL = 3
-    const val MIN_BRICKS_TO_ADD_NEXT = 0
+    var MIN_BRICKS_TO_ADD_NEXT = 0
     const val MAX_BRICKS_SIZE = 60
 
     /**
@@ -84,6 +84,8 @@ object GameConfig : ViewModel() {
         R.drawable.bg_close_lives,
         R.drawable.bg_close_brick,
     )
+
+    val NEGATIVE_BONUS_ROCK_BG_DAMAGE = R.drawable.bg_close_brick_damage
     const val NEGATIVE_BONUS_LIVES = 998
     const val NEGATIVE_BONUS_LIVES_LIFE = 0
     const val NEGATIVE_BONUS_ROCK = 999
