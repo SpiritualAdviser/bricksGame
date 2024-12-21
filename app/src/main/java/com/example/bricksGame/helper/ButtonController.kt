@@ -49,7 +49,7 @@ object ButtonController {
         GameConfig.GAME_TYPE_FREE = false
         AppNavigation.getInstance().getNavController().navigate(Routes.Map.route) {
 
-            popUpTo(Routes.Players.route)
+            popUpTo(Routes.Map.route)
             launchSingleTop = true
         }
     }
