@@ -212,7 +212,7 @@ object LevelLogic {
         val numberWin =
             if (GameConfig.WIN_NUMBER_LINE == 0) winningPositions.size else GameConfig.WIN_NUMBER_LINE
 
-        var overBonus = winningPositions.size - numberWin
+        var overBonus = winningPositions.size - (numberWin-1)
 
         if (overBonus > 0) {
             PlayerViewModel.addScore(numberWin * overBonus)
