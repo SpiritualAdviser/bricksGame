@@ -43,7 +43,6 @@ object BricksViewModel : ViewModel() {
 
     fun removeBrick(brick: Brick) {
         FieldViewModel.setBricksOnField(brick)
-        brick.freeSpace()
         _bricksList.remove(brick)
         this.checkIfNeedNewBricksList()
     }

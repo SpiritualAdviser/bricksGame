@@ -87,7 +87,7 @@ object BonusViewModel : ViewModel() {
                 }
             }
             delay(300)
-            LevelLogic.resetLineOnWin(winRow, onBonus = true)
+//            LevelLogic.resetLineOnWin(winRow, onBonus = true)
         }
     }
 
@@ -105,7 +105,7 @@ object BonusViewModel : ViewModel() {
                 }
             }
             delay(300)
-            LevelLogic.resetLineOnWin(winColumn, onBonus = true)
+//            LevelLogic.resetLineOnWin(winColumn, onBonus = true)
         }
     }
 

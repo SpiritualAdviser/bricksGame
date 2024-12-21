@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
+import com.example.bricksGame.components.levelGame.logic.LevelLogic
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.screenSize
 import com.example.bricksGame.soundController
@@ -54,13 +55,14 @@ data class Brick(
         this.globalY = coordinates.positionInWindow().y
     }
 
-    suspend fun stickPosition() {
+    suspend fun takeAPlaces() {
         delay(25)
         if (this.position == "Bonus") {
             if (this.hasBonusOwnerId != null) {
                 BonusViewModel.onBonus(this)
-                this.hasBonusOwnerId = null
                 MapModel.changeLevelStepOnRound()
+                LevelLogic.checkRound(this)
+                this.hasBonusOwnerId = null
             }
             this.x.intValue = 0
             this.y.intValue = 0
@@ -72,8 +74,11 @@ data class Brick(
                 val offsetAmount = getOffsetAmount(fieldBrickOnCollision!!)
                 dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
                 BricksViewModel.removeBrick(this)
+                LevelLogic.checkRound(this)
+                freeSpace()
                 soundController.pushCristal()
                 MapModel.changeLevelStepOnRound()
+
             } else {
                 this.x.intValue = 0
                 this.y.intValue = 0

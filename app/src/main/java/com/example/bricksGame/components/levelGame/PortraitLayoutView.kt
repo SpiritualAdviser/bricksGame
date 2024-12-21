@@ -39,7 +39,6 @@ import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.LevelPortraitBg
-import com.example.bricksGame.components.levelGame.logic.LevelLogic
 import com.example.bricksGame.components.levelGame.logic.CollisionBricksOnLevel
 import com.example.bricksGame.components.popups.WinPopup
 import com.example.bricksGame.components.popups.models.OnFinishGameViewModel.showPopupOnFinishGame
@@ -196,8 +195,7 @@ private fun BricksBlock() {
                                 },
                                 onDragEnd = {
                                     coroutine.launch {
-                                        it.stickPosition()
-                                        LevelLogic.checkFieldOnFinishRound()
+                                        it.takeAPlaces()
                                     }
                                 },
                                 onDragCancel = { },
@@ -273,7 +271,7 @@ private fun BonusBlock() {
                                     onDragEnd = {
                                         if (it.canDrag) {
                                             coroutine.launch {
-                                                it.stickPosition()
+                                                it.takeAPlaces()
 //                                        FieldViewModel.checkFieldOnFinishRound()
                                             }
                                         }

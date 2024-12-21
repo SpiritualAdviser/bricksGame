@@ -3,11 +3,11 @@ package com.example.bricksGame.components.levelGame.logic
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.components.levelGame.models.FieldBrick
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
+import com.example.bricksGame.components.levelGame.models.Brick
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.brickOnField
-import com.example.bricksGame.components.levelGame.models.FieldViewModel.numberOfCloseFieldBrickOnLine
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.setImageOnField
 import com.example.bricksGame.components.map.models.MapModel.currentLevel
 import com.example.bricksGame.components.players.models.PlayerViewModel
@@ -26,16 +26,17 @@ object LevelLogic {
 
     var levelRows = mutableListOf<List<FieldBrick>>()
     var levelColumns = mutableListOf<List<FieldBrick>>()
+    var wasWin = false
 
     fun onStartLevel() {
         BricksViewModel.resetData()
         FieldViewModel.resetData()
         BonusViewModel.setNegativeBonusOnLevelField()
-        setLevelRowsAndColumn()
+        setRowsAndColumnOnLevel()
         FieldViewModel.addToCollision()
     }
 
-    fun setLevelRowsAndColumn() {
+    private fun setRowsAndColumnOnLevel() {
         var column: List<FieldBrick>
         var row: List<FieldBrick>
         levelRows.clear()
@@ -52,206 +53,172 @@ object LevelLogic {
         }
     }
 
-    fun checkFieldOnFinishRound() {
-        var column: List<FieldBrick>
-        var row: List<FieldBrick>
-        var itemsOnWin = mutableListOf<List<FieldBrick>>()
+    fun checkRound(brick: Brick) {
+        val columnIndex = brick.fieldBrickOnCollision?.position?.first
+        val rowIndex = brick.fieldBrickOnCollision?.position?.second
+        val winningPositions = mutableListOf<Pair<Int, Int>>()
+        wasWin = false
 
-        brickOnField.forEachIndexed { index, _ ->
-            if (index < GameConfig.ROWS) {
-                row = brickOnField.filter { index == it.position.second }
-                setWinLine(row, itemsOnWin)
+        rowIndex?.run {
+            levelRows.getOrNull(rowIndex)?.run {
+                winningPositions.addAll(getWinningPositions(this))
             }
+        }
 
-            if (index % GameConfig.ROWS == 0) {
-                column = brickOnField.subList(index, index + GameConfig.ROWS)
-                setWinLine(column, itemsOnWin)
+        columnIndex?.run {
+            levelColumns.getOrNull(columnIndex)?.run {
+                winningPositions.addAll(getWinningPositions(this))
             }
         }
-        if (itemsOnWin.isNotEmpty()) {
-            itemsOnWin.forEach {
-                resetLineOnWin(it)
-            }
-            itemsOnWin.clear()
-        }
-        if (!GameConfig.GAME_TYPE_FREE) {
-            checkEndLevel()
-        }
+
+        onEndRound(winningPositions)
     }
 
-    private fun setWinLine(
-        checkedList: List<FieldBrick>,
-        itemsOnWin: MutableList<List<FieldBrick>>
-    ) {
-        var temporaryList = mutableListOf<FieldBrick>()
-        var winList = mutableListOf<FieldBrick>()
-        var winNumberBricks = GameConfig.WIN_NUMBER_LINE
-        var startIndex = GameConfig.WIN_NUMBER_LINE - 1
-        var endIndex = checkedList.size - GameConfig.WIN_NUMBER_LINE
-        var wasWin = false
+    private fun onEndRound(winningPositions: MutableList<Pair<Int, Int>>) {
+        if (winningPositions.isNotEmpty()) {
 
-        winNumberBricks =
-            if (checkedList.size < winNumberBricks || winNumberBricks == 0) checkedList.size else winNumberBricks
+            onWin(winningPositions)
+        }
+        checkEndLevel()
+    }
 
-        startIndex =
-            if (checkedList.elementAtOrNull(startIndex) != null) startIndex else checkedList.size - 1
+    private fun getWinningPositions(bricks: List<FieldBrick>): MutableList<Pair<Int, Int>> {
+        var winIndexesOnLine = listOf<Int>()
+        var indexesOnField: MutableList<Pair<Int, Int>> = mutableListOf<Pair<Int, Int>>()
 
-        endIndex =
-            if (startIndex <= endIndex && checkedList.elementAtOrNull(endIndex) != null) endIndex else startIndex
+        val numberWinLine = getNumberWinLine(bricks)
+        var startIndex = numberWinLine - 1
+        var endIndex = getEndIndex(bricks, startIndex, numberWinLine)
 
-        numberOfCloseFieldBrickOnLine = 0
 
-        for (i in startIndex..endIndex) {
-            if (wasWin) {
-                break
-            }
-            val currentBrick = checkedList[i]
-
-            if (checkNeedToCompareBrick(currentBrick)) {
-
-                checkedList.forEach {
-                    if (needAddToTemporaryListList(currentBrick, it)) {
-                        temporaryList.add(it)
-                    } else {
-                        if (!wasWin) {
-                            wasWin = checkWin(temporaryList, winList, winNumberBricks)
-                        }
+        for (index in startIndex..endIndex) {
+            if (!wasWin) {
+                bricks.getOrNull(index)?.let { brick ->
+                    if (!isClosedBrick(brick) && brick.id != EMPTY_ID) {
+                        winIndexesOnLine = runComparator(brick, bricks, numberWinLine)
                     }
                 }
-                if (!wasWin) {
-                    wasWin = checkWin(temporaryList, winList, winNumberBricks)
+            }
+        }
+
+        winIndexesOnLine.forEach {
+            indexesOnField.add(bricks[it].position)
+        }
+        return indexesOnField
+    }
+
+
+    private fun runComparator(
+        brick: FieldBrick,
+        bricks: List<FieldBrick>,
+        numberWinLine: Int,
+    ): MutableList<Int> {
+        val indexList = mutableListOf<Int>()
+
+        bricks.forEachIndexed { index, fieldBrick ->
+            if (!wasWin) {
+                if (brick.id == fieldBrick.id) {
+                    indexList.add(index)
+                } else {
+                    wasWin = checkWin(indexList, numberWinLine)
                 }
             }
         }
-        if (winList.isNotEmpty()) {
-            itemsOnWin.add(winList)
+        wasWin = checkWin(indexList, numberWinLine)
+
+        if (wasWin) {
+            getClosedFieldBricks(indexList, bricks)
         }
+
+        return indexList
     }
 
-    fun needAddToTemporaryListList(currentBrick: FieldBrick, brick: FieldBrick): Boolean {
-        if (GameConfig.WIN_LINE_DESTROY_NEGATIVE_BONUS && isClosedBrick(brick)
-        ) {
-            ++numberOfCloseFieldBrickOnLine
-            return true
+    private fun checkWin(indexList: MutableList<Int>, numberWinLine: Int): Boolean {
+        return if (indexList.size >= numberWinLine) {
+            true
         } else {
-            return currentBrick.id == brick.id && brick.id != EMPTY_ID
-        }
-    }
-
-    fun checkNeedToCompareBrick(currentBrick: FieldBrick): Boolean {
-        return if (isClosedBrick(currentBrick)) {
+            indexList.clear()
             false
-        } else {
-            currentBrick.id != EMPTY_ID
         }
     }
 
-    fun isClosedBrick(fieldBrick: FieldBrick): Boolean {
+    private fun getEndIndex(bricks: List<FieldBrick>, startIndex: Int, numberWinLine: Int): Int {
+        return if (bricks.size - numberWinLine <= startIndex) {
+            startIndex
+        } else {
+            bricks.size - numberWinLine
+        }
+    }
+
+    private fun getNumberWinLine(bricks: List<FieldBrick>): Int {
+        return if (GameConfig.WIN_NUMBER_LINE == 0 || GameConfig.WIN_NUMBER_LINE > bricks.size) {
+            bricks.size
+        } else {
+            GameConfig.WIN_NUMBER_LINE
+        }
+    }
+
+    private fun isClosedBrick(fieldBrick: FieldBrick): Boolean {
         return fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_LIVES || fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_ROCK
     }
 
-    private fun checkWin(
-        temporaryList: MutableList<FieldBrick>,
-        winList: MutableList<FieldBrick>,
-        winNumberBricks: Int,
-    ): Boolean {
-        var isWin = false
-        val indexColoredBrickList: MutableList<Int> = mutableListOf()
-
-        if (temporaryList.size >= (winNumberBricks + numberOfCloseFieldBrickOnLine)) {
-
-            temporaryList.forEachIndexed { index, brick ->
-                if (!isClosedBrick(brick)) {
-                    indexColoredBrickList.add(index)
-
-                } else {
-                    isWin = canAddToWinList(indexColoredBrickList, temporaryList, winList)
-                }
-            }
-            isWin = canAddToWinList(indexColoredBrickList, temporaryList, winList)
-
-        } else {
-            isWin = false
-        }
-        temporaryList.clear()
-        return isWin
-    }
-
-    fun canAddToWinList(
-        indexColoredBrickList: MutableList<Int>,
-        temporaryList: MutableList<FieldBrick>,
-        winList: MutableList<FieldBrick>
-    ): Boolean {
-        var isWin = false
-
-        if (indexColoredBrickList.size >= GameConfig.WIN_NUMBER_LINE) {
-            needAddCloseBrickOrNot(temporaryList, winList, indexColoredBrickList)
-
-            indexColoredBrickList.forEach { indexColoredBrick ->
-                winList.add(temporaryList[indexColoredBrick])
-            }
-
-            isWin = true
-        }
-        indexColoredBrickList.clear()
-        return isWin
-    }
-
-    fun needAddCloseBrickOrNot(
-        temporaryList: MutableList<FieldBrick>,
-        winList: MutableList<FieldBrick>,
-        indexColoredBrickList: MutableList<Int>,
-
-        ) {
-        val firstBrick = temporaryList.getOrNull(indexColoredBrickList.first() - 1)
-        val lastBrick = temporaryList.getOrNull(indexColoredBrickList.last() + 1)
-
-        if (firstBrick != null && isClosedBrick(firstBrick)) {
-            winList.add(firstBrick)
-        }
-        if (lastBrick != null && isClosedBrick(lastBrick)) {
-            winList.add(lastBrick)
-        }
-    }
-
-    fun resetLineOnWin(lineList: List<FieldBrick>, onBonus: Boolean = false) {
+    private fun onWin(winningPositions: MutableList<Pair<Int, Int>>) {
         soundController.winReel()
-        addScore(lineList)
+        addScore(winningPositions)
+        resetLineOnWin(winningPositions)
+    }
+
+    private fun getClosedFieldBricks(indexList: MutableList<Int>, bricks: List<FieldBrick>) {
+
+        val firstIndexBrick = bricks.getOrNull(indexList.first() - 1)
+        val lastIndexBrick = bricks.getOrNull(indexList.last() + 1)
+
+        firstIndexBrick?.run {
+            if (isClosedBrick(firstIndexBrick)) {
+                indexList.add(indexList.first() - 1)
+            }
+        }
+
+        lastIndexBrick?.run {
+            if (isClosedBrick(lastIndexBrick)) {
+                indexList.add(indexList.last() + 1)
+            }
+        }
+    }
+
+    private fun resetLineOnWin(
+        winningPositions: MutableList<Pair<Int, Int>>,
+        onBonus: Boolean = false
+    ) {
         if (!onBonus) {
-            BonusViewModel.setAlpha(GameConfig.SPEED_OPEN_BONUS * lineList.size)
+            BonusViewModel.setAlpha(GameConfig.SPEED_OPEN_BONUS * winningPositions.size)
         }
 
-        lineList.forEach { wonItem ->
-            brickOnField.forEach {
+        winningPositions.forEach { winPosition ->
 
-                if (wonItem.position.toString() == it.position.toString()) {
-                    resetOrNotFieldBrick(it)
-                }
+            brickOnField.find { it.position == winPosition }?.let {
+                noResetFieldBrick(it)
             }
         }
     }
 
-    private fun addScore(lineList: List<FieldBrick>) {
-        var score = 0
-        var overBonus = 1
+    private fun addScore(winningPositions: MutableList<Pair<Int, Int>>) {
+        var score = winningPositions.size
         val numberWin =
-            if (GameConfig.WIN_NUMBER_LINE == 0) lineList.size else GameConfig.WIN_NUMBER_LINE
-        lineList.forEach {
-            if (!isClosedBrick(it)) {
-                if (score < numberWin) {
-                    ++score
-                } else {
-                    ++overBonus
-                }
-            }
-        }
+            if (GameConfig.WIN_NUMBER_LINE == 0) winningPositions.size else GameConfig.WIN_NUMBER_LINE
 
-        PlayerViewModel.addScore(score * overBonus)
+        var overBonus = winningPositions.size - numberWin
+
+        if (overBonus > 0) {
+            PlayerViewModel.addScore(numberWin * overBonus)
+        } else {
+            PlayerViewModel.addScore(score)
+        }
     }
 
-    fun resetOrNotFieldBrick(fieldBrick: FieldBrick) {
+    private fun noResetFieldBrick(fieldBrick: FieldBrick) {
         if (fieldBrick.life > 0) {
-            fieldBrick.life -= 1
+            --fieldBrick.life
             fieldBrick.hasBonusOwnerId = null
         } else {
             fieldBrick.resetFieldBrick()
@@ -259,12 +226,13 @@ object LevelLogic {
         setImageOnField(fieldBrick)
     }
 
-    fun checkEndLevel() {
+    private fun checkEndLevel() {
         val stepsOnLevel = MapModel.levelStep.intValue
         val noPlaceOnFieldGame = brickOnField.all { it.id != EMPTY_ID }
 
         if (stepsOnLevel > 0 && !noPlaceOnFieldGame) {
             if (checkWinLevelOrNot()) {
+
                 CoroutineScope(Dispatchers.Main).launch {
                     closeLevel(true)
                 }
@@ -278,12 +246,12 @@ object LevelLogic {
         }
     }
 
-    fun checkWinLevelOrNot(): Boolean {
+    private fun checkWinLevelOrNot(): Boolean {
         val currentLevel = currentLevel
         return currentLevel != null && PlayerViewModel.playerScore.intValue >= currentLevel.numberOfScoreToWin
     }
 
-    suspend fun closeLevel(onWin: Boolean) {
+    private suspend fun closeLevel(onWin: Boolean) {
         if (onWin) {
             updatePlayerOnLevelWin()
         }
@@ -294,6 +262,5 @@ object LevelLogic {
         ButtonController.navigateToMap()
         delay(200)
         OnFinishGameViewModel.closePopupOnFinishGame()
-
     }
 }

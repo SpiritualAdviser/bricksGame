@@ -35,7 +35,6 @@ import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.LevelLandscapeBg
-import com.example.bricksGame.components.levelGame.logic.LevelLogic
 import com.example.bricksGame.components.levelGame.logic.CollisionBricksOnLevel
 import kotlinx.coroutines.launch
 
@@ -159,8 +158,7 @@ private fun BricksBlock() {
                                 },
                                 onDragEnd = {
                                     coroutine.launch {
-                                        it.stickPosition()
-                                        LevelLogic.checkFieldOnFinishRound()
+                                        it.takeAPlaces()
                                     }
                                 },
                                 onDragCancel = { },
@@ -231,7 +229,7 @@ private fun BonusBlock() {
                                 onDragEnd = {
                                     if (it.canDrag) {
                                         coroutine.launch {
-                                            it.stickPosition()
+                                            it.takeAPlaces()
 //                                        FieldViewModel.checkFieldOnFinishRound()
                                         }
                                     }
