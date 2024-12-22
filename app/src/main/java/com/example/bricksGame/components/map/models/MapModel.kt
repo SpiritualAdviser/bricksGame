@@ -11,7 +11,7 @@ import com.example.bricksGame.helper.ButtonController
 
 object MapModel : ViewModel() {
 
-    val levelList = LevelsConfig.gameLevels.toMutableStateList()
+    val levelList = LevelsConfig.levelGameList.toMutableStateList()
     var currentLevel: Level? = null
 
     var levelTarget = mutableIntStateOf(0)
@@ -57,6 +57,7 @@ object MapModel : ViewModel() {
         levelTarget.intValue =
             if (levelTarget.intValue - score <= 0) 0 else levelTarget.intValue - score
     }
+
     fun changeLevelStepOnRound() {
         levelStep.intValue = if (levelStep.intValue - 1 <= 0) 0 else levelStep.intValue - 1
     }

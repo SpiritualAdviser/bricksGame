@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
-import com.example.bricksGame.components.levelGame.logic.LevelLogic
+import com.example.bricksGame.logic.LevelLogic
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.screenSize
 import com.example.bricksGame.soundController

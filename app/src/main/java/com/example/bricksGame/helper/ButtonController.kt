@@ -1,6 +1,6 @@
 package com.example.bricksGame.helper
 
-import com.example.bricksGame.components.levelGame.logic.LevelLogic
+import com.example.bricksGame.logic.LevelLogic
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel

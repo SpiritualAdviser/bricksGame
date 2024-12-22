@@ -12,9 +12,11 @@ import androidx.compose.ui.platform.LocalContext
 import com.example.bricksGame.components.options.models.OptionsViewModel
 import com.example.bricksGame.components.players.data.DataRepository
 import com.example.bricksGame.components.players.models.PlayerViewModel
+import com.example.bricksGame.config.LevelsConfig
 import com.example.bricksGame.helper.AppNavigation
 import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
+import com.example.bricksGame.logic.LevelBuilder
 import com.example.bricksGame.ui.theme.AppTheme
 
 val screenSize = ScreenSize()
@@ -34,6 +36,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             screenSize.GetScreenSize()
             val context = LocalContext.current
+            LevelsConfig.setLevelList()
             OptionsViewModel.setOption()
 
 //     context.deleteDatabase("player_database")
@@ -44,7 +47,7 @@ class MainActivity : ComponentActivity() {
                 soundController.setContext(context)
                 soundController.playMainTheme()
             }
-            AppTheme{
+            AppTheme {
                 AppNavigation.getInstance().CreateNavHost()
             }
         }

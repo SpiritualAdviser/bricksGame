@@ -1,4 +1,4 @@
-package com.example.bricksGame.components.levelGame.logic
+package com.example.bricksGame.logic
 
 import com.example.bricksGame.components.levelGame.models.Brick
 import com.example.bricksGame.components.levelGame.models.FieldBrick

@@ -6,7 +6,7 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.brickOnField
 import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.components.levelGame.logic.LevelLogic
+import com.example.bricksGame.logic.LevelLogic
 import com.example.bricksGame.ui.theme.primaryContainerDark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -122,10 +122,17 @@ object BonusViewModel : ViewModel() {
     fun setNegativeBonusOnLevelField() {
 
         GameConfig.MAX_NEGATIVE_BRICKS_ON_LEVEL.forEachIndexed { index, bonus ->
+
             val currentBonus = GameConfig.negativeBonuses[index]
+            var breakerWhileLoop = 0
 
             for (number in 1..bonus) {
-                val randomFieldBrick = brickOnField.random()
+                var randomFieldBrick = getPlaceOnField()
+
+                while (randomFieldBrick.hasOwnerId != null || breakerWhileLoop < brickOnField.size) {
+                    randomFieldBrick = getPlaceOnField()
+                    ++breakerWhileLoop
+                }
 
                 randomFieldBrick.setImageOnStickBrick(currentBonus.imageFullLife)
                 randomFieldBrick.id = currentBonus.imageFullLife.toString()
@@ -133,6 +140,10 @@ object BonusViewModel : ViewModel() {
                 randomFieldBrick.life = currentBonus.life
             }
         }
+    }
+
+    private fun getPlaceOnField(): FieldBrick {
+        return brickOnField.random()
     }
 }
 

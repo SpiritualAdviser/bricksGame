@@ -14,6 +14,7 @@ object GameConfig : ViewModel() {
 
     /**
      * options for game designer Field Game
+     *
      * Is set COLUMNS and ROWS on game
      */
 
@@ -26,10 +27,18 @@ object GameConfig : ViewModel() {
     3- Three crystals in a row -win
      */
     var WIN_NUMBER_LINE: Int = 0
+    var MIN_WIN_NUMBER_LINE: Int = 0
+
+    const val MAX_SCORE_ON_GAME = 200
+    const val MIN_SCORE_ON_GAME = 20
 
     /**
      * options MAX_BRICKS is count dragging bricks for game on button block
      */
+    const val MAX_LEVELS_ON_GAME = 25
+    const val MAX_LINE_FIELD_ON_GAME = 10
+    const val MIN_LINE_FIELD_ON_GAME = 2
+
     var MAX_BRICKS_ON_LEVEL = 3
     var MAX_NEGATIVE_BRICKS_ON_LEVEL = listOf<Int>(0, 0)
     var MIN_BRICKS_TO_ADD_NEXT = 0
@@ -59,7 +68,9 @@ object GameConfig : ViewModel() {
      * Warning!! COLUMNS == imagesBricks size +1 brick
      */
 
-    var SPEED_OPEN_BONUS = 0.1f
+    var SPEED_OPEN_BONUS = 0.01f
+    var MAX_SPEED_OPEN_BONUS = 0.2f
+
     val imagesBricks = listOf(
 
         R.drawable.red_brick,
@@ -82,17 +93,17 @@ object GameConfig : ViewModel() {
 
     val negativeBonuses = listOf(
         NegativeBonus(
+            id = NEGATIVE_BONUS_ROCK,
+            life = NEGATIVE_BONUS_ROCK_LIFE,
+            imageFullLife = R.drawable.bg_close_brick,
+            imageOnDamage = R.drawable.bg_close_brick_damage
+        ),
+
+        NegativeBonus(
             id = NEGATIVE_BONUS_LIVES,
             life = NEGATIVE_BONUS_LIVES_LIFE,
             imageFullLife = R.drawable.bg_close_lives,
             imageOnDamage = R.drawable.bg_close_lives
-        ),
-
-        NegativeBonus(
-            id = NEGATIVE_BONUS_ROCK,
-            life = NEGATIVE_BONUS_ROCK_LIFE,
-            imageFullLife =  R.drawable.bg_close_brick,
-            imageOnDamage = R.drawable.bg_close_brick_damage
         ),
     )
 
@@ -100,6 +111,9 @@ object GameConfig : ViewModel() {
     const val NEGATIVE_BONUS_LIVES_LIFE = 0
     const val NEGATIVE_BONUS_ROCK = 999
     const val NEGATIVE_BONUS_ROCK_LIFE = 1
+    const val MAX_CLOSED_PERCENT_GAME_FIELD = 40
+
+
     var WIN_LINE_DESTROY_NEGATIVE_BONUS = true
     var SOUND_MUTED by mutableStateOf(false)
     var GAME_TYPE_FREE = true

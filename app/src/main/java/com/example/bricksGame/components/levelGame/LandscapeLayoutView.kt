@@ -35,7 +35,7 @@ import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.LevelLandscapeBg
-import com.example.bricksGame.components.levelGame.logic.CollisionBricksOnLevel
+import com.example.bricksGame.logic.CollisionBricksOnLevel
 import kotlinx.coroutines.launch
 
 @Composable

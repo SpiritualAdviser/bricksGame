@@ -5,7 +5,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.R
 import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.components.levelGame.logic.CollisionBricksOnLevel
+import com.example.bricksGame.logic.CollisionBricksOnLevel
 import com.example.bricksGame.screenSize
 
 object FieldViewModel : ViewModel() {
@@ -98,13 +98,18 @@ object FieldViewModel : ViewModel() {
 
         when (fieldBrick.hasOwnerId) {
             GameConfig.NEGATIVE_BONUS_LIVES -> {
-                fieldBrick.assetImage.value = GameConfig.negativeBonuses[0].imageOnDamage
+
+                GameConfig.negativeBonuses.find { it.id == GameConfig.NEGATIVE_BONUS_LIVES }?.run {
+                    fieldBrick.assetImage.value = this.imageOnDamage
+                }
             }
 
             GameConfig.NEGATIVE_BONUS_ROCK -> {
-                val image =
-                    if (fieldBrick.life == 0) GameConfig.negativeBonuses[1].imageOnDamage else GameConfig.negativeBonuses[1].imageFullLife
-                fieldBrick.assetImage.value = image
+
+                GameConfig.negativeBonuses.find { it.id == GameConfig.NEGATIVE_BONUS_ROCK }?.run {
+                    fieldBrick.assetImage.value =
+                        if (fieldBrick.life == 0) this.imageOnDamage else this.imageFullLife
+                }
             }
 
             else -> fieldBrick.assetImage.value = R.drawable.bgfielbrickempty
