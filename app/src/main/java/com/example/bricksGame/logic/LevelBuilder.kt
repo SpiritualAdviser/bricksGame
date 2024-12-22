@@ -60,8 +60,8 @@ class LevelBuilder {
 
     private fun getFieldGameColumn(fieldGameRow: Int): Int {
 
-        var min = fieldGameRow - 1
-        var max = fieldGameRow + 1
+        var min = fieldGameRow
+        var max = fieldGameRow + 2
         return (Math.random() * (max - min) + min).toInt()
     }
 
