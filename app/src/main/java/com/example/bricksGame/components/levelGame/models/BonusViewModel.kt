@@ -44,7 +44,7 @@ object BonusViewModel : ViewModel() {
         }
     }
 
-   private fun setOfBonus(brick: Brick) {
+    private fun setOfBonus(brick: Brick) {
         brick.alpha.value = 0.05f
         brick.canDrag = false
         brick.activeBonusBorder.value = GameConfig.BRICK_BORDER_COLOR
@@ -68,7 +68,7 @@ object BonusViewModel : ViewModel() {
         )
     }
 
-   private fun onBonusHammer(brick: Brick) {
+    private fun onBonusHammer(brick: Brick) {
         brick.hasBonusOwnerId?.onDragEnd()
     }
 
@@ -87,7 +87,7 @@ object BonusViewModel : ViewModel() {
                 }
             }
             delay(300)
-           LevelLogic.checkRoundOnBonus(winRow, onBonus = true)
+            LevelLogic.checkRoundOnBonus(winRow, onBonus = true)
         }
     }
 
@@ -105,7 +105,7 @@ object BonusViewModel : ViewModel() {
                 }
             }
             delay(300)
-           LevelLogic.checkRoundOnBonus(winColumn, onBonus = true)
+            LevelLogic.checkRoundOnBonus(winColumn, onBonus = true)
         }
     }
 
@@ -121,47 +121,18 @@ object BonusViewModel : ViewModel() {
 
     fun setNegativeBonusOnLevelField() {
 
-        for (i in 0 until GameConfig.MAX_NEGATIVE_BRICKS_ON_LEVEL) {
-            val randomFieldBrick = brickOnField.random()
+        GameConfig.MAX_NEGATIVE_BRICKS_ON_LEVEL.forEachIndexed { index, bonus ->
+            val currentBonus = GameConfig.negativeBonuses[index]
 
-            val randomNegativeBonus =
-                createNegativeBonus((Math.random() * GameConfig.imagesNegativeBonuses.size).toInt())
+            for (number in 1..bonus) {
+                val randomFieldBrick = brickOnField.random()
 
-            randomFieldBrick.setImageOnStickBrick(randomNegativeBonus.assetImage)
-            randomFieldBrick.id = randomNegativeBonus.assetImage.toString()
-            randomFieldBrick.hasOwnerId = randomNegativeBonus.id
-            randomFieldBrick.life = randomNegativeBonus.life
-            println()
-        }
-    }
-
-    private fun createNegativeBonus(i: Int): Brick {
-        var name = ""
-        var id = 0
-        var life = 0
-        when (i) {
-            0 -> {
-                name = "negativeLives"
-                id = GameConfig.NEGATIVE_BONUS_LIVES
-                life = GameConfig.NEGATIVE_BONUS_LIVES_LIFE
-            }
-
-            1 -> {
-                name = "negativeRock"
-                id = GameConfig.NEGATIVE_BONUS_ROCK
-                life = GameConfig.NEGATIVE_BONUS_ROCK_LIFE
+                randomFieldBrick.setImageOnStickBrick(currentBonus.imageFullLife)
+                randomFieldBrick.id = currentBonus.imageFullLife.toString()
+                randomFieldBrick.hasOwnerId = currentBonus.id
+                randomFieldBrick.life = currentBonus.life
             }
         }
-        return Brick(
-            x = mutableIntStateOf(0),
-            y = mutableIntStateOf(0),
-            life = life,
-            canDrag = false,
-            id = id,
-            position = "negativeBonus",
-            name = name,
-            assetImage = GameConfig.imagesNegativeBonuses[i]
-        )
     }
 }
 

@@ -49,7 +49,7 @@ object MapModel : ViewModel() {
         GameConfig.WIN_NUMBER_LINE = level.numberOfBricksToWin
         GameConfig.SPEED_OPEN_BONUS = level.bonusFillSpeed
         GameConfig.MAX_BRICKS_ON_LEVEL = level.additionalBrick
-        GameConfig.MAX_NEGATIVE_BRICKS_ON_LEVEL = level.negativeBonusNumber
+        GameConfig.MAX_NEGATIVE_BRICKS_ON_LEVEL = level.negativeBonuses
         GameConfig.MIN_BRICKS_TO_ADD_NEXT = level.lastBrickToAdd
     }
 

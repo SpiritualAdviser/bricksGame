@@ -98,17 +98,16 @@ object FieldViewModel : ViewModel() {
 
         when (fieldBrick.hasOwnerId) {
             GameConfig.NEGATIVE_BONUS_LIVES -> {
-                fieldBrick.assetImage.value = GameConfig.imagesNegativeBonuses[0]
+                fieldBrick.assetImage.value = GameConfig.negativeBonuses[0].imageOnDamage
             }
 
             GameConfig.NEGATIVE_BONUS_ROCK -> {
                 val image =
-                    if (fieldBrick.life == 0) GameConfig.NEGATIVE_BONUS_ROCK_BG_DAMAGE else GameConfig.imagesNegativeBonuses[1]
+                    if (fieldBrick.life == 0) GameConfig.negativeBonuses[1].imageOnDamage else GameConfig.negativeBonuses[1].imageFullLife
                 fieldBrick.assetImage.value = image
             }
 
             else -> fieldBrick.assetImage.value = R.drawable.bgfielbrickempty
         }
     }
-
 }

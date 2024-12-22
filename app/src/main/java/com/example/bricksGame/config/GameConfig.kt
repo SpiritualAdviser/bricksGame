@@ -31,7 +31,7 @@ object GameConfig : ViewModel() {
      * options MAX_BRICKS is count dragging bricks for game on button block
      */
     var MAX_BRICKS_ON_LEVEL = 3
-    var MAX_NEGATIVE_BRICKS_ON_LEVEL = 3
+    var MAX_NEGATIVE_BRICKS_ON_LEVEL = listOf<Int>(0, 0)
     var MIN_BRICKS_TO_ADD_NEXT = 0
     const val MAX_BRICKS_SIZE = 60
 
@@ -80,12 +80,22 @@ object GameConfig : ViewModel() {
         R.drawable.hammer_bonus,
     )
 
-    val imagesNegativeBonuses = listOf(
-        R.drawable.bg_close_lives,
-        R.drawable.bg_close_brick,
+    val negativeBonuses = listOf(
+        NegativeBonus(
+            id = NEGATIVE_BONUS_LIVES,
+            life = NEGATIVE_BONUS_LIVES_LIFE,
+            imageFullLife = R.drawable.bg_close_lives,
+            imageOnDamage = R.drawable.bg_close_lives
+        ),
+
+        NegativeBonus(
+            id = NEGATIVE_BONUS_ROCK,
+            life = NEGATIVE_BONUS_ROCK_LIFE,
+            imageFullLife =  R.drawable.bg_close_brick,
+            imageOnDamage = R.drawable.bg_close_brick_damage
+        ),
     )
 
-    val NEGATIVE_BONUS_ROCK_BG_DAMAGE = R.drawable.bg_close_brick_damage
     const val NEGATIVE_BONUS_LIVES = 998
     const val NEGATIVE_BONUS_LIVES_LIFE = 0
     const val NEGATIVE_BONUS_ROCK = 999
@@ -94,3 +104,10 @@ object GameConfig : ViewModel() {
     var SOUND_MUTED by mutableStateOf(false)
     var GAME_TYPE_FREE = true
 }
+
+data class NegativeBonus(
+    var id: Int,
+    var life: Int,
+    var imageFullLife: Int,
+    var imageOnDamage: Int,
+)
