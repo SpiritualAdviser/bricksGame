@@ -125,7 +125,6 @@ object LevelsConfig {
             levelMaxStep = 125
         ),
 
-//        ========= 10
         Level(
             numberLevel = 11,
             fieldGameRow = 6,
@@ -135,6 +134,7 @@ object LevelsConfig {
             negativeBonusNumber = 5,
             bonusFillSpeed = 0.01f,
             numberOfScoreToWin = 110,
+            levelMaxStep = 130
         ),
         Level(
             numberLevel = 12,
@@ -145,37 +145,44 @@ object LevelsConfig {
             negativeBonusNumber = 3,
             bonusFillSpeed = 0.03f,
             numberOfScoreToWin = 60,
+            levelMaxStep = 80
         ),
+
         Level(
             numberLevel = 13,
             fieldGameRow = 5,
             fieldGameColumn = 6,
             additionalBrick = 4,
-            numberOfBricksToWin = 4,
+            numberOfBricksToWin = 3,
             negativeBonusNumber = 3,
-            bonusFillSpeed = 0.01f,
+            bonusFillSpeed = 0.02f,
             numberOfScoreToWin = 70,
+            levelMaxStep = 85
         ),
         Level(
             numberLevel = 14,
-            fieldGameRow = 4,
+            fieldGameRow = 5,
             fieldGameColumn = 5,
             additionalBrick = 3,
-            numberOfBricksToWin = 0,
-            negativeBonusNumber = 4,
+            numberOfBricksToWin = 4,
+            negativeBonusNumber = 3,
             bonusFillSpeed = 0.02f,
             numberOfScoreToWin = 60,
+            levelMaxStep = 75
         ),
         Level(
             numberLevel = 15,
             fieldGameRow = 5,
             fieldGameColumn = 6,
             additionalBrick = 4,
-            numberOfBricksToWin = 0,
+            numberOfBricksToWin = 5,
             negativeBonusNumber = 4,
             bonusFillSpeed = 0.01f,
-            numberOfScoreToWin = 70,
+            numberOfScoreToWin = 100,
+            levelMaxStep = 100
         ),
+
+//        15====
         Level(
             numberLevel = 16,
             fieldGameRow = 5,
