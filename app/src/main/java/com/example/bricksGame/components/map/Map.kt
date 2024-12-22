@@ -1,5 +1,6 @@
 package com.example.bricksGame.components.map
 
+import androidx.activity.compose.BackHandler
 import com.example.bricksGame.R
 import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.layout.Arrangement
@@ -27,10 +28,14 @@ import androidx.compose.ui.unit.sp
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.config.Level
+import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.helper.MainMenuBg
 
 @Composable
 fun Map() {
+    BackHandler {
+        ButtonController.navigateToHome()
+    }
     MainMenuBg()
     Row(
 
