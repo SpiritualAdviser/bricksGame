@@ -27,7 +27,7 @@ object GameConfig : ViewModel() {
     3- Three crystals in a row -win
      */
     var WIN_NUMBER_LINE: Int = 0
-    var MIN_WIN_NUMBER_LINE: Int = 0
+    var MIN_WIN_NUMBER_LINE: Int = 3
 
     const val MAX_SCORE_ON_GAME = 200
     const val MIN_SCORE_ON_GAME = 20

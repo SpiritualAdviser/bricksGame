@@ -21,8 +21,8 @@ class LevelBuilder {
 
     private fun createLevel(levelNumber: Int): Level {
 
-        val fieldGameRow = getFieldGameLine(levelNumber)
-        val fieldGameColumn = getFieldGameLine(levelNumber)
+        val fieldGameRow = getFieldGameRow(levelNumber)
+        val fieldGameColumn = getFieldGameColumn(fieldGameRow)
         val numberOfBricksToWin = getNumberOfBricksToWin(fieldGameRow, fieldGameColumn)
         val additionalBrick = getAdditionalBrick()
         val lastBrickToAdd = getLastBrickToAdd(additionalBrick)
@@ -45,18 +45,31 @@ class LevelBuilder {
         )
     }
 
-    private fun getFieldGameLine(levelNumber: Int): Int {
+    private fun getFieldGameRow(levelNumber: Int): Int {
         val additionalLine: Double = levelNumber / intervalComplication
-        val min = GameConfig.MIN_LINE_FIELD_ON_GAME + ceil(additionalLine)
-        val max = min + 1
+
+        var min = GameConfig.MIN_LINE_FIELD_ON_GAME + ceil(additionalLine)
+        var max = min + 1
+        if (ceil(additionalLine) > 3) {
+            min = GameConfig.MIN_LINE_FIELD_ON_GAME + ceil(2F).toDouble()
+            max = GameConfig.MAX_LINE_FIELD_ON_GAME.toDouble()
+        }
 
         return (Math.random() * (max - min) + min).toInt()
     }
 
+    private fun getFieldGameColumn(fieldGameRow: Int): Int {
+
+        var min = fieldGameRow - 1
+        var max = fieldGameRow + 1
+        return (Math.random() * (max - min) + min).toInt()
+    }
+
     private fun getNumberOfBricksToWin(fieldGameRow: Int, fieldGameColumn: Int): Int {
-        val maxLine = if (fieldGameRow > fieldGameColumn) fieldGameRow else fieldGameColumn
-        val minLine =
-            if (maxLine > GameConfig.MIN_WIN_NUMBER_LINE) GameConfig.MIN_WIN_NUMBER_LINE else maxLine
+        var maxLine = if (fieldGameRow > fieldGameColumn) fieldGameRow else fieldGameColumn
+        maxLine = if (maxLine > 5) 5 else maxLine
+
+        val minLine = if (maxLine >= 5) 4 else GameConfig.MIN_WIN_NUMBER_LINE
 
         return (Math.random() * (maxLine - minLine) + minLine).toInt()
     }
