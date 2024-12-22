@@ -4,9 +4,10 @@ import com.example.bricksGame.logic.LevelBuilder
 
 object LevelsConfig {
 
-    val levelGameList = mutableListOf<Level>()
+    var levelGameList = mutableListOf<Level>()
 
-    fun setLevelList() {
+    fun setLevelListOnCreatePlayer() {
+        levelGameList.clear()
         LevelBuilder().getLevelGameList(levelGameList)
     }
 

@@ -1,6 +1,7 @@
 package com.example.bricksGame
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 
 import android.os.Bundle
@@ -10,14 +11,17 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.platform.LocalContext
 import com.example.bricksGame.components.options.models.OptionsViewModel
+import com.example.bricksGame.components.players.data.ActiveLevelList
 import com.example.bricksGame.components.players.data.DataRepository
 import com.example.bricksGame.components.players.models.PlayerViewModel
+import com.example.bricksGame.config.Level
 import com.example.bricksGame.config.LevelsConfig
 import com.example.bricksGame.helper.AppNavigation
 import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
 import com.example.bricksGame.logic.LevelBuilder
 import com.example.bricksGame.ui.theme.AppTheme
+import com.google.gson.Gson
 
 val screenSize = ScreenSize()
 
@@ -36,12 +40,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             screenSize.GetScreenSize()
             val context = LocalContext.current
-            LevelsConfig.setLevelList()
+
             OptionsViewModel.setOption()
 
-//     context.deleteDatabase("player_database")
+   context.deleteDatabase("player_database")
             DataRepository.getPlayerDatabase(this)
             PlayerViewModel.setPlayerOnGame()
+
 
             if (!soundController.isRun) {
                 soundController.setContext(context)

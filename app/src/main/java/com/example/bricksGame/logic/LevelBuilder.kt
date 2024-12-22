@@ -26,7 +26,7 @@ class LevelBuilder {
         val numberOfBricksToWin = getNumberOfBricksToWin(fieldGameRow, fieldGameColumn)
         val additionalBrick = getAdditionalBrick()
         val lastBrickToAdd = getLastBrickToAdd(additionalBrick)
-        val bonusFillSpeed = getBonusFillSpeed(fieldGameRow)
+        val bonusFillSpeed = getBonusFillSpeed(levelNumber)
         val negativeBonuses = getNegativeBonuses(levelNumber, fieldGameRow, fieldGameColumn)
         val numberOfScoreToWin = getNumberOfScoreToWin(levelNumber, fieldGameRow, fieldGameColumn)
         val levelMaxStep = getLevelMaxStep(levelNumber, numberOfScoreToWin)
@@ -91,10 +91,7 @@ class LevelBuilder {
     ): Float {
         val stepFillBonus = GameConfig.MAX_SPEED_OPEN_BONUS / GameConfig.MAX_LEVELS_ON_GAME
         val min = GameConfig.MAX_SPEED_OPEN_BONUS - levelNumber * stepFillBonus
-        val max = if (min + stepFillBonus * 2 > GameConfig.MAX_SPEED_OPEN_BONUS) min else {
-            min + stepFillBonus * 2
-        }
-        return (Math.random() * (max - min) + min).toFloat()
+        return min.toFloat()
     }
 
     private fun getNegativeBonuses(
@@ -103,22 +100,23 @@ class LevelBuilder {
         fieldGameColumn: Int
     ): MutableList<Int> {
         val bonuses = mutableListOf<Int>()
-        val additionalNegativeBonus: Double = levelNumber / intervalComplication
 
         val maxClosedPlaces =
-            ((fieldGameRow * fieldGameColumn) / 100) * GameConfig.MAX_CLOSED_PERCENT_GAME_FIELD
+            ((fieldGameRow.toFloat() * fieldGameColumn.toFloat()) / 100) * GameConfig.MAX_CLOSED_PERCENT_GAME_FIELD
 
         val stepCloseBonus: Double = maxClosedPlaces / GameConfig.MAX_LEVELS_ON_GAME.toDouble()
 
-        val min = ceil(additionalNegativeBonus + stepCloseBonus)
-        val max = if (min + 1 > maxClosedPlaces) min else min + 1
+        val min = ceil(levelNumber * stepCloseBonus/ GameConfig.negativeBonuses.size/2)
+
+        val max = ceil(levelNumber * stepCloseBonus/ GameConfig.negativeBonuses.size)
+
         var numberBonus = 0
 
         for (bonus in 0 until GameConfig.negativeBonuses.size) {
             numberBonus = if (bonus == 0) {
                 (Math.random() * (max - min) + min).toInt()
             } else {
-                (Math.random() * (max - min) + min).toInt() + bonus
+                (Math.random() * (max - min) + min).toInt()
             }
 
             bonuses.add(numberBonus)

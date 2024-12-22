@@ -29,6 +29,7 @@ object MapModel : ViewModel() {
                 levelList[index].isActive = false
                 levelList[index].numberLevelPasses = 0
             }
+            levelList[index].isActive = true
         }
     }
 

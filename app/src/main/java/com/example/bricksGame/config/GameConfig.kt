@@ -29,13 +29,14 @@ object GameConfig : ViewModel() {
     var WIN_NUMBER_LINE: Int = 0
     var MIN_WIN_NUMBER_LINE: Int = 3
 
-    const val MAX_SCORE_ON_GAME = 200
+    const val MAX_SCORE_ON_GAME = 300
     const val MIN_SCORE_ON_GAME = 20
 
     /**
      * options MAX_BRICKS is count dragging bricks for game on button block
      */
-    const val MAX_LEVELS_ON_GAME = 25
+    const val MAX_LEVELS_ON_GAME = 100
+
     const val MAX_LINE_FIELD_ON_GAME = 10
     const val MIN_LINE_FIELD_ON_GAME = 2
 
@@ -69,7 +70,7 @@ object GameConfig : ViewModel() {
      */
 
     var SPEED_OPEN_BONUS = 0.01f
-    var MAX_SPEED_OPEN_BONUS = 0.2f
+    var MAX_SPEED_OPEN_BONUS = 0.1f
 
     val imagesBricks = listOf(
 
@@ -118,10 +119,3 @@ object GameConfig : ViewModel() {
     var SOUND_MUTED by mutableStateOf(false)
     var GAME_TYPE_FREE = true
 }
-
-data class NegativeBonus(
-    var id: Int,
-    var life: Int,
-    var imageFullLife: Int,
-    var imageOnDamage: Int,
-)
