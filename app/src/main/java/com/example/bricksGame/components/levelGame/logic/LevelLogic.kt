@@ -174,19 +174,18 @@ object LevelLogic {
     }
 
     private fun getClosedFieldBricks(indexList: MutableList<Int>, bricks: List<FieldBrick>) {
+        val firstIndexBrick = indexList.first() - 1
+        val lastIndexBrick = indexList.last() + 1
 
-        val firstIndexBrick = bricks.getOrNull(indexList.first() - 1)
-        val lastIndexBrick = bricks.getOrNull(indexList.last() + 1)
-
-        firstIndexBrick?.run {
-            if (isClosedBrick(firstIndexBrick)) {
-                indexList.add(indexList.first() - 1)
+        bricks.getOrNull(firstIndexBrick)?.run {
+            if (isClosedBrick(bricks[firstIndexBrick])) {
+                indexList.add(firstIndexBrick)
             }
         }
 
-        lastIndexBrick?.run {
-            if (isClosedBrick(lastIndexBrick)) {
-                indexList.add(indexList.last() + 1)
+        bricks.getOrNull(lastIndexBrick)?.run {
+            if (isClosedBrick(bricks[lastIndexBrick])) {
+                indexList.add(lastIndexBrick)
             }
         }
     }
@@ -212,7 +211,7 @@ object LevelLogic {
         val numberWin =
             if (GameConfig.WIN_NUMBER_LINE == 0) winningPositions.size else GameConfig.WIN_NUMBER_LINE
 
-        var overBonus = winningPositions.size - (numberWin-1)
+        var overBonus = winningPositions.size - (numberWin - 1)
 
         if (overBonus > 0) {
             PlayerViewModel.addScore(numberWin * overBonus)
