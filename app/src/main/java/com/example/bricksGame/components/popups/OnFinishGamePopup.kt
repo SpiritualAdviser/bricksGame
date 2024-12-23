@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import com.example.bricksGame.components.popups.models.OnFinishGameViewModel
+import com.example.bricksGame.components.popups.models.PopupsViewModel
 import com.example.bricksGame.ui.theme.overlayBg
 import com.example.bricksGame.ui.theme.tertiaryContainerLight
 
@@ -33,7 +33,7 @@ fun WinPopup() {
 fun WinBlock() {
 
     Text(
-        text = OnFinishGameViewModel.textOnWinPopup,
+        text = PopupsViewModel.textOnWinPopup,
         textAlign = TextAlign.Center,
         fontSize = 40.sp,
         color = tertiaryContainerLight

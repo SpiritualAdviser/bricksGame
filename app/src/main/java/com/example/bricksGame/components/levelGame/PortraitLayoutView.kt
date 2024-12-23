@@ -37,11 +37,12 @@ import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
+import com.example.bricksGame.components.popups.WinLine
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.LevelPortraitBg
 import com.example.bricksGame.logic.CollisionBricksOnLevel
 import com.example.bricksGame.components.popups.WinPopup
-import com.example.bricksGame.components.popups.models.OnFinishGameViewModel.showPopupOnFinishGame
+import com.example.bricksGame.components.popups.models.PopupsViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -55,7 +56,11 @@ fun PortraitLayout() {
         TopBar()
         FieldBlock()
     }
-    if (showPopupOnFinishGame.value) {
+    if (PopupsViewModel.showPopupWinLine.value) {
+        WinLine()
+    }
+
+    if (PopupsViewModel.showPopupOnFinishGame.value) {
         WinPopup()
     }
 }

@@ -12,7 +12,7 @@ import com.example.bricksGame.components.levelGame.models.FieldViewModel.setImag
 import com.example.bricksGame.components.map.models.MapModel.currentLevel
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel.updatePlayerOnLevelWin
-import com.example.bricksGame.components.popups.models.OnFinishGameViewModel
+import com.example.bricksGame.components.popups.models.PopupsViewModel
 import com.example.bricksGame.soundController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.ButtonController
@@ -215,8 +215,19 @@ object LevelLogic {
 
         if (overBonus > 0) {
             PlayerViewModel.addScore(numberWin * overBonus)
+
+            if (overBonus > 1) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    popupOnWinLine(true, winningPositions)
+                }
+            }
+
         } else {
             PlayerViewModel.addScore(score)
+
+            CoroutineScope(Dispatchers.Main).launch {
+                popupOnWinLine(false, winningPositions)
+            }
         }
     }
 
@@ -259,13 +270,26 @@ object LevelLogic {
         return currentLevel != null && PlayerViewModel.playerScore.intValue >= currentLevel.numberOfScoreToWin
     }
 
+    private suspend fun popupOnWinLine(
+        megaWin: Boolean = false,
+        winningPositions: MutableList<Pair<Int, Int>>
+    ) {
+
+        val fieldBrick = brickOnField.find { it.position == winningPositions.first() }
+
+        delay(100)
+        PopupsViewModel.onWinLine(megaWin, fieldBrick)
+        delay(400)
+        PopupsViewModel.closePopupOnWinLine()
+    }
+
     private suspend fun closeLevel(onWin: Boolean) {
         if (onWin) {
             updatePlayerOnLevelWin()
         }
-        OnFinishGameViewModel.setTextOnLevel(onWin)
+        PopupsViewModel.setTextOnLevel(onWin)
         delay(200)
-        OnFinishGameViewModel.showPopupOnFinishGame()
+        PopupsViewModel.showPopupOnFinishGame()
         delay(1200)
 
         if (GameConfig.GAME_TYPE_FREE) {
@@ -275,6 +299,6 @@ object LevelLogic {
         }
 
         delay(200)
-        OnFinishGameViewModel.closePopupOnFinishGame()
+        PopupsViewModel.closePopupOnFinishGame()
     }
 }

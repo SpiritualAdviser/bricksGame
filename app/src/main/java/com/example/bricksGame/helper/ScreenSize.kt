@@ -5,8 +5,8 @@ import androidx.compose.ui.platform.*
 import androidx.compose.ui.unit.dp
 
 class ScreenSize {
-    private var screenWidthPx = 0
-    private var screenHeightPx = 0
+    var screenWidthPx = 0
+    var screenHeightPx = 0
     var screenWidthDp = 0.dp
     var screenHeightDp = 0.dp
     var density = 0f
