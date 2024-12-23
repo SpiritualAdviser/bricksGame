@@ -16,7 +16,7 @@ object PopupsViewModel : ViewModel() {
     var xPopupWinLine = mutableIntStateOf(0)
     var yPopupWinLine = mutableIntStateOf(0)
 
-    var textWinLine = mutableStateOf("")
+    var textWinLine = mutableStateOf("WOOW")
 
     var textDefaultWinLine = "WOOW"
     var textMegaWinLine = "WOOW WOOW WOOW"

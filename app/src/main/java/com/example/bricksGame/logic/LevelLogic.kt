@@ -216,9 +216,13 @@ object LevelLogic {
         if (overBonus > 0) {
             PlayerViewModel.addScore(numberWin * overBonus)
 
-            if (overBonus > 1) {
+            if (score > numberWin) {
                 CoroutineScope(Dispatchers.Main).launch {
                     popupOnWinLine(true, winningPositions)
+                }
+            } else{
+                CoroutineScope(Dispatchers.Main).launch {
+                    popupOnWinLine(false, winningPositions)
                 }
             }
 
