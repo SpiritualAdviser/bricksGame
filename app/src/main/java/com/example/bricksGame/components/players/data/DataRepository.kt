@@ -1,6 +1,7 @@
 package com.example.bricksGame.components.players.data
 
 import android.content.Context
+import com.example.bricksGame.config.GameConfig
 import kotlinx.coroutines.flow.Flow
 
 object DataRepository {
@@ -29,7 +30,9 @@ object DataRepository {
     }
 
     fun update(player: Player) {
-        playerDatabase?.getDao()?.update(player)
+        if (!GameConfig.CHEAT){
+            playerDatabase?.getDao()?.update(player)
+        }
     }
 
     fun setInactiveAllPlayers() {

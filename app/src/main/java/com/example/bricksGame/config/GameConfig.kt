@@ -12,6 +12,8 @@ import com.example.bricksGame.ui.theme.errorLight
 object GameConfig : ViewModel() {
     lateinit var gameData: SQLiteDatabase
 
+    const val CHEAT = false
+
     /**
      * options for game designer Field Game
      *
@@ -37,8 +39,8 @@ object GameConfig : ViewModel() {
      */
     const val MAX_LEVELS_ON_GAME = 100
 
-    const val MAX_LINE_FIELD_ON_GAME = 10
-    const val MIN_LINE_FIELD_ON_GAME = 2
+    const val MAX_LINE_FIELD_ON_GAME = 9
+    const val MIN_LINE_FIELD_ON_GAME = 4
 
     var MAX_BRICKS_ON_LEVEL = 3
     var MAX_NEGATIVE_BRICKS_ON_LEVEL = listOf<Int>(0, 0)

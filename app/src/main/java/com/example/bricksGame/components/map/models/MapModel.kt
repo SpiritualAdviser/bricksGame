@@ -21,15 +21,16 @@ object MapModel : ViewModel() {
     fun openLevelOnMap() {
         val playerLevels = PlayerViewModel.activePlayer.activeLevelList.activeLevelList
 
-        levelList.forEachIndexed { index, level ->
-            if (index < playerLevels.size && playerLevels[index].isActive) {
-                levelList[index].isActive = true
-                levelList[index].numberLevelPasses = level.numberLevelPasses
-            } else {
-                levelList[index].isActive = false
-                levelList[index].numberLevelPasses = 0
+        if (GameConfig.CHEAT) {
+            levelList.forEach {
+                it.isActive = true
             }
-            levelList[index].isActive = true
+        } else {
+            playerLevels.forEach { level ->
+                levelList.find { it.numberLevel == level.numberLevel }?.let {
+                    it.isActive = true
+                }
+            }
         }
     }
 

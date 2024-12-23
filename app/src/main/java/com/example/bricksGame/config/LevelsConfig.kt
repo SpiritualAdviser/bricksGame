@@ -22,7 +22,7 @@ object LevelsConfig {
             numberOfBricksToWin = 3,
             negativeBonuses = listOf<Int>(0, 0),
             bonusFillSpeed = 0.1f,
-            numberOfScoreToWin = 80,
+            numberOfScoreToWin = 2,
             levelMaxStep = 150
         ),
 //        Level(
@@ -121,6 +121,18 @@ object LevelsConfig {
 //            numberOfScoreToWin = 135,
 //            levelMaxStep = 150
 //        ),
+                Level(
+            numberLevel = 10,
+            fieldGameRow = 7,
+            fieldGameColumn = 7,
+            additionalBrick = 3,
+            lastBrickToAdd = 0,
+            numberOfBricksToWin = 3,
+            negativeBonuses = listOf<Int>(5, 5),
+            bonusFillSpeed = 0.05f,
+            numberOfScoreToWin = 10,
+            levelMaxStep = 50
+        ),
 //        Level(
 //            numberLevel = 10,
 //            fieldGameRow = 7,

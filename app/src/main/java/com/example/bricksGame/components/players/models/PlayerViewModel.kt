@@ -90,10 +90,21 @@ object PlayerViewModel : ViewModel() {
         val currentLevel = MapModel.currentLevel
         var dataPlayerList = activePlayer.activeLevelList.activeLevelList
 
-        if (currentLevel != null) {
-            dataPlayerList[currentLevel.numberLevel - 1].numberLevelPasses += 1
+        if (GameConfig.CHEAT) {
+            return
+        }
 
-            if (dataPlayerList.size <= currentLevel.numberLevel) {
+        if (currentLevel != null) {
+
+            val currentDataLevel =
+                dataPlayerList.find { it.numberLevel == currentLevel.numberLevel }
+            currentDataLevel?.let {
+                it.numberLevelPasses += 1
+            }
+
+            val nextLevel = dataPlayerList.find { it.numberLevel == currentLevel.numberLevel + 1 }
+
+            if (nextLevel == null) {
                 val nextLevel = listOf(
                     LevelPlayer(
                         numberLevel = currentLevel.numberLevel + 1,
@@ -104,6 +115,7 @@ object PlayerViewModel : ViewModel() {
                 val newDataPlayerList = dataPlayerList.plus(nextLevel)
                 activePlayer.activeLevelList.activeLevelList = newDataPlayerList
             }
+
             update(activePlayer)
         }
     }

@@ -61,7 +61,6 @@ object LevelLogic {
         val columnIndex = brick.fieldBrickOnCollision?.position?.first
         val rowIndex = brick.fieldBrickOnCollision?.position?.second
         val winningPositions = mutableListOf<Pair<Int, Int>>()
-        wasWin = false
 
         rowIndex?.run {
             levelRows.getOrNull(rowIndex)?.run {
@@ -102,6 +101,7 @@ object LevelLogic {
         val numberWinLine = getNumberWinLine(bricks)
         var startIndex = numberWinLine - 1
         var endIndex = getEndIndex(bricks, startIndex, numberWinLine)
+        wasWin = false
 
         for (index in startIndex..endIndex) {
             if (!wasWin) {

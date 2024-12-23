@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
 
             OptionsViewModel.setOption()
 
-   context.deleteDatabase("player_database")
+//   context.deleteDatabase("player_database")
             DataRepository.getPlayerDatabase(this)
             PlayerViewModel.setPlayerOnGame()
 

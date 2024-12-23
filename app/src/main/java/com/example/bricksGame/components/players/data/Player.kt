@@ -32,6 +32,6 @@ data class GameLevelList(
 
 class LevelPlayer(
     var numberLevel: Int,
-    var numberLevelPasses: Int,
+    var numberLevelPasses: Int=0,
     var isActive: Boolean = false
 )
