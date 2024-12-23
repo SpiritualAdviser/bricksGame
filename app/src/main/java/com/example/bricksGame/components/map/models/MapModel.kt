@@ -26,6 +26,10 @@ object MapModel : ViewModel() {
                 it.isActive = true
             }
         } else {
+            levelList.forEach {
+                it.isActive = false
+            }
+
             playerLevels.forEach { level ->
                 levelList.find { it.numberLevel == level.numberLevel }?.let {
                     it.isActive = true

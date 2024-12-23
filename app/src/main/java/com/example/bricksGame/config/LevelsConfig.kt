@@ -121,18 +121,6 @@ object LevelsConfig {
 //            numberOfScoreToWin = 135,
 //            levelMaxStep = 150
 //        ),
-                Level(
-            numberLevel = 10,
-            fieldGameRow = 7,
-            fieldGameColumn = 7,
-            additionalBrick = 3,
-            lastBrickToAdd = 0,
-            numberOfBricksToWin = 3,
-            negativeBonuses = listOf<Int>(5, 5),
-            bonusFillSpeed = 0.05f,
-            numberOfScoreToWin = 10,
-            levelMaxStep = 50
-        ),
 //        Level(
 //            numberLevel = 10,
 //            fieldGameRow = 7,
