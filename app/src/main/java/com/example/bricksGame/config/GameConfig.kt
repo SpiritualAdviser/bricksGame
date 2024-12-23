@@ -119,5 +119,5 @@ object GameConfig : ViewModel() {
 
     var WIN_LINE_DESTROY_NEGATIVE_BONUS = true
     var SOUND_MUTED by mutableStateOf(false)
-    var GAME_TYPE_FREE = true
+    var GAME_TYPE_FREE = false
 }

@@ -22,7 +22,7 @@ object LevelsConfig {
             numberOfBricksToWin = 3,
             negativeBonuses = listOf<Int>(0, 0),
             bonusFillSpeed = 0.1f,
-            numberOfScoreToWin = 2,
+            numberOfScoreToWin = 40,
             levelMaxStep = 150
         ),
 //        Level(

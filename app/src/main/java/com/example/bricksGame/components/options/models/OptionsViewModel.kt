@@ -56,6 +56,11 @@ object OptionsViewModel : ViewModel() {
         }
     }
 
+    fun onFreeGame(){
+        setBonusSpeedFill(0.01F)
+        setFieldScheme("FieldScheme5x6")
+    }
+
     fun setFieldScheme(scheme: String = "") {
         fieldSchemesList.forEach { it.value = outlineDarkMediumContrast }
         when (scheme) {

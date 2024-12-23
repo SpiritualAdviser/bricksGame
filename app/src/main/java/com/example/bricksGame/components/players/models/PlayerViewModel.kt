@@ -76,6 +76,7 @@ object PlayerViewModel : ViewModel() {
     fun addScore(score: Int) {
 
         playerScore.value += score
+
         MapModel.changeLevelTargetOnRound(score)
 
         if (activePlayer.achievements < playerScore.intValue) {
@@ -94,7 +95,7 @@ object PlayerViewModel : ViewModel() {
             return
         }
 
-        if (currentLevel != null) {
+        if (currentLevel != null && !GameConfig.GAME_TYPE_FREE) {
 
             val currentDataLevel =
                 dataPlayerList.find { it.numberLevel == currentLevel.numberLevel }
@@ -115,9 +116,8 @@ object PlayerViewModel : ViewModel() {
                 val newDataPlayerList = dataPlayerList.plus(nextLevel)
                 activePlayer.activeLevelList.activeLevelList = newDataPlayerList
             }
-
-            update(activePlayer)
         }
+        update(activePlayer)
     }
 
     fun resetPlayers() {

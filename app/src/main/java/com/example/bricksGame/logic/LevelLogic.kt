@@ -231,8 +231,12 @@ object LevelLogic {
     }
 
     private fun checkEndLevel() {
-        val stepsOnLevel = MapModel.levelStep.intValue
+        var stepsOnLevel = MapModel.levelStep.intValue
         val noPlaceOnFieldGame = brickOnField.all { it.id != EMPTY_ID }
+
+        if (GameConfig.GAME_TYPE_FREE) {
+            stepsOnLevel = 1
+        }
 
         if (stepsOnLevel > 0 && !noPlaceOnFieldGame) {
             if (checkWinLevelOrNot()) {
@@ -263,7 +267,13 @@ object LevelLogic {
         delay(200)
         OnFinishGameViewModel.showPopupOnFinishGame()
         delay(1200)
-        ButtonController.navigateToMap()
+
+        if (GameConfig.GAME_TYPE_FREE) {
+            ButtonController.navigateToHome()
+        } else {
+            ButtonController.navigateToMap()
+        }
+
         delay(200)
         OnFinishGameViewModel.closePopupOnFinishGame()
     }

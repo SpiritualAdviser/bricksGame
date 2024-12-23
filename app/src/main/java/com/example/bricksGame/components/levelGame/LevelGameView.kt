@@ -11,12 +11,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import com.example.bricksGame.R
+import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.ButtonController
 
 @Composable
 fun RunLevelGame() {
     BackHandler {
-        ButtonController.navigateToHome()
+        if (GameConfig.GAME_TYPE_FREE) {
+            ButtonController.navigateToHome()
+        } else {
+            ButtonController.navigateToMap()
+        }
     }
 
     Box(
