@@ -116,7 +116,7 @@ object GameConfig : ViewModel() {
     const val NEGATIVE_BONUS_LIVES_LIFE = 0
     const val NEGATIVE_BONUS_ROCK = 999
     const val NEGATIVE_BONUS_ROCK_LIFE = 1
-    const val MAX_CLOSED_PERCENT_GAME_FIELD = 40
+    const val MAX_CLOSED_PERCENT_GAME_FIELD = 30
 
 
     var WIN_LINE_DESTROY_NEGATIVE_BONUS = true
