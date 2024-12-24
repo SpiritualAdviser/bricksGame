@@ -50,41 +50,45 @@ class LevelBuilder {
         val additionalLine: Double = levelNumber / intervalComplication
 
         var min = GameConfig.MIN_LINE_FIELD_ON_GAME + floor(additionalLine)
-        var max = min + 1
+        var max = min + 3
 
-        if (max >= GameConfig.MAX_LINE_FIELD_ON_GAME) {
-            min = GameConfig.MIN_LINE_FIELD_ON_GAME + 2.toDouble()
-            max = GameConfig.MAX_LINE_FIELD_ON_GAME.toDouble()
+        if (max > GameConfig.MAX_LINE_FIELD_ON_GAME) {
+            min = GameConfig.MIN_LINE_FIELD_ON_GAME.toDouble() + 2
+            max = GameConfig.MAX_LINE_FIELD_ON_GAME.toDouble() + 1
         }
 
         return (Math.random() * (max - min) + min).toInt()
     }
 
     private fun getFieldGameColumn(fieldGameRow: Int): Int {
-
         var min = fieldGameRow
         var max = fieldGameRow + 2
+
+        if (fieldGameRow == GameConfig.MIN_LINE_FIELD_ON_GAME) {
+            min = fieldGameRow + 1
+            max = fieldGameRow + 2
+        }
         return (Math.random() * (max - min) + min).toInt()
     }
 
     private fun getNumberOfBricksToWin(fieldGameRow: Int, fieldGameColumn: Int): Int {
         var maxLine = if (fieldGameRow > fieldGameColumn) fieldGameRow else fieldGameColumn
-        maxLine = if (maxLine > 5) 5 else maxLine
+        maxLine = if (maxLine > 6) 6 else maxLine
 
-        val minLine = if (maxLine >= 5) 4 else GameConfig.MIN_WIN_NUMBER_LINE
+        val minLine = if (maxLine > 5) 4 else GameConfig.MIN_WIN_NUMBER_LINE
 
         return (Math.random() * (maxLine - minLine) + minLine).toInt()
     }
 
     private fun getAdditionalBrick(): Int {
         val min = 3
-        val max = 4
+        val max = 5
         return (Math.random() * (max - min) + min).toInt()
     }
 
     private fun getLastBrickToAdd(additionalBrick: Int): Int {
         val min = 0
-        val max = additionalBrick
+        val max = additionalBrick - 1
         return (Math.random() * (max - min) + min).toInt()
     }
 
@@ -92,8 +96,10 @@ class LevelBuilder {
         levelNumber: Int
     ): Float {
         val stepFillBonus = GameConfig.MAX_SPEED_OPEN_BONUS / GameConfig.MAX_LEVELS_ON_GAME
-        val min = GameConfig.MAX_SPEED_OPEN_BONUS - levelNumber * stepFillBonus
-        return min.toFloat()
+        val max = GameConfig.MAX_SPEED_OPEN_BONUS - levelNumber * stepFillBonus
+        val min = max / 2
+
+        return return (Math.random() * (max - min) + min).toFloat()
     }
 
     private fun getNegativeBonuses(
@@ -108,9 +114,9 @@ class LevelBuilder {
 
         val stepCloseBonus: Double = maxClosedPlaces / GameConfig.MAX_LEVELS_ON_GAME.toDouble()
 
-        val min = ceil(levelNumber * stepCloseBonus/ GameConfig.negativeBonuses.size/2)
+        val min = ceil(levelNumber * stepCloseBonus / GameConfig.negativeBonuses.size / 2)
 
-        val max = ceil(levelNumber * stepCloseBonus/ GameConfig.negativeBonuses.size)
+        val max = ceil(levelNumber * stepCloseBonus / GameConfig.negativeBonuses.size)
 
         var numberBonus = 0
 
@@ -132,25 +138,35 @@ class LevelBuilder {
         fieldGameRow: Int,
         fieldGameColumn: Int
     ): Int {
+        val fieldSize = fieldGameRow * fieldGameColumn
+        val scoreStep: Double =
+            (GameConfig.MAX_SCORE_ON_GAME - GameConfig.MIN_SCORE_ON_GAME) / GameConfig.MAX_LEVELS_ON_GAME.toDouble()
 
-        val scoreStep =
-            (GameConfig.MAX_SCORE_ON_GAME - GameConfig.MIN_SCORE_ON_GAME) / GameConfig.MAX_LEVELS_ON_GAME
+        val min = fieldSize + GameConfig.MIN_SCORE_ON_GAME + levelNumber * scoreStep
 
-        val min = GameConfig.MIN_SCORE_ON_GAME + levelNumber * scoreStep
-        val max = min + levelNumber * scoreStep
+        val max = fieldSize + min + levelNumber * scoreStep
 
         return (Math.random() * (max - min) + min).toInt()
     }
 
     private fun getLevelMaxStep(levelNumber: Int, numberOfScoreToWin: Int): Int {
-        val intervalComplicationSteps = numberOfScoreToWin / GameConfig.MAX_LEVELS_ON_GAME
+        val intervalComplicationSteps: Double =
+            GameConfig.MAX_SCORE_ON_GAME / GameConfig.MAX_LEVELS_ON_GAME.toDouble()
 
-        val additionalSteps =
-            (GameConfig.MAX_LEVELS_ON_GAME / 2) - levelNumber * intervalComplicationSteps
+        val partOfLevels = GameConfig.MAX_LEVELS_ON_GAME / 3
 
-        val min = numberOfScoreToWin + additionalSteps
-        val max = numberOfScoreToWin + additionalSteps + levelNumber * intervalComplicationSteps
+        val increase = (partOfLevels - levelNumber) / intervalComplicationSteps
 
+        var min = numberOfScoreToWin
+        var max = numberOfScoreToWin
+
+        if (levelNumber < partOfLevels) {
+            min = numberOfScoreToWin + increase.toInt()
+            max = min + increase.toInt()
+        } else {
+            min = numberOfScoreToWin - increase.toInt()
+            max = numberOfScoreToWin + 2
+        }
         return (Math.random() * (max - min) + min).toInt()
     }
 }

@@ -13,7 +13,7 @@ import com.example.bricksGame.ui.theme.errorLight
 object GameConfig : ViewModel() {
     lateinit var gameData: SQLiteDatabase
 
-    const val CHEAT = false
+    const val CHEAT = true
 
     /**
      * options for game designer Field Game
@@ -21,8 +21,8 @@ object GameConfig : ViewModel() {
      * Is set COLUMNS and ROWS on game
      */
 
-    var ROWS: Int = 2
-    var COLUMNS: Int = 2
+    var ROWS: Int = 5
+    var COLUMNS: Int = 6
 
     /**
     The number indicates how many crystals in a row the same color will win.
@@ -42,7 +42,7 @@ object GameConfig : ViewModel() {
     const val MAX_LEVELS_ON_GAME = 100
 
     const val MAX_LINE_FIELD_ON_GAME = 9
-    const val MIN_LINE_FIELD_ON_GAME = 4
+    const val MIN_LINE_FIELD_ON_GAME = 3
 
     var MAX_BRICKS_ON_LEVEL = 3
     var MAX_NEGATIVE_BRICKS_ON_LEVEL = listOf<Int>(0, 0)
