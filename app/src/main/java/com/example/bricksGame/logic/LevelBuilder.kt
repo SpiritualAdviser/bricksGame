@@ -110,11 +110,11 @@ class LevelBuilder {
         val bonuses = mutableListOf<Int>()
 
         val maxClosedPlaces =
-            ((fieldGameRow.toFloat() * fieldGameColumn.toFloat()) / 100) * GameConfig.MAX_CLOSED_PERCENT_GAME_FIELD
+            ((fieldGameRow.toFloat() * fieldGameColumn.toFloat()) * GameConfig.MAX_CLOSED_PERCENT_GAME_FIELD) / 100
 
         val percent = levelNumber / GameConfig.MAX_LEVELS_ON_GAME.toDouble() * 100
 
-        val min = ceil(maxClosedPlaces * percent / 100).toInt()
+        val min = ceil((maxClosedPlaces * percent / 100)/GameConfig.negativeBonuses.size).toInt()
 
         val max = if (min + 2 > maxClosedPlaces) maxClosedPlaces.toInt() else min + 1
 
