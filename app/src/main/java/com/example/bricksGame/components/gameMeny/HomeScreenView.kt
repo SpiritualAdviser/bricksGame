@@ -45,7 +45,7 @@ fun RunHomeScreen() {
         Spacer(Modifier.size(10.dp))
 
         Button(
-            onClick = { ButtonController.navigateToLevelGame(true) },
+            onClick = { ButtonController.navigateFreeGame() },
             modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
 //                .size(100.dp, 40.dp)
 //                .paint(

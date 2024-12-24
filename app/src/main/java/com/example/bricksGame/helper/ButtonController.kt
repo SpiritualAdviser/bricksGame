@@ -1,5 +1,6 @@
 package com.example.bricksGame.helper
 
+import com.example.bricksGame.components.freeGame.FreeGameModel
 import com.example.bricksGame.logic.LevelLogic
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
@@ -26,12 +27,9 @@ object ButtonController {
         soundController.clickUi()
         soundController.playLevelTheme()
 
-        if (GameConfig.GAME_TYPE_FREE) {
-            OptionsViewModel.onFreeGame()
-        }
-
         FieldViewModel.onOptionChange()
         PlayerViewModel.onStartLevel()
+
         LevelLogic.onStartLevel()
         AppNavigation.getInstance().getNavController().navigate(Routes.LevelGame.route) {
             popUpTo(Routes.LevelGame.route)
@@ -58,6 +56,13 @@ object ButtonController {
             popUpTo(Routes.Map.route)
             launchSingleTop = true
         }
+    }
+
+    fun navigateFreeGame() {
+        soundController.clickUi()
+        soundController.playMainTheme()
+        FreeGameModel.onRunLevel()
+        navigateToLevelGame(true)
     }
 
     fun navigateToOptions() {

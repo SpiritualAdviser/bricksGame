@@ -11,6 +11,20 @@ object LevelsConfig {
         LevelBuilder().getLevelGameList(levelGameList)
     }
 
+    val gameFreeLevel: Level =
+        Level(
+            numberLevel = 1,
+            fieldGameRow = 7,
+            fieldGameColumn = 7,
+            additionalBrick = 3,
+            lastBrickToAdd = 0,
+            numberOfBricksToWin = 2,
+            negativeBonuses = listOf<Int>(5, 5),
+            bonusFillSpeed = 0.05f,
+            numberOfScoreToWin = 0,
+            levelMaxStep = 0
+        )
+
     val gameFixLevels: List<Level> = listOf(
 
         Level(

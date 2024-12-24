@@ -254,7 +254,13 @@ object LevelLogic {
         val noPlaceOnFieldGame = brickOnField.all { it.id != EMPTY_ID }
 
         if (GameConfig.GAME_TYPE_FREE) {
-            stepsOnLevel = 1
+
+            if (noPlaceOnFieldGame) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    closeLevel(false)
+                }
+            }
+            return
         }
 
         if (stepsOnLevel > 0 && !noPlaceOnFieldGame) {
