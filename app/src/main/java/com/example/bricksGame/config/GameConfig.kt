@@ -13,7 +13,7 @@ import com.example.bricksGame.ui.theme.errorLight
 object GameConfig : ViewModel() {
     lateinit var gameData: SQLiteDatabase
 
-    const val CHEAT = true
+    const val CHEAT = false
 
     /**
      * options for game designer Field Game
