@@ -164,9 +164,10 @@ class LevelBuilder {
             min = numberOfScoreToWin + increase.toInt()
             max = min + increase.toInt()
         } else {
-            min = numberOfScoreToWin - increase.toInt()
-            max = numberOfScoreToWin + 2
+            min = numberOfScoreToWin + increase.toInt()
+            max = numberOfScoreToWin
         }
+        numberOfScoreToWin
         return (Math.random() * (max - min) + min).toInt()
     }
 }
