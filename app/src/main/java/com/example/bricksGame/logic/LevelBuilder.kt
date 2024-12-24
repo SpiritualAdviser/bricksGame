@@ -4,6 +4,7 @@ import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.config.LevelsConfig
 import kotlin.math.ceil
+import kotlin.math.floor
 
 class LevelBuilder {
     private val gameFixLevels = LevelsConfig.gameFixLevels
@@ -48,10 +49,11 @@ class LevelBuilder {
     private fun getFieldGameRow(levelNumber: Int): Int {
         val additionalLine: Double = levelNumber / intervalComplication
 
-        var min = GameConfig.MIN_LINE_FIELD_ON_GAME + ceil(additionalLine)
+        var min = GameConfig.MIN_LINE_FIELD_ON_GAME + floor(additionalLine)
         var max = min + 1
-        if (ceil(additionalLine) > 3) {
-            min = GameConfig.MIN_LINE_FIELD_ON_GAME + ceil(2F).toDouble()
+
+        if (max >= GameConfig.MAX_LINE_FIELD_ON_GAME) {
+            min = GameConfig.MIN_LINE_FIELD_ON_GAME + 2.toDouble()
             max = GameConfig.MAX_LINE_FIELD_ON_GAME.toDouble()
         }
 
