@@ -112,20 +112,16 @@ class LevelBuilder {
         val maxClosedPlaces =
             ((fieldGameRow.toFloat() * fieldGameColumn.toFloat()) / 100) * GameConfig.MAX_CLOSED_PERCENT_GAME_FIELD
 
-        val stepCloseBonus: Double = maxClosedPlaces / GameConfig.MAX_LEVELS_ON_GAME.toDouble()
+        val percent = levelNumber / GameConfig.MAX_LEVELS_ON_GAME.toDouble() * 100
 
-        val min = ceil(levelNumber * stepCloseBonus / GameConfig.negativeBonuses.size / 2)
+        val min = ceil(maxClosedPlaces * percent / 100).toInt()
 
-        val max = ceil(levelNumber * stepCloseBonus / GameConfig.negativeBonuses.size)
+        val max = if (min + 2 > maxClosedPlaces) maxClosedPlaces.toInt() else min + 1
 
         var numberBonus = 0
 
         for (bonus in 0 until GameConfig.negativeBonuses.size) {
-            numberBonus = if (bonus == 0) {
-                (Math.random() * (max - min) + min).toInt()
-            } else {
-                (Math.random() * (max - min) + min).toInt()
-            }
+            numberBonus = (Math.random() * (max - min) + min).toInt()
 
             bonuses.add(numberBonus)
         }
