@@ -2,6 +2,7 @@ package com.example.bricksGame.config
 
 import android.database.sqlite.SQLiteDatabase
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
@@ -20,15 +21,16 @@ object GameConfig : ViewModel() {
      * Is set COLUMNS and ROWS on game
      */
 
-    var ROWS: Int = 6
-    var COLUMNS: Int = 7
+    var ROWS: Int = 2
+    var COLUMNS: Int = 2
 
     /**
     The number indicates how many crystals in a row the same color will win.
     0- full row and column are played.
     3- Three crystals in a row -win
      */
-    var WIN_NUMBER_LINE: Int = 0
+    var WIN_NUMBER_LINE by mutableIntStateOf(0)
+
     var MIN_WIN_NUMBER_LINE: Int = 3
 
     const val MAX_SCORE_ON_GAME = 300

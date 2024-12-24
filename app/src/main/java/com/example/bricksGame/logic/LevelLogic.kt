@@ -162,11 +162,15 @@ object LevelLogic {
     }
 
     private fun getNumberWinLine(bricks: List<FieldBrick>): Int {
-        return if (GameConfig.WIN_NUMBER_LINE == 0 || GameConfig.WIN_NUMBER_LINE > bricks.size) {
-            bricks.size
-        } else {
-            GameConfig.WIN_NUMBER_LINE
+        var winLine = 0
+        currentLevel?.numberOfBricksToWin?.let {
+            if (it == 0 || it > bricks.size) {
+                winLine = bricks.size
+            } else {
+                winLine = it
+            }
         }
+        return winLine
     }
 
     private fun isClosedBrick(fieldBrick: FieldBrick): Boolean {
@@ -220,7 +224,7 @@ object LevelLogic {
                 CoroutineScope(Dispatchers.Main).launch {
                     popupOnWinLine(true, winningPositions)
                 }
-            } else{
+            } else {
                 CoroutineScope(Dispatchers.Main).launch {
                     popupOnWinLine(false, winningPositions)
                 }
