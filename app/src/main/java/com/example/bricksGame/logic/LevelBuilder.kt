@@ -9,8 +9,6 @@ import kotlin.math.floor
 class LevelBuilder {
     private val gameFixLevels = LevelsConfig.gameFixLevels
 
-    private val intervalComplication: Double =
-        GameConfig.MAX_LEVELS_ON_GAME.toDouble() / (GameConfig.MAX_LINE_FIELD_ON_GAME - GameConfig.MIN_LINE_FIELD_ON_GAME)
 
     fun getLevelGameList(levelGameList: MutableList<Level>) {
 
@@ -25,8 +23,8 @@ class LevelBuilder {
         val fieldGameRow = getFieldGameRow(levelNumber)
         val fieldGameColumn = getFieldGameColumn(fieldGameRow)
         val numberOfBricksToWin = getNumberOfBricksToWin(fieldGameRow, fieldGameColumn)
-        val additionalBrick = getAdditionalBrick()
-        val lastBrickToAdd = getLastBrickToAdd(additionalBrick)
+        val additionalBrick = getAdditionalBrick(numberOfBricksToWin, fieldGameRow)
+        val lastBrickToAdd = getLastBrickToAdd(additionalBrick, numberOfBricksToWin, fieldGameRow)
         val bonusFillSpeed = getBonusFillSpeed(levelNumber)
         val negativeBonuses = getNegativeBonuses(levelNumber, fieldGameRow, fieldGameColumn)
         val numberOfScoreToWin = getNumberOfScoreToWin(levelNumber, fieldGameRow, fieldGameColumn)
@@ -47,6 +45,8 @@ class LevelBuilder {
     }
 
     private fun getFieldGameRow(levelNumber: Int): Int {
+        val intervalComplication: Double =
+            GameConfig.MAX_LEVELS_ON_GAME.toDouble() / (GameConfig.MAX_LINE_FIELD_ON_GAME - GameConfig.MIN_LINE_FIELD_ON_GAME)
         val additionalLine: Double = levelNumber / intervalComplication
 
         var min = GameConfig.MIN_LINE_FIELD_ON_GAME + floor(additionalLine)
@@ -80,15 +80,38 @@ class LevelBuilder {
         return (Math.random() * (maxLine - minLine) + minLine).toInt()
     }
 
-    private fun getAdditionalBrick(): Int {
-        val min = 3
-        val max = 5
+    private fun getAdditionalBrick(numberOfBricksToWin: Int, fieldGameRow: Int): Int {
+        var min = 3
+        var max = 4
+
+        if (fieldGameRow == numberOfBricksToWin) {
+            min = 3
+            max = 5
+        }
+
         return (Math.random() * (max - min) + min).toInt()
     }
 
-    private fun getLastBrickToAdd(additionalBrick: Int): Int {
-        val min = 0
-        val max = additionalBrick - 1
+    private fun getLastBrickToAdd(
+        additionalBrick: Int,
+        numberOfBricksToWin: Int,
+        fieldGameRow: Int
+    ): Int {
+
+        var min = 0
+        var max = 1
+
+        if (numberOfBricksToWin >= fieldGameRow - 1) {
+            min = 1
+            max = additionalBrick - 1
+        }
+
+        if (fieldGameRow - numberOfBricksToWin > 2) {
+            min = 0
+            max = 1
+        }
+
+
         return (Math.random() * (max - min) + min).toInt()
     }
 
@@ -114,7 +137,7 @@ class LevelBuilder {
 
         val percent = levelNumber / GameConfig.MAX_LEVELS_ON_GAME.toDouble() * 100
 
-        val min = ceil((maxClosedPlaces * percent / 100)/GameConfig.negativeBonuses.size).toInt()
+        val min = ceil((maxClosedPlaces * percent / 100) / GameConfig.negativeBonuses.size).toInt()
 
         val max = if (min + 2 > maxClosedPlaces) maxClosedPlaces.toInt() else min + 1
 
