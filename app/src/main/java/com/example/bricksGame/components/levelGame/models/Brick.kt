@@ -1,5 +1,6 @@
 package com.example.bricksGame.components.levelGame.models
 
+import androidx.compose.animation.core.Animatable
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableFloatStateOf
@@ -37,7 +38,11 @@ data class Brick(
 
     var hasBonusOwnerId: FieldBrick? = null,
     var fieldBrickOnCollision: FieldBrick? = null,
-) {
+
+    ) {
+    var animated = mutableStateOf(false)
+    val rotation = Animatable(initialValue = 360f)
+    val translationX = Animatable(initialValue = screenSize.screenWidthPx.toFloat())
 
     fun changeZIndex(index: Float) {
         zIndex.value = index

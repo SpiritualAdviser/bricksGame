@@ -1,5 +1,16 @@
 package com.example.bricksGame.helper
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.EaseIn
+import androidx.compose.animation.core.EaseOut
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -35,9 +46,26 @@ class AppNavigation private constructor() {
     fun CreateNavHost() {
         _navController = rememberNavController()
 
-        NavHost(navController = _navController, startDestination = Routes.HomeScreen.route) {
+
+        NavHost(navController = _navController,
+            startDestination = Routes.HomeScreen.route,
+            enterTransition = { EnterTransition.None },
+            exitTransition = { ExitTransition.None }) {
+
             composable(Routes.HomeScreen.route) { RunHomeScreen() }
-            composable(Routes.LevelGame.route) { RunLevelGame() }
+            composable(Routes.LevelGame.route,
+                enterTransition = {
+                    scaleIn(
+                        animationSpec = tween(300, easing = LinearEasing),
+                    )
+                },
+                exitTransition = {
+                    scaleOut(
+                        animationSpec = tween(300, easing = LinearEasing),
+                    )
+                }
+
+            ) { RunLevelGame() }
             composable(Routes.Players.route) { PlayerView() }
             composable(Routes.Options.route) { Options() }
             composable(Routes.Map.route) { Map() }

@@ -3,7 +3,9 @@ package com.example.bricksGame.components.levelGame.models
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
+import com.example.bricksGame.components.levelGame.animations.AnimationsBrick
 import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.screenSize
 import kotlin.math.max
 
 object BricksViewModel : ViewModel() {
