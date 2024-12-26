@@ -33,6 +33,9 @@ import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
+import com.example.bricksGame.components.popups.WinLine
+import com.example.bricksGame.components.popups.WinPopup
+import com.example.bricksGame.components.popups.models.PopupsViewModel
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.LevelLandscapeBg
 import com.example.bricksGame.logic.CollisionBricksOnLevel
@@ -47,6 +50,14 @@ fun LandscapeLayout() {
     GridFieldBox()
     BonusBlock()
     BricksBlock()
+
+    if (PopupsViewModel.showPopupWinLine.value) {
+        WinLine()
+    }
+
+    if (PopupsViewModel.showPopupOnFinishGame.value) {
+        WinPopup()
+    }
 }
 
 @Composable
