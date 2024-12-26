@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -32,6 +33,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.bricksGame.R
+import com.example.bricksGame.components.levelGame.animations.AnimationsBrick.InitAnimationTranslationX
+import com.example.bricksGame.components.levelGame.animations.AnimationsBrick.runAnimationTranslation
 import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
@@ -167,40 +170,45 @@ private fun GridFieldBox() {
 @Composable
 private fun BricksBlock() {
     val coroutine = rememberCoroutineScope()
-
     Row(
         modifier = Modifier
 //            .border(4.dp, Color.Magenta),
     ) {
-        (BricksViewModel.bricks.forEach {
-            key(it.id) {
+        (BricksViewModel.bricks.forEachIndexed {index, brick->
+
+            key(brick.id) {
+                InitAnimationTranslationX(brick)
+
                 Box(
                     Modifier
-                        .offset { IntOffset(it.x.intValue, it.y.intValue) }
+                        .offset { IntOffset(brick.x.intValue, brick.y.intValue) }
                         .size(FieldViewModel.brickSizePortrait)
                         .background(GameConfig.BRICK_BG_COLOR)
+                        .graphicsLayer {
+                            translationX = brick.translationX.value
+                        }
                         .paint(
-                            painterResource(it.assetImage),
+                            painterResource(brick.assetImage),
                             sizeToIntrinsics = true,
                             contentScale = ContentScale.FillBounds
                         )
                         .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
                         .onGloballyPositioned { coordinates ->
-                            it.setGloballyPosition(coordinates)
+                            brick.setGloballyPosition(coordinates)
                         }
                         .pointerInput(Unit) {
                             detectDragGestures(
                                 onDragStart = { },
                                 onDrag = { _, dragAmount ->
 
-                                    it.dragging(dragAmount.x, dragAmount.y)
+                                    brick.dragging(dragAmount.x, dragAmount.y)
                                     coroutine.launch {
-                                        CollisionBricksOnLevel.observeCenterObjects(it)
+                                        CollisionBricksOnLevel.observeCenterObjects(brick)
                                     }
                                 },
                                 onDragEnd = {
                                     coroutine.launch {
-                                        it.takeAPlaces()
+                                        brick.takeAPlaces()
                                     }
                                 },
                                 onDragCancel = { },
@@ -209,6 +217,7 @@ private fun BricksBlock() {
                 )
                 Spacer(Modifier.size(10.dp))
             }
+            runAnimationTranslation(brick, index)
         })
     }
 }

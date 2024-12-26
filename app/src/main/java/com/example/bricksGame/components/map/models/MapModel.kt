@@ -1,6 +1,9 @@
 package com.example.bricksGame.components.map.models
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel
@@ -10,6 +13,8 @@ import com.example.bricksGame.config.LevelsConfig
 import com.example.bricksGame.helper.ButtonController
 
 object MapModel : ViewModel() {
+
+    val visibility = mutableStateOf(false)
 
     val levelList = LevelsConfig.levelGameList.toMutableStateList()
     var currentLevel: Level? = null

@@ -3,8 +3,9 @@ package com.example.bricksGame.components.levelGame.models
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
-import com.example.bricksGame.components.map.models.MapModel.currentLevel
+import com.example.bricksGame.components.levelGame.animations.AnimationsBrick
 import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.screenSize
 import kotlin.math.max
 
 object BricksViewModel : ViewModel() {
@@ -31,14 +32,10 @@ object BricksViewModel : ViewModel() {
     }
 
     private fun getRandomImage(): Int {
-        val column = currentLevel?.fieldGameColumn ?: GameConfig.COLUMNS
-        val row = currentLevel?.fieldGameRow ?: GameConfig.ROWS
-        val winLine = currentLevel?.numberOfBricksToWin ?: GameConfig.WIN_NUMBER_LINE
-
         var maxColors: Int = 0
-        maxColors = max(column, row)
+        maxColors = max(GameConfig.COLUMNS, GameConfig.ROWS)
 
-        if (winLine == 0) maxColors else maxColors += 1
+        if (GameConfig.WIN_NUMBER_LINE == 0) maxColors else maxColors += 1
 
         if (GameConfig.imagesBricks.elementAtOrNull(maxColors) == null) {
             maxColors = GameConfig.imagesBricks.size - 1
