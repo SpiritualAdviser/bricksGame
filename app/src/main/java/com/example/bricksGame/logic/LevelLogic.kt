@@ -206,7 +206,7 @@ object LevelLogic {
         winningPositions.forEach { winPosition ->
 
             brickOnField.find { it.position == winPosition }?.let {
-                noResetFieldBrick(it)
+               onResetFieldBrick(it)
             }
         }
     }
@@ -240,7 +240,7 @@ object LevelLogic {
         }
     }
 
-    private fun noResetFieldBrick(fieldBrick: FieldBrick) {
+    private fun  onResetFieldBrick(fieldBrick: FieldBrick) {
         if (fieldBrick.life > 0) {
             --fieldBrick.life
             fieldBrick.hasBonusOwnerId = null
@@ -268,7 +268,7 @@ object LevelLogic {
             if (checkWinLevelOrNot()) {
 
                 CoroutineScope(Dispatchers.Main).launch {
-                    closeLevel(true)
+                    closeLevel(checkWinLevelOrNot())
                 }
             }
 
