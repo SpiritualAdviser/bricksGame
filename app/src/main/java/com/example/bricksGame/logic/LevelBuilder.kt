@@ -73,9 +73,17 @@ class LevelBuilder {
 
     private fun getNumberOfBricksToWin(fieldGameRow: Int, fieldGameColumn: Int): Int {
         var maxLine = if (fieldGameRow > fieldGameColumn) fieldGameRow else fieldGameColumn
-        maxLine = if (maxLine > 6) 6 else maxLine
 
-        val minLine = if (maxLine > 5) 4 else GameConfig.MIN_WIN_NUMBER_LINE
+        when (maxLine) {
+            3 -> maxLine = 3
+            4 -> maxLine = 3
+            5 -> maxLine = 4
+            else -> {
+                maxLine = 5
+            }
+        }
+
+        val minLine = if (maxLine > 4) 4 else GameConfig.MIN_WIN_NUMBER_LINE
 
         return (Math.random() * (maxLine - minLine) + minLine).toInt()
     }
@@ -98,10 +106,10 @@ class LevelBuilder {
         fieldGameRow: Int
     ): Int {
 
-        var min = 0
-        var max = 1
+        var min = 2
+        var max = additionalBrick
 
-        if (numberOfBricksToWin >= fieldGameRow - 1) {
+        if (numberOfBricksToWin == fieldGameRow - 1) {
             min = 1
             max = additionalBrick - 1
         }
