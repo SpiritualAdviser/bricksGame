@@ -43,6 +43,8 @@ data class Brick(
     var animated = mutableStateOf(false)
     val rotation = Animatable(initialValue = 360f)
     val translationX = Animatable(initialValue = screenSize.screenWidthPx.toFloat())
+    val translationY = Animatable(initialValue = screenSize.screenHeightPx.toFloat())
+    var delayTranslation = 0
 
     fun changeZIndex(index: Float) {
         zIndex.value = index
