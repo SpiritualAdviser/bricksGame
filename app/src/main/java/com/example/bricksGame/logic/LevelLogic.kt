@@ -21,6 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.collections.forEach
+import kotlin.math.floor
 
 object LevelLogic {
 
@@ -288,11 +289,15 @@ object LevelLogic {
         megaWin: Boolean = false,
         winningPositions: MutableList<Pair<Int, Int>>
     ) {
+        winningPositions.sortedWith(compareBy({ it.first }, { it.second }))
 
-        val fieldBrick = brickOnField.find { it.position == winningPositions.first() }
+        val centerIndexPosition = floor(winningPositions.size.toFloat() / 2).toInt()
+        val rowDirection = winningPositions.first().first == winningPositions.last().first
+
+        val fieldBrick = brickOnField.find { it.position == winningPositions[centerIndexPosition] }
 
         delay(100)
-        PopupsViewModel.onWinLine(megaWin, fieldBrick)
+        PopupsViewModel.onWinLine(megaWin, fieldBrick, winningPositions.size, rowDirection)
         delay(400)
         PopupsViewModel.closePopupOnWinLine()
     }

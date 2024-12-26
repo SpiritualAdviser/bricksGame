@@ -24,8 +24,8 @@ fun WinLine() {
         modifier = Modifier
             .offset {
                 IntOffset(
-                    PopupsViewModel.xPopupWinLine.intValue,
-                    PopupsViewModel.yPopupWinLine.intValue
+                    x = PopupsViewModel.xPopupWinLine.intValue,
+                    y = PopupsViewModel.yPopupWinLine.intValue
                 )
             },
         fontSize = 25.sp,
