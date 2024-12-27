@@ -31,7 +31,7 @@ object LevelsConfig {
             numberLevel = 1,
             fieldGameRow = 5,
             fieldGameColumn = 6,
-            additionalBrick = 2,
+            additionalBrick = 3,
             lastBrickToAdd = 0,
             numberOfBricksToWin = 3,
             negativeBonuses = listOf<Int>(0, 0),

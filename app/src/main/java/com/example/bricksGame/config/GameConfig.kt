@@ -12,7 +12,7 @@ import com.example.bricksGame.ui.theme.errorLight
 
 object GameConfig : ViewModel() {
     lateinit var gameData: SQLiteDatabase
-
+    const val GAME_VERSION = "b-0.1"
     const val CHEAT = false
 
     /**
@@ -47,7 +47,7 @@ object GameConfig : ViewModel() {
     var MAX_BRICKS_ON_LEVEL = 3
     var MAX_NEGATIVE_BRICKS_ON_LEVEL = listOf<Int>(0, 0)
     var MIN_BRICKS_TO_ADD_NEXT = 0
-    const val MAX_BRICKS_SIZE = 60
+    const val MAX_BRICKS_SIZE = 55
 
     /**
      * options for padding FieldGame in Dp
@@ -90,6 +90,11 @@ object GameConfig : ViewModel() {
         R.drawable.dark_brick,
     )
 
+    val imagesWinLine = listOf(
+        R.drawable.wow,
+        R.drawable.mega,
+    )
+
     val imagesBricksBonuses = listOf(
         R.drawable.ice_bonus,
         R.drawable.fire_bonus,
@@ -117,7 +122,6 @@ object GameConfig : ViewModel() {
     const val NEGATIVE_BONUS_ROCK = 999
     const val NEGATIVE_BONUS_ROCK_LIFE = 1
     const val MAX_CLOSED_PERCENT_GAME_FIELD = 30
-
 
     var WIN_LINE_DESTROY_NEGATIVE_BONUS = true
     var SOUND_MUTED by mutableStateOf(false)

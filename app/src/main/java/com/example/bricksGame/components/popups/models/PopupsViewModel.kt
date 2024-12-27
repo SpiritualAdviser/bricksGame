@@ -1,10 +1,13 @@
 package com.example.bricksGame.components.popups.models
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.models.FieldBrick
+import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.screenSize
 
 object PopupsViewModel : ViewModel() {
@@ -12,13 +15,15 @@ object PopupsViewModel : ViewModel() {
     var showPopupOnFinishGame = mutableStateOf(false)
     var showPopupWinLine = mutableStateOf(false)
 
+    var imageDefaultWinLine = GameConfig.imagesWinLine[0]
+    var imageMegaWinLine = GameConfig.imagesWinLine[1]
+
+    var imageAsset = mutableIntStateOf(imageDefaultWinLine)
+
     var xPopupWinLine = mutableIntStateOf(0)
     var yPopupWinLine = mutableIntStateOf(0)
 
-    var textWinLine = mutableStateOf("WOOW")
-
-    var textDefaultWinLine = "WwwW"
-    var textMegaWinLine = "WWWW"
+    var scalePopupWinLine = Animatable(initialValue = 1F)
 
     private const val WIN_TEXT = "You win!!!"
     private const val LOSE_TEXT = "You lose!!!"
@@ -37,8 +42,7 @@ object PopupsViewModel : ViewModel() {
             xPopupWinLine.intValue = offset.getValue("x").toInt()
             yPopupWinLine.intValue = offset.getValue("y").toInt()
         }
-
-        textWinLine.value = if (megaWin) textMegaWinLine else textDefaultWinLine
+        imageAsset.intValue = if (megaWin) imageMegaWinLine else imageDefaultWinLine
         showPopupWinLine.value = true
         println()
     }
@@ -92,7 +96,8 @@ object PopupsViewModel : ViewModel() {
 
     fun closePopupOnWinLine() {
         showPopupWinLine.value = false
-        textWinLine.value = textDefaultWinLine
+        imageAsset.intValue = imageDefaultWinLine
+        scalePopupWinLine=Animatable(initialValue = 1F)
     }
 
     fun closePopupOnFinishGame() {

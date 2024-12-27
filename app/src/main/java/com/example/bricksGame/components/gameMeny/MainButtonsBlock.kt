@@ -22,7 +22,7 @@ fun MainButtonsBlock() {
         IconButton(
             onClick = { ButtonController.navigateToMap() },
             modifier = Modifier
-                .size(95.dp, 42.dp)
+                .size(100.dp, 43.dp)
                 .paint(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit
@@ -32,7 +32,7 @@ fun MainButtonsBlock() {
         IconButton(
             onClick = { ButtonController.navigateFreeGame() },
             modifier = Modifier
-                .size(95.dp, 42.dp)
+                .size(100.dp, 43.dp)
                 .paint(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit
@@ -42,7 +42,7 @@ fun MainButtonsBlock() {
         IconButton(
             onClick = { ButtonController.navigateToPlayers() },
             modifier = Modifier
-                .size(95.dp, 42.dp)
+                .size(100.dp, 43.dp)
                 .paint(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit
@@ -52,7 +52,7 @@ fun MainButtonsBlock() {
         IconButton(
             onClick = { ButtonController.navigateToDescription() },
             modifier = Modifier
-                .size(95.dp, 42.dp)
+                .size(100.dp, 43.dp)
                 .paint(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit

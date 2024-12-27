@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
@@ -35,17 +35,18 @@ import androidx.compose.ui.zIndex
 import com.example.bricksGame.R
 import com.example.bricksGame.components.levelGame.animations.AnimationsBrick.InitAnimationTranslationX
 import com.example.bricksGame.components.levelGame.animations.AnimationsBrick.runAnimationTranslation
-import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
+import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.players.PlayerScoreBlock
 import com.example.bricksGame.components.popups.WinLine
+import com.example.bricksGame.components.popups.WinPopup
+import com.example.bricksGame.components.popups.animations.AnimationsPopups.RunAnimationScale
+import com.example.bricksGame.components.popups.models.PopupsViewModel
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.LevelPortraitBg
 import com.example.bricksGame.logic.CollisionBricksOnLevel
-import com.example.bricksGame.components.popups.WinPopup
-import com.example.bricksGame.components.popups.models.PopupsViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -60,6 +61,7 @@ fun PortraitLayout() {
         FieldBlock()
     }
     if (PopupsViewModel.showPopupWinLine.value) {
+        RunAnimationScale()
         WinLine()
     }
 

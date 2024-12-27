@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import com.example.bricksGame.components.naviBar.ButtonSound
 import com.example.bricksGame.helper.MainMenuBg
 import com.example.bricksGame.R
+import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.ui.theme.gameVersionText
 
 @Composable
 fun RunHomeScreen() {
@@ -42,7 +45,7 @@ fun RunHomeScreen() {
         ) {
             Image(
                 bitmap = ImageBitmap.imageResource(R.drawable.logo),
-                modifier = Modifier.size(220.dp, 120.dp),
+                modifier = Modifier.size(260.dp, 130.dp),
                 contentDescription = "logo"
             )
         }
@@ -50,6 +53,16 @@ fun RunHomeScreen() {
         MainButtonsBlock()
     }
 
+    Box(
+        Modifier
+            .fillMaxSize()
+            .padding(10.dp),
+        contentAlignment = Alignment.BottomEnd
+
+
+    ) {
+        Text("Game version ${GameConfig.GAME_VERSION}", color = gameVersionText)
+    }
 
 }
 
