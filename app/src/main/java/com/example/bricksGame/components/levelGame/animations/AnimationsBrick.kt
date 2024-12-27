@@ -40,7 +40,7 @@ object AnimationsBrick {
     }
 
     fun runAnimationTranslation(brick: Brick, index: Int) {
-        brick.delayTranslation = 300 * (index + 1)
+        brick.delayTranslation = 250 * (index + 1)
         CoroutineScope(Dispatchers.Main).launch {
             delay(0)
             brick.animated.value = true

@@ -55,7 +55,7 @@ object PlayerViewModel : ViewModel() {
         }
     }
 
-    fun addActivePlayer(player: Player) {
+    fun setActivePlayerOnGame(player: Player) {
         CoroutineScope(Dispatchers.IO).launch {
             resetPlayers()
 
@@ -135,7 +135,7 @@ object PlayerViewModel : ViewModel() {
             nameNewPlayer.value = ""
         }
 
-        addActivePlayer(newPlayer)
+        setActivePlayerOnGame(newPlayer)
     }
 
     fun update(player: Player) {

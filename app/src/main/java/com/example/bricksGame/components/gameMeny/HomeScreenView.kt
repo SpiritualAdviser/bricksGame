@@ -5,12 +5,16 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.components.naviBar.ButtonSound
 import com.example.bricksGame.helper.MainMenuBg
 import com.example.bricksGame.helper.ButtonController
+import com.example.bricksGame.R
 
 @Composable
 fun RunHomeScreen() {
@@ -36,11 +40,11 @@ fun RunHomeScreen() {
         Button(
             onClick = { ButtonController.navigateToMap() },
             modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
-//                .size(100.dp, 40.dp)
-//                .paint(
-//                    painter = painterResource(R.drawable.buttons_empty),
-//                    contentScale = ContentScale.FillWidth
-//                )
+                .size(100.dp, 40.dp)
+                .paint(
+                    painter = painterResource(R.drawable.buttons_empty),
+                    contentScale = ContentScale.FillWidth
+                )
         ) { Text("Adventure") }
         Spacer(Modifier.size(10.dp))
 

@@ -20,6 +20,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -36,24 +37,28 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bricksGame.components.naviBar.ButtonNavigateHome
-import com.example.bricksGame.components.naviBar.ButtonSound
+import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.players.data.Player
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.helper.MainMenuBg
-import com.example.bricksGame.ui.theme.backgroundDark
-import com.example.bricksGame.ui.theme.errorLight
+import com.example.bricksGame.ui.theme.activePlayerBgCard
+import com.example.bricksGame.ui.theme.activePlayerIcon
+import com.example.bricksGame.ui.theme.focusedTextFieldBg
 import com.example.bricksGame.ui.theme.onPrimaryLight
-import com.example.bricksGame.ui.theme.onSurfaceVariantLight
-import com.example.bricksGame.ui.theme.outlineDarkMediumContrast
-import com.example.bricksGame.ui.theme.outlineLight
-import com.example.bricksGame.ui.theme.outlineVariantLight
+import com.example.bricksGame.ui.theme.playerBgCard
+import com.example.bricksGame.ui.theme.playerTextDark
+import com.example.bricksGame.ui.theme.playersBgBlock
+import com.example.bricksGame.ui.theme.unfocusedTextFieldBg
 import kotlinx.coroutines.launch
+import com.example.bricksGame.R
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -63,7 +68,6 @@ fun PlayerView() {
     val coroutineScope = rememberCoroutineScope()
 
     MainMenuBg()
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -72,21 +76,19 @@ fun PlayerView() {
         horizontalArrangement = Arrangement.End
 
     ) {
-        ButtonSound()
+        ButtonNaviBar()
     }
-
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        ButtonNavigateHome()
-
+        Spacer(Modifier.size(8.dp))
         PlayersList()
         Spacer(Modifier.size(5.dp))
         AddPlayer()
-
-        Button(
+        Spacer(Modifier.size(5.dp))
+        IconButton(
             onClick = {
                 if (true) {
                     PlayerViewModel.addPlayer()
@@ -100,13 +102,13 @@ fun PlayerView() {
                     }
                 }
             },
-            modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
-//                .size(100.dp, 80.dp)
-//                .paint(
-//                    painter = painterResource(R.drawable.buttons_empty),
-//                    contentScale = ContentScale.FillWidth
-//                )
-        ) { Text("Create player") }
+            modifier = Modifier
+                .size(110.dp, 50.dp)
+                .paint(
+                    painter = painterResource(R.drawable.buttons_empty),
+                    contentScale = ContentScale.FillBounds
+                )
+        ) { Text("Create player", fontSize = 13.sp) }
 
     }
     Column(
@@ -124,18 +126,18 @@ fun PlayerView() {
 fun PlayersList() {
     val playersList = PlayerViewModel.playersList.collectAsState(initial = emptyList<Player>())
 
-    Text("Players", fontSize = 20.sp, color = onPrimaryLight)
+    Text("Players", fontSize = 22.sp, color = onPrimaryLight)
+    Spacer(Modifier.size(4.dp))
     LazyColumn(
         Modifier
             .fillMaxWidth(0.8f)
             .fillMaxHeight(0.4f)
             .clip(RoundedCornerShape(5.dp))
-            .background(onSurfaceVariantLight)
+            .background(playersBgBlock)
             .border(1.dp, Color.Black, shape = RoundedCornerShape(5.dp))
             .padding(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(5.dp)
-
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
 
         items(items = playersList.value) {
@@ -150,11 +152,17 @@ fun PlayerCard(player: Player) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = {
-                PlayerViewModel.addActivePlayer(player)
+                PlayerViewModel.setActivePlayerOnGame(player)
             })
-            .height(40.dp)
+            .height(50.dp)
             .clip(RoundedCornerShape(5.dp))
-            .background(outlineDarkMediumContrast),
+            .background(
+                if (player.isActive) {
+                    activePlayerBgCard
+                } else {
+                    playerBgCard
+                }
+            ),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -168,22 +176,34 @@ fun PlayerCard(player: Player) {
                 Icons.Filled.AccountBox,
                 contentDescription = "player",
                 tint = if (player.isActive) {
-                    errorLight
+                    activePlayerIcon
                 } else {
-                    backgroundDark
+                    playerTextDark
                 }
             )
-            Text(player.playerName, color = backgroundDark)
+            Text(player.playerName, color = playerTextDark)
         }
         Row {
-            Text("achiev..: ${player.achievements}", color = backgroundDark)
+            Text("achiev..: ${player.achievements}", color = playerTextDark)
         }
         Box(
             Modifier.fillMaxWidth(),
             contentAlignment = Alignment.CenterEnd,
         ) {
-            IconButton(onClick = { PlayerViewModel.delete(player) }) {
-                Icon(Icons.Filled.Delete, contentDescription = "delete player")
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                if (player.isActive) {
+                    Icon(
+                        Icons.Filled.Check,
+                        tint = activePlayerIcon,
+                        contentDescription = "activePlayer",
+                    )
+                }
+
+                IconButton(onClick = { PlayerViewModel.delete(player) }) {
+                    Icon(Icons.Filled.Delete, contentDescription = "delete player")
+                }
             }
         }
     }
@@ -201,10 +221,9 @@ fun AddPlayer() {
         },
         label = { Text("name") },
         colors = TextFieldDefaults.colors(
-            unfocusedContainerColor = outlineLight,
-            focusedContainerColor = outlineVariantLight,
+            unfocusedContainerColor = unfocusedTextFieldBg,
+            focusedContainerColor = focusedTextFieldBg,
         ),
-
         textStyle = TextStyle(
             fontSize = 20.sp,
         ),

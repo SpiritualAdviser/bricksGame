@@ -2,9 +2,18 @@ package com.example.bricksGame.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val overlayBg = Color(0xB91A1A1A)
+val playersBgBlock = Color(0xBE000306)
+val playerBgCard = Color(0xFFB69872)
+val activePlayerBgCard = Color(0xFACCBEA9)
+val playerTextDark = Color(0xFF101510)
+val activePlayerIcon = Color(0xFFBA1A1A)
+val onPrimaryLight = Color(0xFFFFFFFF)
+val unfocusedTextFieldBg = Color(0xFFB69872)
+val focusedTextFieldBg = Color(0xFACCBEA9)
+
+
 
 val primaryLight = Color(0xFF2E6A44)
-val onPrimaryLight = Color(0xFFFFFFFF)
 val primaryContainerLight = Color(0xFFB1F1C1)
 val onPrimaryContainerLight = Color(0xFF00210E)
 val secondaryLight = Color(0xFF4F6353)
