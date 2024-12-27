@@ -307,7 +307,7 @@ object LevelLogic {
             updatePlayerOnLevelWin()
         }
         PopupsViewModel.setImageOnLevelEnd(onWin)
-        delay(100)
+        delay(300)
         PopupsViewModel.showPopupOnFinishGame()
         delay(1800)
 
