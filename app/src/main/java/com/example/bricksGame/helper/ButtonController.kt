@@ -4,7 +4,6 @@ import com.example.bricksGame.components.freeGame.FreeGameModel
 import com.example.bricksGame.logic.LevelLogic
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
-import com.example.bricksGame.components.options.models.OptionsViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.soundController
@@ -65,10 +64,10 @@ object ButtonController {
         navigateToLevelGame(true)
     }
 
-    fun navigateToOptions() {
+    fun navigateToDescription() {
         soundController.clickUi()
-        AppNavigation.getInstance().getNavController().navigate(Routes.Options.route) {
-            popUpTo(Routes.Options.route)
+        AppNavigation.getInstance().getNavController().navigate(Routes.Description.route) {
+            popUpTo(Routes.Description.route)
             launchSingleTop = true
         }
     }

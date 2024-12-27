@@ -1,14 +1,9 @@
 package com.example.bricksGame.helper
 
-import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.EaseIn
-import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.runtime.Composable
@@ -17,11 +12,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.bricksGame.components.map.Map
-import com.example.bricksGame.components.players.PlayerView
 import com.example.bricksGame.components.gameMeny.RunHomeScreen
 import com.example.bricksGame.components.levelGame.RunLevelGame
-import com.example.bricksGame.components.options.Options
+import com.example.bricksGame.components.map.Map
+import com.example.bricksGame.components.players.PlayerView
 
 class AppNavigation private constructor() {
 
@@ -67,7 +61,7 @@ class AppNavigation private constructor() {
 
             ) { RunLevelGame() }
             composable(Routes.Players.route) { PlayerView() }
-            composable(Routes.Options.route) { Options() }
+            composable(Routes.Description.route) {  }
             composable(Routes.Map.route) { Map() }
         }
     }
@@ -81,7 +75,7 @@ sealed class Routes(val route: String) {
     data object HomeScreen : Routes("HomeScreen")
     data object LevelGame : Routes("LevelGame")
     data object Players : Routes("Players")
-    data object Options : Routes("Options")
+    data object Description : Routes("Description")
     data object Map : Routes("Map")
 }
 
