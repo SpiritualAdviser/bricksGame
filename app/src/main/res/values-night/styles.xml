@@ -4,4 +4,9 @@
         <item name="android:background">@color/gray_600</item>
         <item name="exampleColor">@color/light_blue_600</item>
     </style>
+
+    <style name="mainButtonsText" parent="">
+        <item name="android:textSize">13sp</item>
+        <item name="exampleColor">@color/black</item>
+    </style>
 </resources>

@@ -1,19 +1,19 @@
 package com.example.bricksGame.components.gameMeny
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
-import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.components.naviBar.ButtonSound
 import com.example.bricksGame.helper.MainMenuBg
-import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.R
 
 @Composable
@@ -32,52 +32,25 @@ fun RunHomeScreen() {
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        Arrangement.Center,
-        Alignment.CenterHorizontally
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(
-            onClick = { ButtonController.navigateToMap() },
-            modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
-                .size(100.dp, 40.dp)
-                .paint(
-                    painter = painterResource(R.drawable.buttons_empty),
-                    contentScale = ContentScale.FillWidth
-                )
-        ) { Text("Adventure") }
-        Spacer(Modifier.size(10.dp))
+        Column(
+            modifier = Modifier
+                .fillMaxHeight(0.4F),
+            verticalArrangement = Arrangement.Center,
+        ) {
+            Image(
+                bitmap = ImageBitmap.imageResource(R.drawable.logo),
+                modifier = Modifier.size(220.dp, 120.dp),
+                contentDescription = "logo"
+            )
+        }
 
-        Button(
-            onClick = { ButtonController.navigateFreeGame() },
-            modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
-//                .size(100.dp, 40.dp)
-//                .paint(
-//                    painter = painterResource(R.drawable.buttons_empty),
-//                    contentScale = ContentScale.FillWidth
-//                )
-        ) { Text("Free game") }
-        Spacer(Modifier.size(10.dp))
-        Button(
-            onClick = { ButtonController.navigateToPlayers() },
-            modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
-//                .size(100.dp, 40.dp)
-//                .paint(
-//                    painter = painterResource(R.drawable.buttons_empty),
-//                    contentScale = ContentScale.FillWidth
-//                )
-        ) { Text("Players") }
-        Spacer(Modifier.size(10.dp))
-        Button(
-            onClick = { ButtonController.navigateToOptions() },
-            modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
-//                .size(100.dp, 40.dp)
-//                .paint(
-//                    painter = painterResource(R.drawable.buttons_empty),
-//                    contentScale = ContentScale.FillWidth
-//                )
-        ) { Text("Options") }
+        MainButtonsBlock()
     }
+
+
 }
 
 

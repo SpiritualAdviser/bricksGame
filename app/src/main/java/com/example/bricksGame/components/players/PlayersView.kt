@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,7 +23,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -38,13 +38,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.bricksGame.R
 import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.players.data.Player
 import com.example.bricksGame.components.players.models.PlayerViewModel
@@ -58,7 +58,6 @@ import com.example.bricksGame.ui.theme.playerTextDark
 import com.example.bricksGame.ui.theme.playersBgBlock
 import com.example.bricksGame.ui.theme.unfocusedTextFieldBg
 import kotlinx.coroutines.launch
-import com.example.bricksGame.R
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -168,7 +167,6 @@ fun PlayerCard(player: Player) {
     ) {
 
         Row(
-            horizontalArrangement = Arrangement.spacedBy(2.dp),
             verticalAlignment = Alignment.CenterVertically,
 
             ) {
@@ -181,10 +179,10 @@ fun PlayerCard(player: Player) {
                     playerTextDark
                 }
             )
-            Text(player.playerName, color = playerTextDark)
+            Text(player.playerName, fontSize = 14.sp, color = playerTextDark)
         }
         Row {
-            Text("achiev..: ${player.achievements}", color = playerTextDark)
+            Text("achievement: ${player.achievements}", fontSize = 14.sp, color = playerTextDark)
         }
         Box(
             Modifier.fillMaxWidth(),
@@ -196,6 +194,7 @@ fun PlayerCard(player: Player) {
                 if (player.isActive) {
                     Icon(
                         Icons.Filled.Check,
+                        modifier = Modifier.offset(x = 10.dp),
                         tint = activePlayerIcon,
                         contentDescription = "activePlayer",
                     )
