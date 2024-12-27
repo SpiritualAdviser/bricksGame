@@ -94,4 +94,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
     implementation ("com.google.code.gson:gson:2.9.0")
+
+    implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation("io.coil-kt:coil-gif:2.2.2")
 }

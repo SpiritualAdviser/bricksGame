@@ -306,10 +306,10 @@ object LevelLogic {
         if (onWin) {
             updatePlayerOnLevelWin()
         }
-        PopupsViewModel.setTextOnLevel(onWin)
-        delay(200)
+        PopupsViewModel.setImageOnLevelEnd(onWin)
+        delay(100)
         PopupsViewModel.showPopupOnFinishGame()
-        delay(1200)
+        delay(1800)
 
         if (GameConfig.GAME_TYPE_FREE) {
             ButtonController.navigateToHome()
@@ -317,7 +317,7 @@ object LevelLogic {
             ButtonController.navigateToMap()
         }
 
-        delay(200)
-        PopupsViewModel.closePopupOnFinishGame()
+        delay(300)
+       PopupsViewModel.closePopupOnFinishGame()
     }
 }

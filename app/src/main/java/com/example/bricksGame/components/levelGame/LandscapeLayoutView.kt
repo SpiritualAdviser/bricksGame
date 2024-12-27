@@ -38,6 +38,7 @@ import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
 import com.example.bricksGame.components.popups.WinLine
 import com.example.bricksGame.components.popups.WinPopup
+import com.example.bricksGame.components.popups.animations.AnimationsPopups.RunAnimationScale
 import com.example.bricksGame.components.popups.models.PopupsViewModel
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.LevelLandscapeBg
@@ -55,6 +56,7 @@ fun LandscapeLayout() {
     BricksBlock()
 
     if (PopupsViewModel.showPopupWinLine.value) {
+        RunAnimationScale()
         WinLine()
     }
 

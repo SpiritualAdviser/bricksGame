@@ -1,20 +1,26 @@
 package com.example.bricksGame.components.popups
 
+import android.os.Build.VERSION.SDK_INT
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.platform.LocalContext
+import coil.ImageLoader
+import coil.compose.rememberAsyncImagePainter
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
 import com.example.bricksGame.components.popups.models.PopupsViewModel
 import com.example.bricksGame.ui.theme.overlayBg
-import com.example.bricksGame.ui.theme.tertiaryContainerLight
+import com.example.bricksGame.config.GameConfig
 
 @Composable
 fun WinPopup() {
@@ -32,11 +38,27 @@ fun WinPopup() {
 @Composable
 fun WinBlock() {
 
-    Text(
-        text = PopupsViewModel.textOnWinPopup,
-        textAlign = TextAlign.Center,
-        fontSize = 40.sp,
-        color = tertiaryContainerLight
+    GifImage(PopupsViewModel.imageAssetOnWinLevel)
+
+}
+
+@Composable
+fun GifImage(imageAsset: Int) {
+
+    val imageLoader = ImageLoader.Builder(LocalContext.current)
+        .components {
+            if (SDK_INT >= 28) {
+                add(ImageDecoderDecoder.Factory())
+            } else {
+                add(GifDecoder.Factory())
+            }
+        }
+        .build()
+
+    Image(
+        painter = rememberAsyncImagePainter(imageAsset, imageLoader),
+        contentDescription = null,
+        modifier = Modifier.scale(2F)
     )
 }
 

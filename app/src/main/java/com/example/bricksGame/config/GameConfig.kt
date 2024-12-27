@@ -95,6 +95,11 @@ object GameConfig : ViewModel() {
         R.drawable.mega,
     )
 
+    val imagesWinLevel = listOf(
+        R.drawable.win,
+        R.drawable.lose,
+    )
+
     val imagesBricksBonuses = listOf(
         R.drawable.ice_bonus,
         R.drawable.fire_bonus,
