@@ -8,10 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.R
+import com.example.bricksGame.ui.theme.buttonText
 
 
 @Composable
@@ -27,7 +29,7 @@ fun MainButtonsBlock() {
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit
                 )
-        ) { Text("Adventure", fontSize = 13.sp) }
+        ) { Text("Adventure", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
 
         IconButton(
             onClick = { ButtonController.navigateFreeGame() },
@@ -37,7 +39,7 @@ fun MainButtonsBlock() {
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit
                 )
-        ) { Text("Free game", fontSize = 13.sp) }
+        ) { Text("Free game", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
 
         IconButton(
             onClick = { ButtonController.navigateToPlayers() },
@@ -47,7 +49,7 @@ fun MainButtonsBlock() {
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit
                 )
-        ) { Text("Players", fontSize = 13.sp) }
+        ) { Text("Players", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
 
         IconButton(
             onClick = { ButtonController.navigateToDescription() },
@@ -57,6 +59,6 @@ fun MainButtonsBlock() {
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit
                 )
-        ) { Text("Info", fontSize = 13.sp) }
+        ) { Text("Info", fontSize = 13.sp, color = buttonText,fontWeight = FontWeight.Bold) }
     }
 }

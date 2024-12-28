@@ -43,11 +43,12 @@ fun RunHomeScreen() {
                 .fillMaxHeight(0.4F),
             verticalArrangement = Arrangement.Center,
         ) {
-            Image(
-                bitmap = ImageBitmap.imageResource(R.drawable.logo),
-                modifier = Modifier.size(260.dp, 130.dp),
-                contentDescription = "logo"
-            )
+//            Image(
+//                bitmap = ImageBitmap.imageResource(R.drawable.logo),
+//                modifier = Modifier.size(260.dp, 130.dp),
+//                contentDescription = "logo"
+//            )
+            Logo()
         }
 
         MainButtonsBlock()

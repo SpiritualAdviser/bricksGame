@@ -61,8 +61,8 @@ object GameConfig : ViewModel() {
      */
 
     val BRICK_BG_COLOR = Color.Transparent
-    val BRICK_BG_FIELD_COLOR = Color(0xB91E1E1E)
-    val FIELD_BG_COLOR = Color(0xCD1C1C1C)
+    val BRICK_BG_FIELD_COLOR = Color(0xB92C2C2C)
+    val FIELD_BG_COLOR = Color(0xCD2A2A2A)
     const val BRICK_BORDER_SIZE = 1
     val BRICK_BORDER_COLOR = Color.Black
     val BRICK_BORDER_HOVER_COLOR = errorLight

@@ -42,6 +42,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bricksGame.R
@@ -51,6 +52,7 @@ import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.helper.MainMenuBg
 import com.example.bricksGame.ui.theme.activePlayerBgCard
 import com.example.bricksGame.ui.theme.activePlayerIcon
+import com.example.bricksGame.ui.theme.buttonText
 import com.example.bricksGame.ui.theme.focusedTextFieldBg
 import com.example.bricksGame.ui.theme.onPrimaryLight
 import com.example.bricksGame.ui.theme.playerBgCard
@@ -102,12 +104,12 @@ fun PlayerView() {
                 }
             },
             modifier = Modifier
-                .size(110.dp, 50.dp)
+                .size(115.dp, 50.dp)
                 .paint(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.FillBounds
                 )
-        ) { Text("Create player", fontSize = 13.sp) }
+        ) { Text("Create player", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
 
     }
     Column(

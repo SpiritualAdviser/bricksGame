@@ -11,6 +11,7 @@ val onPrimaryLight = Color(0xFFFFFFFF)
 val unfocusedTextFieldBg = Color(0xFFB69872)
 val focusedTextFieldBg = Color(0xFACCBEA9)
 val gameVersionText = Color(0xFACCBEA9)
+val buttonText = Color(0xFFF8F8F8)
 
 
 
