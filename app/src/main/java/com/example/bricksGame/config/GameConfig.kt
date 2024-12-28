@@ -61,12 +61,12 @@ object GameConfig : ViewModel() {
      */
 
     val BRICK_BG_COLOR = Color.Transparent
-    val BRICK_BG_FIELD_COLOR = Color(0x943E3A39)
-    val FIELD_BG_COLOR = Color(0xC8181717)
+    val BRICK_BG_FIELD_COLOR = Color(0xB91E1E1E)
+    val FIELD_BG_COLOR = Color(0xCD1C1C1C)
     const val BRICK_BORDER_SIZE = 1
     val BRICK_BORDER_COLOR = Color.Black
     val BRICK_BORDER_HOVER_COLOR = errorLight
-    const val BRICK_ROUNDED_CORNER = 5
+    const val BRICK_ROUNDED_CORNER = 4
 
     /**
      * options for image assets brick on game

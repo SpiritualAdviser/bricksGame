@@ -12,7 +12,7 @@ object AnimationsPopups {
 
         LaunchedEffect(Unit) {
             PopupsViewModel.scalePopupWinLine.animateTo(
-                targetValue = 3f,
+                targetValue = 2.5f,
                 animationSpec = tween(durationMillis = 200),
             )
         }

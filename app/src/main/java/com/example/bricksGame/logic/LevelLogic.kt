@@ -206,7 +206,7 @@ object LevelLogic {
         winningPositions.forEach { winPosition ->
 
             brickOnField.find { it.position == winPosition }?.let {
-               onResetFieldBrick(it)
+                onResetFieldBrick(it)
             }
         }
     }
@@ -222,25 +222,19 @@ object LevelLogic {
             PlayerViewModel.addScore(numberWin * overBonus)
 
             if (score > numberWin) {
-                CoroutineScope(Dispatchers.Main).launch {
-                    popupOnWinLine(true, winningPositions)
-                }
+                popupOnWinLine(true, winningPositions)
             } else {
-                CoroutineScope(Dispatchers.Main).launch {
-                    popupOnWinLine(false, winningPositions)
-                }
+                popupOnWinLine(false, winningPositions)
             }
 
         } else {
             PlayerViewModel.addScore(score)
+            popupOnWinLine(false, winningPositions)
 
-            CoroutineScope(Dispatchers.Main).launch {
-                popupOnWinLine(false, winningPositions)
-            }
         }
     }
 
-    private fun  onResetFieldBrick(fieldBrick: FieldBrick) {
+    private fun onResetFieldBrick(fieldBrick: FieldBrick) {
         if (fieldBrick.life > 0) {
             --fieldBrick.life
             fieldBrick.hasBonusOwnerId = null
@@ -285,21 +279,34 @@ object LevelLogic {
         return currentLevel != null && PlayerViewModel.playerScore.intValue >= currentLevel.numberOfScoreToWin
     }
 
-    private suspend fun popupOnWinLine(
+    private fun popupOnWinLine(
         megaWin: Boolean = false,
         winningPositions: MutableList<Pair<Int, Int>>
     ) {
-        winningPositions.sortedWith(compareBy({ it.first }, { it.second }))
+        var winLineSize = 0
 
-        val centerIndexPosition = floor(winningPositions.size.toFloat() / 2).toInt()
+        winningPositions.forEach { position ->
+            val fieldBrick = brickOnField.find { it.position == position }
+            fieldBrick?.let {
+                if (it.hasOwnerId != GameConfig.NEGATIVE_BONUS_LIVES &&
+                    it.hasOwnerId != GameConfig.NEGATIVE_BONUS_ROCK
+                ) {
+                    ++winLineSize
+                }
+            }
+        }
+
+        val centerIndexPosition = winLineSize.div(2)
         val rowDirection = winningPositions.first().first == winningPositions.last().first
 
         val fieldBrick = brickOnField.find { it.position == winningPositions[centerIndexPosition] }
 
-        delay(100)
-        PopupsViewModel.onWinLine(megaWin, fieldBrick, winningPositions.size, rowDirection)
-        delay(400)
-        PopupsViewModel.closePopupOnWinLine()
+        PopupsViewModel.onWinLine(megaWin, fieldBrick, winLineSize, rowDirection)
+
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(500)
+            PopupsViewModel.closePopupOnWinLine()
+        }
     }
 
     private suspend fun closeLevel(onWin: Boolean) {
@@ -318,6 +325,6 @@ object LevelLogic {
         }
 
         delay(300)
-       PopupsViewModel.closePopupOnFinishGame()
+        PopupsViewModel.closePopupOnFinishGame()
     }
 }
