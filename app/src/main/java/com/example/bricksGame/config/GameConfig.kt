@@ -12,7 +12,7 @@ import com.example.bricksGame.ui.theme.errorLight
 
 object GameConfig : ViewModel() {
     lateinit var gameData: SQLiteDatabase
-    const val GAME_VERSION = "b-1.1"
+    const val GAME_VERSION = "a-1.2"
     const val CHEAT = false
 
     /**
