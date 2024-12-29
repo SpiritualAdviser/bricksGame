@@ -1,10 +1,15 @@
 package com.example.bricksGame.components.levelGame.animations
 
+import android.R.attr.delay
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import com.example.bricksGame.components.levelGame.models.Brick
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 object AnimationsBrick {
     var canRunTranslation = mutableStateOf(false)
@@ -40,12 +45,11 @@ object AnimationsBrick {
 
     fun runAnimationTranslation(brick: Brick, index: Int) {
         brick.delayTranslation = 250 * (index + 1)
-       brick.wasAnimated.value = true
 
-//        CoroutineScope(Dispatchers.Main).launch {
-//            delay(100)
-////          brick.wasAnimated.value = true
-//        }
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(500)
+            brick.wasAnimated.value = true
+        }
     }
 
 }

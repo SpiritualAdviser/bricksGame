@@ -185,7 +185,7 @@ private fun BricksBlock() {
                         .size(FieldViewModel.brickSizePortrait)
                         .background(GameConfig.BRICK_BG_COLOR)
                         .graphicsLayer {
-                            if (AnimationsBrick.canRunTranslation.value) {
+                            if (AnimationsBrick.canRunTranslation.value && !brick.wasAnimated.value) {
                                 translationX = brick.translationX.value
                             }
                         }

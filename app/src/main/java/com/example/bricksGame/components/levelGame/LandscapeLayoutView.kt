@@ -155,7 +155,7 @@ private fun BricksBlock() {
                         .size(FieldViewModel.brickSizeLandscape)
                         .background(GameConfig.BRICK_BG_COLOR)
                         .graphicsLayer {
-                            if (AnimationsBrick.canRunTranslation.value) {
+                            if (AnimationsBrick.canRunTranslation.value && !brick.wasAnimated.value) {
                                 translationY = brick.translationY.value
                             }
                         }
@@ -188,8 +188,8 @@ private fun BricksBlock() {
                 )
                 Spacer(Modifier.size(10.dp))
             }
-                AnimationsBrick.InitAnimationTranslationY(brick)
-                AnimationsBrick.runAnimationTranslation(brick, index)
+            AnimationsBrick.InitAnimationTranslationY(brick)
+            AnimationsBrick.runAnimationTranslation(brick, index)
         })
     }
 }
