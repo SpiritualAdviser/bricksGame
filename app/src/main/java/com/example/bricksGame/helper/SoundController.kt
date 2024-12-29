@@ -8,6 +8,7 @@ import com.example.bricksGame.config.GameConfig
 class SoundController private constructor() {
 
     var isRun = false
+    var onWebView = false
 
     companion object {
         private var instance: SoundController? = null
@@ -30,9 +31,11 @@ class SoundController private constructor() {
     private lateinit var levelTheme: MediaPlayer
     private lateinit var levelThemeTwo: MediaPlayer
     private lateinit var levelThemeTree: MediaPlayer
-//    private lateinit var levelThemeFour: MediaPlayer
+
+    //    private lateinit var levelThemeFour: MediaPlayer
     private lateinit var levelThemeFive: MediaPlayer
-//    private lateinit var levelThemeSix: MediaPlayer
+
+    //    private lateinit var levelThemeSix: MediaPlayer
     private lateinit var levelThemeSeven: MediaPlayer
     private lateinit var pushCristal: MediaPlayer
     private lateinit var winReel: MediaPlayer
@@ -75,7 +78,7 @@ class SoundController private constructor() {
 
     fun soundMuteOnRestart() {
 
-        if (!GameConfig.SOUND_MUTED) {
+        if (!GameConfig.SOUND_MUTED && !onWebView) {
             currentBgSound.start()
         }
     }

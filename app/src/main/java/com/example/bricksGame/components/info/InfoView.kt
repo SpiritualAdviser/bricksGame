@@ -1,9 +1,10 @@
 package com.example.bricksGame.components.info
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Build
+import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.compose.BackHandler
@@ -26,10 +27,12 @@ fun Info(url: String) {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
-            webViewClient = WebViewClient()
-            loadUrl(url)
+
+//            webViewClient = WebViewClient()
+            webChromeClient = WebChromeClient()
+
             settings.javaScriptEnabled = true
-            settings.safeBrowsingEnabled = true
+            loadUrl(url)
         }
 
     }, update = {
@@ -43,7 +46,8 @@ fun Info(url: String) {
                 webView.goBack()
             } else {
                 webView.destroy()
-                soundController.soundMuteOnRestart()
+                soundController.onWebView = false
+//                soundController.soundMuteOnRestart()
                 ButtonController.navigateToHome()
             }
         }

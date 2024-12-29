@@ -66,6 +66,7 @@ object ButtonController {
 
     fun navigateToInfo() {
         soundController.clickUi()
+        soundController.onWebView = true
         soundController.soundMuteOnStop()
         AppNavigation.getInstance().getNavController().navigate(Routes.Info.route) {
             popUpTo(Routes.Info.route)
