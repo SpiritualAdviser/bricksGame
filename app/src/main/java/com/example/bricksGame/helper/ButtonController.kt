@@ -64,10 +64,10 @@ object ButtonController {
         navigateToLevelGame(true)
     }
 
-    fun navigateToDescription() {
+    fun navigateToInfo() {
         soundController.clickUi()
-        AppNavigation.getInstance().getNavController().navigate(Routes.Description.route) {
-            popUpTo(Routes.Description.route)
+        AppNavigation.getInstance().getNavController().navigate(Routes.Info.route) {
+            popUpTo(Routes.Info.route)
             launchSingleTop = true
         }
     }

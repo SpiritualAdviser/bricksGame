@@ -1,5 +1,7 @@
 package com.example.bricksGame.helper
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.LinearEasing
@@ -13,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.bricksGame.components.gameMeny.RunHomeScreen
+import com.example.bricksGame.components.info.Info
 import com.example.bricksGame.components.levelGame.RunLevelGame
 import com.example.bricksGame.components.map.Map
 import com.example.bricksGame.components.players.PlayerView
@@ -36,6 +39,7 @@ class AppNavigation private constructor() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @Composable
     fun CreateNavHost() {
         _navController = rememberNavController()
@@ -61,7 +65,7 @@ class AppNavigation private constructor() {
 
             ) { RunLevelGame() }
             composable(Routes.Players.route) { PlayerView() }
-            composable(Routes.Description.route) {  }
+            composable(Routes.Info.route) { Info("https://ya.ru/") }
             composable(Routes.Map.route) { Map() }
         }
     }
@@ -75,7 +79,7 @@ sealed class Routes(val route: String) {
     data object HomeScreen : Routes("HomeScreen")
     data object LevelGame : Routes("LevelGame")
     data object Players : Routes("Players")
-    data object Description : Routes("Description")
+    data object Info : Routes("Description")
     data object Map : Routes("Map")
 }
 

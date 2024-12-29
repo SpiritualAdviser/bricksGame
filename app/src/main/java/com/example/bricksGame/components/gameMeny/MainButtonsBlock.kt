@@ -52,7 +52,7 @@ fun MainButtonsBlock() {
         ) { Text("Players", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
 
         IconButton(
-            onClick = { ButtonController.navigateToDescription() },
+            onClick = { ButtonController.navigateToInfo() },
             modifier = Modifier
                 .size(100.dp, 43.dp)
                 .paint(
