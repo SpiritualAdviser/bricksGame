@@ -1,22 +1,27 @@
 package com.example.bricksGame.components.info
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.viewinterop.AndroidView
-import java.net.URL
+import com.example.bricksGame.helper.ButtonController
+import com.example.bricksGame.soundController
 
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun Info(url: String) {
+    var webView: WebView? = null
     AndroidView(factory = {
-
         WebView(it).apply {
+            it
+
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -26,6 +31,22 @@ fun Info(url: String) {
             settings.javaScriptEnabled = true
             settings.safeBrowsingEnabled = true
         }
+
+    }, update = {
+        webView = it
+        it.loadUrl(url)
     })
+
+    BackHandler {
+        webView?.let {
+            if (webView.canGoBack()) {
+                webView.goBack()
+            } else {
+                webView.destroy()
+                soundController.soundMuteOnRestart()
+                ButtonController.navigateToHome()
+            }
+        }
+    }
 
 }

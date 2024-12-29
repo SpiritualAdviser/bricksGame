@@ -65,7 +65,7 @@ class AppNavigation private constructor() {
 
             ) { RunLevelGame() }
             composable(Routes.Players.route) { PlayerView() }
-            composable(Routes.Info.route) { Info("https://ya.ru/") }
+            composable(Routes.Info.route) { Info("https://spiritualadviser.github.io/Standcorexam/") }
             composable(Routes.Map.route) { Map() }
         }
     }
