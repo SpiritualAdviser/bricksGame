@@ -45,7 +45,7 @@ object BonusViewModel : ViewModel() {
     }
 
     private fun setOfBonus(brick: Brick) {
-        brick.alpha.value = 0.05f
+        brick.alpha.value =1f
         brick.canDrag = false
         brick.activeBonusBorder.value = GameConfig.BRICK_BORDER_COLOR
     }

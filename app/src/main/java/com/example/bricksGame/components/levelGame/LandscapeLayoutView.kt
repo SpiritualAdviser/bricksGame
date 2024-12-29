@@ -200,7 +200,7 @@ private fun BonusBlock() {
 
     Column(
         modifier = Modifier
-            .offset(x = -((FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 2)) / 2) + 5.dp)
+            .offset(x = -((FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 2)) / 2))
 //            .border(4.dp, Color.Magenta),
     ) {
         BonusViewModel.bonuses.forEach {
@@ -211,7 +211,7 @@ private fun BonusBlock() {
                         GameConfig.BRICK_BORDER_SIZE.dp, color = it.activeBonusBorder.value,
                         shape = RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp)
                     )
-                    .size(FieldViewModel.brickSizePortrait - 8.dp)
+                    .size(FieldViewModel.brickSizeLandscape)
                     .background(GameConfig.FIELD_BG_COLOR)
             ) {}
             Spacer(Modifier.size(10.dp))
@@ -220,7 +220,7 @@ private fun BonusBlock() {
 
     Column(
         modifier = Modifier
-            .offset(x = -(FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 2)) / 2)
+            .offset(x = -((FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 2)) / 2))
 //            .border(4.dp, Color.Magenta),
     ) {
         (BonusViewModel.bonuses.forEach {
@@ -228,7 +228,7 @@ private fun BonusBlock() {
                 Box(
                     Modifier
                         .offset { IntOffset(it.x.intValue, it.y.intValue) }
-                        .size(FieldViewModel.brickSizePortrait)
+                        .size(FieldViewModel.brickSizeLandscape)
                         .paint(
                             painterResource(it.assetImage),
                             alpha = it.alpha.value,
