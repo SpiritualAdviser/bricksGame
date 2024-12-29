@@ -10,6 +10,7 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.platform.LocalContext
+import com.example.bricksGame.components.levelGame.animations.AnimationsBrick
 import com.example.bricksGame.components.players.data.DataRepository
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.helper.AppNavigation
@@ -52,7 +53,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onStop() {
         super.onStop()
-
+        AnimationsBrick.canRunTranslation.value = false
         if (!isChangingConfigurations) {
             soundController.soundMuteOnStop()
         }

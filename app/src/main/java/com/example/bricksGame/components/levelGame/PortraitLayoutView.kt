@@ -33,8 +33,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.bricksGame.R
-import com.example.bricksGame.components.levelGame.animations.AnimationsBrick.InitAnimationTranslationX
-import com.example.bricksGame.components.levelGame.animations.AnimationsBrick.runAnimationTranslation
+import com.example.bricksGame.components.levelGame.animations.AnimationsBrick
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
@@ -176,10 +175,9 @@ private fun BricksBlock() {
         modifier = Modifier
 //            .border(4.dp, Color.Magenta),
     ) {
-        (BricksViewModel.bricks.forEachIndexed {index, brick->
+        (BricksViewModel.bricks.forEachIndexed { index, brick ->
 
             key(brick.id) {
-                InitAnimationTranslationX(brick)
 
                 Box(
                     Modifier
@@ -187,7 +185,9 @@ private fun BricksBlock() {
                         .size(FieldViewModel.brickSizePortrait)
                         .background(GameConfig.BRICK_BG_COLOR)
                         .graphicsLayer {
-                            translationX = brick.translationX.value
+                            if (AnimationsBrick.canRunTranslation.value) {
+                                translationX = brick.translationX.value
+                            }
                         }
                         .paint(
                             painterResource(brick.assetImage),
@@ -200,7 +200,7 @@ private fun BricksBlock() {
                         }
                         .pointerInput(Unit) {
                             detectDragGestures(
-                                onDragStart = { },
+                                onDragStart = { AnimationsBrick.canRunTranslation.value = true },
                                 onDrag = { _, dragAmount ->
 
                                     brick.dragging(dragAmount.x, dragAmount.y)
@@ -219,7 +219,8 @@ private fun BricksBlock() {
                 )
                 Spacer(Modifier.size(10.dp))
             }
-            runAnimationTranslation(brick, index)
+            AnimationsBrick.InitAnimationTranslationX(brick)
+            AnimationsBrick.runAnimationTranslation(brick, index)
         })
     }
 }

@@ -40,7 +40,7 @@ data class Brick(
     var fieldBrickOnCollision: FieldBrick? = null,
 
     ) {
-    var animated = mutableStateOf(false)
+    var wasAnimated = mutableStateOf(false)
     val rotation = Animatable(initialValue = 360f)
     val translationX = Animatable(initialValue = screenSize.screenWidthPx.toFloat())
     val translationY = Animatable(initialValue = screenSize.screenHeightPx.toFloat())

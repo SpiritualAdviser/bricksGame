@@ -29,8 +29,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.example.bricksGame.components.levelGame.animations.AnimationsBrick.InitAnimationTranslationY
-import com.example.bricksGame.components.levelGame.animations.AnimationsBrick.runAnimationTranslation
+import com.example.bricksGame.components.levelGame.animations.AnimationsBrick
 import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
@@ -148,7 +147,6 @@ private fun BricksBlock() {
 
     ) {
         (BricksViewModel.bricks.forEachIndexed { index, brick ->
-            InitAnimationTranslationY(brick)
 
             key(brick.id) {
                 Box(
@@ -157,7 +155,9 @@ private fun BricksBlock() {
                         .size(FieldViewModel.brickSizeLandscape)
                         .background(GameConfig.BRICK_BG_COLOR)
                         .graphicsLayer {
-                            translationY = brick.translationY.value
+                            if (AnimationsBrick.canRunTranslation.value) {
+                                translationY = brick.translationY.value
+                            }
                         }
                         .paint(
                             painterResource(brick.assetImage),
@@ -170,7 +170,7 @@ private fun BricksBlock() {
                         }
                         .pointerInput(Unit) {
                             detectDragGestures(
-                                onDragStart = { },
+                                onDragStart = { AnimationsBrick.canRunTranslation.value = true },
                                 onDrag = { _, dragAmount ->
                                     brick.dragging(dragAmount.x, dragAmount.y)
                                     coroutine.launch {
@@ -188,7 +188,8 @@ private fun BricksBlock() {
                 )
                 Spacer(Modifier.size(10.dp))
             }
-            runAnimationTranslation(brick, index)
+                AnimationsBrick.InitAnimationTranslationY(brick)
+                AnimationsBrick.runAnimationTranslation(brick, index)
         })
     }
 }
