@@ -10,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.time.Duration
 
 object AnimationsBrick {
     var canRunTranslation = mutableStateOf(false)
@@ -47,9 +48,9 @@ object AnimationsBrick {
         brick.delayTranslation = 250 * (index + 1)
 
         CoroutineScope(Dispatchers.Main).launch {
-            delay(500)
+
+            delay((brick.delayTranslation + 200).toLong())
             brick.wasAnimated.value = true
         }
     }
-
 }
