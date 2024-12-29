@@ -37,7 +37,7 @@ object BonusViewModel : ViewModel() {
             if (it.alpha.value + countAlpha < 1) {
                 it.alpha.value += countAlpha
             } else {
-                it.alpha.value = 1f
+                it.alpha.value = 0.05f
                 it.canDrag = true
                 it.activeBonusBorder.value = primaryContainerDark
             }

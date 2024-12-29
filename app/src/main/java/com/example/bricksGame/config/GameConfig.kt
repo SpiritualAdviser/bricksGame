@@ -39,7 +39,7 @@ object GameConfig : ViewModel() {
     /**
      * options MAX_BRICKS is count dragging bricks for game on button block
      */
-    const val MAX_LEVELS_ON_GAME = 100
+    const val MAX_LEVELS_ON_GAME = 200
 
     const val MAX_LINE_FIELD_ON_GAME = 9
     const val MIN_LINE_FIELD_ON_GAME = 3
