@@ -18,6 +18,7 @@ import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.helper.AppNavigation
 import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
+import com.example.bricksGame.helper.SpriteAnimation
 import com.example.bricksGame.ui.theme.AppTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,6 +50,7 @@ class MainActivity : ComponentActivity() {
 
                 PlayerViewModel.setPlayerOnGame()
             }
+            setSprite()
 
 //   context.deleteDatabase("player_database")
 //            DataRepository.getPlayerDatabase(this)
@@ -80,6 +82,11 @@ class MainActivity : ComponentActivity() {
         if (soundController.isRun) {
             soundController.soundMuteOnRestart()
         }
+    }
+
+    private fun setSprite() {
+        val animList = listOf("explosion_c3.json")
+        SpriteAnimation().setAnimationOnGame(applicationContext, animList)
     }
 }
 

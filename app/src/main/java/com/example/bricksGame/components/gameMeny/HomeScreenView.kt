@@ -48,6 +48,7 @@ fun RunHomeScreen() {
                 modifier = Modifier.size(260.dp, 130.dp),
                 contentDescription = "logo"
             )
+            LogoSprite()
 //            Logo()
         }
 
