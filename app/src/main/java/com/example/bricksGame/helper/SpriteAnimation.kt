@@ -1,8 +1,12 @@
 package com.example.bricksGame.helper
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import com.google.gson.Gson
 import java.io.IOException
+import java.io.InputStream
 
 data class Cords(
     val x: Int,
@@ -37,22 +41,43 @@ data class FrameTag(
 
 data class Sprite(
     var frames: List<Frame>,
-    var meta: Meta
+    var meta: Meta,
+    var imageSheet: Bitmap
 )
 
-class SpriteAnimation {
-    private var animations = mutableListOf<Sprite>()
+object SpriteAnimation {
+    var animations = mutableListOf<Sprite>()
 
     private val gson = Gson()
 
     fun setAnimationOnGame(context: Context, fileNames: List<String>) {
         fileNames.forEach { nameSprite ->
             val jsonString = getJsonDataFromAsset(context, nameSprite)
-            jsonString?.let {
-                val sprite = unparseJson(it)
+            jsonString?.let { nameSpriteString ->
+                val sprite = unparseJson(nameSpriteString)
+                val bitmap = getImageFromAsset(context, sprite.meta.image)
+
+                bitmap?.let {
+                    sprite.imageSheet = it
+                }
+
                 animations.add(sprite)
             }
         }
+    }
+
+    private fun getImageFromAsset(context: Context, fileName: String): Bitmap? {
+        val bitmap: Bitmap?
+        try {
+
+            val stream = context.assets.open(fileName)
+            bitmap = BitmapFactory.decodeStream(stream);
+            println()
+        } catch (ioException: IOException) {
+            ioException.printStackTrace()
+            return null
+        }
+        return bitmap
     }
 
     private fun getJsonDataFromAsset(context: Context, fileName: String): String? {

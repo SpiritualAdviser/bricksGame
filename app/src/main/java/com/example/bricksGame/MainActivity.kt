@@ -86,7 +86,7 @@ class MainActivity : ComponentActivity() {
 
     private fun setSprite() {
         val animList = listOf("explosion_c3.json")
-        SpriteAnimation().setAnimationOnGame(applicationContext, animList)
+        SpriteAnimation.setAnimationOnGame(applicationContext, animList)
     }
 }
 
