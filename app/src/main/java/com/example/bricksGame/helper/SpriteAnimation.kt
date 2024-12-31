@@ -6,6 +6,10 @@ import android.graphics.BitmapFactory
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.IOException
 
 data class Cords(
@@ -42,7 +46,8 @@ data class FrameTag(
 data class Sprite(
     var frames: List<Frame>,
     var meta: Meta,
-    var imageSheet: ImageBitmap
+    var imageSheet: ImageBitmap,
+    var isRun: Boolean = false
 )
 
 object SpriteAnimation {
@@ -95,10 +100,21 @@ object SpriteAnimation {
         return gson.fromJson(jsonString, Sprite::class.java)
     }
 
+    fun run(imageName: String) {
+        val currentAnimation = animations.find { it.meta.image == imageName }
 
-    fun run() {
+        currentAnimation?.let {
+            it.isRun = true
 
+            CoroutineScope(Dispatchers.Main).launch {
+                while (it.isRun) {
+                    println("тут чет делаем с анимацией")
+                    delay(it.frames[0].duration.toLong())
+                }
+            }
+        }
     }
+
 
     fun stop() {
 
