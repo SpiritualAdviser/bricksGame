@@ -39,7 +39,7 @@ abstract class PlayerDatabase : RoomDatabase() {
 
                     )
 //                        .addMigrations(MIGRATION_1_2)
-                        .allowMainThreadQueries()
+//                        .allowMainThreadQueries()
                         .build()
                     INSTANCE = instance
                 }

@@ -198,9 +198,10 @@ object LevelsConfig {
             fieldGameRow = 5,
             fieldGameColumn = 6,
             additionalBrick = 4,
-            numberOfBricksToWin = 5,
+            lastBrickToAdd = 2,
+            numberOfBricksToWin = 4,
             negativeBonuses = listOf<Int>(2, 2),
-            bonusFillSpeed = 0.01f,
+            bonusFillSpeed = 0.02f,
             numberOfScoreToWin = 100,
             levelMaxStep = 100
         ),
