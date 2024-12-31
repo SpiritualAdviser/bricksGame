@@ -15,7 +15,7 @@ import com.example.bricksGame.helper.SpriteAnimation
 @Composable
 fun LogoSprite() {
 
-    val image = SpriteAnimation.animations[0].imageSheet.asImageBitmap()
+    val image = SpriteAnimation.animations[0].imageSheet
     Canvas(modifier = Modifier.border(1.dp, Color.Red)) {
         drawImage(image = image,
             srcOffset = IntOffset(x = 22, y = 0),

@@ -3,10 +3,10 @@ package com.example.bricksGame.helper
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import com.google.gson.Gson
 import java.io.IOException
-import java.io.InputStream
 
 data class Cords(
     val x: Int,
@@ -42,7 +42,7 @@ data class FrameTag(
 data class Sprite(
     var frames: List<Frame>,
     var meta: Meta,
-    var imageSheet: Bitmap
+    var imageSheet: ImageBitmap
 )
 
 object SpriteAnimation {
@@ -58,7 +58,7 @@ object SpriteAnimation {
                 val bitmap = getImageFromAsset(context, sprite.meta.image)
 
                 bitmap?.let {
-                    sprite.imageSheet = it
+                    sprite.imageSheet = it.asImageBitmap()
                 }
 
                 animations.add(sprite)
