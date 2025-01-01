@@ -1,14 +1,25 @@
 package com.example.bricksGame.components.levelGame.models
 
+import android.content.Context
+import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
 import com.example.bricksGame.R
+import com.example.bricksGame.components.gameMeny.animation.AnimationLogo
+import com.example.bricksGame.components.gameMeny.animation.AnimationLogo.h
+import com.example.bricksGame.components.gameMeny.animation.AnimationLogo.w
+import com.example.bricksGame.components.gameMeny.animation.AnimationLogo.x
+import com.example.bricksGame.components.gameMeny.animation.AnimationLogo.y
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
 import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.helper.Sprite
+import com.example.bricksGame.helper.SpriteAnimation
+
 
 data class FieldBrick(
     val name: String = "FieldBricks",
@@ -18,6 +29,7 @@ data class FieldBrick(
 
     var borderColor: MutableState<Color> = mutableStateOf(GameConfig.BRICK_BORDER_COLOR),
     var assetImage: MutableState<Int> = mutableIntStateOf(R.drawable.bgfielbrickempty),
+
     var hasOwnerId: Int? = null,
     var hasBonusOwnerId: String? = null,
 
@@ -31,7 +43,46 @@ data class FieldBrick(
      * They were placed in an occupied room ONLY_EMPTY_PLEASES=true
      */
     private val ONLY_EMPTY_PLEASES: Boolean = false,
+
+    /**
+     * animation sprite
+     */
+    var hasSprite: MutableState<Boolean> = mutableStateOf(false),
+
+    var spriteSheet: ImageBitmap? = null,
+    var sprite: Sprite? = null,
+
+    val xSrcOffset: MutableIntState = mutableIntStateOf(0),
+    val ySrcOffset: MutableIntState = mutableIntStateOf(0),
+    val wSrcSize: MutableIntState = mutableIntStateOf(0),
+    val hSrcSize: MutableIntState = mutableIntStateOf(0),
 ) {
+
+    fun setSpriteAnimations(nameSprite: String) {
+
+        sprite = SpriteAnimation.getSprite(nameSprite)
+        spriteSheet = sprite?.imageSheet
+
+        sprite?.let {
+            xSrcOffset.intValue = it.currentFrame.frame.x
+            ySrcOffset.intValue = it.currentFrame.frame.y
+            wSrcSize.intValue = it.currentFrame.frame.w
+            hSrcSize.intValue = it.currentFrame.frame.h
+
+            it.runAnimation("shine", true) { onFrameChangedCallback() }
+        }
+
+        hasSprite.value = true
+    }
+
+    private fun onFrameChangedCallback() {
+        sprite?.let {
+            xSrcOffset.intValue = it.currentFrame.frame.x
+            ySrcOffset.intValue = it.currentFrame.frame.y
+            wSrcSize.intValue = it.currentFrame.frame.w
+            hSrcSize.intValue = it.currentFrame.frame.h
+        }
+    }
 
     fun setGloballyPosition(coordinates: LayoutCoordinates) {
         this.globalWidth = coordinates.size.width

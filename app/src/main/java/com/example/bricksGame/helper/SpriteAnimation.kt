@@ -46,12 +46,13 @@ data class FrameTag(
 class Sprite(
     var nameSprite: String = "",
     var frames: List<Frame>,
+
     var meta: Meta,
     var imageSheet: ImageBitmap,
     var isRun: Boolean = false,
     var currentFrame: Frame = frames.first()
 ) {
-    fun run(animationName: String, isLoop: Boolean = false, onFrameChangedCallback: () -> Unit) {
+    fun runAnimation(animationName: String, isLoop: Boolean = false, onFrameChangedCallback: () -> Unit) {
         val currentAnimation = meta.frameTags.find { it.name == animationName }
 
         currentAnimation?.let {
@@ -81,14 +82,14 @@ class Sprite(
                     delay(delayFrame)
 
                     if (!isLoop) {
-                        stop()
+                        stopAnimation()
                     }
                 }
             }
         }
     }
 
-    fun stop() {
+    fun stopAnimation() {
         isRun = false
     }
 
@@ -151,7 +152,21 @@ object SpriteAnimation {
     }
 
     fun getSprite(spriteName: String): Sprite? {
+        var newSprite: Sprite? = null
+
         val currentAnimation = animations.find { it.nameSprite == spriteName }
-        return currentAnimation
+
+        currentAnimation?.let {
+            newSprite = Sprite(
+                nameSprite = currentAnimation.nameSprite,
+                frames = currentAnimation.frames,
+                meta = currentAnimation.meta,
+                imageSheet = currentAnimation.imageSheet,
+                isRun = false,
+                currentFrame = currentAnimation.frames.first()
+            )
+        }
+
+        return newSprite
     }
 }

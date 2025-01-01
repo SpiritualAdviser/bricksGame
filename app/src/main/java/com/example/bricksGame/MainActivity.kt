@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
 
                 PlayerViewModel.setPlayerOnGame()
             }
-           setSprite()
+            setSprite()
 
 //   context.deleteDatabase("player_database")
 //            DataRepository.getPlayerDatabase(this)
@@ -85,7 +85,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun setSprite() {
-        val animList = listOf("explosion_c3.json")
+        val animList = listOf("explosion_c3.json", "bg_close_brick.json")
         SpriteAnimation.setAnimationOnGame(applicationContext, animList)
     }
 }

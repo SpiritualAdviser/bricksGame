@@ -12,7 +12,6 @@ object FieldViewModel : ViewModel() {
 
     const val EMPTY_ID = "Color.Transparent"
     var brickOnField = createBricksList()
-    var numberOfCloseFieldBrickOnLine = 0
     var zIndex = mutableFloatStateOf(0F)
 
     var brickSizePortrait = 0.dp

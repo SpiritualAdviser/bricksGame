@@ -34,7 +34,10 @@ fun MainButtonsBlock() {
         ) { Text("Adventure", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
 
         IconButton(
-            onClick = { ButtonController.navigateFreeGame() },
+            onClick = {
+                ButtonController.navigateFreeGame()
+                AnimationLogo.run()
+                      },
             modifier = Modifier
                 .size(100.dp, 43.dp)
                 .paint(

@@ -24,15 +24,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.bricksGame.R
+import com.example.bricksGame.components.gameMeny.animation.AnimationLogo
 import com.example.bricksGame.components.levelGame.animations.AnimationsBrick
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
@@ -155,7 +160,24 @@ private fun GridFieldBox() {
                             contentScale = ContentScale.FillBounds
                         )
                         .paint(
-                            painterResource(it.assetImage.value),
+                            painter = if (it.hasSprite.value && it.spriteSheet != null) {
+                                BitmapPainter(
+                                    image = it.spriteSheet!!,
+                                    srcOffset = IntOffset(
+                                        x = it.xSrcOffset.intValue,
+                                        y = it.ySrcOffset.intValue
+                                    ),
+                                    srcSize = IntSize(
+                                        width = it.wSrcSize.intValue,
+                                        height = it.hSrcSize.intValue
+                                    )
+                                )
+                            } else {
+                                BitmapPainter(
+                                    image = ImageBitmap.imageResource(it.assetImage.value)
+                                )
+                            },
+
                             sizeToIntrinsics = true,
                             contentScale = ContentScale.FillBounds
                         )

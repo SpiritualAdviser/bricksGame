@@ -20,11 +20,11 @@ object AnimationLogo : ViewModel() {
     val h = if (imageFrame != null) mutableIntStateOf(imageFrame.frame.h) else mutableIntStateOf(0)
 
     fun run() {
-        sprite?.run("blow", true) { onFrameChanged() }
+//        sprite?.run("blow", true) { onFrameChanged() }
     }
 
     fun stop() {
-        sprite?.stop()
+        sprite?.stopAnimation()
     }
 
     private fun onFrameChanged() {

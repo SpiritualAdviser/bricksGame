@@ -45,7 +45,7 @@ object BonusViewModel : ViewModel() {
     }
 
     private fun setOfBonus(brick: Brick) {
-        brick.alpha.value =0.02f
+        brick.alpha.value = 0.02f
         brick.canDrag = false
         brick.activeBonusBorder.value = GameConfig.BRICK_BORDER_COLOR
     }
@@ -133,8 +133,14 @@ object BonusViewModel : ViewModel() {
                     randomFieldBrick = getPlaceOnField()
                     ++breakerWhileLoop
                 }
+                val spriteName = currentBonus.spriteName
+                if (spriteName != null) {
 
-                randomFieldBrick.setImageOnStickBrick(currentBonus.imageFullLife)
+                    randomFieldBrick.setSpriteAnimations(spriteName)
+                } else {
+                    randomFieldBrick.setImageOnStickBrick(currentBonus.imageFullLife)
+                }
+
                 randomFieldBrick.id = currentBonus.imageFullLife.toString()
                 randomFieldBrick.hasOwnerId = currentBonus.id
                 randomFieldBrick.life = currentBonus.life

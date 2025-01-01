@@ -105,28 +105,29 @@ object GameConfig : ViewModel() {
         R.drawable.fire_bonus,
         R.drawable.hammer_bonus,
     )
+    const val NEGATIVE_BONUS_LIVES = 998
+    const val NEGATIVE_BONUS_LIVES_LIFE = 0
+    const val NEGATIVE_BONUS_ROCK = 999
+    const val NEGATIVE_BONUS_ROCK_LIFE = 1
+    const val MAX_CLOSED_PERCENT_GAME_FIELD = 30
 
     val negativeBonuses = listOf(
         NegativeBonus(
             id = NEGATIVE_BONUS_ROCK,
             life = NEGATIVE_BONUS_ROCK_LIFE,
             imageFullLife = R.drawable.bg_close_brick,
-            imageOnDamage = R.drawable.bg_close_brick_damage
+            imageOnDamage = R.drawable.bg_close_brick_damage,
+            spriteName = "bg_close_brick.json"
         ),
 
         NegativeBonus(
             id = NEGATIVE_BONUS_LIVES,
             life = NEGATIVE_BONUS_LIVES_LIFE,
             imageFullLife = R.drawable.bg_close_lives,
-            imageOnDamage = R.drawable.bg_close_lives
+            imageOnDamage = R.drawable.bg_close_lives,
+            spriteName = null
         ),
     )
-
-    const val NEGATIVE_BONUS_LIVES = 998
-    const val NEGATIVE_BONUS_LIVES_LIFE = 0
-    const val NEGATIVE_BONUS_ROCK = 999
-    const val NEGATIVE_BONUS_ROCK_LIFE = 1
-    const val MAX_CLOSED_PERCENT_GAME_FIELD = 30
 
     var WIN_LINE_DESTROY_NEGATIVE_BONUS = true
     var SOUND_MUTED by mutableStateOf(false)
