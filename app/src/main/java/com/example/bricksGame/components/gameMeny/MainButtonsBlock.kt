@@ -22,39 +22,6 @@ fun MainButtonsBlock() {
     Column(
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
-        IconButton(
-            onClick = { AnimationLogo.run() },
-            modifier = Modifier
-                .size(100.dp, 43.dp)
-                .paint(
-                    painter = painterResource(R.drawable.buttons_empty),
-                    contentScale = ContentScale.Fit
-                )
-        ) {
-            Text(
-                "run Animation",
-                fontSize = 13.sp,
-                color = buttonText,
-                fontWeight = FontWeight.Bold
-            )
-        }
-
-        IconButton(
-            onClick = { AnimationLogo.stop() },
-            modifier = Modifier
-                .size(100.dp, 43.dp)
-                .paint(
-                    painter = painterResource(R.drawable.buttons_empty),
-                    contentScale = ContentScale.Fit
-                )
-        ) {
-            Text(
-                "run Animation",
-                fontSize = 13.sp,
-                color = buttonText,
-                fontWeight = FontWeight.Bold
-            )
-        }
 
         IconButton(
             onClick = { ButtonController.navigateToMap() },
