@@ -13,7 +13,7 @@ import com.example.bricksGame.components.gameMeny.animation.AnimationLogo
 @Composable
 fun LogoSprite() {
 
-    val image = AnimationLogo.spriteSheet?.value
+    val image = AnimationLogo.spriteSheet
 
     if (image != null) {
 

@@ -51,24 +51,37 @@ class Sprite(
     var isRun: Boolean = false,
     var currentFrame: Frame = frames.first()
 ) {
-    fun run(animationName: String, imageFrameCallback: () -> Unit) {
+    fun run(animationName: String, isLoop: Boolean = false, onFrameChangedCallback: () -> Unit) {
         val currentAnimation = meta.frameTags.find { it.name == animationName }
 
         currentAnimation?.let {
             val startIndex = currentAnimation.from
-            val endIndex = currentAnimation.to
-            val frames = frames.subList(startIndex, endIndex)
+            val endIndex = currentAnimation.to + 1
+            val framesAnimation = frames.subList(startIndex, endIndex)
             val delayFrame = frames.first().duration.toLong()
-            isRun = true
 
-            CoroutineScope(Dispatchers.Main).launch {
+            loopAnimation(onFrameChangedCallback, framesAnimation, delayFrame, isLoop)
+        }
+    }
 
-                while (this@Sprite.isRun) {
+    private fun loopAnimation(
+        onFrameChangedCallback: () -> Unit,
+        framesAnimation: List<Frame>,
+        delayFrame: Long,
+        isLoop: Boolean,
+    ) {
+        isRun = true
 
-                    frames.forEach { frame ->
-                        currentFrame = frame
-                        imageFrameCallback()
-                        delay(1000)
+        CoroutineScope(Dispatchers.Main).launch {
+            while (this@Sprite.isRun) {
+
+                framesAnimation.forEach { frame ->
+                    currentFrame = frame
+                    onFrameChangedCallback()
+                    delay(delayFrame)
+
+                    if (!isLoop) {
+                        stop()
                     }
                 }
             }
@@ -76,7 +89,7 @@ class Sprite(
     }
 
     fun stop() {
-
+        isRun = false
     }
 
     fun pause() {
