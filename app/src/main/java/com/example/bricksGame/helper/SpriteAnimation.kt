@@ -43,15 +43,46 @@ data class FrameTag(
     val direction: String
 )
 
-data class Sprite(
+class Sprite(
+    var nameSprite: String = "",
     var frames: List<Frame>,
     var meta: Meta,
     var imageSheet: ImageBitmap,
-    var isRun: Boolean = false
-)
+    var isRun: Boolean = false,
+    var currentFrame: Frame = frames.first()
+) {
+    fun run(animationName: String) {
+        val currentAnimation = meta.frameTags.find { it.name == animationName }
+
+        currentAnimation?.let {
+            val startIndex = currentAnimation.from
+            val endIndex = currentAnimation.to
+            val frames = frames.subList(startIndex, endIndex)
+            val delayFrame = frames.first().duration.toLong()
+
+            CoroutineScope(Dispatchers.Main).launch {
+
+                frames.forEach { frame ->
+                    while (this@Sprite.isRun) {
+                        currentFrame = frame
+                        delay(delayFrame)
+                    }
+                }
+            }
+        }
+    }
+
+    fun stop() {
+
+    }
+
+    fun pause() {
+
+    }
+}
 
 object SpriteAnimation {
-    var animations = mutableListOf<Sprite>()
+    private var animations = mutableListOf<Sprite>()
 
     private val gson = Gson()
 
@@ -64,6 +95,9 @@ object SpriteAnimation {
 
                 bitmap?.let {
                     sprite.imageSheet = it.asImageBitmap()
+                    sprite.nameSprite = nameSprite
+                    sprite.currentFrame = sprite.frames.first()
+                    println()
                 }
 
                 animations.add(sprite)
@@ -100,28 +134,8 @@ object SpriteAnimation {
         return gson.fromJson(jsonString, Sprite::class.java)
     }
 
-    fun run(imageName: String) {
-        val currentAnimation = animations.find { it.meta.image == imageName }
-
-        currentAnimation?.let {
-            it.isRun = true
-
-            CoroutineScope(Dispatchers.Main).launch {
-                while (it.isRun) {
-                    println("тут чет делаем с анимацией")
-                    delay(it.frames[0].duration.toLong())
-                }
-            }
-        }
+    fun getSprite(spriteName: String): Sprite? {
+        val currentAnimation = animations.find { it.nameSprite == spriteName }
+        return currentAnimation
     }
-
-
-    fun stop() {
-
-    }
-
-    fun pause() {
-
-    }
-
 }

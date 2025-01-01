@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
 
                 PlayerViewModel.setPlayerOnGame()
             }
-            setSprite()
+           setSprite()
 
 //   context.deleteDatabase("player_database")
 //            DataRepository.getPlayerDatabase(this)
