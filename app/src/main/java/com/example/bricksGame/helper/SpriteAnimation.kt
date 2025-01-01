@@ -51,7 +51,7 @@ class Sprite(
     var isRun: Boolean = false,
     var currentFrame: Frame = frames.first()
 ) {
-    fun run(animationName: String) {
+    fun run(animationName: String, imageFrameCallback: () -> Unit) {
         val currentAnimation = meta.frameTags.find { it.name == animationName }
 
         currentAnimation?.let {
@@ -59,13 +59,16 @@ class Sprite(
             val endIndex = currentAnimation.to
             val frames = frames.subList(startIndex, endIndex)
             val delayFrame = frames.first().duration.toLong()
+            isRun = true
 
             CoroutineScope(Dispatchers.Main).launch {
 
-                frames.forEach { frame ->
-                    while (this@Sprite.isRun) {
+                while (this@Sprite.isRun) {
+
+                    frames.forEach { frame ->
                         currentFrame = frame
-                        delay(delayFrame)
+                        imageFrameCallback()
+                        delay(1000)
                     }
                 }
             }

@@ -1,6 +1,7 @@
 package com.example.bricksGame.components.gameMeny.animation
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.ViewModel
@@ -13,10 +14,25 @@ object AnimationLogo : ViewModel() {
     private val sprite = SpriteAnimation.getSprite(SPRITE_NAME)
 
     val spriteSheet: MutableState<ImageBitmap>? = sprite?.let { mutableStateOf(it.imageSheet) }
-    val imageFrame: MutableState<Frame>? = sprite?.let { mutableStateOf(it.currentFrame) }
+    private val imageFrame: Frame? = sprite?.currentFrame
+
+    val x = mutableIntStateOf(0)
+    val y = mutableIntStateOf(0)
+    val w = mutableIntStateOf(0)
+    val h = mutableIntStateOf(0)
 
     fun run() {
-        sprite?.run("blow")
+        if (imageFrame != null && sprite != null) {
+            sprite.run("blow") { imageFrameCallback() }
+        }
     }
 
+    private fun imageFrameCallback() {
+        sprite?.let {
+            x.intValue = sprite.currentFrame.frame.x
+            y.intValue = sprite.currentFrame.frame.y
+            w.intValue = sprite.currentFrame.frame.w
+            h.intValue = sprite.currentFrame.frame.h
+        }
+    }
 }

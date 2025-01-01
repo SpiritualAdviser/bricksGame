@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.R
+import com.example.bricksGame.components.gameMeny.animation.AnimationLogo
 import com.example.bricksGame.ui.theme.buttonText
 
 
@@ -21,6 +22,15 @@ fun MainButtonsBlock() {
     Column(
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
+        IconButton(
+            onClick = {AnimationLogo.run() },
+            modifier = Modifier
+                .size(100.dp, 43.dp)
+                .paint(
+                    painter = painterResource(R.drawable.buttons_empty),
+                    contentScale = ContentScale.Fit
+                )
+        ) { Text("run Animation", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
         IconButton(
             onClick = { ButtonController.navigateToMap() },
             modifier = Modifier

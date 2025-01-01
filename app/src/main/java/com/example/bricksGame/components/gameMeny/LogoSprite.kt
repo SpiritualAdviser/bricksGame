@@ -14,15 +14,17 @@ import com.example.bricksGame.components.gameMeny.animation.AnimationLogo
 fun LogoSprite() {
 
     val image = AnimationLogo.spriteSheet?.value
-    val frameParams = AnimationLogo.imageFrame?.value
 
-    if (image != null && frameParams != null) {
+    if (image != null) {
 
         Canvas(modifier = Modifier.border(1.dp, Color.Red)) {
             drawImage(
                 image = image,
-                srcOffset = IntOffset(x = frameParams.frame.x, y = frameParams.frame.y),
-                srcSize = IntSize(width = frameParams.frame.w, height = frameParams.frame.h),
+                srcOffset = IntOffset(x = AnimationLogo.x.intValue, y = AnimationLogo.y.intValue),
+                srcSize = IntSize(
+                    width = AnimationLogo.w.intValue,
+                    height = AnimationLogo.h.intValue
+                ),
             )
         }
     }
