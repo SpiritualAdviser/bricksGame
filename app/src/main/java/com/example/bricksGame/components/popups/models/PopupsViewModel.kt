@@ -38,7 +38,7 @@ object PopupsViewModel : ViewModel() {
     ) {
         imageAsset.intValue = if (megaWin) imageMegaWinLine else imageDefaultWinLine
         fieldBrick?.let {
-            fieldBrick.borderColor.value = Color.Magenta
+//            fieldBrick.borderColor.value = Color.Magenta
             val offset = getOffsetAmount(fieldBrick, winLineSize, rowDirection)
 
             xPopupWinLine.intValue = offset.getValue("x").toInt()
