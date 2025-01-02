@@ -128,10 +128,10 @@ object GameConfig : ViewModel() {
             life = NEGATIVE_BONUS_LIVES_LIFE,
             imageFullLife = R.drawable.bg_close_lives,
             imageOnDamage = R.drawable.bg_close_lives,
-            spriteName = null,
-            animationFullLife = null,
-            animationOnDamage = null,
-            animationOnDestroy = null,
+            spriteName = "bg_close_lives.json",
+            animationFullLife = "idle",
+            animationOnDamage = "idle",
+            animationOnDestroy = "destroy",
         ),
     )
 
