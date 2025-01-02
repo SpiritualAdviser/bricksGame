@@ -8,7 +8,7 @@ import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.brickOnField
-import com.example.bricksGame.components.levelGame.models.FieldViewModel.checkIfNeedChangeAssetsOnField
+import com.example.bricksGame.components.levelGame.models.FieldViewModel.checkNeedChangeAsset
 import com.example.bricksGame.components.map.models.MapModel.currentLevel
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel.updatePlayerOnLevelWin
@@ -238,7 +238,7 @@ object LevelLogic {
             --fieldBrick.life
             fieldBrick.hasBonusOwnerId = null
         }
-        checkIfNeedChangeAssetsOnField(fieldBrick)
+        checkNeedChangeAsset(fieldBrick)
     }
 
     private fun checkEndLevel() {

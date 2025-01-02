@@ -120,7 +120,7 @@ object GameConfig : ViewModel() {
             spriteName = "bg_close_brick.json",
             animationFullLife = "idle",
             animationOnDamage = "crash",
-            animationOnDestroy = "crash",
+            animationOnDestroy = "destroy",
         ),
 
         NegativeBonus(

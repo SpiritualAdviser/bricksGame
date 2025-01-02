@@ -59,22 +59,33 @@ data class FieldBrick(
         spriteSheet = sprite?.imageSheet
 
         sprite?.let {
-            onFrameChangedCallback()
+            onFrameChanged()
         }
 
         hasSprite.value = true
     }
 
     fun startAnimation(nameAnimation: String, isLoop: Boolean = false) {
-        sprite?.runAnimation(nameAnimation, isLoop, {})
+        sprite?.runAnimation(
+            nameAnimation,
+            isLoop,
+            onFrameChangedCallback = ::onFrameChanged,
+            onEndAnimationCallback = ::onEndAnimation,
+        )
     }
 
-    private fun onFrameChangedCallback() {
+    private fun onFrameChanged() {
         sprite?.let {
             xSrcOffset.intValue = it.currentFrame.frame.x
             ySrcOffset.intValue = it.currentFrame.frame.y
             wSrcSize.intValue = it.currentFrame.frame.w
             hSrcSize.intValue = it.currentFrame.frame.h
+        }
+    }
+
+    private fun onEndAnimation() {
+        if (onDestroy) {
+            resetFieldBrick()
         }
     }
 
@@ -113,12 +124,14 @@ data class FieldBrick(
     }
 
     fun resetFieldBrick() {
-        hasSprite.value = false
         this.hasOwnerId = null
         this.hasBonusOwnerId = null
+
+        hasSprite.value = false
+        this.onDestroy = false
+
         this.setBorderBlack()
         this.assetImage.value = R.drawable.bgfielbrickempty
         this.id = EMPTY_ID
-        this.onDestroy = false
     }
 }

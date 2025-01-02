@@ -94,7 +94,7 @@ object FieldViewModel : ViewModel() {
         currentFieldBrick?.id = brick.assetImage.toString()
     }
 
-    fun checkIfNeedChangeAssetsOnField(fieldBrick: FieldBrick) {
+    fun checkNeedChangeAsset(fieldBrick: FieldBrick) {
 
         when (fieldBrick.hasOwnerId) {
 
@@ -116,6 +116,8 @@ object FieldViewModel : ViewModel() {
 
             else -> {
                 fieldBrick.assetImage.value = R.drawable.bgfielbrickempty
+                fieldBrick.onDestroy = true
+                fieldBrick.resetFieldBrick()
             }
         }
     }
@@ -132,8 +134,8 @@ object FieldViewModel : ViewModel() {
                 }
 
                 0 -> {
-                    animationName = bonus.animationOnDestroy
                     fieldBrick.onDestroy = true
+                    animationName = bonus.animationOnDestroy
                 }
             }
 
@@ -144,7 +146,11 @@ object FieldViewModel : ViewModel() {
         } else {
             fieldBrick.assetImage.value =
                 if (fieldBrick.life == 1) bonus.imageOnDamage else bonus.imageFullLife
-        }
 
+            if (fieldBrick.life <= 0) {
+                fieldBrick.onDestroy = true
+                fieldBrick.resetFieldBrick()
+            }
+        }
     }
 }
