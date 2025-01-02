@@ -8,4 +8,5 @@ data class NegativeBonus(
     var spriteName: String?,
     var animationFullLife: String?,
     var animationOnDamage: String?,
+    var animationOnDestroy: String?,
 )

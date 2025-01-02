@@ -5,6 +5,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.R
 import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.config.NegativeBonus
 import com.example.bricksGame.logic.CollisionBricksOnLevel
 import com.example.bricksGame.screenSize
 
@@ -93,51 +94,57 @@ object FieldViewModel : ViewModel() {
         currentFieldBrick?.id = brick.assetImage.toString()
     }
 
-    fun setImageOnField(fieldBrick: FieldBrick) {
+    fun checkIfNeedChangeAssetsOnField(fieldBrick: FieldBrick) {
 
         when (fieldBrick.hasOwnerId) {
+
             GameConfig.NEGATIVE_BONUS_LIVES -> {
 
-                GameConfig.negativeBonuses.find { it.id == GameConfig.NEGATIVE_BONUS_LIVES }?.run {
-                    val animationOnDamage = this.animationOnDamage
-
-                    if (fieldBrick.hasSprite.value && animationOnDamage != null) {
-                        fieldBrick.startAnimation(animationOnDamage)
-                    } else {
-                        fieldBrick.assetImage.value = this.imageOnDamage
+                GameConfig.negativeBonuses.find { it.id == GameConfig.NEGATIVE_BONUS_LIVES }
+                    ?.let { bonus ->
+                        setAssetsOnNegativeBonus(fieldBrick, bonus)
                     }
-                }
             }
 
             GameConfig.NEGATIVE_BONUS_ROCK -> {
 
-                GameConfig.negativeBonuses.find { it.id == GameConfig.NEGATIVE_BONUS_ROCK }?.run {
-
-                    if (fieldBrick.life == 0) {
-                        val animationOnDamage = this.animationOnDamage
-
-                        if (fieldBrick.hasSprite.value && animationOnDamage != null) {
-
-                            fieldBrick.startAnimation(animationOnDamage)
-                        } else {
-                            fieldBrick.assetImage.value = this.imageOnDamage
-                        }
-                    } else {
-
-                        fieldBrick.assetImage.value =
-                            if (fieldBrick.life == 0) this.imageOnDamage else this.imageFullLife
+                GameConfig.negativeBonuses.find { it.id == GameConfig.NEGATIVE_BONUS_ROCK }
+                    ?.let { bonus ->
+                        setAssetsOnNegativeBonus(fieldBrick, bonus)
                     }
-                }
             }
 
             else -> {
-                if (fieldBrick.hasSprite.value) {
-                    fieldBrick.hasSprite.value = false
-                }
-
                 fieldBrick.assetImage.value = R.drawable.bgfielbrickempty
-//                fieldBrick.startAnimation(animationOnDamage)
             }
         }
+    }
+
+    private fun setAssetsOnNegativeBonus(fieldBrick: FieldBrick, bonus: NegativeBonus) {
+
+        if (fieldBrick.hasSprite.value) {
+            var animationName = bonus.animationFullLife
+
+            when (fieldBrick.life) {
+
+                1 -> {
+                    animationName = bonus.animationOnDamage
+                }
+
+                0 -> {
+                    animationName = bonus.animationOnDestroy
+                    fieldBrick.onDestroy = true
+                }
+            }
+
+            animationName?.let {
+                fieldBrick.startAnimation(animationName)
+            }
+
+        } else {
+            fieldBrick.assetImage.value =
+                if (fieldBrick.life == 1) bonus.imageOnDamage else bonus.imageFullLife
+        }
+
     }
 }

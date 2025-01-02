@@ -106,9 +106,9 @@ object GameConfig : ViewModel() {
         R.drawable.hammer_bonus,
     )
     const val NEGATIVE_BONUS_LIVES = 998
-    const val NEGATIVE_BONUS_LIVES_LIFE = 0
+    const val NEGATIVE_BONUS_LIVES_LIFE = 1
     const val NEGATIVE_BONUS_ROCK = 999
-    const val NEGATIVE_BONUS_ROCK_LIFE = 1
+    const val NEGATIVE_BONUS_ROCK_LIFE = 2
     const val MAX_CLOSED_PERCENT_GAME_FIELD = 30
 
     val negativeBonuses = listOf(
@@ -120,6 +120,7 @@ object GameConfig : ViewModel() {
             spriteName = "bg_close_brick.json",
             animationFullLife = "idle",
             animationOnDamage = "crash",
+            animationOnDestroy = "crash",
         ),
 
         NegativeBonus(
@@ -130,6 +131,7 @@ object GameConfig : ViewModel() {
             spriteName = null,
             animationFullLife = null,
             animationOnDamage = null,
+            animationOnDestroy = null,
         ),
     )
 

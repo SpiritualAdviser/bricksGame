@@ -20,6 +20,7 @@ data class FieldBrick(
     val position: Pair<Int, Int>,
     var id: String = "Color.Transparent",
     var life: Int = 0,
+    var onDestroy: Boolean = false,
 
     var borderColor: MutableState<Color> = mutableStateOf(GameConfig.BRICK_BORDER_COLOR),
     var assetImage: MutableState<Int> = mutableIntStateOf(R.drawable.bgfielbrickempty),
@@ -59,16 +60,13 @@ data class FieldBrick(
 
         sprite?.let {
             onFrameChangedCallback()
-            startAnimation("idle")
         }
 
         hasSprite.value = true
     }
 
     fun startAnimation(nameAnimation: String, isLoop: Boolean = false) {
-        sprite?.let {
-            it.runAnimation(nameAnimation, isLoop) { onFrameChangedCallback() }
-        }
+        sprite?.runAnimation(nameAnimation, isLoop, {})
     }
 
     private fun onFrameChangedCallback() {
@@ -115,12 +113,12 @@ data class FieldBrick(
     }
 
     fun resetFieldBrick() {
-
         hasSprite.value = false
         this.hasOwnerId = null
         this.hasBonusOwnerId = null
         this.setBorderBlack()
         this.assetImage.value = R.drawable.bgfielbrickempty
         this.id = EMPTY_ID
+        this.onDestroy = false
     }
 }

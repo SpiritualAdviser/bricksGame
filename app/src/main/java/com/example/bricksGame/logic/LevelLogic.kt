@@ -8,7 +8,7 @@ import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.brickOnField
-import com.example.bricksGame.components.levelGame.models.FieldViewModel.setImageOnField
+import com.example.bricksGame.components.levelGame.models.FieldViewModel.checkIfNeedChangeAssetsOnField
 import com.example.bricksGame.components.map.models.MapModel.currentLevel
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.components.players.models.PlayerViewModel.updatePlayerOnLevelWin
@@ -21,7 +21,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.collections.forEach
-import kotlin.math.floor
 
 object LevelLogic {
 
@@ -237,12 +236,9 @@ object LevelLogic {
     private fun onResetFieldBrick(fieldBrick: FieldBrick) {
         if (fieldBrick.life > 0) {
             --fieldBrick.life
-
             fieldBrick.hasBonusOwnerId = null
-        } else {
-            fieldBrick.resetFieldBrick()
         }
-        setImageOnField(fieldBrick)
+        checkIfNeedChangeAssetsOnField(fieldBrick)
     }
 
     private fun checkEndLevel() {

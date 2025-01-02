@@ -52,7 +52,15 @@ class Sprite(
     var isRun: Boolean = false,
     var currentFrame: Frame = frames.first()
 ) {
-    fun runAnimation(animationName: String, isLoop: Boolean = false, onFrameChangedCallback: () -> Unit) {
+
+    fun runAnimation(
+        animationName: String,
+        isLoop: Boolean = false,
+        onStartAnimationCallback: () -> Unit = ::onStartAnimationCallback,
+        onFrameChangedCallback: () -> Unit = ::onFrameChangedCallback,
+        onEndAnimationCallback: () -> Unit = ::onEndAnimationCallback,
+
+        ) {
         val currentAnimation = meta.frameTags.find { it.name == animationName }
 
         currentAnimation?.let {
@@ -61,41 +69,65 @@ class Sprite(
             val framesAnimation = frames.subList(startIndex, endIndex)
             val delayFrame = frames.first().duration.toLong()
 
-            loopAnimation(onFrameChangedCallback, framesAnimation, delayFrame, isLoop)
+            loopAnimation(
+                framesAnimation,
+                delayFrame,
+                isLoop,
+                onStartAnimationCallback,
+                onFrameChangedCallback,
+                onEndAnimationCallback,
+            )
         }
     }
 
     private fun loopAnimation(
-        onFrameChangedCallback: () -> Unit,
         framesAnimation: List<Frame>,
         delayFrame: Long,
         isLoop: Boolean,
+        onStartAnimationCallback: () -> Unit,
+        onFrameChangedCallback: () -> Unit,
+        onEndAnimationCallback: () -> Unit,
     ) {
         isRun = true
 
         CoroutineScope(Dispatchers.Main).launch {
+            onStartAnimationCallback()
+
             while (this@Sprite.isRun) {
 
                 framesAnimation.forEach { frame ->
                     currentFrame = frame
                     onFrameChangedCallback()
                     delay(delayFrame)
-
-                    if (!isLoop) {
-                        stopAnimation()
-                    }
+                }
+                if (!isLoop) {
+                    stopAnimation(onEndAnimationCallback)
                 }
             }
         }
     }
 
-    fun stopAnimation() {
+    fun stopAnimation(onEndAnimationCallback: () -> Unit = ::onEndAnimationCallback) {
         isRun = false
+        onEndAnimationCallback()
     }
 
     fun pause() {
 
     }
+
+    fun onStartAnimationCallback() {
+
+    }
+
+    fun onFrameChangedCallback() {
+
+    }
+
+    fun onEndAnimationCallback() {
+
+    }
+
 }
 
 object SpriteAnimation {
