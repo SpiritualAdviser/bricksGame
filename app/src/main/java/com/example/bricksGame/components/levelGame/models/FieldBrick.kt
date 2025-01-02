@@ -1,6 +1,5 @@
 package com.example.bricksGame.components.levelGame.models
 
-import android.content.Context
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
@@ -10,11 +9,6 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
 import com.example.bricksGame.R
-import com.example.bricksGame.components.gameMeny.animation.AnimationLogo
-import com.example.bricksGame.components.gameMeny.animation.AnimationLogo.h
-import com.example.bricksGame.components.gameMeny.animation.AnimationLogo.w
-import com.example.bricksGame.components.gameMeny.animation.AnimationLogo.x
-import com.example.bricksGame.components.gameMeny.animation.AnimationLogo.y
 import com.example.bricksGame.components.levelGame.models.FieldViewModel.EMPTY_ID
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.Sprite
@@ -64,15 +58,17 @@ data class FieldBrick(
         spriteSheet = sprite?.imageSheet
 
         sprite?.let {
-            xSrcOffset.intValue = it.currentFrame.frame.x
-            ySrcOffset.intValue = it.currentFrame.frame.y
-            wSrcSize.intValue = it.currentFrame.frame.w
-            hSrcSize.intValue = it.currentFrame.frame.h
-
-            it.runAnimation("shine", true) { onFrameChangedCallback() }
+            onFrameChangedCallback()
+            startAnimation("idle")
         }
 
         hasSprite.value = true
+    }
+
+    fun startAnimation(nameAnimation: String, isLoop: Boolean = false) {
+        sprite?.let {
+            it.runAnimation(nameAnimation, isLoop) { onFrameChangedCallback() }
+        }
     }
 
     private fun onFrameChangedCallback() {
@@ -119,6 +115,8 @@ data class FieldBrick(
     }
 
     fun resetFieldBrick() {
+
+        hasSprite.value = false
         this.hasOwnerId = null
         this.hasBonusOwnerId = null
         this.setBorderBlack()

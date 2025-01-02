@@ -18,7 +18,7 @@ object LevelsConfig {
             fieldGameColumn = 7,
             additionalBrick = 3,
             lastBrickToAdd = 0,
-            numberOfBricksToWin = 4,
+            numberOfBricksToWin = 2,
             negativeBonuses = listOf<Int>(5, 5),
             bonusFillSpeed = 0.05f,
             numberOfScoreToWin = 0,

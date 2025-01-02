@@ -5,5 +5,7 @@ data class NegativeBonus(
     var life: Int,
     var imageFullLife: Int,
     var imageOnDamage: Int,
-    var spriteName: String?
+    var spriteName: String?,
+    var animationFullLife: String?,
+    var animationOnDamage: String?,
 )

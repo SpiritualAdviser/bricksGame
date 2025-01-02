@@ -99,19 +99,45 @@ object FieldViewModel : ViewModel() {
             GameConfig.NEGATIVE_BONUS_LIVES -> {
 
                 GameConfig.negativeBonuses.find { it.id == GameConfig.NEGATIVE_BONUS_LIVES }?.run {
-                    fieldBrick.assetImage.value = this.imageOnDamage
+                    val animationOnDamage = this.animationOnDamage
+
+                    if (fieldBrick.hasSprite.value && animationOnDamage != null) {
+                        fieldBrick.startAnimation(animationOnDamage)
+                    } else {
+                        fieldBrick.assetImage.value = this.imageOnDamage
+                    }
                 }
             }
 
             GameConfig.NEGATIVE_BONUS_ROCK -> {
 
                 GameConfig.negativeBonuses.find { it.id == GameConfig.NEGATIVE_BONUS_ROCK }?.run {
-                    fieldBrick.assetImage.value =
-                        if (fieldBrick.life == 0) this.imageOnDamage else this.imageFullLife
+
+                    if (fieldBrick.life == 0) {
+                        val animationOnDamage = this.animationOnDamage
+
+                        if (fieldBrick.hasSprite.value && animationOnDamage != null) {
+
+                            fieldBrick.startAnimation(animationOnDamage)
+                        } else {
+                            fieldBrick.assetImage.value = this.imageOnDamage
+                        }
+                    } else {
+
+                        fieldBrick.assetImage.value =
+                            if (fieldBrick.life == 0) this.imageOnDamage else this.imageFullLife
+                    }
                 }
             }
 
-            else -> fieldBrick.assetImage.value = R.drawable.bgfielbrickempty
+            else -> {
+                if (fieldBrick.hasSprite.value) {
+                    fieldBrick.hasSprite.value = false
+                }
+
+                fieldBrick.assetImage.value = R.drawable.bgfielbrickempty
+//                fieldBrick.startAnimation(animationOnDamage)
+            }
         }
     }
 }

@@ -117,7 +117,9 @@ object GameConfig : ViewModel() {
             life = NEGATIVE_BONUS_ROCK_LIFE,
             imageFullLife = R.drawable.bg_close_brick,
             imageOnDamage = R.drawable.bg_close_brick_damage,
-            spriteName = "bg_close_brick.json"
+            spriteName = "bg_close_brick.json",
+            animationFullLife = "idle",
+            animationOnDamage = "crash",
         ),
 
         NegativeBonus(
@@ -125,7 +127,9 @@ object GameConfig : ViewModel() {
             life = NEGATIVE_BONUS_LIVES_LIFE,
             imageFullLife = R.drawable.bg_close_lives,
             imageOnDamage = R.drawable.bg_close_lives,
-            spriteName = null
+            spriteName = null,
+            animationFullLife = null,
+            animationOnDamage = null,
         ),
     )
 

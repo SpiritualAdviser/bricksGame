@@ -237,6 +237,7 @@ object LevelLogic {
     private fun onResetFieldBrick(fieldBrick: FieldBrick) {
         if (fieldBrick.life > 0) {
             --fieldBrick.life
+
             fieldBrick.hasBonusOwnerId = null
         } else {
             fieldBrick.resetFieldBrick()
