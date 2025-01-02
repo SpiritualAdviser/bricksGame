@@ -174,7 +174,7 @@ object LevelLogic {
     }
 
     private fun isClosedBrick(fieldBrick: FieldBrick): Boolean {
-        return fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_LIVES || fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_ROCK
+        return fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_LEAVES || fieldBrick.hasOwnerId == GameConfig.NEGATIVE_BONUS_ROCK
     }
 
     private fun getClosedFieldBricks(indexList: MutableList<Int>, bricks: List<FieldBrick>) {
@@ -285,7 +285,7 @@ object LevelLogic {
         winningPositions.forEach { position ->
             val fieldBrick = brickOnField.find { it.position == position }
             fieldBrick?.let {
-                if (it.hasOwnerId != GameConfig.NEGATIVE_BONUS_LIVES &&
+                if (it.hasOwnerId != GameConfig.NEGATIVE_BONUS_LEAVES &&
                     it.hasOwnerId != GameConfig.NEGATIVE_BONUS_ROCK
                 ) {
                     ++winLineSize

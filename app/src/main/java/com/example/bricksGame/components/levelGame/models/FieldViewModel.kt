@@ -8,6 +8,7 @@ import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.NegativeBonus
 import com.example.bricksGame.logic.CollisionBricksOnLevel
 import com.example.bricksGame.screenSize
+import com.example.bricksGame.soundController
 
 object FieldViewModel : ViewModel() {
 
@@ -98,9 +99,9 @@ object FieldViewModel : ViewModel() {
 
         when (fieldBrick.hasOwnerId) {
 
-            GameConfig.NEGATIVE_BONUS_LIVES -> {
+            GameConfig.NEGATIVE_BONUS_LEAVES -> {
 
-                GameConfig.negativeBonuses.find { it.id == GameConfig.NEGATIVE_BONUS_LIVES }
+                GameConfig.negativeBonuses.find { it.id == GameConfig.NEGATIVE_BONUS_LEAVES }
                     ?.let { bonus ->
                         setAssetsOnNegativeBonus(fieldBrick, bonus)
                     }
@@ -141,6 +142,7 @@ object FieldViewModel : ViewModel() {
 
             animationName?.let {
                 fieldBrick.startAnimation(animationName)
+                playSound(animationName, bonus)
             }
 
         } else {
@@ -150,6 +152,29 @@ object FieldViewModel : ViewModel() {
             if (fieldBrick.life <= 0) {
                 fieldBrick.onDestroy = true
                 fieldBrick.resetFieldBrick()
+            }
+        }
+    }
+
+    private fun playSound(animationName: String, bonus: NegativeBonus) {
+
+        if (bonus.id == GameConfig.NEGATIVE_BONUS_ROCK) {
+            when (animationName) {
+                "crash" -> {
+                    soundController.stoneCrack()
+                }
+
+                "destroy" -> {
+                    soundController.stoneDestroy()
+                }
+            }
+        }
+
+        if (bonus.id == GameConfig.NEGATIVE_BONUS_LEAVES) {
+            when (animationName) {
+                "destroy" -> {
+                    soundController.rustleOfLeaves()
+                }
             }
         }
     }

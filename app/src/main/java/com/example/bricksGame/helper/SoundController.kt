@@ -32,15 +32,17 @@ class SoundController private constructor() {
     private lateinit var levelThemeTwo: MediaPlayer
     private lateinit var levelThemeTree: MediaPlayer
 
-    //    private lateinit var levelThemeFour: MediaPlayer
     private lateinit var levelThemeFive: MediaPlayer
 
-    //    private lateinit var levelThemeSix: MediaPlayer
     private lateinit var levelThemeSeven: MediaPlayer
     private lateinit var pushCristal: MediaPlayer
     private lateinit var winReel: MediaPlayer
     private lateinit var currentBgSound: MediaPlayer
     private lateinit var playListLevel: List<MediaPlayer>
+
+    private lateinit var rustleOfLeavesSound: MediaPlayer
+    private lateinit var stoneCrack: MediaPlayer
+    private lateinit var stoneDestroy: MediaPlayer
 
     fun setContext(context: Context) {
         isRun = true
@@ -51,9 +53,7 @@ class SoundController private constructor() {
         levelTheme = MediaPlayer.create(context, R.raw.action_level_one)
         levelThemeTwo = MediaPlayer.create(context, R.raw.action_level_two)
         levelThemeTree = MediaPlayer.create(context, R.raw.action_level_tree)
-//        levelThemeFour = MediaPlayer.create(context, R.raw.action_level_four)
         levelThemeFive = MediaPlayer.create(context, R.raw.action_level_five)
-//        levelThemeSix = MediaPlayer.create(context, R.raw.action_level_six)
         levelThemeSeven = MediaPlayer.create(context, R.raw.action_level_seven)
 
         setLoopOnLevel()
@@ -63,9 +63,7 @@ class SoundController private constructor() {
                 levelTheme,
                 levelThemeTwo,
                 levelThemeTree,
-//                levelThemeFour,
                 levelThemeFive,
-//                levelThemeSix,
                 levelThemeSeven
             )
     }
@@ -107,19 +105,6 @@ class SoundController private constructor() {
             mainmeny.start()
         }
 
-//        if (!mainmeny.isPlaying) {
-//            mainmeny.isLooping = true
-//            mainmeny.setVolume(1f, 1f)
-//            currentBgSound = mainmeny
-//            if (!GameConfig.SOUND_MUTED) {
-//                mainmeny.start()
-//            }
-//        } else {
-//            currentBgSound = mainmeny
-//            if (!GameConfig.SOUND_MUTED) {
-//                mainmeny.start()
-//            }
-//        }
     }
 
     fun playLevelTheme() {
@@ -132,28 +117,9 @@ class SoundController private constructor() {
         if (!GameConfig.SOUND_MUTED) {
             currentBgSound.start()
         }
-
-//        if (!currentBgSound.isPlaying) {
-//            if (!GameConfig.SOUND_MUTED) {
-//                currentBgSound.start()
-//            }
-//        } else {
-//            if (!GameConfig.SOUND_MUTED) {
-//                currentBgSound.start()
-//            }
-//        }
     }
 
     private fun setLoopOnLevel() {
-
-//        levelTheme,
-//        levelThemeTwo,
-//        levelThemeTree,
-//        levelThemeFour,
-//        levelThemeFive,
-//        levelThemeSix,
-//        levelThemeSeven
-
 
         levelTheme.setOnCompletionListener {
             currentBgSound = levelThemeTwo
@@ -170,20 +136,10 @@ class SoundController private constructor() {
             levelThemeFive.start()
         }
 
-//        levelThemeFour.setOnCompletionListener {
-//            currentBgSound = levelThemeFive
-//            levelThemeFive.start()
-//        }
-
         levelThemeFive.setOnCompletionListener {
             currentBgSound = levelThemeSeven
             levelThemeSeven.start()
         }
-
-//        levelThemeSix.setOnCompletionListener {
-//            currentBgSound = levelThemeSeven
-//            levelThemeSeven.start()
-//        }
 
         levelThemeSeven.setOnCompletionListener {
             currentBgSound = levelTheme
@@ -200,6 +156,33 @@ class SoundController private constructor() {
         winReel.start()
     }
 
+    fun rustleOfLeaves() {
+        if (GameConfig.SOUND_MUTED) {
+            return
+        }
+        rustleOfLeavesSound = MediaPlayer.create(context, R.raw.rustle_of_leaves)
+        rustleOfLeavesSound.setVolume(1f, 1f)
+        rustleOfLeavesSound.start()
+    }
+
+    fun stoneCrack() {
+        if (GameConfig.SOUND_MUTED) {
+            return
+        }
+        stoneCrack = MediaPlayer.create(context, R.raw.stone_crack)
+        stoneCrack.setVolume(0.9f, 0.9f)
+        stoneCrack.start()
+    }
+
+    fun stoneDestroy() {
+        if (GameConfig.SOUND_MUTED) {
+            return
+        }
+        stoneDestroy = MediaPlayer.create(context, R.raw.stone_destroy)
+        stoneDestroy.setVolume(1f, 1f)
+        stoneDestroy.start()
+    }
+
     fun pushCristal() {
         if (GameConfig.SOUND_MUTED) {
             return
@@ -208,12 +191,6 @@ class SoundController private constructor() {
         pushCristal.setVolume(0.7f, 0.7f)
         pushCristal.start()
     }
-
-//    fun cristalAdd() {
-//        cristalAdd = MediaPlayer.create(context, R.raw.cristal_add)
-//        cristalAdd.setVolume(1f, 1f)
-//        cristalAdd.start()
-//    }
 
     fun clickUi() {
         if (GameConfig.SOUND_MUTED) {

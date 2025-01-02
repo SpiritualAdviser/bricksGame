@@ -1,7 +1,6 @@
 package com.example.bricksGame
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.Color
 import android.os.Build
 
@@ -23,7 +22,6 @@ import com.example.bricksGame.ui.theme.AppTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 
 val screenSize = ScreenSize()
 
@@ -85,7 +83,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun setSprite() {
-        val animList = listOf("explosion_c3.json", "bg_close_brick.json", "bg_close_lives.json")
+        val animList = listOf("explosion_c3.json", "bg_close_brick.json", "bg_close_leaves.json")
         SpriteAnimation.setAnimationOnGame(applicationContext, animList)
     }
 }
