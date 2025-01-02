@@ -126,12 +126,22 @@ data class FieldBrick(
     fun resetFieldBrick() {
         this.hasOwnerId = null
         this.hasBonusOwnerId = null
-
-        hasSprite.value = false
+        resetSprite()
         this.onDestroy = false
-
         this.setBorderBlack()
         this.assetImage.value = R.drawable.bgfielbrickempty
         this.id = EMPTY_ID
+    }
+
+    private fun resetSprite() {
+        hasSprite.value = false
+
+        spriteSheet = null
+        sprite = null
+
+        xSrcOffset.intValue = 0
+        ySrcOffset.intValue = 0
+        wSrcSize.intValue = 0
+        hSrcSize.intValue = 0
     }
 }
