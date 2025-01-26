@@ -21,7 +21,6 @@ fun Info(url: String) {
     var webView: WebView? = null
     AndroidView(factory = {
         WebView(it).apply {
-            it
 
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -42,15 +41,14 @@ fun Info(url: String) {
 
     BackHandler {
         webView?.let {
-            if (webView.canGoBack()) {
-                webView.goBack()
+            if (it.canGoBack()) {
+                it.goBack()
             } else {
-                webView.destroy()
+                it.destroy()
                 soundController.onWebView = false
 //                soundController.soundMuteOnRestart()
                 ButtonController.navigateToHome()
             }
         }
     }
-
 }
