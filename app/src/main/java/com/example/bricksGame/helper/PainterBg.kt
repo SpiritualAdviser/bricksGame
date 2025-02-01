@@ -10,23 +10,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bricksGame.R
 import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
 
 @Composable
-fun MainMenuBg() {
+fun MainMenuBg(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()) {
     val orientation = LocalConfiguration.current.orientation
 
     if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
         Image(
-            painter = painterResource(HomeScreenViewModel.imageBgLandscape),
+            painter = painterResource(homeScreenViewModel.imageBgLandscape),
             contentDescription = "levelBg",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
     } else {
         Image(
-            painter = painterResource(HomeScreenViewModel.imageBgPortrait),
+            painter = painterResource(homeScreenViewModel.imageBgPortrait),
             contentDescription = "levelBg",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
