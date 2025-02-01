@@ -11,19 +11,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bricksGame.helper.ButtonController
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bricksGame.R
+import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
 import com.example.bricksGame.ui.theme.buttonText
 
 
 @Composable
-fun MainButtonsBlock() {
+fun MainButtonsBlock(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()) {
     Column(
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
 
         IconButton(
-            onClick = { ButtonController.navigateToMap() },
+            onClick = { homeScreenViewModel.buttonController.navigateToMap() },
             modifier = Modifier
                 .size(100.dp, 43.dp)
                 .paint(
@@ -34,8 +35,8 @@ fun MainButtonsBlock() {
 
         IconButton(
             onClick = {
-                ButtonController.navigateFreeGame()
-                      },
+                homeScreenViewModel.buttonController.navigateFreeGame()
+            },
             modifier = Modifier
                 .size(100.dp, 43.dp)
                 .paint(
@@ -45,7 +46,7 @@ fun MainButtonsBlock() {
         ) { Text("Free game", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
 
         IconButton(
-            onClick = { ButtonController.navigateToPlayers() },
+            onClick = { homeScreenViewModel.buttonController.navigateToPlayers() },
             modifier = Modifier
                 .size(100.dp, 43.dp)
                 .paint(
@@ -55,7 +56,7 @@ fun MainButtonsBlock() {
         ) { Text("Players", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
 
         IconButton(
-            onClick = { ButtonController.navigateToInfo() },
+            onClick = { homeScreenViewModel.buttonController.navigateToInfo() },
             modifier = Modifier
                 .size(100.dp, 43.dp)
                 .paint(

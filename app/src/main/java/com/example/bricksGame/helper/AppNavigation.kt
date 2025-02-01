@@ -15,35 +15,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.bricksGame.components.gameMeny.RunHomeScreen
-import com.example.bricksGame.components.info.Info
-import com.example.bricksGame.components.levelGame.RunLevelGame
-import com.example.bricksGame.components.map.Map
-import com.example.bricksGame.components.players.PlayerView
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class AppNavigation private constructor() {
+@Singleton
+class AppNavigation @Inject constructor() {
 
     private lateinit var _navController: NavHostController
 
-    companion object {
-        private var instance: AppNavigation? = null
-
-        fun getInstance(): AppNavigation {
-            if (instance == null)
-                synchronized(AppNavigation::class.java) {
-
-                    if (instance == null) {
-                        instance = AppNavigation()
-                    }
-                }
-            return requireNotNull(instance)
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
     @Composable
     fun CreateNavHost() {
         _navController = rememberNavController()
-
 
         NavHost(navController = _navController,
             startDestination = Routes.HomeScreen.route,
@@ -51,22 +33,23 @@ class AppNavigation private constructor() {
             exitTransition = { ExitTransition.None }) {
 
             composable(Routes.HomeScreen.route) { RunHomeScreen() }
-            composable(Routes.LevelGame.route,
-                enterTransition = {
-                    scaleIn(
-                        animationSpec = tween(300, easing = LinearEasing),
-                    )
-                },
-                exitTransition = {
-                    scaleOut(
-                        animationSpec = tween(300, easing = LinearEasing),
-                    )
-                }
 
-            ) { RunLevelGame() }
-            composable(Routes.Players.route) { PlayerView() }
-            composable(Routes.Info.route) { Info("https://spiritualadviser.github.io/Standcorexam/") }
-            composable(Routes.Map.route) { Map() }
+//            composable(Routes.LevelGame.route,
+//                enterTransition = {
+//                    scaleIn(
+//                        animationSpec = tween(300, easing = LinearEasing),
+//                    )
+//                },
+//                exitTransition = {
+//                    scaleOut(
+//                        animationSpec = tween(300, easing = LinearEasing),
+//                    )
+//                }
+//
+//            ) { RunLevelGame() }
+//            composable(Routes.Players.route) { PlayerView() }
+//            composable(Routes.Info.route) { Info("https://spiritualadviser.github.io/Standcorexam/") }
+//            composable(Routes.Map.route) { Map() }
         }
     }
 

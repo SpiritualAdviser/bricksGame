@@ -6,14 +6,16 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.ViewModel
 import com.example.bricksGame.R
 import com.example.bricksGame.ui.theme.errorLight
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object GameConfig : ViewModel() {
+@Singleton
+class GameConfig @Inject constructor() {
     lateinit var gameData: SQLiteDatabase
-    const val GAME_VERSION = "a-1.2"
-    const val CHEAT = false
+    val GAME_VERSION = "a-1.2"
+    val CHEAT = false
 
     /**
      * options for game designer Field Game
@@ -33,26 +35,26 @@ object GameConfig : ViewModel() {
 
     var MIN_WIN_NUMBER_LINE: Int = 3
 
-    const val MAX_SCORE_ON_GAME = 300
-    const val MIN_SCORE_ON_GAME = 20
+    val MAX_SCORE_ON_GAME = 300
+    val MIN_SCORE_ON_GAME = 20
 
     /**
      * options MAX_BRICKS is count dragging bricks for game on button block
      */
-    const val MAX_LEVELS_ON_GAME = 200
+    val MAX_LEVELS_ON_GAME = 200
 
-    const val MAX_LINE_FIELD_ON_GAME = 9
-    const val MIN_LINE_FIELD_ON_GAME = 3
+    val MAX_LINE_FIELD_ON_GAME = 9
+    val MIN_LINE_FIELD_ON_GAME = 3
 
     var MAX_BRICKS_ON_LEVEL = 3
     var MAX_NEGATIVE_BRICKS_ON_LEVEL = listOf<Int>(0, 0)
     var MIN_BRICKS_TO_ADD_NEXT = 0
-    const val MAX_BRICKS_SIZE = 55
+    val MAX_BRICKS_SIZE = 55
 
     /**
      * options for padding FieldGame in Dp
      */
-    const val PADDING_FIELD = 30
+    val PADDING_FIELD = 30
 
     /**
      * options BRICK_BORDER_SIZE for brick border size in Dp
@@ -63,10 +65,10 @@ object GameConfig : ViewModel() {
     val BRICK_BG_COLOR = Color.Transparent
     val BRICK_BG_FIELD_COLOR = Color(0xB92C2C2C)
     val FIELD_BG_COLOR = Color(0xCD2A2A2A)
-    const val BRICK_BORDER_SIZE = 1
+    val BRICK_BORDER_SIZE = 1
     val BRICK_BORDER_COLOR = Color.Black
     val BRICK_BORDER_HOVER_COLOR = errorLight
-    const val BRICK_ROUNDED_CORNER = 4
+    val BRICK_ROUNDED_CORNER = 4
 
     /**
      * options for image assets brick on game
@@ -105,11 +107,11 @@ object GameConfig : ViewModel() {
         R.drawable.fire_bonus,
         R.drawable.hammer_bonus,
     )
-    const val NEGATIVE_BONUS_LEAVES = 998
-    const val NEGATIVE_BONUS_LEAVES_LIFE = 1
-    const val NEGATIVE_BONUS_ROCK = 999
-    const val NEGATIVE_BONUS_ROCK_LIFE = 2
-    const val MAX_CLOSED_PERCENT_GAME_FIELD = 30
+    val NEGATIVE_BONUS_LEAVES = 998
+    val NEGATIVE_BONUS_LEAVES_LIFE = 1
+    val NEGATIVE_BONUS_ROCK = 999
+    val NEGATIVE_BONUS_ROCK_LIFE = 2
+    val MAX_CLOSED_PERCENT_GAME_FIELD = 30
 
     val negativeBonuses = listOf(
         NegativeBonus(

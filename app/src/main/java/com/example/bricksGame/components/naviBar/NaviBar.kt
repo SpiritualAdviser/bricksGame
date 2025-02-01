@@ -14,10 +14,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bricksGame.R
-import com.example.bricksGame.soundController
-import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.helper.ButtonController
+import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
 
 @Composable
 fun ButtonNaviBar() {
@@ -27,15 +26,15 @@ fun ButtonNaviBar() {
 }
 
 @Composable
-fun ButtonSound() {
+fun ButtonSound(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()) {
     IconToggleButton(
-        checked = GameConfig.SOUND_MUTED, onCheckedChange = {
-            soundController.soundMute()
+        checked = homeScreenViewModel.gameConfig.SOUND_MUTED, onCheckedChange = {
+//            soundController.soundMute()
         },
         modifier = Modifier
             .size(40.dp)
             .paint(
-                painter = if (GameConfig.SOUND_MUTED) painterResource(R.drawable.play_muted)
+                painter = if (homeScreenViewModel.gameConfig.SOUND_MUTED) painterResource(R.drawable.play_muted)
                 else painterResource(R.drawable.play),
                 contentScale = ContentScale.FillWidth
             )
@@ -43,10 +42,10 @@ fun ButtonSound() {
 }
 
 @Composable
-fun ButtonClose() {
+fun ButtonClose(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()) {
     IconButton(
         onClick = {
-            ButtonController.navigateToHome()
+            homeScreenViewModel.buttonController.navigateToHome()
         },
 
         modifier = Modifier
@@ -60,9 +59,9 @@ fun ButtonClose() {
 }
 
 @Composable
-fun ButtonNavigateHome() {
+fun ButtonNavigateHome(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()) {
     Button(
-        onClick = { ButtonController.navigateToHome() },
+        onClick = {  homeScreenViewModel.buttonController.navigateToHome() },
         modifier = Modifier.shadow(10.dp, spotColor = Color.Black.copy(alpha = 1f))
 //        modifier = Modifier
 //            .size(100.dp, 80.dp)

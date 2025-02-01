@@ -1,26 +1,31 @@
 package com.example.bricksGame.components.gameMeny
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.bricksGame.R
+import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
 import com.example.bricksGame.components.naviBar.ButtonSound
 import com.example.bricksGame.helper.MainMenuBg
-import com.example.bricksGame.R
-import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.ui.theme.gameVersionText
 
 @Composable
-fun RunHomeScreen() {
+fun RunHomeScreen(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()) {
 
     MainMenuBg()
     Row(
@@ -63,7 +68,7 @@ fun RunHomeScreen() {
 
 
     ) {
-        Text("Game version ${GameConfig.GAME_VERSION}", color = gameVersionText)
+        Text("Game version ${homeScreenViewModel.gameConfig.GAME_VERSION}", color = gameVersionText)
     }
 
 }
