@@ -23,16 +23,21 @@ import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
 import com.example.bricksGame.helper.SpriteAnimation
 import com.example.bricksGame.ui.theme.AppTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 val screenSize = ScreenSize()
 
 @SuppressLint("StaticFieldLeak")
 val soundController = SoundController.getInstance()
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var myClass:MyClass
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +48,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
+            myClass.numInt
             screenSize.GetScreenSize()
             val context = LocalContext.current
 
