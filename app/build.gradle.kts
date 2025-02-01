@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.devtoolsKsp)
 
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -99,9 +101,12 @@ dependencies {
     annotationProcessor(libs.androidx.room.room.compiler)
     ksp(libs.androidx.room.room.compiler)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
-    implementation ("com.google.code.gson:gson:2.9.0")
+    implementation(libs.kotlinx.serialization.json)
+    implementation (libs.gson)
 
-    implementation("io.coil-kt:coil-compose:2.2.2")
-    implementation("io.coil-kt:coil-gif:2.2.2")
+    implementation(libs.coil.compose)
+    implementation(libs.coil.gif)
+
+    implementation (libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }

@@ -1,6 +1,9 @@
 [versions]
 agp = "8.8.0"
+coilGif = "2.2.2"
 constraintlayoutCompose = "1.1.0"
+gson = "2.10.1"
+hiltAndroid = "2.55"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -28,6 +31,11 @@ ksp = "2.1.0-1.0.29"
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCompiler" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilGif" }
+coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coilGif" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
