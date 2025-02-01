@@ -1,6 +1,5 @@
 package com.example.bricksGame.components.players
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -31,6 +30,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -49,6 +49,7 @@ import com.example.bricksGame.R
 import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.players.data.Player
 import com.example.bricksGame.components.players.models.PlayerViewModel
+import com.example.bricksGame.components.players.models.PlayerViewModel.nameNoEmpty
 import com.example.bricksGame.helper.MainMenuBg
 import com.example.bricksGame.ui.theme.activePlayerBgCard
 import com.example.bricksGame.ui.theme.activePlayerIcon
@@ -61,7 +62,6 @@ import com.example.bricksGame.ui.theme.playersBgBlock
 import com.example.bricksGame.ui.theme.unfocusedTextFieldBg
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PlayerView() {
 
@@ -91,10 +91,9 @@ fun PlayerView() {
         Spacer(Modifier.size(5.dp))
         IconButton(
             onClick = {
-                if (true) {
+                if (nameNoEmpty) {
                     PlayerViewModel.addPlayer()
                     coroutineScope.launch {
-
                         snackState.showSnackbar("The Player is added")
                     }
                 } else {
@@ -104,12 +103,19 @@ fun PlayerView() {
                 }
             },
             modifier = Modifier
-                .size(115.dp, 50.dp)
+                .size(130.dp, 50.dp)
                 .paint(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.FillBounds
                 )
-        ) { Text("Create player", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
+        ) {
+            Text(
+                "Create player",
+                fontSize = 13.sp,
+                color = buttonText,
+                fontWeight = FontWeight.Bold
+            )
+        }
 
     }
     Column(
@@ -218,7 +224,7 @@ fun AddPlayer() {
     OutlinedTextField(
         value = PlayerViewModel.nameNewPlayer.value,
         onValueChange = {
-            PlayerViewModel.nameNewPlayer.value = it
+            PlayerViewModel.setNameOnAddPlayer(it)
         },
         label = { Text("name") },
         colors = TextFieldDefaults.colors(

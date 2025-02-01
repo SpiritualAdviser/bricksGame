@@ -18,6 +18,8 @@ import kotlinx.coroutines.launch
 
 object PlayerViewModel : ViewModel() {
 
+    var nameNoEmpty = false
+
     private var newPlayer: Player = Player(
         playerName = "Player",
         isActive = true,
@@ -52,6 +54,15 @@ object PlayerViewModel : ViewModel() {
             } else {
                 setGamePlayerParams(currentPlayer)
             }
+        }
+    }
+
+    fun setNameOnAddPlayer(name: String) {
+        if (name.isNotEmpty()) {
+            nameNoEmpty = true
+            nameNewPlayer.value = name
+        } else {
+            return
         }
     }
 
@@ -125,6 +136,7 @@ object PlayerViewModel : ViewModel() {
     }
 
     fun addPlayer() {
+
         newPlayer.playerName = nameNewPlayer.value
 
         LevelsConfig.setLevelListOnCreatePlayer()
@@ -134,8 +146,8 @@ object PlayerViewModel : ViewModel() {
             DataRepository.addPlayer(newPlayer)
             nameNewPlayer.value = ""
         }
-
         setActivePlayerOnGame(newPlayer)
+        nameNoEmpty = false
     }
 
     private fun update(player: Player) {

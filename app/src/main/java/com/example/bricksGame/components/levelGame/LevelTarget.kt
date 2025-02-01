@@ -14,7 +14,7 @@ import com.example.bricksGame.ui.theme.onPrimaryLight
 @Composable
 fun LevelTargetBlockPortrait() {
     Row(
-        modifier = Modifier.fillMaxWidth(0.9F),
+        modifier = Modifier.fillMaxWidth(1F),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

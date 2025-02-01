@@ -1,6 +1,8 @@
 package com.example.bricksGame
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 
@@ -87,6 +89,14 @@ class MainActivity : ComponentActivity() {
     private fun setSprite() {
         val animList = listOf("explosion_c3.json", "bg_close_brick.json", "bg_close_leaves.json")
         SpriteAnimation.setAnimationOnGame(applicationContext, animList)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        val newOverride = Configuration(newBase?.resources?.configuration)
+        if (newOverride.fontScale >= 1.3f)
+            newOverride.fontScale = 1.3f
+        applyOverrideConfiguration(newOverride)
+        super.attachBaseContext(newBase)
     }
 }
 
