@@ -10,7 +10,9 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.lifecycleScope
 import com.example.bricksGame.components.levelGame.animations.AnimationsBrick
 import com.example.bricksGame.components.players.data.DataRepository
 import com.example.bricksGame.components.players.models.PlayerViewModel
@@ -31,7 +33,6 @@ val soundController = SoundController.getInstance()
 class MainActivity : ComponentActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
@@ -43,11 +44,12 @@ class MainActivity : ComponentActivity() {
             screenSize.GetScreenSize()
             val context = LocalContext.current
 
-            CoroutineScope(Dispatchers.Main).launch {
-                DataRepository.getPlayerDatabase(context)
+            LaunchedEffect(null) {
+            DataRepository.getPlayerDatabase(context)
 
-                PlayerViewModel.setPlayerOnGame()
-            }
+            PlayerViewModel.setPlayerOnGame()
+        }
+
             setSprite()
 
 //   context.deleteDatabase("player_database")

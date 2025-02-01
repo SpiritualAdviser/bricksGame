@@ -28,7 +28,5 @@ interface PlayerDAO {
 
     @Delete
     fun delete(player: Player)
-
-
 }
 

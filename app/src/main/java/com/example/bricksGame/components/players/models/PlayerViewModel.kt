@@ -3,6 +3,7 @@ package com.example.bricksGame.components.players.models
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.components.players.data.ActiveLevelList
 import com.example.bricksGame.components.players.data.Player
@@ -11,15 +12,13 @@ import com.example.bricksGame.components.players.data.GameLevelList
 import com.example.bricksGame.components.players.data.LevelPlayer
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.LevelsConfig
-import com.example.bricksGame.soundController
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 object PlayerViewModel : ViewModel() {
 
-    var newPlayer: Player = Player(
+    private var newPlayer: Player = Player(
         playerName = "Player",
         isActive = true,
         activeLevelList = ActiveLevelList(),
@@ -40,7 +39,7 @@ object PlayerViewModel : ViewModel() {
     }
 
     fun setPlayerOnGame() {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.IO) {
             var currentPlayer: Player? = DataRepository.getActivePlayer()
 
             if (currentPlayer == null) {
@@ -57,7 +56,7 @@ object PlayerViewModel : ViewModel() {
     }
 
     fun setActivePlayerOnGame(player: Player) {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.IO) {
             resetPlayers()
 
             player.isActive = true
@@ -67,7 +66,7 @@ object PlayerViewModel : ViewModel() {
         setGamePlayerParams(player)
     }
 
-    fun setGamePlayerParams(player: Player) {
+    private fun setGamePlayerParams(player: Player) {
         activePlayer = player
         nameActivePlayer.value = player.playerName
         playerAchievements.intValue = player.achievements
@@ -90,7 +89,7 @@ object PlayerViewModel : ViewModel() {
 
     fun updatePlayerOnLevelWin() {
         val currentLevel = MapModel.currentLevel
-        var dataPlayerList = activePlayer.activeLevelList.activeLevelList
+        val dataPlayerList = activePlayer.activeLevelList.activeLevelList
 
         if (GameConfig.CHEAT) {
             return
@@ -121,7 +120,7 @@ object PlayerViewModel : ViewModel() {
         update(activePlayer)
     }
 
-    fun resetPlayers() {
+    private fun resetPlayers() {
         DataRepository.setInactiveAllPlayers()
     }
 
@@ -131,7 +130,7 @@ object PlayerViewModel : ViewModel() {
         LevelsConfig.setLevelListOnCreatePlayer()
         newPlayer.gameLevelList.gameLevelList = LevelsConfig.levelGameList
 
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.IO) {
             DataRepository.addPlayer(newPlayer)
             nameNewPlayer.value = ""
         }
@@ -139,14 +138,14 @@ object PlayerViewModel : ViewModel() {
         setActivePlayerOnGame(newPlayer)
     }
 
-    fun update(player: Player) {
-        CoroutineScope(Dispatchers.IO).launch {
+    private fun update(player: Player) {
+        viewModelScope.launch(Dispatchers.IO) {
             DataRepository.update(player)
         }
     }
 
     fun delete(player: Player) {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.IO) {
             DataRepository.delete(player)
         }
     }
