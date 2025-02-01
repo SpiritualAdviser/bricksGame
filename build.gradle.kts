@@ -6,4 +6,6 @@ plugins {
     alias(libs.plugins.devtoolsKsp)
     kotlin("jvm") version "2.1.0"
     kotlin("plugin.serialization") version "2.1.0"
+
+    id("com.google.dagger.hilt.android") version "2.55" apply false
 }
