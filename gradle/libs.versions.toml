@@ -4,6 +4,7 @@ coilGif = "2.2.2"
 constraintlayoutCompose = "1.1.0"
 gson = "2.10.1"
 hiltAndroid = "2.55"
+hiltNavigationCompose = "1.2.0"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -30,6 +31,7 @@ ksp = "2.1.0-1.0.29"
 [libraries]
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCompiler" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilGif" }
 coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coilGif" }
