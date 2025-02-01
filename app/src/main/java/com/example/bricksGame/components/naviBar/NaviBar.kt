@@ -29,7 +29,7 @@ fun ButtonNaviBar() {
 fun ButtonSound(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()) {
     IconToggleButton(
         checked = homeScreenViewModel.gameConfig.SOUND_MUTED, onCheckedChange = {
-//            soundController.soundMute()
+            homeScreenViewModel.soundController.soundMute()
         },
         modifier = Modifier
             .size(40.dp)

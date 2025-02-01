@@ -8,15 +8,21 @@ import javax.inject.Singleton
 @Singleton
 class ButtonController @Inject constructor() {
 
+    @Inject
+    lateinit var soundController: SoundController
+
+    @Inject
+    lateinit var appNavigation: AppNavigation
+
     fun navigateToHome() {
 
-//        soundController.clickUi()
-//        soundController.playMainTheme()
-//        AppNavigation.getInstance().getNavController().navigate(Routes.HomeScreen.route) {
-//
-//            popUpTo(Routes.HomeScreen.route)
-//            launchSingleTop = true
-//        }
+        soundController.clickUi()
+        soundController.playMainTheme()
+        appNavigation.getNavController().navigate(Routes.HomeScreen.route) {
+
+            popUpTo(Routes.HomeScreen.route)
+            launchSingleTop = true
+        }
     }
 
     fun navigateToLevelGame(onFree: Boolean = false) {
@@ -63,12 +69,12 @@ class ButtonController @Inject constructor() {
     }
 
     fun navigateToInfo() {
-//        soundController.clickUi()
-//        soundController.onWebView = true
-//        soundController.soundMuteOnStop()
-//        AppNavigation.getInstance().getNavController().navigate(Routes.Info.route) {
-//            popUpTo(Routes.Info.route)
-//            launchSingleTop = true
-//        }
+        soundController.clickUi()
+        soundController.onWebView = true
+        soundController.soundMuteOnStop()
+        appNavigation.getNavController().navigate(Routes.Info.route) {
+            popUpTo(Routes.Info.route)
+            launchSingleTop = true
+        }
     }
 }

@@ -11,6 +11,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import com.example.bricksGame.helper.AppNavigation
+import com.example.bricksGame.helper.SoundController
 import com.example.bricksGame.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -19,11 +20,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject
-    lateinit var myClass: MyClass
+    lateinit var soundController: SoundController
 
     @Inject
     lateinit var appNavigation: AppNavigation
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            myClass.numInt
+            soundController.playMainTheme()
 //            screenSize.GetScreenSize()
 //            val context = LocalContext.current
 //
@@ -52,36 +52,26 @@ class MainActivity : ComponentActivity() {
 //
 //            PlayerViewModel.setPlayerOnGame()
 
-
-//            if (!soundController.isRun) {
-//                soundController.setContext(context)
-//                soundController.playMainTheme()
-//            }
             AppTheme {
                 appNavigation.CreateNavHost()
             }
         }
     }
 
-//    override fun onStop() {
-//        super.onStop()
+    override fun onStop() {
+        super.onStop()
 //        AnimationsBrick.canRunTranslation.value = false
-//        if (!isChangingConfigurations) {
-//            soundController.soundMuteOnStop()
-//        }
-//    }
-//
-//    override fun onRestart() {
-//        super.onRestart()
-//        if (soundController.isRun) {
-//            soundController.soundMuteOnRestart()
-//        }
-//    }
-//
-//    private fun setSprite() {
-//        val animList = listOf("bg_close_brick.json", "bg_close_leaves.json")
-//        SpriteAnimation.setAnimationOnGame(applicationContext, animList)
-//    }
+        if (!isChangingConfigurations) {
+            soundController.soundMuteOnStop()
+        }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        if (soundController.isRun) {
+            soundController.soundMuteOnRestart()
+        }
+    }
 
     override fun attachBaseContext(newBase: Context?) {
         val newOverride = Configuration(newBase?.resources?.configuration)
