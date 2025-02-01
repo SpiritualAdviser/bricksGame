@@ -1,6 +1,7 @@
 package com.example.bricksGame
 
 import android.app.Application
+import com.example.bricksGame.components.players.data.DataRepository
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.AppNavigation
 import com.example.bricksGame.helper.SoundController
@@ -16,6 +17,9 @@ class MyHiltApp : Application() {
     @Inject
     lateinit var soundController: SoundController
 
+    @Inject
+    lateinit var dataRepository: DataRepository
+
     override fun onCreate() {
         super.onCreate()
 
@@ -24,6 +28,7 @@ class MyHiltApp : Application() {
         }
 
         setSprite()
+        dataRepository.getPlayerDatabase(applicationContext)
     }
 
     private fun setSprite() {

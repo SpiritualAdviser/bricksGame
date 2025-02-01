@@ -41,12 +41,12 @@ class ButtonController @Inject constructor() {
     }
 
     fun navigateToPlayers() {
-////        soundController.clickUi()
-//        AppNavigation.getInstance().getNavController().navigate(Routes.Players.route) {
-//
-//            popUpTo(Routes.Players.route)
-//            launchSingleTop = true
-//        }
+        soundController.clickUi()
+        appNavigation.getNavController().navigate(Routes.Players.route) {
+
+            popUpTo(Routes.Players.route)
+            launchSingleTop = true
+        }
     }
 
     fun navigateToMap() {
