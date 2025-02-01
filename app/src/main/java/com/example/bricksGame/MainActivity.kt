@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun setSprite() {
-        val animList = listOf("explosion_c3.json", "bg_close_brick.json", "bg_close_leaves.json")
+        val animList = listOf("bg_close_brick.json", "bg_close_leaves.json")
         SpriteAnimation.setAnimationOnGame(applicationContext, animList)
     }
 

@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.R
-import com.example.bricksGame.components.gameMeny.animation.AnimationLogo
 import com.example.bricksGame.ui.theme.buttonText
 
 
@@ -36,7 +35,6 @@ fun MainButtonsBlock() {
         IconButton(
             onClick = {
                 ButtonController.navigateFreeGame()
-                AnimationLogo.run()
                       },
             modifier = Modifier
                 .size(100.dp, 43.dp)
