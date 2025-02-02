@@ -11,6 +11,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import com.example.bricksGame.helper.AppNavigation
+import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
 import com.example.bricksGame.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +26,9 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var appNavigation: AppNavigation
 
+    @Inject
+    lateinit var screenSize: ScreenSize
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge(
@@ -35,7 +39,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
 
-//            screenSize.GetScreenSize()
+            screenSize.GetScreenSize()
 //            val context = LocalContext.current
 //
 //            LaunchedEffect(null) {

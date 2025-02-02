@@ -5,6 +5,7 @@ import com.example.bricksGame.components.players.data.DataRepository
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.GameData
 import com.example.bricksGame.helper.AppNavigation
+import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
 import com.example.bricksGame.helper.SpriteAnimation
 import dagger.hilt.android.HiltAndroidApp
