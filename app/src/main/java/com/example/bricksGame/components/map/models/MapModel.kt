@@ -26,7 +26,7 @@ class MapModel @Inject constructor(
 
     val levelList = gameData.levelGameList
 
-    private var currentLevel: Level? = null
+    var currentLevel: Level? = null
 
     var levelTarget = mutableIntStateOf(0)
     var levelWinLine: String = ""
@@ -62,7 +62,7 @@ class MapModel @Inject constructor(
         buttonController.navigateToLevelGame()
     }
 
-    private fun setLevelOptions(level: Level) {
+    fun setLevelOptions(level: Level) {
         levelTarget.intValue = level.numberOfScoreToWin
         levelWinLine =
             if (level.numberOfBricksToWin == 0) "Full" else level.numberOfBricksToWin.toString()

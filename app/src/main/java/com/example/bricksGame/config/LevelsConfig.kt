@@ -17,8 +17,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
     val gameFreeLevel: Level =
         Level(
             numberLevel = 1,
-            fieldGameRow = 2,
-            fieldGameColumn = 3,
+            fieldGameRow = 5,
+            fieldGameColumn = 6,
             additionalBrick = 3,
             lastBrickToAdd = 0,
             numberOfBricksToWin = 4,

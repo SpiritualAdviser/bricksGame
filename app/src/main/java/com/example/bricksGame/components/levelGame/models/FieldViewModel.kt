@@ -14,7 +14,7 @@ class FieldViewModel @Inject constructor(
     val gameConfig: GameConfig,
 ) : ViewModel() {
 
-    var brickOnField: MutableList<FieldBrick> = fieldController.createBricksList()
+    var brickOnField: MutableList<FieldBrick> = levelData.brickOnFields
     var zIndex = levelData.zIndex
 
     var brickSizePortrait = levelData.brickSizePortrait

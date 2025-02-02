@@ -1,5 +1,6 @@
 package com.example.bricksGame.helper
 
+import com.example.bricksGame.components.freeGame.FreeGameModel
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.logic.LevelLogic
@@ -9,8 +10,10 @@ import javax.inject.Singleton
 @Singleton
 class ButtonController @Inject constructor(
     private var levelLogic: LevelLogic,
-    var gameConfig: GameConfig
-) {
+    var gameConfig: GameConfig,
+    private var freeGameModel: FreeGameModel,
+
+    ) {
     @Inject
     lateinit var soundController: SoundController
 
@@ -61,11 +64,13 @@ class ButtonController @Inject constructor(
         }
     }
 
-    fun navigateFreeGame() {
-//        soundController.clickUi()
-//        soundController.playMainTheme()
-//        FreeGameModel.onRunLevel()
-//        navigateToLevelGame(true)
+    fun navigateFreeGame(mapModel: MapModel) {
+        soundController.clickUi()
+        soundController.playMainTheme()
+        mapModel.openLevelOnMap()
+
+        freeGameModel.onRunLevel(mapModel)
+        navigateToLevelGame(true)
     }
 
     fun navigateToInfo() {

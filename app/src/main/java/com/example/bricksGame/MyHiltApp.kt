@@ -1,9 +1,11 @@
 package com.example.bricksGame
 
 import android.app.Application
+import com.example.bricksGame.components.levelGame.controller.FieldController
 import com.example.bricksGame.components.players.data.DataRepository
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.GameData
+import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.AppNavigation
 import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
@@ -25,6 +27,9 @@ class MyHiltApp : Application() {
     @Inject
     lateinit var gameData: GameData
 
+    @Inject
+    lateinit var fieldController: FieldController
+
     override fun onCreate() {
         super.onCreate()
 
@@ -37,6 +42,8 @@ class MyHiltApp : Application() {
         dataRepository.getPlayerDatabase(applicationContext)
 
         gameData.start()
+
+        fieldController.createBricksList()
     }
 
     private fun setSprite() {
