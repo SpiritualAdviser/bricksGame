@@ -1,7 +1,5 @@
 package com.example.bricksGame.helper
 
-import com.example.bricksGame.config.GameConfig
-
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -50,15 +48,15 @@ class ButtonController @Inject constructor() {
     }
 
     fun navigateToMap() {
-//        soundController.clickUi()
-//        soundController.playMainTheme()
-//
-//        MapModel.openLevelOnMap()
-//        AppNavigation.getInstance().getNavController().navigate(Routes.Map.route) {
-//
-//            popUpTo(Routes.Map.route)
-//            launchSingleTop = true
-//        }
+        soundController.clickUi()
+        soundController.playMainTheme()
+
+//        mapModel.openLevelOnMap()
+        appNavigation.getNavController().navigate(Routes.Map.route) {
+
+            popUpTo(Routes.Map.route)
+            launchSingleTop = true
+        }
     }
 
     fun navigateFreeGame() {

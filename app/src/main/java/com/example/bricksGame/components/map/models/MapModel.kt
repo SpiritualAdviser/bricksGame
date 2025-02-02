@@ -13,10 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MapModel @Inject constructor() : ViewModel() {
-
-    @Inject
-    lateinit var levelsConfig: LevelsConfig
+class MapModel @Inject constructor(var levelsConfig: LevelsConfig) : ViewModel() {
 
     @Inject
     lateinit var gameConfig: GameConfig
@@ -40,23 +37,23 @@ class MapModel @Inject constructor() : ViewModel() {
     var levelStep = mutableIntStateOf(0)
 
     fun openLevelOnMap() {
-//       val playerLevels = playerViewModel.activePlayer.activeLevelList.activeLevelList
-//
-//        if (gameConfig.CHEAT) {
-//            levelList.forEach {
-//                it.isActive = true
-//            }
-//        } else {
-//            levelList.forEach {
-//                it.isActive = false
-//            }
-//
-//            playerLevels.forEach { level ->
-//                levelList.find { it.numberLevel == level.numberLevel }?.let {
-//                    it.isActive = true
-//                }
-//            }
-//        }
+        val playerLevels = mapRepository.activePlayer
+
+        if (gameConfig.CHEAT) {
+            levelList.forEach {
+                it.isActive = true
+            }
+        } else {
+            levelList.forEach {
+                it.isActive = false
+            }
+
+            playerLevels?.activeLevelList?.activeLevelList?.forEach { level ->
+                levelList.find { it.numberLevel == level.numberLevel }?.let {
+                    it.isActive = true
+                }
+            }
+        }
     }
 
     fun runLevel(level: Level) {
