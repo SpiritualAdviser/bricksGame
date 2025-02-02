@@ -1,13 +1,11 @@
-//package com.example.bricksGame.components.freeGame
-//
-//import com.example.bricksGame.components.map.models.MapModel.currentLevel
-//import com.example.bricksGame.components.map.models.MapModel.setLevelOptions
-//import com.example.bricksGame.config.LevelsConfig
-//
-//object FreeGameModel {
-//
-//    fun onRunLevel() {
+package com.example.bricksGame.components.freeGame
+
+import javax.inject.Inject
+
+class FreeGameModel @Inject constructor() {
+
+    fun onRunLevel() {
 //        currentLevel = LevelsConfig.gameFreeLevel
 //        setLevelOptions(LevelsConfig.gameFreeLevel)
-//    }
-//}
+    }
+}

@@ -17,6 +17,7 @@ class GameConfig @Inject constructor() {
     val GAME_VERSION = "a-1.2"
     val CHEAT = false
 
+
     /**
      * options for game designer Field Game
      *
