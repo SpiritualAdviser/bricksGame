@@ -238,8 +238,8 @@ private fun BricksBlock(
                 )
                 Spacer(Modifier.size(10.dp))
             }
-//            AnimationsBrick.InitAnimationTranslationX(brick)
-//            AnimationsBrick.runAnimationTranslation(brick, index)
+            AnimationsBrick.InitAnimationTranslationX(brick)
+            AnimationsBrick.runAnimationTranslation(brick, index)
         })
     }
 }
