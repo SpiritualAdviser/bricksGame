@@ -224,12 +224,14 @@ private fun BricksBlock(
 
                                     brick.dragging(dragAmount.x, dragAmount.y)
                                     coroutine.launch {
-//                                        CollisionBricksOnLevel.observeCenterObjects(brick)
+                                        bricksViewModel.collisionBricksOnLevel.observeCenterObjects(
+                                            brick
+                                        )
                                     }
                                 },
                                 onDragEnd = {
                                     coroutine.launch {
-//                                        brick.takeAPlaces()
+                                        brick.takeAPlaces()
                                     }
                                 },
                                 onDragCancel = { },
@@ -304,7 +306,9 @@ private fun BonusBlock(
                                         if (it.canDrag) {
                                             it.dragging(dragAmount.x, dragAmount.y)
                                             coroutine.launch {
-//                                                CollisionBricksOnLevel.observeCenterObjects(it)
+                                                fieldViewModel.collisionBricksOnLevel.observeCenterObjects(
+                                                    it
+                                                )
                                             }
                                         }
                                     },
@@ -312,7 +316,6 @@ private fun BonusBlock(
                                         if (it.canDrag) {
                                             coroutine.launch {
                                                 it.takeAPlaces()
-//                                        FieldViewModel.checkFieldOnFinishRound()
                                             }
                                         }
                                         fieldViewModel.changeZIndex(0F)

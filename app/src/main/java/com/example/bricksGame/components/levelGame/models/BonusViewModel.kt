@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
+import com.example.bricksGame.components.levelGame.controller.BricksController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ScreenSize
@@ -23,8 +24,8 @@ class BonusViewModel @Inject constructor(
     val gameConfig: GameConfig,
     var soundController: SoundController,
     private var levelData: LevelData,
-    private var levelLogic: LevelLogic
-
+    private var levelLogic: LevelLogic,
+    private var bricksController: BricksController,
 ) : ViewModel() {
 
     private var _bonusList = createBonusList().toMutableStateList()
@@ -80,7 +81,8 @@ class BonusViewModel @Inject constructor(
             gameConfig = gameConfig,
             screenSize = screenSize,
             soundController = soundController,
-            levelLogic = levelLogic
+            levelLogic = levelLogic,
+            bricksController = bricksController
 
         )
         newBrick.borderColor = gameConfig.BRICK_BORDER_COLOR

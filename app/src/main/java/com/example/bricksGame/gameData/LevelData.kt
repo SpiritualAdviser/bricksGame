@@ -1,7 +1,11 @@
 package com.example.bricksGame.gameData
 
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.unit.dp
+import com.example.bricksGame.components.levelGame.controller.BricksController
+import com.example.bricksGame.components.levelGame.models.Brick
 import com.example.bricksGame.components.levelGame.models.FieldBrick
 import com.example.bricksGame.config.Level
 import javax.inject.Inject
@@ -20,6 +24,8 @@ class LevelData @Inject constructor(
     var brickSizePortrait = 0.dp
     var brickSizeLandscape = 0.dp
     var fieldMAxWidthSize = 0.dp
+
+    lateinit var _bricksList: SnapshotStateList<Brick>
 
     fun setBrickOnField(brickOnFieldInner: MutableList<FieldBrick>) {
         brickOnFields = brickOnFieldInner
