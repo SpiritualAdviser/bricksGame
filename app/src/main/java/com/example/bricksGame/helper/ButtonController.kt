@@ -1,4 +1,6 @@
 package com.example.bricksGame.helper
+
+import com.example.bricksGame.components.map.models.MapModel
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -46,11 +48,11 @@ class ButtonController @Inject constructor() {
         }
     }
 
-    fun navigateToMap() {
+    fun navigateToMap(mapModel: MapModel) {
         soundController.clickUi()
         soundController.playMainTheme()
 
-//        mapModel.openLevelOnMap()
+        mapModel.openLevelOnMap()
         appNavigation.getNavController().navigate(Routes.Map.route) {
 
             popUpTo(Routes.Map.route)

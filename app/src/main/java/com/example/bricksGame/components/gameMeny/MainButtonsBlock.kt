@@ -14,17 +14,21 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bricksGame.R
 import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
+import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.ui.theme.buttonText
 
 
 @Composable
-fun MainButtonsBlock(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()) {
+fun MainButtonsBlock(
+    homeScreenViewModel: HomeScreenViewModel = hiltViewModel(),
+    mapModel: MapModel = hiltViewModel()
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
 
         IconButton(
-            onClick = { homeScreenViewModel.buttonController.navigateToMap() },
+            onClick = { homeScreenViewModel.buttonController.navigateToMap(mapModel) },
             modifier = Modifier
                 .size(100.dp, 43.dp)
                 .paint(
