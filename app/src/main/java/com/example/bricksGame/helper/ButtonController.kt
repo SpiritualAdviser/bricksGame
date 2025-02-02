@@ -1,5 +1,6 @@
 package com.example.bricksGame.helper
 
+import com.example.bricksGame.components.players.controller.PlayerController
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -11,6 +12,9 @@ class ButtonController @Inject constructor() {
 
     @Inject
     lateinit var appNavigation: AppNavigation
+
+    @Inject
+    lateinit var playerController: PlayerController
 
     fun navigateToHome() {
 

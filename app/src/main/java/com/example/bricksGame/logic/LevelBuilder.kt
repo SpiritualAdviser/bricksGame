@@ -2,23 +2,20 @@ package com.example.bricksGame.logic
 
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
-import com.example.bricksGame.config.LevelsConfig
 import javax.inject.Inject
 import kotlin.math.ceil
 import kotlin.math.floor
 
 class LevelBuilder @Inject constructor() {
+
     @Inject
     lateinit var gameConfig: GameConfig
+    private lateinit var gameFixLevels: List<Level>
 
-    @Inject
-    lateinit var levelsConfig: LevelsConfig
-
-    private val gameFixLevels = levelsConfig.gameFixLevels
-
-    fun getLevelGameList(levelGameList: MutableList<Level>) {
+    fun setLevelGameList(levelGameList: MutableList<Level>, gameFixLevels: List<Level>) {
 
         for (levelNumber in 1..gameConfig.MAX_LEVELS_ON_GAME) {
+            this.gameFixLevels = gameFixLevels
             val level = createLevel(levelNumber)
             levelGameList.add(level)
         }

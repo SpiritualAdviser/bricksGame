@@ -5,13 +5,13 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class LevelsConfig @Inject constructor() {
+class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
 
     var levelGameList = mutableListOf<Level>()
 
     fun setLevelListOnCreatePlayer() {
         levelGameList.clear()
-        LevelBuilder().getLevelGameList(levelGameList)
+        levelBuilder.setLevelGameList(levelGameList, gameFixLevels)
     }
 
     val gameFreeLevel: Level =
