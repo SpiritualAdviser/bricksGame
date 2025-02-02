@@ -29,6 +29,7 @@ class MyHiltApp : Application() {
 
         if (!soundController.isRun) {
             soundController.setContext(applicationContext)
+            soundController.playMainTheme()
         }
 
         setSprite()

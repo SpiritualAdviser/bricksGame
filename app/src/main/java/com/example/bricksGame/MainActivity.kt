@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            soundController.playMainTheme()
+
 //            screenSize.GetScreenSize()
 //            val context = LocalContext.current
 //
