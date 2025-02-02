@@ -67,37 +67,37 @@ class Brick @Inject constructor(
         this.globalY = coordinates.positionInWindow().y
     }
 
-//    suspend fun takeAPlaces() {
-//        delay(25)
-//        if (this.position == "Bonus") {
-//            if (this.hasBonusOwnerId != null) {
-////                BonusViewModel.onBonus(this)
-////                MapModel.changeLevelStepOnRound()
-////                LevelLogic.checkRound(this)
-//                this.hasBonusOwnerId = null
-//            }
-//            this.x.intValue = 0
-//            this.y.intValue = 0
-//
-//        } else {
-//
-//            if (fieldBrickOnCollision != null) {
-//
-//                val offsetAmount = getOffsetAmount(fieldBrickOnCollision!!)
-//                dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
-////                BricksViewModel.removeBrick(this)
-////                LevelLogic.checkRound(this)
-//                freeSpace()
-//                soundController.pushCristal()
-////                MapModel.changeLevelStepOnRound()
-//
-//            } else {
-//                this.x.intValue = 0
-//                this.y.intValue = 0
-//            }
-//            fieldBrickOnCollision?.onDragEnd()
-//        }
-//    }
+    suspend fun takeAPlaces() {
+        delay(25)
+        if (this.position == "Bonus") {
+            if (this.hasBonusOwnerId != null) {
+//                BonusViewModel.onBonus(this)
+//                MapModel.changeLevelStepOnRound()
+//                LevelLogic.checkRound(this)
+                this.hasBonusOwnerId = null
+            }
+            this.x.intValue = 0
+            this.y.intValue = 0
+
+        } else {
+
+            if (fieldBrickOnCollision != null) {
+
+                val offsetAmount = getOffsetAmount(fieldBrickOnCollision!!)
+                dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
+//                BricksViewModel.removeBrick(this)
+//                LevelLogic.checkRound(this)
+                freeSpace()
+                soundController.pushCristal()
+//                MapModel.changeLevelStepOnRound()
+
+            } else {
+                this.x.intValue = 0
+                this.y.intValue = 0
+            }
+            fieldBrickOnCollision?.onDragEnd()
+        }
+    }
 
     private fun getOffsetAmount(fieldBrickOnCollision: FieldBrick): Map<String, Float> {
         val padding: Float = gameConfig.BRICK_BORDER_SIZE * screenSize.density

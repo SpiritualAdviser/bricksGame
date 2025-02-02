@@ -1,5 +1,6 @@
 package com.example.bricksGame.gameData
 
+import com.example.bricksGame.components.levelGame.models.FieldBrick
 import com.example.bricksGame.components.players.data.DataRepository
 import com.example.bricksGame.components.players.data.Player
 import com.example.bricksGame.config.LevelsConfig
@@ -15,9 +16,15 @@ class GameData @Inject constructor(
     var allPlayers = dataRepository.getAllPlayers()
     var levelGameList = levelsConfig.levelGameList
 
+    lateinit var brickOnFields: MutableList<FieldBrick>
+
     fun start() {
         levelsConfig.setLevelListOnCreatePlayer()
         allPlayers = dataRepository.getAllPlayers()
+    }
+
+    fun setBrickOnField(brickOnFieldInner: MutableList<FieldBrick>) {
+        brickOnFields = brickOnFieldInner
     }
 
     suspend fun addPlayer(newPlayer: Player) {

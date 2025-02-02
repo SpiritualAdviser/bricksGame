@@ -1,10 +1,8 @@
 package com.example.bricksGame.components.levelGame.models
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.ScreenSize
@@ -63,7 +61,7 @@ class BricksViewModel @Inject constructor(
     private fun checkIfNeedNewBricksList() {
         if (_bricksList.size <= gameConfig.MIN_BRICKS_TO_ADD_NEXT) {
             for (i in _bricksList.size until gameConfig.MAX_BRICKS_ON_LEVEL) {
-//                soundController.cristalAdd()
+                soundController.pushCristal()
                 _bricksList.add(createBrick())
             }
         }
@@ -82,7 +80,7 @@ class BricksViewModel @Inject constructor(
         newBrick.soundController = soundController
 
         newBrick.borderColor = gameConfig.BRICK_BORDER_COLOR
-        newBrick.activeBonusBorder= mutableStateOf(gameConfig.BRICK_BORDER_COLOR)
+        newBrick.activeBonusBorder = mutableStateOf(gameConfig.BRICK_BORDER_COLOR)
         return newBrick
     }
 }

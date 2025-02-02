@@ -1,14 +1,15 @@
 package com.example.bricksGame.components.levelGame.models
 
-/* import com.example.bricksGame.logic.CollisionBricksOnLevel */
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.R
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.NegativeBonus
+import com.example.bricksGame.gameData.GameData
 import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
+import com.example.bricksGame.logic.CollisionBricksOnLevel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -17,10 +18,12 @@ class FieldViewModel @Inject constructor(
     private var screenSize: ScreenSize,
     val gameConfig: GameConfig,
     var soundController: SoundController,
+    private var collisionBricksOnLevel: CollisionBricksOnLevel,
+    private var gameData: GameData
 ) : ViewModel() {
 
     val EMPTY_ID = "Color.Transparent"
-    var brickOnField:MutableList<FieldBrick> = createBricksList()
+    var brickOnField: MutableList<FieldBrick> = createBricksList()
     var zIndex = mutableFloatStateOf(0F)
 
     var brickSizePortrait = 0.dp
@@ -51,7 +54,7 @@ class FieldViewModel @Inject constructor(
 
     fun resetData() {
         this.brickOnField.clear()
-//        CollisionBricksOnLevel.resetData()
+        collisionBricksOnLevel.resetData()
         this.brickOnField = createBricksList()
     }
 
@@ -72,6 +75,7 @@ class FieldViewModel @Inject constructor(
             ++positionRow
         }
         println(bricksList.toString())
+        gameData.setBrickOnField(bricksList)
         return bricksList
     }
 
@@ -84,7 +88,7 @@ class FieldViewModel @Inject constructor(
 
     fun addToCollision() {
         brickOnField.forEach() {
-//            CollisionBricksOnLevel.addToCollision(fieldBrick = it)
+            collisionBricksOnLevel.addToCollision(fieldBrick = it)
         }
         runCollision()
     }
@@ -94,7 +98,7 @@ class FieldViewModel @Inject constructor(
     }
 
     private fun runCollision() {
-//        CollisionBricksOnLevel.runCollision(true)
+        collisionBricksOnLevel.runCollision(true)
     }
 
     fun setBricksOnField(brick: Brick) {
