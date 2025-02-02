@@ -1,68 +1,32 @@
-//package com.example.bricksGame.components.levelGame
-//
-//import androidx.compose.foundation.background
-//import androidx.compose.foundation.border
-//import androidx.compose.foundation.gestures.detectDragGestures
-//import androidx.compose.foundation.layout.Arrangement
-//import androidx.compose.foundation.layout.Box
-//import androidx.compose.foundation.layout.Column
-//import androidx.compose.foundation.layout.Row
-//import androidx.compose.foundation.layout.Spacer
-//import androidx.compose.foundation.layout.fillMaxSize
-//import androidx.compose.foundation.layout.fillMaxWidth
-//import androidx.compose.foundation.layout.offset
-//import androidx.compose.foundation.layout.padding
-//import androidx.compose.foundation.layout.size
-//import androidx.compose.foundation.lazy.grid.GridCells
-//import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-//import androidx.compose.foundation.lazy.grid.items
-//import androidx.compose.foundation.shape.RoundedCornerShape
-//import androidx.compose.runtime.Composable
-//import androidx.compose.runtime.key
-//import androidx.compose.runtime.rememberCoroutineScope
-//import androidx.compose.ui.Alignment
-//import androidx.compose.ui.Modifier
-//import androidx.compose.ui.draw.clip
-//import androidx.compose.ui.draw.paint
-//import androidx.compose.ui.graphics.ImageBitmap
-//import androidx.compose.ui.graphics.graphicsLayer
-//import androidx.compose.ui.graphics.painter.BitmapPainter
-//import androidx.compose.ui.input.pointer.pointerInput
-//import androidx.compose.ui.layout.ContentScale
-//import androidx.compose.ui.layout.onGloballyPositioned
-//import androidx.compose.ui.res.imageResource
-//import androidx.compose.ui.res.painterResource
-//import androidx.compose.ui.unit.IntOffset
-//import androidx.compose.ui.unit.IntSize
-//import androidx.compose.ui.unit.dp
-//import androidx.compose.ui.zIndex
-//import com.example.bricksGame.R
-//import com.example.bricksGame.components.levelGame.animations.AnimationsBrick
-//import com.example.bricksGame.components.levelGame.models.BonusViewModel
-//import com.example.bricksGame.components.levelGame.models.BricksViewModel
-//import com.example.bricksGame.components.levelGame.models.FieldViewModel
-//import com.example.bricksGame.components.naviBar.ButtonNaviBar
-//import com.example.bricksGame.components.players.PlayerScoreBlock
-//import com.example.bricksGame.components.popups.WinLine
-//import com.example.bricksGame.components.popups.WinPopup
-//import com.example.bricksGame.components.popups.animations.AnimationsPopups.RunAnimationScale
-//import com.example.bricksGame.components.popups.models.PopupsViewModel
-//import com.example.bricksGame.config.GameConfig
-//import com.example.bricksGame.helper.LevelPortraitBg
-//import com.example.bricksGame.logic.CollisionBricksOnLevel
-//import kotlinx.coroutines.launch
-//
-//@Composable
-//fun PortraitLayout() {
-//    LevelPortraitBg()
-//    Column(
-//        Modifier.fillMaxSize(),
-//        verticalArrangement = Arrangement.Top,
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        TopBar()
-//        FieldBlock()
-//    }
+package com.example.bricksGame.components.levelGame
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.example.bricksGame.components.naviBar.ButtonNaviBar
+import com.example.bricksGame.components.players.PlayerScoreBlock
+import com.example.bricksGame.helper.LevelPortraitBg
+
+@Composable
+fun PortraitLayout() {
+    LevelPortraitBg()
+    Column(
+        Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        TopBar()
+        FieldBlock()
+    }
 //    if (PopupsViewModel.showPopupWinLine.value) {
 //        RunAnimationScale()
 //        WinLine()
@@ -71,58 +35,58 @@
 //    if (PopupsViewModel.showPopupOnFinishGame.value) {
 //        WinPopup()
 //    }
-//}
-//
-//@Composable
-//fun FieldBlock() {
-//    Column(
-//        Modifier.fillMaxSize(),
-//        verticalArrangement = Arrangement.SpaceEvenly,
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
+}
+
+@Composable
+fun FieldBlock() {
+    Column(
+        Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
 //        BonusBlock()
 //        GridFieldBox()
 //        BricksBlock()
-//        Spacer(Modifier.size(30.dp))
-//    }
-//}
-//
-//@Composable
-//private fun TopBar() {
-//    Column(
-//        Modifier
-//            .fillMaxWidth()
-//            .padding(top = 35.dp, start = 15.dp, end = 15.dp, bottom = 0.dp),
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        Row(
-//            Modifier
-//                .fillMaxWidth(),
-////            .border(4.dp, Color.Magenta),
-//            verticalAlignment = Alignment.Top,
-//            horizontalArrangement = Arrangement.Absolute.SpaceBetween
-//
-//        ) {
-//            PlayerScoreBlock()
-//            ButtonBlock()
-//        }
-//        LevelTargetBlockPortrait()
-//    }
-//}
-//
-//@Composable
-//private fun ButtonBlock() {
-//    Row(
-//
-////        modifier = Modifier
-////            .border(4.dp, Color.Magenta),
-//        verticalAlignment = Alignment.CenterVertically,
-//        horizontalArrangement = Arrangement.End
-//    ) {
-//        ButtonNaviBar()
-//    }
-//}
-//
+        Spacer(Modifier.size(30.dp))
+    }
+}
+
+@Composable
+private fun TopBar() {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(top = 35.dp, start = 15.dp, end = 15.dp, bottom = 0.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(
+            Modifier
+                .fillMaxWidth(),
+//            .border(4.dp, Color.Magenta),
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.Absolute.SpaceBetween
+
+        ) {
+            PlayerScoreBlock()
+            ButtonBlock()
+        }
+        LevelTargetBlockPortrait()
+    }
+}
+
+@Composable
+private fun ButtonBlock() {
+    Row(
+
+//        modifier = Modifier
+//            .border(4.dp, Color.Magenta),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.End
+    ) {
+        ButtonNaviBar()
+    }
+}
+
 //@Composable
 //private fun GridFieldBox() {
 //    Box(

@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MapModel @Inject constructor(
-    private var gameData: GameData,
+    gameData: GameData,
     private val gameConfig: GameConfig,
     private val buttonController: ButtonController,
     private val dataRepository: DataRepository,

@@ -1,11 +1,12 @@
 package com.example.bricksGame.helper
 
 import com.example.bricksGame.components.map.models.MapModel
+import com.example.bricksGame.config.GameConfig
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ButtonController @Inject constructor() {
+class ButtonController @Inject constructor(var gameConfig: GameConfig) {
 
     @Inject
     lateinit var soundController: SoundController
@@ -25,18 +26,15 @@ class ButtonController @Inject constructor() {
     }
 
     fun navigateToLevelGame(onFree: Boolean = false) {
-//        GameConfig.GAME_TYPE_FREE = onFree
-//        soundController.clickUi()
-//        soundController.playLevelTheme()
-
-//        FieldViewModel.onOptionChange()
-//        PlayerViewModel.onStartLevel()
+        gameConfig.GAME_TYPE_FREE = onFree
+        soundController.clickUi()
+        soundController.playLevelTheme()
 
 //        LevelLogic.onStartLevel()
-//        AppNavigation.getInstance().getNavController().navigate(Routes.LevelGame.route) {
-//            popUpTo(Routes.LevelGame.route)
-//            launchSingleTop = true
-//        }
+        appNavigation.getNavController().navigate(Routes.LevelGame.route) {
+            popUpTo(Routes.LevelGame.route)
+            launchSingleTop = true
+        }
     }
 
     fun navigateToPlayers() {

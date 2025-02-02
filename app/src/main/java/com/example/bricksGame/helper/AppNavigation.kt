@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.bricksGame.components.gameMeny.RunHomeScreen
 import com.example.bricksGame.components.info.Info
+import com.example.bricksGame.components.levelGame.RunLevelGame
 import com.example.bricksGame.components.map.MapComponent
 import com.example.bricksGame.components.players.PlayerView
 import javax.inject.Inject
@@ -37,19 +38,19 @@ class AppNavigation @Inject constructor() {
 
             composable(Routes.HomeScreen.route) { RunHomeScreen() }
 
-//            composable(Routes.LevelGame.route,
-//                enterTransition = {
-//                    scaleIn(
-//                        animationSpec = tween(300, easing = LinearEasing),
-//                    )
-//                },
-//                exitTransition = {
-//                    scaleOut(
-//                        animationSpec = tween(300, easing = LinearEasing),
-//                    )
-//                }
-//
-//            ) { RunLevelGame() }
+            composable(Routes.LevelGame.route,
+                enterTransition = {
+                    scaleIn(
+                        animationSpec = tween(300, easing = LinearEasing),
+                    )
+                },
+                exitTransition = {
+                    scaleOut(
+                        animationSpec = tween(300, easing = LinearEasing),
+                    )
+                }
+
+            ) { RunLevelGame() }
             composable(Routes.Players.route) { PlayerView() }
             composable(Routes.Info.route) { Info("https://spiritualadviser.github.io/Standcorexam/") }
             composable(Routes.Map.route) { MapComponent() }
