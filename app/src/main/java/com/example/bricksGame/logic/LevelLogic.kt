@@ -6,11 +6,12 @@ import com.example.bricksGame.components.levelGame.models.FieldViewModel.checkNe
 import com.example.bricksGame.components.map.models.MapModel.currentLevel
 */
 //import com.example.bricksGame.components.players.models.PlayerViewModel.updatePlayerOnLevelWin
+import com.example.bricksGame.components.levelGame.controller.FieldController
 import com.example.bricksGame.components.levelGame.models.Brick
 import com.example.bricksGame.components.levelGame.models.FieldBrick
-import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.GameData
+import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.helper.SoundController
 import kotlinx.coroutines.CoroutineScope
@@ -25,7 +26,8 @@ class LevelLogic @Inject constructor(
     var gameConfig: GameConfig,
     var gameData: GameData,
     var soundController: SoundController,
-    private var buttonController: ButtonController,
+    private var levelData: LevelData,
+    private var fieldController: FieldController,
 
     ) {
     val EMPTY_ID = "Color.Transparent"
@@ -34,11 +36,12 @@ class LevelLogic @Inject constructor(
     var wasWin = false
 
     fun onStartLevel() {
+        fieldController.onOptionChange()
+        fieldController.resetData()
 //        BricksViewModel.resetData()
-//        FieldViewModel.resetData()
 //        BonusViewModel.setNegativeBonusOnLevelField()
         setRowsAndColumnOnLevel()
-//        FieldViewModel.addToCollision()
+        fieldController.addToCollision()
     }
 
     private fun setRowsAndColumnOnLevel() {
@@ -48,12 +51,12 @@ class LevelLogic @Inject constructor(
         levelColumns.clear()
 
         for (index in 0 until gameConfig.ROWS) {
-            row = gameData.brickOnFields.filter { index == it.position.second }
+            row = levelData.brickOnFields.filter { index == it.position.second }
             levelRows.add(row)
         }
 
         for (index in 0 until gameConfig.COLUMNS) {
-            column = gameData.brickOnFields.filter { index == it.position.first }
+            column = levelData.brickOnFields.filter { index == it.position.first }
             levelColumns.add(column)
         }
     }
@@ -209,7 +212,7 @@ class LevelLogic @Inject constructor(
 
         winningPositions.forEach { winPosition ->
 
-            gameData.brickOnFields.find { it.position == winPosition }?.let {
+            levelData.brickOnFields.find { it.position == winPosition }?.let {
                 onResetFieldBrick(it)
             }
         }
@@ -248,7 +251,7 @@ class LevelLogic @Inject constructor(
 
     private fun checkEndLevel() {
 //        var stepsOnLevel = MapModel.levelStep.intValue
-        val noPlaceOnFieldGame = gameData.brickOnFields.all { it.id != EMPTY_ID }
+        val noPlaceOnFieldGame = levelData.brickOnFields.all { it.id != EMPTY_ID }
 
         if (gameConfig.GAME_TYPE_FREE) {
 
@@ -288,7 +291,7 @@ class LevelLogic @Inject constructor(
         var winLineSize = 0
 
         winningPositions.forEach { position ->
-            val fieldBrick = gameData.brickOnFields.find { it.position == position }
+            val fieldBrick = levelData.brickOnFields.find { it.position == position }
             fieldBrick?.let {
                 if (it.hasOwnerId != gameConfig.NEGATIVE_BONUS_LEAVES &&
                     it.hasOwnerId != gameConfig.NEGATIVE_BONUS_ROCK
@@ -301,7 +304,8 @@ class LevelLogic @Inject constructor(
         val centerIndexPosition = winLineSize.div(2)
         val rowDirection = winningPositions.first().first == winningPositions.last().first
 
-        val fieldBrick = gameData.brickOnFields.find { it.position == winningPositions[centerIndexPosition] }
+        val fieldBrick =
+            levelData.brickOnFields.find { it.position == winningPositions[centerIndexPosition] }
 
 //        PopupsViewModel.onWinLine(megaWin, fieldBrick, winLineSize, rowDirection)
 
@@ -321,7 +325,7 @@ class LevelLogic @Inject constructor(
 //        delay(1800)
 
         if (gameConfig.GAME_TYPE_FREE) {
-            buttonController.navigateToHome()
+//            buttonController.navigateToHome()
         } else {
 //           buttonController.navigateToMap()
         }

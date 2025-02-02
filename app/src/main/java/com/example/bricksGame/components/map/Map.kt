@@ -28,6 +28,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.players.PlayerCard
@@ -76,9 +77,14 @@ fun MapComponent(mapModel: MapModel = hiltViewModel()) {
 }
 
 @Composable
-fun LevelOnMap(level: Level, mapModel: MapModel = hiltViewModel()) {
+fun LevelOnMap(
+    level: Level, mapModel: MapModel = hiltViewModel(),
+    fieldViewModel: FieldViewModel = hiltViewModel()
+) {
     IconButton(
-        onClick = { mapModel.runLevel(level) },
+        onClick = {
+            mapModel.runLevel(level)
+        },
         enabled = level.isActive,
         modifier = Modifier
             .size(50.dp, 60.dp)

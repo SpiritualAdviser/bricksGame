@@ -5,6 +5,7 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.GameData
+import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.ui.theme.primaryContainerDark
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -16,9 +17,9 @@ import javax.inject.Inject
 @HiltViewModel
 class BonusViewModel @Inject constructor(
     var gameConfig: GameConfig,
-    var gameData: GameData
+    private var levelData: LevelData,
 
-) : ViewModel() {
+    ) : ViewModel() {
 
     private var _bonusList = createBonusList().toMutableStateList()
 
@@ -79,7 +80,7 @@ class BonusViewModel @Inject constructor(
 
     private fun onBonusFire(brick: Brick) {
         val row =
-            gameData.brickOnFields.filter { brick.hasBonusOwnerId?.position?.second == it.position.second }
+            levelData.brickOnFields.filter { brick.hasBonusOwnerId?.position?.second == it.position.second }
         val winRow = mutableListOf<Pair<Int, Int>>()
 
         CoroutineScope(Dispatchers.Main).launch {
@@ -98,7 +99,7 @@ class BonusViewModel @Inject constructor(
 
     private fun onBonusIce(brick: Brick) {
         val column =
-            gameData.brickOnFields.filter { brick.hasBonusOwnerId?.position?.first == it.position.first }
+            levelData.brickOnFields.filter { brick.hasBonusOwnerId?.position?.first == it.position.first }
         val winColumn = mutableListOf<Pair<Int, Int>>()
 
         CoroutineScope(Dispatchers.Main).launch {
@@ -134,7 +135,7 @@ class BonusViewModel @Inject constructor(
             for (number in 1..bonus) {
                 var randomFieldBrick = getPlaceOnField()
 
-                while (randomFieldBrick.hasOwnerId != null || breakerWhileLoop < gameData.brickOnFields.size) {
+                while (randomFieldBrick.hasOwnerId != null || breakerWhileLoop < levelData.brickOnFields.size) {
                     randomFieldBrick = getPlaceOnField()
                     ++breakerWhileLoop
                 }
@@ -154,7 +155,7 @@ class BonusViewModel @Inject constructor(
     }
 
     private fun getPlaceOnField(): FieldBrick {
-        return gameData.brickOnFields.random()
+        return levelData.brickOnFields.random()
     }
 
 }

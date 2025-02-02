@@ -15,8 +15,7 @@ import javax.inject.Singleton
 class GameConfig @Inject constructor() {
     lateinit var gameData: SQLiteDatabase
     val GAME_VERSION = "a-1.2"
-    val CHEAT = false
-
+    val CHEAT = true
 
     /**
      * options for game designer Field Game

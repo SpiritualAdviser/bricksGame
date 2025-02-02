@@ -16,15 +16,9 @@ class GameData @Inject constructor(
     var allPlayers = dataRepository.getAllPlayers()
     var levelGameList = levelsConfig.levelGameList
 
-    lateinit var brickOnFields: MutableList<FieldBrick>
-
     fun start() {
         levelsConfig.setLevelListOnCreatePlayer()
         allPlayers = dataRepository.getAllPlayers()
-    }
-
-    fun setBrickOnField(brickOnFieldInner: MutableList<FieldBrick>) {
-        brickOnFields = brickOnFieldInner
     }
 
     suspend fun addPlayer(newPlayer: Player) {

@@ -2,12 +2,15 @@ package com.example.bricksGame.helper
 
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.logic.LevelLogic
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ButtonController @Inject constructor(var gameConfig: GameConfig) {
-
+class ButtonController @Inject constructor(
+    private var levelLogic: LevelLogic,
+    var gameConfig: GameConfig
+) {
     @Inject
     lateinit var soundController: SoundController
 
@@ -30,7 +33,7 @@ class ButtonController @Inject constructor(var gameConfig: GameConfig) {
         soundController.clickUi()
         soundController.playLevelTheme()
 
-//        LevelLogic.onStartLevel()
+        levelLogic.onStartLevel()
         appNavigation.getNavController().navigate(Routes.LevelGame.route) {
             popUpTo(Routes.LevelGame.route)
             launchSingleTop = true
