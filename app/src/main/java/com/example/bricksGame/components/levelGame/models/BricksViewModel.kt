@@ -74,10 +74,10 @@ class BricksViewModel @Inject constructor(
             id = ++brickId,
             position = brickId.toString(),
             assetImage = getRandomImage(),
+            gameConfig = gameConfig,
+            screenSize = screenSize,
+            soundController = soundController
         )
-        newBrick.gameConfig = gameConfig
-        newBrick.screenSize = screenSize
-        newBrick.soundController = soundController
 
         newBrick.borderColor = gameConfig.BRICK_BORDER_COLOR
         newBrick.activeBonusBorder = mutableStateOf(gameConfig.BRICK_BORDER_COLOR)

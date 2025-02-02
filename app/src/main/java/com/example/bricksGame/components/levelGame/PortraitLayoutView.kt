@@ -75,9 +75,9 @@ fun FieldBlock() {
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-//        BonusBlock()
+        BonusBlock()
         GridFieldBox()
-//        BricksBlock()
+        BricksBlock()
         Spacer(Modifier.size(30.dp))
     }
 }

@@ -15,6 +15,9 @@ import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class Brick @Inject constructor(
+    var gameConfig: GameConfig,
+    var screenSize: ScreenSize,
+    var soundController: SoundController,
 
     var name: String = "brick",
     var id: Int,
@@ -37,10 +40,6 @@ class Brick @Inject constructor(
     var fieldBrickOnCollision: FieldBrick? = null,
 
     ) {
-
-    lateinit var screenSize: ScreenSize
-    lateinit var soundController: SoundController
-    lateinit var gameConfig: GameConfig
 
     var borderColor: Color = gameConfig.BRICK_BORDER_COLOR
     lateinit var activeBonusBorder: MutableState<Color>

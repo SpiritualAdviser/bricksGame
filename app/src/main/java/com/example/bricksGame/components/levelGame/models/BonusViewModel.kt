@@ -1,11 +1,13 @@
 package com.example.bricksGame.components.levelGame.models
 
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.gameData.GameData
 import com.example.bricksGame.gameData.LevelData
+import com.example.bricksGame.helper.ScreenSize
+import com.example.bricksGame.helper.SoundController
 import com.example.bricksGame.ui.theme.primaryContainerDark
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -16,7 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BonusViewModel @Inject constructor(
-    var gameConfig: GameConfig,
+    private var screenSize: ScreenSize,
+    val gameConfig: GameConfig,
+    var soundController: SoundController,
     private var levelData: LevelData,
 
     ) : ViewModel() {
@@ -63,15 +67,22 @@ class BonusViewModel @Inject constructor(
             1 -> name = "fireBonus"
             2 -> name = "hammerBonus"
         }
-        return Brick(
+        val newBrick= Brick(
             x = mutableIntStateOf(0),
             y = mutableIntStateOf(0),
             canDrag = false,
             id = 0,
             position = "Bonus",
             name = name,
-            assetImage = gameConfig.imagesBricksBonuses[i]
+            assetImage = gameConfig.imagesBricksBonuses[i],
+            gameConfig = gameConfig,
+            screenSize = screenSize,
+            soundController = soundController,
+
         )
+        newBrick.borderColor = gameConfig.BRICK_BORDER_COLOR
+        newBrick.activeBonusBorder = mutableStateOf(gameConfig.BRICK_BORDER_COLOR)
+        return newBrick
     }
 
     private fun onBonusHammer(brick: Brick) {
