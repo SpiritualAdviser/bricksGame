@@ -7,6 +7,7 @@ import com.example.bricksGame.components.levelGame.models.FieldBrick
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.NegativeBonus
 import com.example.bricksGame.gameData.LevelData
+import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
 import com.example.bricksGame.logic.CollisionBricksOnLevel

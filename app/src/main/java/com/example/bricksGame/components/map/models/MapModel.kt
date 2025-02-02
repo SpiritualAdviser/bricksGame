@@ -8,6 +8,7 @@ import com.example.bricksGame.components.players.data.DataRepository
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.GameData
+import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ButtonController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +21,7 @@ class MapModel @Inject constructor(
     private val gameConfig: GameConfig,
     private val buttonController: ButtonController,
     private val dataRepository: DataRepository,
+    private val levelData: LevelData,
 ) : ViewModel() {
 
     val visibility = mutableStateOf(false)
@@ -58,6 +60,7 @@ class MapModel @Inject constructor(
 
     fun runLevel(level: Level) {
         currentLevel = level
+        levelData.currentLevel = level
         setLevelOptions(level)
         buttonController.navigateToLevelGame()
     }

@@ -4,9 +4,11 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
+import com.example.bricksGame.components.levelGame.controller.FieldController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
+import com.example.bricksGame.logic.LevelLogic
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.math.max
@@ -16,6 +18,8 @@ class BricksViewModel @Inject constructor(
     private var screenSize: ScreenSize,
     val gameConfig: GameConfig,
     var soundController: SoundController,
+    private var levelLogic: LevelLogic,
+    private var fieldController: FieldController,
 
     ) : ViewModel() {
 
@@ -53,7 +57,7 @@ class BricksViewModel @Inject constructor(
     }
 
     fun removeBrick(brick: Brick) {
-//        FieldViewModel.setBricksOnField(brick)
+        fieldController.setBricksOnField(brick)
         _bricksList.remove(brick)
         this.checkIfNeedNewBricksList()
     }
@@ -76,7 +80,8 @@ class BricksViewModel @Inject constructor(
             assetImage = getRandomImage(),
             gameConfig = gameConfig,
             screenSize = screenSize,
-            soundController = soundController
+            soundController = soundController,
+            levelLogic = levelLogic
         )
 
         newBrick.borderColor = gameConfig.BRICK_BORDER_COLOR

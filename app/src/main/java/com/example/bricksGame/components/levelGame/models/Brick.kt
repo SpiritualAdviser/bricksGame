@@ -11,6 +11,7 @@ import androidx.compose.ui.layout.positionInWindow
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
+import com.example.bricksGame.logic.LevelLogic
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
@@ -18,6 +19,7 @@ class Brick @Inject constructor(
     var gameConfig: GameConfig,
     var screenSize: ScreenSize,
     var soundController: SoundController,
+    var levelLogic: LevelLogic,
 
     var name: String = "brick",
     var id: Int,
@@ -72,7 +74,7 @@ class Brick @Inject constructor(
             if (this.hasBonusOwnerId != null) {
 //                BonusViewModel.onBonus(this)
 //                MapModel.changeLevelStepOnRound()
-//                LevelLogic.checkRound(this)
+                levelLogic.checkRound(this)
                 this.hasBonusOwnerId = null
             }
             this.x.intValue = 0
@@ -85,7 +87,7 @@ class Brick @Inject constructor(
                 val offsetAmount = getOffsetAmount(fieldBrickOnCollision!!)
                 dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
 //                BricksViewModel.removeBrick(this)
-//                LevelLogic.checkRound(this)
+                levelLogic.checkRound(this)
                 freeSpace()
                 soundController.pushCristal()
 //                MapModel.changeLevelStepOnRound()

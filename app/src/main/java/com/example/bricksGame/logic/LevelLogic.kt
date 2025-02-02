@@ -171,13 +171,13 @@ class LevelLogic @Inject constructor(
 
     private fun getNumberWinLine(bricks: List<FieldBrick>): Int {
         var winLine = 0
-//        currentLevel?.numberOfBricksToWin?.let {
-//            if (it == 0 || it > bricks.size) {
-//                winLine = bricks.size
-//            } else {
-//                winLine = it
-//            }
-//        }
+        levelData.currentLevel?.numberOfBricksToWin?.let {
+            if (it == 0 || it > bricks.size) {
+                winLine = bricks.size
+            } else {
+                winLine = it
+            }
+        }
         return winLine
     }
 
@@ -325,9 +325,9 @@ class LevelLogic @Inject constructor(
 //        delay(1800)
 
         if (gameConfig.GAME_TYPE_FREE) {
-//            buttonController.navigateToHome()
+//            fieldController.buttonController.navigateToHome()
         } else {
-//           buttonController.navigateToMap()
+//            fieldController.buttonController.navigateToMap()
         }
 
         delay(300)

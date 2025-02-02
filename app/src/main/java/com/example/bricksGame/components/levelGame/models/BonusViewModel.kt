@@ -8,6 +8,7 @@ import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
+import com.example.bricksGame.logic.LevelLogic
 import com.example.bricksGame.ui.theme.primaryContainerDark
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -22,8 +23,9 @@ class BonusViewModel @Inject constructor(
     val gameConfig: GameConfig,
     var soundController: SoundController,
     private var levelData: LevelData,
+    private var levelLogic: LevelLogic
 
-    ) : ViewModel() {
+) : ViewModel() {
 
     private var _bonusList = createBonusList().toMutableStateList()
 
@@ -67,7 +69,7 @@ class BonusViewModel @Inject constructor(
             1 -> name = "fireBonus"
             2 -> name = "hammerBonus"
         }
-        val newBrick= Brick(
+        val newBrick = Brick(
             x = mutableIntStateOf(0),
             y = mutableIntStateOf(0),
             canDrag = false,
@@ -78,6 +80,7 @@ class BonusViewModel @Inject constructor(
             gameConfig = gameConfig,
             screenSize = screenSize,
             soundController = soundController,
+            levelLogic = levelLogic
 
         )
         newBrick.borderColor = gameConfig.BRICK_BORDER_COLOR
@@ -104,7 +107,7 @@ class BonusViewModel @Inject constructor(
                 }
             }
             delay(300)
-//            LevelLogic.checkRoundOnBonus(winRow, onBonus = true)
+            levelLogic.checkRoundOnBonus(winRow, onBonus = true)
         }
     }
 
@@ -122,7 +125,7 @@ class BonusViewModel @Inject constructor(
                 }
             }
             delay(300)
-//            LevelLogic.checkRoundOnBonus(winColumn, onBonus = true)
+            levelLogic.checkRoundOnBonus(winColumn, onBonus = true)
         }
     }
 

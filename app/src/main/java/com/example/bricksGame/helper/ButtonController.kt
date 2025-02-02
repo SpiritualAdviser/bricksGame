@@ -52,11 +52,11 @@ class ButtonController @Inject constructor(
         }
     }
 
-    fun navigateToMap(mapModel: MapModel) {
+    fun navigateToMap(mapModel: MapModel? = null) {
         soundController.clickUi()
         soundController.playMainTheme()
 
-        mapModel.openLevelOnMap()
+        mapModel?.openLevelOnMap()
         appNavigation.getNavController().navigate(Routes.Map.route) {
 
             popUpTo(Routes.Map.route)
