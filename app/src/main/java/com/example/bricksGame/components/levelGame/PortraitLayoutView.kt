@@ -35,9 +35,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bricksGame.R
 import com.example.bricksGame.components.levelGame.animations.AnimationsBrick
+import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.naviBar.ButtonNaviBar
@@ -74,7 +76,7 @@ fun FieldBlock() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 //        BonusBlock()
-       GridFieldBox()
+        GridFieldBox()
 //        BricksBlock()
         Spacer(Modifier.size(30.dp))
     }
@@ -183,7 +185,10 @@ private fun GridFieldBox(fieldViewModel: FieldViewModel = hiltViewModel()) {
 }
 
 @Composable
-private fun BricksBlock(bricksViewModel:BricksViewModel= hiltViewModel(), fieldViewModel: FieldViewModel = hiltViewModel()) {
+private fun BricksBlock(
+    bricksViewModel: BricksViewModel = hiltViewModel(),
+    fieldViewModel: FieldViewModel = hiltViewModel()
+) {
     val coroutine = rememberCoroutineScope()
     Row(
         modifier = Modifier
@@ -239,86 +244,90 @@ private fun BricksBlock(bricksViewModel:BricksViewModel= hiltViewModel(), fieldV
     }
 }
 
-//@Composable
-//private fun BonusBlock() {
-//    val coroutine = rememberCoroutineScope()
-//    Box(
-//        Modifier
-//            .zIndex(FieldViewModel.zIndex.floatValue)
-//    ) {
-//        Row(
-//            modifier = Modifier
-////                .border(4.dp, Color.Magenta),
-//        ) {
-//            BonusViewModel.bonuses.forEach {
-//                Box(
-//                    modifier = Modifier
-//                        .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
-//                        .border(
-//                            GameConfig.BRICK_BORDER_SIZE.dp, color = it.activeBonusBorder.value,
-//                            shape = RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp)
-//                        )
-//                        .size(FieldViewModel.brickSizePortrait)
-//                        .background(GameConfig.FIELD_BG_COLOR)
-//                ) {}
-//                Spacer(Modifier.size(10.dp))
-//            }
-//        }
-//
-//        Row(
-//            modifier = Modifier
-//        ) {
-//            BonusViewModel.bonuses.forEach {
-//                key(it.id) {
-//                    val currentBrick = it
-//                    Box(
-//                        Modifier
-//                            .zIndex(it.zIndex.value)
-//                            .offset { IntOffset(it.x.intValue, it.y.intValue) }
-//                            .size(FieldViewModel.brickSizePortrait)
-//                            .paint(
-//                                painterResource(it.assetImage),
-//                                alpha = it.alpha.value,
-//                                sizeToIntrinsics = true,
-//                                contentScale = ContentScale.FillBounds
-//                            )
-//                            .onGloballyPositioned { coordinates ->
-//                                it.setGloballyPosition(coordinates)
-//                            }
-//                            .pointerInput(it) {
-//                                detectDragGestures(
-//                                    onDragStart = {
-//                                        FieldViewModel.changeZIndex(1F)
-//                                        currentBrick.changeZIndex(1F)
-//                                    },
-//                                    onDrag = { _, dragAmount ->
-//                                        if (it.canDrag) {
-//                                            it.dragging(dragAmount.x, dragAmount.y)
-//                                            coroutine.launch {
+@Composable
+private fun BonusBlock(
+    bonusViewModel: BonusViewModel = hiltViewModel(),
+    fieldViewModel: FieldViewModel = hiltViewModel()
+) {
+    val coroutine = rememberCoroutineScope()
+    Box(
+        Modifier
+            .zIndex(fieldViewModel.zIndex.floatValue)
+    ) {
+        Row(
+            modifier = Modifier
+//                .border(4.dp, Color.Magenta),
+        ) {
+            bonusViewModel.bonuses.forEach {
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(bonusViewModel.gameConfig.BRICK_ROUNDED_CORNER.dp))
+                        .border(
+                            bonusViewModel.gameConfig.BRICK_BORDER_SIZE.dp,
+                            color = it.activeBonusBorder.value,
+                            shape = RoundedCornerShape(bonusViewModel.gameConfig.BRICK_ROUNDED_CORNER.dp)
+                        )
+                        .size(fieldViewModel.brickSizePortrait)
+                        .background(bonusViewModel.gameConfig.FIELD_BG_COLOR)
+                ) {}
+                Spacer(Modifier.size(10.dp))
+            }
+        }
+
+        Row(
+            modifier = Modifier
+        ) {
+            bonusViewModel.bonuses.forEach {
+                key(it.id) {
+                    val currentBrick = it
+                    Box(
+                        Modifier
+                            .zIndex(it.zIndex.value)
+                            .offset { IntOffset(it.x.intValue, it.y.intValue) }
+                            .size(fieldViewModel.brickSizePortrait)
+                            .paint(
+                                painterResource(it.assetImage),
+                                alpha = it.alpha.value,
+                                sizeToIntrinsics = true,
+                                contentScale = ContentScale.FillBounds
+                            )
+                            .onGloballyPositioned { coordinates ->
+                                it.setGloballyPosition(coordinates)
+                            }
+                            .pointerInput(it) {
+                                detectDragGestures(
+                                    onDragStart = {
+                                        fieldViewModel.changeZIndex(1F)
+                                        currentBrick.changeZIndex(1F)
+                                    },
+                                    onDrag = { _, dragAmount ->
+                                        if (it.canDrag) {
+                                            it.dragging(dragAmount.x, dragAmount.y)
+                                            coroutine.launch {
 //                                                CollisionBricksOnLevel.observeCenterObjects(it)
-//                                            }
-//                                        }
-//                                    },
-//                                    onDragEnd = {
-//                                        if (it.canDrag) {
-//                                            coroutine.launch {
-//                                                it.takeAPlaces()
-////                                        FieldViewModel.checkFieldOnFinishRound()
-//                                            }
-//                                        }
-//                                        FieldViewModel.changeZIndex(0F)
-//                                        it.changeZIndex(0F)
-//                                    },
-//                                    onDragCancel = {
-//                                        FieldViewModel.changeZIndex(0F)
-//                                        it.changeZIndex(0F)
-//                                    },
-//                                )
-//                            }
-//                    )
-//                    Spacer(Modifier.size(10.dp))
-//                }
-//            }
-//        }
-//    }
-//}
+                                            }
+                                        }
+                                    },
+                                    onDragEnd = {
+                                        if (it.canDrag) {
+                                            coroutine.launch {
+                                                it.takeAPlaces()
+//                                        FieldViewModel.checkFieldOnFinishRound()
+                                            }
+                                        }
+                                        fieldViewModel.changeZIndex(0F)
+                                        it.changeZIndex(0F)
+                                    },
+                                    onDragCancel = {
+                                        fieldViewModel.changeZIndex(0F)
+                                        it.changeZIndex(0F)
+                                    },
+                                )
+                            }
+                    )
+                    Spacer(Modifier.size(10.dp))
+                }
+            }
+        }
+    }
+}

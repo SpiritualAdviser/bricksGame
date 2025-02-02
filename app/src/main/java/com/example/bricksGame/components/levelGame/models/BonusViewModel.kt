@@ -1,6 +1,5 @@
 package com.example.bricksGame.components.levelGame.models
 
-
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
