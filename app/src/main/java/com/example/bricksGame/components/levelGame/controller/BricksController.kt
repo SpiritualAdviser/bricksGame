@@ -35,6 +35,7 @@ class BricksController @Inject constructor(
 
             bricksList.add(createBrick())
         }
+        levelData.setBricksList(bricksList.toMutableStateList())
         return bricksList
     }
 

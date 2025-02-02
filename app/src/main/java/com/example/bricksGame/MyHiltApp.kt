@@ -1,6 +1,7 @@
 package com.example.bricksGame
 
 import android.app.Application
+import com.example.bricksGame.components.levelGame.controller.BricksController
 import com.example.bricksGame.components.levelGame.controller.FieldController
 import com.example.bricksGame.components.players.data.DataRepository
 import com.example.bricksGame.config.GameConfig
@@ -30,6 +31,9 @@ class MyHiltApp : Application() {
     @Inject
     lateinit var fieldController: FieldController
 
+    @Inject
+    lateinit var bricksController: BricksController
+
     override fun onCreate() {
         super.onCreate()
 
@@ -44,6 +48,7 @@ class MyHiltApp : Application() {
         gameData.start()
 
         fieldController.createBricksList()
+        bricksController.createBricksList()
     }
 
     private fun setSprite() {
