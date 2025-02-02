@@ -14,6 +14,7 @@ class LevelData @Inject constructor(
 ) {
     lateinit var brickOnFields: MutableList<FieldBrick>
     lateinit var _bricksList: SnapshotStateList<Brick>
+    lateinit var _bonusList: SnapshotStateList<Brick>
 
     var currentLevel: Level? = null
 
@@ -30,5 +31,8 @@ class LevelData @Inject constructor(
 
     fun setBricksList(toMutableStateList: SnapshotStateList<Brick>) {
         _bricksList = toMutableStateList
+    }
+    fun setBonusList(toMutableStateList: SnapshotStateList<Brick>) {
+        _bonusList = toMutableStateList
     }
 }

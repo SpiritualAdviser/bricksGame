@@ -22,6 +22,9 @@ class BricksController @Inject constructor(
     var soundController: SoundController,
 ) {
     private var brickId = 0
+    init {
+        levelLogic.setBricksController(this)
+    }
 
     fun resetData() {
         brickId = 0

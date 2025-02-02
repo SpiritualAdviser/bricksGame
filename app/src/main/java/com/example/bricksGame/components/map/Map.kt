@@ -80,6 +80,7 @@ fun MapComponent(mapModel: MapModel = hiltViewModel()) {
 fun LevelOnMap(
     level: Level, mapModel: MapModel = hiltViewModel(),
     fieldViewModel: FieldViewModel = hiltViewModel()
+
 ) {
     IconButton(
         onClick = {
