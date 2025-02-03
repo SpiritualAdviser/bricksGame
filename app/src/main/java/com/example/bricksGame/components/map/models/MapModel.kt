@@ -5,9 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bricksGame.components.players.data.DataRepository
+import com.example.bricksGame.components.players.repository.PlayerRepository
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
-import com.example.bricksGame.gameData.GameData
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ButtonController
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MapModel @Inject constructor(
-    gameData: GameData,
+    playerRepository: PlayerRepository,
     private val gameConfig: GameConfig,
     private val buttonController: ButtonController,
     private val dataRepository: DataRepository,
@@ -26,7 +26,7 @@ class MapModel @Inject constructor(
 
     val visibility = mutableStateOf(false)
 
-    val levelList = gameData.levelGameList
+    val levelList = playerRepository.levelGameList
 
     var currentLevel: Level? = null
 

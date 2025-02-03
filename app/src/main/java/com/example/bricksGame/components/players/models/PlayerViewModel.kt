@@ -1,17 +1,12 @@
 package com.example.bricksGame.components.players.models
 
+import android.util.Log
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bricksGame.components.players.data.ActiveLevelList
-import com.example.bricksGame.components.players.data.DataRepository
-import com.example.bricksGame.components.players.data.GameLevelList
-import com.example.bricksGame.components.players.data.LevelPlayer
 import com.example.bricksGame.components.players.data.Player
-import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.config.LevelsConfig
-import com.example.bricksGame.gameData.GameData
+import com.example.bricksGame.components.players.repository.PlayerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,52 +14,33 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlayerViewModel @Inject constructor(
-    private var gameData: GameData,
-    private val dataRepository: DataRepository,
-    private val gameConfig: GameConfig,
+    private var playerRepository: PlayerRepository,
 ) :
     ViewModel() {
 
     var nameNoEmpty = false
 
-    private var newPlayer: Player = Player(
-        playerName = "Player",
-        isActive = true,
-        activeLevelList = ActiveLevelList(),
-        gameLevelList = GameLevelList()
-    )
-
-    var playersList = gameData.allPlayers
+    var playersList = playerRepository.allPlayers
     var nameNewPlayer = mutableStateOf("")
 
-    var activePlayer: Player = newPlayer
+    private var activePlayer: Player = playerRepository.getActivePlayer()
     var playerScore = mutableIntStateOf(0)
     var playerAchievements = mutableIntStateOf(activePlayer.achievements)
     var nameActivePlayer = mutableStateOf(activePlayer.playerName)
 
-    fun onStartLevel() {
-//        setPlayerOnGame()
-//        playerScore.intValue = 0
+    init {
+        Log.d("PlayerViewModel", "PlayerViewModel_init")
     }
 
-    private fun setPlayerOnGame() {
-        viewModelScope.launch(Dispatchers.IO) {
-            var currentPlayer: Player? = dataRepository.getActivePlayer()
-
-            if (currentPlayer == null) {
-
-            } else {
-                setGamePlayerParams(currentPlayer)
-            }
-        }
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("PlayerViewModel", "PlayerViewModel_onCleared")
     }
 
     fun setNameOnAddPlayer(name: String) {
         if (name.isNotEmpty()) {
             nameNoEmpty = true
             nameNewPlayer.value = name
-        } else {
-            return
         }
     }
 
@@ -74,13 +50,7 @@ class PlayerViewModel @Inject constructor(
             player.isActive = true
             update(player)
         }
-        setGamePlayerParams(player)
-    }
-
-    private fun setGamePlayerParams(player: Player) {
-        activePlayer = player
-        nameActivePlayer.value = player.playerName
-        playerAchievements.intValue = player.achievements
+//        setGamePlayerParams(player)
     }
 
     fun addScore(score: Int) {
@@ -131,30 +101,28 @@ class PlayerViewModel @Inject constructor(
     }
 
     private fun resetPlayers() {
-        dataRepository.setInactiveAllPlayers()
+        playerRepository.dataRepository.setInactiveAllPlayers()
     }
 
     fun addPlayer() {
-        newPlayer.playerName = nameNewPlayer.value
-        newPlayer.gameLevelList.gameLevelList = gameData.levelGameList
 
         viewModelScope.launch(Dispatchers.IO) {
-            dataRepository.addPlayer(newPlayer)
+            playerRepository.addPlayer(nameNewPlayer.value)
             nameNewPlayer.value = ""
         }
-        setActivePlayerOnGame(newPlayer)
+//        setActivePlayerOnGame(newPlayer)
         nameNoEmpty = false
     }
 
     private fun update(player: Player) {
         viewModelScope.launch(Dispatchers.IO) {
-            dataRepository.update(player)
+            playerRepository.dataRepository.update(player)
         }
     }
 
     fun delete(player: Player) {
         viewModelScope.launch(Dispatchers.IO) {
-            dataRepository.delete(player)
+            playerRepository.dataRepository.delete(player)
         }
     }
 }

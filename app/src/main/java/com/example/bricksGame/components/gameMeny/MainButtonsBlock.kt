@@ -28,7 +28,7 @@ fun MainButtonsBlock(
     ) {
 
         IconButton(
-            onClick = { homeScreenViewModel.buttonController.navigateToMap(mapModel) },
+            onClick = { homeScreenViewModel.buttonController.navigateToMap() },
             modifier = Modifier
                 .size(100.dp, 43.dp)
                 .paint(

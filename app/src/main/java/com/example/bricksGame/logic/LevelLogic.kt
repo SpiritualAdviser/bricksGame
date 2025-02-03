@@ -4,13 +4,10 @@ package com.example.bricksGame.logic
 import com.example.bricksGame.components.map.models.MapModel.currentLevel
 */
 //import com.example.bricksGame.components.players.models.PlayerViewModel.updatePlayerOnLevelWin
-import com.example.bricksGame.components.levelGame.controller.BonusController
-import com.example.bricksGame.components.levelGame.controller.BricksController
-import com.example.bricksGame.components.levelGame.controller.FieldController
 import com.example.bricksGame.components.levelGame.models.Brick
 import com.example.bricksGame.components.levelGame.models.FieldBrick
+import com.example.bricksGame.components.players.repository.PlayerRepository
 import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.gameData.GameData
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.SoundController
 import kotlinx.coroutines.CoroutineScope
@@ -23,22 +20,22 @@ import javax.inject.Singleton
 @Singleton
 class LevelLogic @Inject constructor(
     var gameConfig: GameConfig,
-    var gameData: GameData,
+    var playerRepository: PlayerRepository,
     var soundController: SoundController,
     private var levelData: LevelData,
-    private var fieldController: FieldController,
+//    private var fieldController: FieldController,
 ) {
 
-    lateinit var bricksControllerInstance: BricksController
-    lateinit var bonusControllerInstance: BonusController
-
-    fun setBricksController(bricksInnerController: BricksController) {
-        this.bricksControllerInstance = bricksInnerController
-    }
-
-    fun setBonusController(bonusController: BonusController) {
-        this.bonusControllerInstance = bonusController
-    }
+//    lateinit var bricksControllerInstance: BricksController
+//    lateinit var bonusControllerInstance: BonusController
+//
+//    fun setBricksController(bricksInnerController: BricksController) {
+//        this.bricksControllerInstance = bricksInnerController
+//    }
+//
+//    fun setBonusController(bonusController: BonusController) {
+//        this.bonusControllerInstance = bonusController
+//    }
 
     val EMPTY_ID = "Color.Transparent"
     var levelRows = mutableListOf<List<FieldBrick>>()
@@ -46,12 +43,12 @@ class LevelLogic @Inject constructor(
     var wasWin = false
 
     fun onStartLevel() {
-        fieldController.onOptionChange()
-        fieldController.resetData()
-        bricksControllerInstance.resetData()
-        bonusControllerInstance.setNegativeBonusOnLevelField()
+//        fieldController.onOptionChange()
+//        fieldController.resetData()
+//        bricksControllerInstance.resetData()
+//        bonusControllerInstance.setNegativeBonusOnLevelField()
         setRowsAndColumnOnLevel()
-        fieldController.addToCollision()
+//        fieldController.addToCollision()
     }
 
     private fun setRowsAndColumnOnLevel() {
@@ -217,7 +214,7 @@ class LevelLogic @Inject constructor(
         onBonus: Boolean = false
     ) {
         if (!onBonus) {
-            bonusControllerInstance.setAlpha(gameConfig.SPEED_OPEN_BONUS * winningPositions.size)
+//            bonusControllerInstance.setAlpha(gameConfig.SPEED_OPEN_BONUS * winningPositions.size)
         }
 
         winningPositions.forEach { winPosition ->
@@ -256,7 +253,7 @@ class LevelLogic @Inject constructor(
             --fieldBrick.life
             fieldBrick.hasBonusOwnerId = null
         }
-        fieldController.checkNeedChangeAsset(fieldBrick)
+//        fieldController.checkNeedChangeAsset(fieldBrick)
     }
 
     private fun checkEndLevel() {

@@ -6,12 +6,12 @@ import com.example.bricksGame.gameData.LevelData
 import javax.inject.Inject
 
 class FreeGameModel @Inject constructor(
-    private var levelsConfig: LevelsConfig,
-    private var levelData: LevelData
+//    private var levelsConfig: LevelsConfig,
+//    private var levelData: LevelData
 ) {
 
-    fun onRunLevel(mapModel: MapModel) {
-        levelData.currentLevel = levelsConfig.gameFreeLevel
-        mapModel.setLevelOptions(levelsConfig.gameFreeLevel)
-    }
+//    fun onRunLevel(mapModel: MapModel) {
+//        levelData.currentLevel = levelsConfig.gameFreeLevel
+//        mapModel.setLevelOptions(levelsConfig.gameFreeLevel)
+//    }
 }

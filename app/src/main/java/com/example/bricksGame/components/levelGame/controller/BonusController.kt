@@ -26,10 +26,6 @@ class BonusController @Inject constructor(
     private var bricksController: BricksController,
 ) {
 
-    init {
-        levelLogic.setBonusController(this)
-    }
-
     fun createBonusList(): MutableList<Brick> {
         val bonusList: MutableList<Brick> = mutableListOf()
         bonusList.add(createBonus(0))

@@ -1,15 +1,11 @@
 package com.example.bricksGame
 
 import android.app.Application
-import com.example.bricksGame.components.levelGame.controller.BonusController
-import com.example.bricksGame.components.levelGame.controller.BricksController
-import com.example.bricksGame.components.levelGame.controller.FieldController
 import com.example.bricksGame.components.players.data.DataRepository
+import com.example.bricksGame.components.players.repository.PlayerRepository
 import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.gameData.GameData
 import com.example.bricksGame.gameData.LevelData
-import com.example.bricksGame.helper.AppNavigation
-import com.example.bricksGame.helper.ScreenSize
+import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.helper.SoundController
 import com.example.bricksGame.helper.SpriteAnimation
 import dagger.hilt.android.HiltAndroidApp
@@ -27,16 +23,13 @@ class MyHiltApp : Application() {
     lateinit var dataRepository: DataRepository
 
     @Inject
-    lateinit var gameData: GameData
+    lateinit var playerRepository: PlayerRepository
 
     @Inject
-    lateinit var fieldController: FieldController
+    lateinit var levelData: LevelData
 
     @Inject
-    lateinit var bricksController: BricksController
-
-    @Inject
-    lateinit var bonusController: BonusController
+    lateinit var buttonController: ButtonController
 
     override fun onCreate() {
         super.onCreate()
@@ -49,11 +42,7 @@ class MyHiltApp : Application() {
         setSprite()
         dataRepository.getPlayerDatabase(applicationContext)
 
-        gameData.start()
-
-        fieldController.createBricksList()
-        bricksController.createBricksList()
-        bonusController.createBonusList()
+        playerRepository.start()
     }
 
     private fun setSprite() {

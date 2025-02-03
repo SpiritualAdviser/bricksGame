@@ -9,9 +9,9 @@ import javax.inject.Singleton
 
 @Singleton
 class ButtonController @Inject constructor(
-    private var levelLogic: LevelLogic,
+//    private var levelLogic: LevelLogic,
     var gameConfig: GameConfig,
-    private var freeGameModel: FreeGameModel,
+//    private var freeGameModel: FreeGameModel,
 
     ) {
     @Inject
@@ -36,7 +36,7 @@ class ButtonController @Inject constructor(
         soundController.clickUi()
         soundController.playLevelTheme()
 
-        levelLogic.onStartLevel()
+//        levelLogic.onStartLevel()
         appNavigation.getNavController().navigate(Routes.LevelGame.route) {
             popUpTo(Routes.LevelGame.route)
             launchSingleTop = true
@@ -52,11 +52,11 @@ class ButtonController @Inject constructor(
         }
     }
 
-    fun navigateToMap(mapModel: MapModel? = null) {
+    fun navigateToMap() {
         soundController.clickUi()
         soundController.playMainTheme()
 
-        mapModel?.openLevelOnMap()
+//        mapModel?.openLevelOnMap()
         appNavigation.getNavController().navigate(Routes.Map.route) {
 
             popUpTo(Routes.Map.route)
@@ -69,7 +69,7 @@ class ButtonController @Inject constructor(
         soundController.playMainTheme()
         mapModel.openLevelOnMap()
 
-        freeGameModel.onRunLevel(mapModel)
+//        freeGameModel.onRunLevel(mapModel)
         navigateToLevelGame(true)
     }
 

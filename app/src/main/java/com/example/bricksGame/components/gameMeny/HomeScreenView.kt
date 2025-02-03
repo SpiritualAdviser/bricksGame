@@ -21,11 +21,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bricksGame.R
 import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
 import com.example.bricksGame.components.naviBar.ButtonSound
+import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.helper.MainMenuBg
 import com.example.bricksGame.ui.theme.gameVersionText
 
 @Composable
-fun RunHomeScreen(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()) {
+fun RunHomeScreen(
+    homeScreenViewModel: HomeScreenViewModel = hiltViewModel(),
+) {
 
     MainMenuBg()
     Row(

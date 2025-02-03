@@ -22,9 +22,6 @@ class BricksController @Inject constructor(
     var soundController: SoundController,
 ) {
     private var brickId = 0
-    init {
-        levelLogic.setBricksController(this)
-    }
 
     fun resetData() {
         brickId = 0
@@ -63,7 +60,6 @@ class BricksController @Inject constructor(
     private fun checkIfNeedNewBricksList() {
         if (levelData._bricksList.size <= gameConfig.MIN_BRICKS_TO_ADD_NEXT) {
             for (i in levelData._bricksList.size until gameConfig.MAX_BRICKS_ON_LEVEL) {
-                soundController.pushCristal()
                 levelData._bricksList.add(createBrick())
             }
         }
