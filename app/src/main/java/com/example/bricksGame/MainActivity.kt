@@ -18,7 +18,6 @@ import com.example.bricksGame.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject
@@ -39,23 +38,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-
             screenSize.GetScreenSize()
-//            val context = LocalContext.current
-//
-//            LaunchedEffect(null) {
-//            DataRepository.getPlayerDatabase(context)
-//
-//            PlayerViewModel.setPlayerOnGame()
-//        }
-//
-//            setSprite()
-
-//   context.deleteDatabase("player_database")
-//            DataRepository.getPlayerDatabase(this)
-//
-//
-//            PlayerViewModel.setPlayerOnGame()
 
             AppTheme {
                 appNavigation.CreateNavHost()

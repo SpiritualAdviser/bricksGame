@@ -21,7 +21,6 @@ import com.example.bricksGame.ui.theme.buttonText
 @Composable
 fun MainButtonsBlock(
     homeScreenViewModel: HomeScreenViewModel = hiltViewModel(),
-    mapModel: MapModel = hiltViewModel()
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(6.dp)
@@ -39,7 +38,7 @@ fun MainButtonsBlock(
 
         IconButton(
             onClick = {
-                homeScreenViewModel.buttonController.navigateFreeGame(mapModel)
+                homeScreenViewModel.buttonController.navigateFreeGame()
             },
             modifier = Modifier
                 .size(100.dp, 43.dp)

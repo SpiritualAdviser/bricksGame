@@ -14,11 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -28,11 +26,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.map.models.MapModel
 import com.example.bricksGame.components.naviBar.ButtonNaviBar
-import com.example.bricksGame.components.players.PlayerCard
-import com.example.bricksGame.components.players.data.Player
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.helper.MainMenuBg
 
@@ -69,7 +64,7 @@ fun MapComponent(mapModel: MapModel = hiltViewModel()) {
             horizontalArrangement = Arrangement.spacedBy(15.dp)
         ) {
 
-            items(mapModel.levelList) {
+            items(mapModel.playerLevels) {
                 LevelOnMap(it)
             }
         }
@@ -79,8 +74,6 @@ fun MapComponent(mapModel: MapModel = hiltViewModel()) {
 @Composable
 fun LevelOnMap(
     level: Level, mapModel: MapModel = hiltViewModel(),
-    fieldViewModel: FieldViewModel = hiltViewModel()
-
 ) {
     IconButton(
         onClick = {

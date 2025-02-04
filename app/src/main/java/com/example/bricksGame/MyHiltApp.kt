@@ -1,7 +1,6 @@
 package com.example.bricksGame
 
 import android.app.Application
-import com.example.bricksGame.components.players.data.DataRepository
 import com.example.bricksGame.components.players.repository.PlayerRepository
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.LevelData
@@ -14,19 +13,15 @@ import javax.inject.Inject
 @HiltAndroidApp
 class MyHiltApp : Application() {
     @Inject
-    lateinit var gameConfig: GameConfig
-
-    @Inject
     lateinit var soundController: SoundController
 
     @Inject
-    lateinit var levelData: LevelData
-
-    @Inject
-    lateinit var buttonController: ButtonController
+    lateinit var playerRepository: PlayerRepository
 
     override fun onCreate() {
         super.onCreate()
+
+//      applicationContext.deleteDatabase("player_database")
 
         if (!soundController.isRun) {
             soundController.setContext(applicationContext)

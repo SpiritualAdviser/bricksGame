@@ -133,7 +133,7 @@ class LevelBuilder @Inject constructor() {
         val max = gameConfig.MAX_SPEED_OPEN_BONUS - levelNumber * stepFillBonus
         val min = max / 2
 
-        return return (Math.random() * (max - min) + min).toFloat()
+        return (Math.random() * (max - min) + min).toFloat()
     }
 
     private fun getNegativeBonuses(
@@ -152,7 +152,7 @@ class LevelBuilder @Inject constructor() {
 
         val max = if (min + 2 > maxClosedPlaces) maxClosedPlaces.toInt() else min + 1
 
-        var numberBonus = 0
+        var numberBonus: Int = 0
 
         for (bonus in 0 until gameConfig.negativeBonuses.size) {
             numberBonus = (Math.random() * (max - min) + min).toInt()
@@ -187,7 +187,7 @@ class LevelBuilder @Inject constructor() {
 
         val increase = (partOfLevels - levelNumber) / intervalComplicationSteps
 
-        var min = numberOfScoreToWin
+        var min: Int = numberOfScoreToWin
         var max = numberOfScoreToWin
 
         if (levelNumber < partOfLevels) {
@@ -197,7 +197,7 @@ class LevelBuilder @Inject constructor() {
             min = numberOfScoreToWin + increase.toInt()
             max = numberOfScoreToWin
         }
-        numberOfScoreToWin
+
         return (Math.random() * (max - min) + min).toInt()
     }
 }

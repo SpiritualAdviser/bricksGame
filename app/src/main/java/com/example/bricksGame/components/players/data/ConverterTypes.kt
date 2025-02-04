@@ -5,22 +5,22 @@ import com.google.gson.Gson
 
 class ConverterTypes {
     @TypeConverter
-    fun fromActiveLevelListToJSON(activeLevelList: ActiveLevelList): String {
-        return Gson().toJson(activeLevelList)
+    fun fromOpenLevelsToJSON(openLevels: OpenLevels): String {
+        return Gson().toJson(openLevels)
     }
 
     @TypeConverter
-    fun fromJSONToActiveLevelList(json: String): ActiveLevelList {
-        return Gson().fromJson(json, ActiveLevelList::class.java)
+    fun fromJSONTOpenLevels(json: String): OpenLevels {
+        return Gson().fromJson(json, OpenLevels::class.java)
     }
 
-    @TypeConverter
-    fun fromGameLevelListToJSON(gameLevelList: GameLevelList): String {
-        return Gson().toJson(gameLevelList)
-    }
-
-    @TypeConverter
-    fun fromJSONToGameLevelList(json: String): GameLevelList {
-        return Gson().fromJson(json, GameLevelList::class.java)
-    }
+//    @TypeConverter
+//    fun fromGameLevelListToJSON(gameLevelList: GameLevelList): String {
+//        return Gson().toJson(gameLevelList)
+//    }
+//
+//    @TypeConverter
+//    fun fromJSONToGameLevelList(json: String): GameLevelList {
+//        return Gson().fromJson(json, GameLevelList::class.java)
+//    }
 }

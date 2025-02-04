@@ -1,7 +1,6 @@
 package com.example.bricksGame.components.players.data
 
 import android.content.Context
-import android.util.Log
 import com.example.bricksGame.config.GameConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -15,12 +14,7 @@ class DataRepository @Inject constructor(
     var gameConfig: GameConfig,
 ) {
 
-//    init {
-//        Log.d("my", "DataRepository")
-//        getPlayerDatabase(context)
-//    }
-
-   var playerDatabase: PlayerDatabase = getPlayerDatabase(context)
+   private var playerDatabase: PlayerDatabase = getPlayerDatabase(context)
 
     private fun getPlayerDatabase(context: Context): PlayerDatabase {
         return PlayerDatabase.getDatabase(context)

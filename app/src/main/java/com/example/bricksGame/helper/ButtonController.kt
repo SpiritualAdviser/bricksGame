@@ -64,10 +64,10 @@ class ButtonController @Inject constructor(
         }
     }
 
-    fun navigateFreeGame(mapModel: MapModel) {
+    fun navigateFreeGame() {
         soundController.clickUi()
         soundController.playMainTheme()
-        mapModel.openLevelOnMap()
+//        mapModel.openLevelOnMap()
 
 //        freeGameModel.onRunLevel(mapModel)
         navigateToLevelGame(true)

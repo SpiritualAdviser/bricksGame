@@ -23,18 +23,18 @@ class PlayerViewModel @Inject constructor(
     var allPlayers = playerRepository.allPlayers
     var nameNewPlayer = mutableStateOf("")
 
-    private var activePlayer: Player = playerRepository.getActivePlayer()
+    private var activePlayer: Player = Player(1,"PlayerStart")
     var playerScore = mutableIntStateOf(0)
     var playerAchievements = mutableIntStateOf(activePlayer.achievements)
     var nameActivePlayer = mutableStateOf(activePlayer.playerName)
 
     init {
-        Log.d("PlayerViewModel", "PlayerViewModel_init")
+        Log.d("my", "PlayerViewModel_init")
     }
 
     override fun onCleared() {
         super.onCleared()
-        Log.d("PlayerViewModel", "PlayerViewModel_onCleared")
+        Log.d("my", "PlayerViewModel_onCleared")
     }
 
     fun setNameOnAddPlayer(name: String) {

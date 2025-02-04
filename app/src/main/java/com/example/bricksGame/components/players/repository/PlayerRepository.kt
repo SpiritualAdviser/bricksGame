@@ -1,18 +1,12 @@
 package com.example.bricksGame.components.players.repository
 
 import android.util.Log
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.viewModelScope
-import com.example.bricksGame.components.players.data.ActiveLevelList
 import com.example.bricksGame.components.players.data.DataRepository
-import com.example.bricksGame.components.players.data.GameLevelList
 import com.example.bricksGame.components.players.data.Player
 import com.example.bricksGame.config.LevelsConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -29,15 +23,12 @@ class PlayerRepository @Inject constructor(
     }
 
     var allPlayers = dataRepository.getAllPlayers()
-    var levelGameList = levelsConfig.levelGameList
 
     private var activePlayer: Player = Player(
-        playerName = "Player",
-        gameLevelList = GameLevelList()
+        playerName = "Player"
     )
 
     private fun start() {
-        levelsConfig.setLevelListOnCreatePlayer()
         allPlayers = dataRepository.getAllPlayers()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -52,15 +43,18 @@ class PlayerRepository @Inject constructor(
     }
 
     fun getActivePlayer(): Player {
+        activePlayer = dataRepository.getActivePlayer()
         return activePlayer
     }
 
     suspend fun addPlayer(name: String) {
+        val levelGameList = levelsConfig.getNewLevelGameList()
 
         val newPlayer = Player(
             playerName = name,
-            gameLevelList = GameLevelList(gameLevelList = levelGameList)
         )
+        newPlayer.levels.gameLevelList = levelGameList
+
         setActivePlayerOnGame(newPlayer)
     }
 

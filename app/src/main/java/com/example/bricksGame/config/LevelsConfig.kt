@@ -9,7 +9,12 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
 
     var levelGameList = mutableListOf<Level>()
 
-    fun setLevelListOnCreatePlayer() {
+    fun getNewLevelGameList(): MutableList<Level> {
+        setLevelListOnCreatePlayer()
+        return levelGameList
+    }
+
+    private fun setLevelListOnCreatePlayer() {
         levelGameList.clear()
         levelBuilder.setLevelGameList(levelGameList, gameFixLevels)
     }
@@ -28,7 +33,7 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
             levelMaxStep = 0
         )
 
-    val gameFixLevels: List<Level> = listOf(
+    private val gameFixLevels: List<Level> = listOf(
 
         Level(
             numberLevel = 1,
