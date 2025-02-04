@@ -10,9 +10,9 @@ class Player(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
     var playerName: String,
     var achievements: Int = 0,
-    var isActive: Boolean = false,
+    var isActive: Boolean = true,
 
-    var activeLevelList: ActiveLevelList,
+    var activeLevelList: ActiveLevelList=ActiveLevelList(),
     var gameLevelList: GameLevelList
 )
 

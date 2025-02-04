@@ -12,6 +12,7 @@ import com.example.bricksGame.config.LevelsConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -21,32 +22,31 @@ class PlayerRepository @Inject constructor(
     val dataRepository: DataRepository,
     private val levelsConfig: LevelsConfig,
 ) {
-    private var newPlayer: Player = Player(
-        playerName = "Player",
-        isActive = true,
-        activeLevelList = ActiveLevelList(),
-        gameLevelList = GameLevelList()
-    )
 
     init {
-        Log.d("PlayerViewModel", "GameData_init")
+        Log.d("my", "PlayerRepository")
+        start()
     }
 
     var allPlayers = dataRepository.getAllPlayers()
     var levelGameList = levelsConfig.levelGameList
 
-    private var activePlayer: Player = newPlayer
+    private var activePlayer: Player = Player(
+        playerName = "Player",
+        gameLevelList = GameLevelList()
+    )
 
-    fun start() {
+    private fun start() {
         levelsConfig.setLevelListOnCreatePlayer()
         allPlayers = dataRepository.getAllPlayers()
 
         CoroutineScope(Dispatchers.IO).launch {
-            allPlayers?.collectLatest {
+
+            allPlayers.collectLatest {
                 if (it.isEmpty()) {
                     addPlayer("Player")
                 }
-                println()
+                Log.d("my", "on allPlayers.collectLatest${it.size}")
             }
         }
     }
@@ -57,18 +57,23 @@ class PlayerRepository @Inject constructor(
 
     suspend fun addPlayer(name: String) {
 
-        val newPlayer = newPlayer
-        newPlayer.apply {
-            playerName = name
-            gameLevelList.gameLevelList = levelGameList
-        }
+        val newPlayer = Player(
+            playerName = name,
+            gameLevelList = GameLevelList(gameLevelList = levelGameList)
+        )
         setActivePlayerOnGame(newPlayer)
     }
 
     private suspend fun setActivePlayerOnGame(player: Player) {
+        activePlayer = player
         dataRepository.setInactiveAllPlayers()
         player.isActive = true
-        dataRepository.addPlayer(newPlayer)
-        activePlayer = player
+        dataRepository.addPlayer(player)
+    }
+
+    fun update(player: Player) {
+        dataRepository.setInactiveAllPlayers()
+        player.isActive = true
+        dataRepository.update(player)
     }
 }

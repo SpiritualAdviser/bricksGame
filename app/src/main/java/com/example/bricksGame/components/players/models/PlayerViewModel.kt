@@ -20,7 +20,7 @@ class PlayerViewModel @Inject constructor(
 
     var nameNoEmpty = false
 
-    var playersList = playerRepository.allPlayers
+    var allPlayers = playerRepository.allPlayers
     var nameNewPlayer = mutableStateOf("")
 
     private var activePlayer: Player = playerRepository.getActivePlayer()
@@ -38,10 +38,7 @@ class PlayerViewModel @Inject constructor(
     }
 
     fun setNameOnAddPlayer(name: String) {
-        if (name.isNotEmpty()) {
-            nameNoEmpty = true
-            nameNewPlayer.value = name
-        }
+        nameNewPlayer.value = name
     }
 
     fun setActivePlayerOnGame(player: Player) {
@@ -105,18 +102,20 @@ class PlayerViewModel @Inject constructor(
     }
 
     fun addPlayer() {
+        if (nameNewPlayer.value.isNotEmpty()) {
+            nameNoEmpty = true
 
-        viewModelScope.launch(Dispatchers.IO) {
-            playerRepository.addPlayer(nameNewPlayer.value)
-            nameNewPlayer.value = ""
+            viewModelScope.launch(Dispatchers.IO) {
+                playerRepository.addPlayer(nameNewPlayer.value)
+                nameNewPlayer.value = ""
+                nameNoEmpty = false
+            }
         }
-//        setActivePlayerOnGame(newPlayer)
-        nameNoEmpty = false
     }
 
     private fun update(player: Player) {
         viewModelScope.launch(Dispatchers.IO) {
-            playerRepository.dataRepository.update(player)
+            playerRepository.update(player)
         }
     }
 

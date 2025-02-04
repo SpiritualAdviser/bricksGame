@@ -20,12 +20,6 @@ class MyHiltApp : Application() {
     lateinit var soundController: SoundController
 
     @Inject
-    lateinit var dataRepository: DataRepository
-
-    @Inject
-    lateinit var playerRepository: PlayerRepository
-
-    @Inject
     lateinit var levelData: LevelData
 
     @Inject
@@ -40,9 +34,6 @@ class MyHiltApp : Application() {
         }
 
         setSprite()
-        dataRepository.getPlayerDatabase(applicationContext)
-
-        playerRepository.start()
     }
 
     private fun setSprite() {

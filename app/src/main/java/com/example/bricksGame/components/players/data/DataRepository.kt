@@ -1,48 +1,55 @@
 package com.example.bricksGame.components.players.data
 
 import android.content.Context
+import android.util.Log
 import com.example.bricksGame.config.GameConfig
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DataRepository @Inject constructor() {
+class DataRepository @Inject constructor(
+    @ApplicationContext
+    private val context: Context,
+    var gameConfig: GameConfig,
+) {
 
-    @Inject
-    lateinit var gameConfig: GameConfig
+//    init {
+//        Log.d("my", "DataRepository")
+//        getPlayerDatabase(context)
+//    }
 
-    var playerDatabase: PlayerDatabase? = null
-//    var playersList: Flow<MutableList<Player>>? = null
+   var playerDatabase: PlayerDatabase = getPlayerDatabase(context)
 
-    fun getPlayerDatabase(context: Context) {
-        playerDatabase = PlayerDatabase.getDatabase(context)
+    private fun getPlayerDatabase(context: Context): PlayerDatabase {
+        return PlayerDatabase.getDatabase(context)
     }
 
-    fun getAllPlayers(): Flow<MutableList<Player>>? {
-        return playerDatabase?.getDao()?.readAllData()
+    fun getAllPlayers(): Flow<MutableList<Player>> {
+        return playerDatabase.getDao().readAllData()
     }
 
-    fun getActivePlayer(): Player? {
-        return playerDatabase?.getDao()?.getActivePlayer()
+    fun getActivePlayer(): Player {
+        return playerDatabase.getDao().getActivePlayer()
     }
 
     suspend fun addPlayer(player: Player) {
-        playerDatabase?.getDao()?.addData(player)
+        playerDatabase.getDao().addData(player)
     }
 
     fun delete(player: Player) {
-        playerDatabase?.getDao()?.delete(player)
+        playerDatabase.getDao().delete(player)
     }
 
     fun update(player: Player) {
         if (!gameConfig.CHEAT) {
-            playerDatabase?.getDao()?.update(player)
+            playerDatabase.getDao().update(player)
         }
     }
 
     fun setInactiveAllPlayers() {
-        playerDatabase?.getDao()?.setInactiveAllPlayers()
+        playerDatabase.getDao().setInactiveAllPlayers()
     }
 
 }

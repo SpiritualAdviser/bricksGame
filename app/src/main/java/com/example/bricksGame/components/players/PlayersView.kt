@@ -30,7 +30,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -63,7 +62,7 @@ import com.example.bricksGame.ui.theme.unfocusedTextFieldBg
 import kotlinx.coroutines.launch
 
 @Composable
-fun PlayerView(playerViewModel:PlayerViewModel= hiltViewModel()) {
+fun PlayerView(playerViewModel: PlayerViewModel = hiltViewModel()) {
 
     val snackState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
@@ -91,8 +90,8 @@ fun PlayerView(playerViewModel:PlayerViewModel= hiltViewModel()) {
         Spacer(Modifier.size(5.dp))
         IconButton(
             onClick = {
+                playerViewModel.addPlayer()
                 if (playerViewModel.nameNoEmpty) {
-                    playerViewModel.addPlayer()
                     coroutineScope.launch {
                         snackState.showSnackbar("The Player is added")
                     }
@@ -130,8 +129,8 @@ fun PlayerView(playerViewModel:PlayerViewModel= hiltViewModel()) {
 }
 
 @Composable
-fun PlayersList(playerViewModel:PlayerViewModel= hiltViewModel()) {
-    val playersList = playerViewModel.playersList?.collectAsState(initial = emptyList<Player>())
+fun PlayersList(playerViewModel: PlayerViewModel = hiltViewModel()) {
+    val playersList = playerViewModel.allPlayers.collectAsState(initial = emptyList())
 
     Text("Players", fontSize = 22.sp, color = onPrimaryLight)
     Spacer(Modifier.size(4.dp))
@@ -146,17 +145,14 @@ fun PlayersList(playerViewModel:PlayerViewModel= hiltViewModel()) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-
-        if (playersList != null) {
-            items(items = playersList.value) {
-                PlayerCard(it)
-            }
+        items(items = playersList.value) {
+            PlayerCard(it)
         }
     }
 }
 
 @Composable
-fun PlayerCard(player: Player, playerViewModel:PlayerViewModel= hiltViewModel()) {
+fun PlayerCard(player: Player, playerViewModel: PlayerViewModel = hiltViewModel()) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -219,7 +215,7 @@ fun PlayerCard(player: Player, playerViewModel:PlayerViewModel= hiltViewModel())
 }
 
 @Composable
-fun AddPlayer(playerViewModel:PlayerViewModel= hiltViewModel()) {
+fun AddPlayer(playerViewModel: PlayerViewModel = hiltViewModel()) {
 
     Text("Enter player name", fontSize = 20.sp, color = onPrimaryLight)
 
