@@ -55,6 +55,7 @@ class LevelLogic @Inject constructor(
     private fun createLevelResources(level: Level) {
         val bricksOnField = fieldController.createBricksList(level)
         levelData.setBrickOnField(bricksOnField)
+        levelData.setActiveLevel(level)
     }
 
     private fun setRowsAndColumnsOnLevel(level: Level) {

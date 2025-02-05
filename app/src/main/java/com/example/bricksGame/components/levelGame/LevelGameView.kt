@@ -32,7 +32,7 @@ fun RunLevelGame() {
     ) {
         val orientation = LocalConfiguration.current.orientation
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//            LandscapeLayout()
+            LandscapeLayout()
         } else {
             PortraitLayout()
         }

@@ -120,8 +120,8 @@ private fun GridFieldBox(fieldViewModel: FieldViewModel = hiltViewModel()) {
             userScrollEnabled = false,
             modifier = Modifier
                 .size(
-                    fieldViewModel.fieldWidth,
-                    fieldViewModel.fieldHeight
+                    fieldViewModel.fieldWidthPortrait,
+                    fieldViewModel.fieldHeightPortrait
                 )
         ) {
 

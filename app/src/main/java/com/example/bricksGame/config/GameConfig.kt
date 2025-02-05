@@ -49,7 +49,7 @@ class GameConfig @Inject constructor() {
     var MAX_BRICKS_ON_LEVEL = 3
     var MAX_NEGATIVE_BRICKS_ON_LEVEL = listOf<Int>(0, 0)
     var MIN_BRICKS_TO_ADD_NEXT = 0
-    val MAX_BRICKS_SIZE = 55
+    val MAX_BRICKS_SIZE = 60
 
     /**
      * options for padding FieldGame in Dp

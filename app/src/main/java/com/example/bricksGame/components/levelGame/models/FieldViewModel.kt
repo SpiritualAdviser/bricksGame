@@ -6,6 +6,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.logic.controller.FieldController
 import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.FieldBrick
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ScreenSize
@@ -20,6 +21,7 @@ class FieldViewModel @Inject constructor(
     val gameConfig: GameConfig,
     val screenSize: ScreenSize
 ) : ViewModel() {
+    private var activeLevel: Level? = levelData.getActiveLevel()
 
     var brickOnField: MutableList<FieldBrick> = levelData.brickOnFields
     var zIndex = mutableFloatStateOf(0F)
@@ -31,12 +33,15 @@ class FieldViewModel @Inject constructor(
     var brickCorner = gameConfig.BRICK_ROUNDED_CORNER
     var fieldBgColor = gameConfig.FIELD_BG_COLOR
     var brickBgColor = gameConfig.BRICK_BG_FIELD_COLOR
-    var fieldRows = gameConfig.ROWS
-    var fieldColumns = gameConfig.COLUMNS
+    var fieldRows = activeLevel?.fieldRow ?: 0
+    var fieldColumns = activeLevel?.fieldColumn ?: 0
     var brickBorderSize = gameConfig.BRICK_BORDER_SIZE.dp
 
-    var fieldWidth = 0.dp
-    var fieldHeight = 0.dp
+    var fieldWidthPortrait = 0.dp
+    var fieldHeightPortrait = 0.dp
+
+    var fieldWidthLandscape = 0.dp
+    var fieldHeightLandscape = 0.dp
 
     init {
         Log.d("my", "FieldViewModel_init")
@@ -69,8 +74,11 @@ class FieldViewModel @Inject constructor(
             brickSizeLandscape = gameConfig.MAX_BRICKS_SIZE.dp
         }
 
-        fieldWidth = brickSizePortrait * fieldRows
-        fieldHeight = brickSizePortrait * fieldColumns + brickBorderSize
+        fieldWidthPortrait = brickSizePortrait * fieldRows
+        fieldHeightPortrait = brickSizePortrait * fieldColumns
+
+        fieldWidthLandscape = brickSizeLandscape * fieldRows
+        fieldHeightLandscape = brickSizeLandscape * fieldColumns
     }
 
     fun changeZIndex(index: Float) {
