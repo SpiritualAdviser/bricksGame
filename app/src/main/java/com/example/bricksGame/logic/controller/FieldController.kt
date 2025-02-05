@@ -1,5 +1,6 @@
 package com.example.bricksGame.logic.controller
 
+import android.util.Log
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.Brick
 import com.example.bricksGame.gameData.FieldBrick
@@ -16,33 +17,8 @@ class FieldController @Inject constructor(
 //    var soundController: SoundController,
 ) {
 
-//    private fun setFieldMAxWidthSize() {
-//        levelData.fieldMAxWidthSize = if (screenSize.screenWidthDp > screenSize.screenHeightDp) {
-//            screenSize.screenHeightDp - (gameConfig.PADDING_FIELD.dp * 2)
-//        } else {
-//            screenSize.screenWidthDp - (gameConfig.PADDING_FIELD.dp * 2)
-//        }
-//    }
-//
-//    fun onOptionChange() {
-//        setFieldMAxWidthSize()
-//        levelData.brickSizePortrait = levelData.fieldMAxWidthSize / gameConfig.ROWS
-//        levelData.brickSizeLandscape = levelData.fieldMAxWidthSize / gameConfig.COLUMNS
-//
-//        if (levelData.brickSizePortrait > gameConfig.MAX_BRICKS_SIZE.dp) {
-//            levelData.brickSizePortrait = gameConfig.MAX_BRICKS_SIZE.dp
-//        }
-//
-//        if (levelData.brickSizeLandscape > gameConfig.MAX_BRICKS_SIZE.dp) {
-//            levelData.brickSizeLandscape = gameConfig.MAX_BRICKS_SIZE.dp
-//        }
-//
-//        println()
-//    }
-
-    fun resetData() {
-//        levelData.brickOnFields.clear()
-//        collisionBricksOnLevel.resetData()
+    init {
+        Log.d("my", "FieldController_init")
     }
 
     fun createBricksList(level: Level): MutableList<FieldBrick> {
@@ -73,6 +49,31 @@ class FieldController @Inject constructor(
         )
     }
 
+//    fun setBricksOnField(brick: Brick) {
+//        val currentFieldBrick = brick.fieldBrickOnCollision
+//        currentFieldBrick?.setImageOnStickBrick(brick.assetImage)
+//        currentFieldBrick?.id = brick.assetImage.toString()
+//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    fun resetData() {
+//        levelData.brickOnFields.clear()
+//        collisionBricksOnLevel.resetData()
+    }
+
+
     fun addToCollision() {
 //        levelData.brickOnFields.forEach() {
 //            collisionBricksOnLevel.addToCollision(fieldBrick = it)
@@ -86,12 +87,6 @@ class FieldController @Inject constructor(
 
     private fun runCollision() {
 //        collisionBricksOnLevel.runCollision(true)
-    }
-
-    fun setBricksOnField(brick: Brick) {
-        val currentFieldBrick = brick.fieldBrickOnCollision
-        currentFieldBrick?.setImageOnStickBrick(brick.assetImage)
-        currentFieldBrick?.id = brick.assetImage.toString()
     }
 
     fun checkNeedChangeAsset(fieldBrick: FieldBrick) {

@@ -19,9 +19,9 @@ class LevelData @Inject constructor(
     val EMPTY_ID = "Color.Transparent"
     var zIndex = mutableFloatStateOf(0F)
 
-    var brickSizePortrait = 0.dp
-    var brickSizeLandscape = 0.dp
-    var fieldMAxWidthSize = 0.dp
+//    var brickSizePortrait = 0.dp
+//    var brickSizeLandscape = 0.dp
+//    var fieldMAxWidthSize = 0.dp
 
     fun setBrickOnField(brickOnFieldInner: MutableList<FieldBrick>) {
         brickOnFields = brickOnFieldInner

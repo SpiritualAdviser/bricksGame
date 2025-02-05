@@ -52,7 +52,7 @@ class BricksController @Inject constructor(
     }
 
     fun removeBrick(brick: Brick) {
-        fieldController.setBricksOnField(brick)
+//        fieldController.setBricksOnField(brick)
         levelData._bricksList.remove(brick)
         this.checkIfNeedNewBricksList()
     }

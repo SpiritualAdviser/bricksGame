@@ -32,8 +32,8 @@ fun LevelTargetBlockLandscape() {
 }
 
 @Composable
-fun BlockLevelTarget(mapModel: MapModel = hiltViewModel()) {
-    Text(text = "Target: ${mapModel.levelTarget.intValue}", color = onPrimaryLight)
-    Text("winLine: ${mapModel.levelWinLine}", color = onPrimaryLight)
-    Text("Step: ${mapModel.levelStep.intValue}", color = onPrimaryLight)
+fun BlockLevelTarget() {
+//    Text(text = "Target: ${mapModel.levelTarget.intValue}", color = onPrimaryLight)
+//    Text("winLine: ${mapModel.levelWinLine}", color = onPrimaryLight)
+//    Text("Step: ${mapModel.levelStep.intValue}", color = onPrimaryLight)
 }

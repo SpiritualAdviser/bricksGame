@@ -3,6 +3,8 @@ package com.example.bricksGame.helper
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.*
 import androidx.compose.ui.unit.dp
+import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.gameData.LevelData
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,8 +18,7 @@ class ScreenSize @Inject constructor() {
 
     @Composable
     fun GetScreenSize() {
-        val context = LocalContext.current
-        val displayMetrics = context.resources.displayMetrics
+        val displayMetrics = LocalContext.current.resources.displayMetrics
 
         // Width and height of screen
         this.screenWidthPx = displayMetrics.widthPixels
