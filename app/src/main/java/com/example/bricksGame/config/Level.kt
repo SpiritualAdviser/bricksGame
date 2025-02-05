@@ -2,8 +2,8 @@ package com.example.bricksGame.config
 
 data class Level(
     var numberLevel: Int,
-    var fieldGameRow: Int,
-    var fieldGameColumn: Int,
+    var fieldRow: Int,
+    var fieldColumn: Int,
     var numberOfBricksToWin: Int = 0,
     var lastBrickToAdd: Int = 0,
 

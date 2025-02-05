@@ -1,6 +1,7 @@
 package com.example.bricksGame.helper
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -25,12 +26,16 @@ import javax.inject.Singleton
 @Singleton
 class AppNavigation @Inject constructor() {
 
+    init {
+        Log.d("my", "AppNavigation_init")
+    }
+
     private lateinit var _navController: NavHostController
 
     @Composable
     fun CreateNavHost() {
-        _navController = rememberNavController()
 
+        _navController = rememberNavController()
         NavHost(navController = _navController,
             startDestination = Routes.HomeScreen.route,
             enterTransition = { EnterTransition.None },

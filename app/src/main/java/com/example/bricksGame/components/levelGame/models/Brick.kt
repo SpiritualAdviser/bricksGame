@@ -76,7 +76,7 @@ class Brick @Inject constructor(
             if (this.hasBonusOwnerId != null) {
 //                BonusViewModel.onBonus(this)
 //                MapModel.changeLevelStepOnRound()
-                levelLogic.checkRound(this)
+//                levelLogic.checkRound(this)
                 this.hasBonusOwnerId = null
             }
             this.x.intValue = 0
@@ -89,7 +89,7 @@ class Brick @Inject constructor(
                 val offsetAmount = getOffsetAmount(fieldBrickOnCollision!!)
                 dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
                 bricksController.removeBrick(this)
-                levelLogic.checkRound(this)
+//                levelLogic.checkRound(this)
                 freeSpace()
                 soundController.pushCristal()
 //                MapModel.changeLevelStepOnRound()

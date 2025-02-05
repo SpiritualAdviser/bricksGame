@@ -1,5 +1,6 @@
 package com.example.bricksGame.components.levelGame.models
 
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.controller.FieldController
 import com.example.bricksGame.config.GameConfig
@@ -17,11 +18,24 @@ class FieldViewModel @Inject constructor(
 ) : ViewModel() {
 
     var brickOnField: MutableList<FieldBrick> = levelData.brickOnFields
-    var zIndex = levelData.zIndex
 
     var brickSizePortrait = levelData.brickSizePortrait
-    var brickSizeLandscape = levelData.brickSizeLandscape
-    var fieldMAxWidthSize = levelData.fieldMAxWidthSize
+//    var brickSizeLandscape = levelData.brickSizeLandscape
+//    var fieldMAxWidthSize = levelData.fieldMAxWidthSize
+
+    var brickCorner = gameConfig.BRICK_ROUNDED_CORNER
+    var fieldBgColor = gameConfig.FIELD_BG_COLOR
+    var brickBgColor = gameConfig.BRICK_BG_FIELD_COLOR
+    var fieldRows = gameConfig.ROWS
+    var fieldColumns = gameConfig.COLUMNS
+    var brickBorderSize = gameConfig.BRICK_BORDER_SIZE.dp
+
+    var fieldWidth = brickSizePortrait * fieldRows
+    var fieldHeight = brickSizePortrait * fieldColumns + brickBorderSize
+
+
+//    var zIndex = levelData.zIndex
+
 
     fun changeZIndex(index: Float) {
         fieldController.changeZIndex(index)

@@ -35,7 +35,7 @@ import com.example.bricksGame.helper.MainMenuBg
 fun MapComponent(mapModel: MapModel = hiltViewModel()) {
 
     BackHandler {
-//        mapModel.goToHome()
+       mapModel.goToHome()
     }
     MainMenuBg()
     Row(

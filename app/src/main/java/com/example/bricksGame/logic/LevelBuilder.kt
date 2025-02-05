@@ -35,8 +35,8 @@ class LevelBuilder @Inject constructor() {
 
         return gameFixLevels.find { it.numberLevel == levelNumber } ?: Level(
             numberLevel = levelNumber,
-            fieldGameRow = fieldGameRow,
-            fieldGameColumn = fieldGameColumn,
+            fieldRow = fieldGameRow,
+            fieldColumn = fieldGameColumn,
             numberOfBricksToWin = numberOfBricksToWin,
             additionalBrick = additionalBrick,
             lastBrickToAdd = lastBrickToAdd,

@@ -9,10 +9,7 @@ import javax.inject.Singleton
 
 @Singleton
 class ButtonController @Inject constructor(
-//    private var levelLogic: LevelLogic,
     var gameConfig: GameConfig,
-//    private var freeGameModel: FreeGameModel,
-
     ) {
     @Inject
     lateinit var soundController: SoundController
@@ -32,7 +29,7 @@ class ButtonController @Inject constructor(
     }
 
     fun navigateToLevelGame(onFree: Boolean = false) {
-        gameConfig.GAME_TYPE_FREE = onFree
+//        gameConfig.GAME_TYPE_FREE = onFree
         soundController.clickUi()
         soundController.playLevelTheme()
 

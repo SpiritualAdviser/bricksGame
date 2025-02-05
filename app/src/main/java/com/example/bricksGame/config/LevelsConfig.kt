@@ -22,8 +22,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
     val gameFreeLevel: Level =
         Level(
             numberLevel = 1,
-            fieldGameRow = 5,
-            fieldGameColumn = 6,
+            fieldRow = 5,
+            fieldColumn = 6,
             additionalBrick = 3,
             lastBrickToAdd = 0,
             numberOfBricksToWin = 4,
@@ -37,8 +37,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
 
         Level(
             numberLevel = 1,
-            fieldGameRow = 5,
-            fieldGameColumn = 6,
+            fieldRow = 5,
+            fieldColumn = 6,
             additionalBrick = 3,
             lastBrickToAdd = 0,
             numberOfBricksToWin = 3,
@@ -49,8 +49,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
         ),
         Level(
             numberLevel = 2,
-            fieldGameRow = 4,
-            fieldGameColumn = 5,
+            fieldRow = 4,
+            fieldColumn = 5,
             additionalBrick = 2,
             lastBrickToAdd = 0,
             numberOfBricksToWin = 3,
@@ -61,8 +61,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
         ),
         Level(
             numberLevel = 3,
-            fieldGameRow = 5,
-            fieldGameColumn = 6,
+            fieldRow = 5,
+            fieldColumn = 6,
             additionalBrick = 3,
             lastBrickToAdd = 2,
             numberOfBricksToWin = 4,
@@ -73,8 +73,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
         ),
         Level(
             numberLevel = 4,
-            fieldGameRow = 5,
-            fieldGameColumn = 6,
+            fieldRow = 5,
+            fieldColumn = 6,
             additionalBrick = 3,
             lastBrickToAdd = 1,
             numberOfBricksToWin = 3,
@@ -85,8 +85,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
         ),
         Level(
             numberLevel = 5,
-            fieldGameRow = 5,
-            fieldGameColumn = 5,
+            fieldRow = 5,
+            fieldColumn = 5,
             additionalBrick = 3,
             lastBrickToAdd = 1,
             numberOfBricksToWin = 4,
@@ -97,8 +97,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
         ),
         Level(
             numberLevel = 6,
-            fieldGameRow = 4,
-            fieldGameColumn = 5,
+            fieldRow = 4,
+            fieldColumn = 5,
             additionalBrick = 3,
             lastBrickToAdd = 2,
             numberOfBricksToWin = 3,
@@ -109,8 +109,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
         ),
         Level(
             numberLevel = 7,
-            fieldGameRow = 5,
-            fieldGameColumn = 6,
+            fieldRow = 5,
+            fieldColumn = 6,
             additionalBrick = 3,
             lastBrickToAdd = 1,
             numberOfBricksToWin = 4,
@@ -121,8 +121,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
         ),
         Level(
             numberLevel = 8,
-            fieldGameRow = 5,
-            fieldGameColumn = 6,
+            fieldRow = 5,
+            fieldColumn = 6,
             additionalBrick = 3,
             lastBrickToAdd = 1,
             numberOfBricksToWin = 3,
@@ -133,8 +133,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
         ),
         Level(
             numberLevel = 9,
-            fieldGameRow = 6,
-            fieldGameColumn = 7,
+            fieldRow = 6,
+            fieldColumn = 7,
             additionalBrick = 3,
             lastBrickToAdd = 0,
             numberOfBricksToWin = 4,
@@ -145,8 +145,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
         ),
         Level(
             numberLevel = 10,
-            fieldGameRow = 7,
-            fieldGameColumn = 7,
+            fieldRow = 7,
+            fieldColumn = 7,
             additionalBrick = 3,
             lastBrickToAdd = 0,
             numberOfBricksToWin = 4,
@@ -158,8 +158,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
 
         Level(
             numberLevel = 11,
-            fieldGameRow = 6,
-            fieldGameColumn = 7,
+            fieldRow = 6,
+            fieldColumn = 7,
             additionalBrick = 4,
             numberOfBricksToWin = 4,
             negativeBonuses = listOf<Int>(3, 2),
@@ -169,8 +169,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
         ),
         Level(
             numberLevel = 12,
-            fieldGameRow = 5,
-            fieldGameColumn = 6,
+            fieldRow = 5,
+            fieldColumn = 6,
             additionalBrick = 4,
             numberOfBricksToWin = 3,
             negativeBonuses = listOf<Int>(2, 1),
@@ -181,8 +181,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
 
         Level(
             numberLevel = 13,
-            fieldGameRow = 5,
-            fieldGameColumn = 6,
+            fieldRow = 5,
+            fieldColumn = 6,
             additionalBrick = 4,
             numberOfBricksToWin = 3,
             negativeBonuses = listOf<Int>(1, 2),
@@ -192,8 +192,8 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
         ),
         Level(
             numberLevel = 14,
-            fieldGameRow = 5,
-            fieldGameColumn = 5,
+            fieldRow = 5,
+            fieldColumn = 5,
             additionalBrick = 3,
             numberOfBricksToWin = 4,
             negativeBonuses = listOf<Int>(0, 3),

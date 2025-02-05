@@ -7,10 +7,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bricksGame.components.map.controller.MapController
 import com.example.bricksGame.components.players.repository.PlayerRepository
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
+import com.example.bricksGame.logic.LevelLogic
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,9 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MapModel @Inject constructor(
-    private var mapController: MapController,
     private var playerRepository: PlayerRepository,
     private val gameConfig: GameConfig,
+    private var levelLogic: LevelLogic,
 ) : ViewModel() {
 
     init {
@@ -39,16 +39,39 @@ class MapModel @Inject constructor(
     var levelWinLine: String = ""
     var levelStep = mutableIntStateOf(0)
 
-    var playerLevels: SnapshotStateList<Level> = mapController.playerLevels
+    var playerLevels: SnapshotStateList<Level> = mutableStateListOf()
 
     private fun openLevelOnMap() {
         viewModelScope.launch(Dispatchers.IO) {
-            mapController.openLevelOnMap()
+            val player = playerRepository.getActivePlayer()
+            playerLevels.clear()
+            playerLevels.addAll(player.levels.gameLevelList)
+            val openLevelsOnPlayer = player.levels.openLevelList
+
+            if (gameConfig.CHEAT) {
+                playerLevels.forEach {
+                    it.isActive = true
+                }
+            } else {
+                playerLevels.forEach {
+                    it.isActive = false
+                }
+
+                openLevelsOnPlayer.forEach { openLevel ->
+                    playerLevels.find { it.numberLevel == openLevel.numberLevel }?.let {
+                        it.isActive = true
+                    }
+                }
+            }
         }
     }
 
     fun runLevel(level: Level) {
-        mapController.runLevel(level)
+        levelLogic.onStartLevel(level)
+    }
+
+    fun goToHome(){
+        levelLogic.buttonController.navigateToHome()
     }
 
 //    fun changeLevelTargetOnRound(score: Int) {
