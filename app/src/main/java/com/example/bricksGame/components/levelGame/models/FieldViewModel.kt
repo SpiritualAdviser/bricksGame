@@ -2,8 +2,9 @@ package com.example.bricksGame.components.levelGame.models
 
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
-import com.example.bricksGame.components.levelGame.controller.FieldController
+import com.example.bricksGame.logic.controller.FieldController
 import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.gameData.FieldBrick
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.logic.CollisionBricksOnLevel
 import dagger.hilt.android.lifecycle.HiltViewModel

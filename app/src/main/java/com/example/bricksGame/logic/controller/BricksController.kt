@@ -1,9 +1,9 @@
-package com.example.bricksGame.components.levelGame.controller
+package com.example.bricksGame.logic.controller
 
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
-import com.example.bricksGame.components.levelGame.models.Brick
+import com.example.bricksGame.gameData.Brick
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ScreenSize

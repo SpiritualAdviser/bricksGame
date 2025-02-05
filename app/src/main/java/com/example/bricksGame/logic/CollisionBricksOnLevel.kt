@@ -1,7 +1,7 @@
 package com.example.bricksGame.logic
 
-import com.example.bricksGame.components.levelGame.models.Brick
-import com.example.bricksGame.components.levelGame.models.FieldBrick
+import com.example.bricksGame.gameData.Brick
+import com.example.bricksGame.gameData.FieldBrick
 import com.example.bricksGame.config.GameConfig
 import javax.inject.Inject
 import javax.inject.Singleton

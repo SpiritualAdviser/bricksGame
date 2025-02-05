@@ -71,7 +71,7 @@ class MapModel @Inject constructor(
     }
 
     fun goToHome(){
-        levelLogic.buttonController.navigateToHome()
+        levelLogic.goToHome()
     }
 
 //    fun changeLevelTargetOnRound(score: Int) {

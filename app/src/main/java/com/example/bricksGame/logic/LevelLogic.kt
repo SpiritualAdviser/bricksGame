@@ -4,46 +4,43 @@ package com.example.bricksGame.logic
 import com.example.bricksGame.components.map.models.MapModel.currentLevel
 */
 //import com.example.bricksGame.components.players.models.PlayerViewModel.updatePlayerOnLevelWin
-import com.example.bricksGame.components.levelGame.models.FieldBrick
-import com.example.bricksGame.components.players.repository.PlayerRepository
+import android.util.Log
+import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.gameData.FieldBrick
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ButtonController
-import com.example.bricksGame.helper.SoundController
+import com.example.bricksGame.logic.controller.FieldController
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class LevelLogic @Inject constructor(
-//    var gameConfig: GameConfig,
+    var gameConfig: GameConfig,
 //    var playerRepository: PlayerRepository,
-    var buttonController: ButtonController,
+    private var buttonController: ButtonController,
     private var levelData: LevelData,
-//    private var fieldController: FieldController,
+    private var fieldController: FieldController,
 ) {
 
-    var activeLevel: Level? = null
-
-//    lateinit var bricksControllerInstance: BricksController
-//    lateinit var bonusControllerInstance: BonusController
-//
-//    fun setBricksController(bricksInnerController: BricksController) {
-//        this.bricksControllerInstance = bricksInnerController
-//    }
-//
-//    fun setBonusController(bonusController: BonusController) {
-//        this.bonusControllerInstance = bonusController
-//    }
+    init {
+        Log.d("my", "LevelLogic_init")
+    }
 
     val EMPTY_ID = "Color.Transparent"
-    var levelRows = mutableListOf<List<FieldBrick>>()
-    var levelColumns = mutableListOf<List<FieldBrick>>()
     var wasWin = false
+
+    private var activeLevel: Level? = null
+
+    private var levelRows = mutableListOf<List<FieldBrick>>()
+    private var levelColumns = mutableListOf<List<FieldBrick>>()
 
     fun onStartLevel(level: Level) {
         activeLevel = level
         activeLevel?.let {
-            setRowsAndColumnOnLevel(it)
+            createLevelResources(it)
+            setRowsAndColumnsOnLevel(it)
+            goToLevel()
         }
         println()
 //        fieldController.onOptionChange()
@@ -55,11 +52,12 @@ class LevelLogic @Inject constructor(
 
     }
 
-    fun goToHome(){
-
+    private fun createLevelResources(level: Level) {
+        val bricksOnField = fieldController.createBricksList(level)
+        levelData.setBrickOnField(bricksOnField)
     }
 
-    private fun setRowsAndColumnOnLevel(level: Level) {
+    private fun setRowsAndColumnsOnLevel(level: Level) {
         var column: List<FieldBrick>
         var row: List<FieldBrick>
         levelRows.clear()
@@ -74,6 +72,7 @@ class LevelLogic @Inject constructor(
             column = levelData.brickOnFields.filter { index == it.position.first }
             levelColumns.add(column)
         }
+        println()
     }
 
 //    fun checkRoundOnBonus(winningPositions: MutableList<Pair<Int, Int>>, onBonus: Boolean) {
@@ -348,4 +347,12 @@ class LevelLogic @Inject constructor(
 //        delay(300)
 ////        PopupsViewModel.closePopupOnFinishGame()
 //    }
+
+    fun goToLevel() {
+        buttonController.navigateToLevelGame()
+    }
+
+    fun goToHome() {
+        buttonController.navigateToHome()
+    }
 }

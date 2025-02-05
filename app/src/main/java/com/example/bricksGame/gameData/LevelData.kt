@@ -3,8 +3,6 @@ package com.example.bricksGame.gameData
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.unit.dp
-import com.example.bricksGame.components.levelGame.models.Brick
-import com.example.bricksGame.components.levelGame.models.FieldBrick
 import com.example.bricksGame.config.Level
 import javax.inject.Inject
 import javax.inject.Singleton

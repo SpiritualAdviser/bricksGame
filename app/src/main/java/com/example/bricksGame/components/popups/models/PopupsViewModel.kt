@@ -4,7 +4,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.bricksGame.components.levelGame.models.FieldBrick
+import com.example.bricksGame.gameData.FieldBrick
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController

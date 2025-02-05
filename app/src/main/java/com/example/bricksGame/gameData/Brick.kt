@@ -1,4 +1,4 @@
-package com.example.bricksGame.components.levelGame.models
+package com.example.bricksGame.gameData
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.runtime.MutableIntState
@@ -8,7 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
-import com.example.bricksGame.components.levelGame.controller.BricksController
+import com.example.bricksGame.logic.controller.BricksController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController

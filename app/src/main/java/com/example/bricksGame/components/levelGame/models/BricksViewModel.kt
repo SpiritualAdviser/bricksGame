@@ -4,8 +4,8 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
-import com.example.bricksGame.components.levelGame.controller.BricksController
-import com.example.bricksGame.components.levelGame.controller.FieldController
+import com.example.bricksGame.logic.controller.BricksController
+import com.example.bricksGame.logic.controller.FieldController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ScreenSize

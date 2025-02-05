@@ -1,16 +1,14 @@
 package com.example.bricksGame.components.levelGame.animations
 
-import android.R.attr.delay
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
-import com.example.bricksGame.components.levelGame.models.Brick
+import com.example.bricksGame.gameData.Brick
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.time.Duration
 
 object AnimationsBrick {
     var canRunTranslation = mutableStateOf(false)

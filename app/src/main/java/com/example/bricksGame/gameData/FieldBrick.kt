@@ -1,4 +1,4 @@
-package com.example.bricksGame.components.levelGame.models
+package com.example.bricksGame.gameData
 
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
@@ -15,9 +15,7 @@ import com.example.bricksGame.helper.SpriteAnimation
 import javax.inject.Inject
 
 
-class FieldBrick @Inject constructor(
-    private val
-    gameConfig: GameConfig,
+class FieldBrick (
 
     val EMPTY_ID: String = "Color.Transparent",
     val name: String = "FieldBricks",
@@ -26,7 +24,10 @@ class FieldBrick @Inject constructor(
     var life: Int = 0,
     var onDestroy: Boolean = false,
 
-    var borderColor: MutableState<Color> = mutableStateOf(gameConfig.BRICK_BORDER_COLOR),
+   var borderDefaultColor:Color,
+   var borderHooverColor:Color,
+
+    var borderColor: MutableState<Color> = mutableStateOf(borderDefaultColor),
     var assetImage: MutableState<Int> = mutableIntStateOf(R.drawable.bgfielbrickempty),
 
     var hasOwnerId: Int? = null,
@@ -110,19 +111,19 @@ class FieldBrick @Inject constructor(
     }
 
     fun setBorderRed() {
-        changeBorder(gameConfig.BRICK_BORDER_HOVER_COLOR)
+        changeBorder(borderHooverColor)
     }
 
     fun setBorderBlack() {
-        changeBorder(gameConfig.BRICK_BORDER_COLOR)
+        changeBorder(borderDefaultColor)
     }
 
     fun onDragEnd() {
 
         if (ONLY_EMPTY_PLEASES) {
-            changeBorder(gameConfig.BRICK_BORDER_COLOR)
+            changeBorder(borderDefaultColor)
         } else {
-            changeBorder(gameConfig.BRICK_BORDER_COLOR)
+            changeBorder(borderDefaultColor)
             this.resetFieldBrick()
         }
     }
