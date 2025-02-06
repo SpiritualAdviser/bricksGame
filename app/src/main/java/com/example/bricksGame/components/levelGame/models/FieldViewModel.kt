@@ -20,6 +20,11 @@ class FieldViewModel @Inject constructor(
     val screenSize: ScreenSize,
 
 ) : ViewModel() {
+
+    init {
+        Log.d("my", "FieldViewModel_init")
+    }
+
     private var activeLevel: Level? = levelData.getActiveLevel()
 
     var brickOnField: MutableList<FieldBrick> = levelData.brickOnFields
@@ -35,10 +40,6 @@ class FieldViewModel @Inject constructor(
     var fieldHeight = mutableStateOf(levelData.fieldHeight)
     var brickSize = mutableStateOf(levelData.brickSize)
 
-
-    init {
-        Log.d("my", "FieldViewModel_init")
-    }
 
     override fun onCleared() {
         super.onCleared()
