@@ -62,13 +62,14 @@ class LevelData @Inject constructor(
 
         if (screenSize.screenWidthDp > screenSize.screenHeightDp) {
             fieldMAxSize = screenSize.screenHeightDp - (gameConfig.PADDING_FIELD.dp * 2)
-            brickSize = fieldMAxSize / gameConfig.ROWS
+            brickSize = fieldMAxSize / gameConfig.COLUMNS
         } else {
             fieldMAxSize = screenSize.screenWidthDp - (gameConfig.PADDING_FIELD.dp * 2)
-            brickSize = fieldMAxSize / gameConfig.COLUMNS
+            brickSize = fieldMAxSize / gameConfig.ROWS
         }
 
-        fieldWidth = brickSize * level.fieldRow
-        fieldHeight = brickSize * level.fieldColumn
+        fieldWidth = brickSize * level.fieldRow + gameConfig.BRICK_BORDER_SIZE.dp
+        fieldHeight = brickSize * level.fieldColumn + gameConfig.BRICK_BORDER_SIZE.dp
+        println()
     }
 }
