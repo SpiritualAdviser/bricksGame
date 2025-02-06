@@ -23,7 +23,6 @@ class FieldViewModel @Inject constructor(
     private var activeLevel: Level? = levelData.getActiveLevel()
 
     var brickOnField: MutableList<FieldBrick> = levelData.brickOnFields
-    var zIndex = mutableFloatStateOf(0F)
 
     var brickCorner = gameConfig.BRICK_ROUNDED_CORNER
     var fieldBgColor = gameConfig.FIELD_BG_COLOR
@@ -39,17 +38,10 @@ class FieldViewModel @Inject constructor(
 
     init {
         Log.d("my", "FieldViewModel_init")
-//        setFieldMAxWidthSize()
-//        setBrickSize()
-
     }
 
     override fun onCleared() {
         super.onCleared()
         Log.d("my", "FieldViewModel_onCleared")
-    }
-
-    fun changeZIndex(index: Float) {
-        zIndex.floatValue = index
     }
 }
