@@ -1,7 +1,6 @@
 package com.example.bricksGame.gameData
 
 import android.util.Log
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.config.GameConfig
@@ -15,13 +14,13 @@ class LevelData @Inject constructor(
     var screenSize: ScreenSize,
     private var gameConfig: GameConfig
 ) {
-    lateinit var brickOnFields: MutableList<FieldBrick>
-    lateinit var _bricksList: SnapshotStateList<Brick>
-    lateinit var _bonusList: SnapshotStateList<Brick>
-
     init {
         Log.d("my", "LevelData_init")
     }
+
+    private lateinit var brickOnFields: MutableList<FieldBrick>
+    private lateinit var bricksList: MutableList<Brick>
+    private lateinit var bonusList: SnapshotStateList<Brick>
 
     private var activeLevel: Level? = null
 
@@ -29,26 +28,45 @@ class LevelData @Inject constructor(
     var fieldHeight = 0.dp
     var brickSize = 0.dp
 
+
     fun getActiveLevel(): Level? {
         return activeLevel
+    }
+    fun getBrickOnFields(): MutableList<FieldBrick> {
+        return brickOnFields
+    }
+    fun getBonusList(): SnapshotStateList<Brick> {
+        return bonusList
+    }
+    fun getBricksList(): MutableList<Brick> {
+      return  bricksList
     }
 
     fun setBrickOnField(brickOnFieldInner: MutableList<FieldBrick>) {
         brickOnFields = brickOnFieldInner
     }
-
     fun setActiveLevel(level: Level) {
         activeLevel = level
         onOptionChange()
     }
-
-    fun setBricksList(toMutableStateList: SnapshotStateList<Brick>) {
-        _bricksList = toMutableStateList
+    fun setBricksList(toMutableStateList: MutableList<Brick>) {
+        bricksList = toMutableStateList
     }
-
     fun setBonusList(toMutableStateList: SnapshotStateList<Brick>) {
-        _bonusList = toMutableStateList
+        bonusList = toMutableStateList
     }
+
+    fun addToBricksList(brick: Brick){
+        bricksList.add(brick)
+    }
+
+    fun bricksListRemove(brick: Brick) {
+        bricksList.remove(brick)
+    }
+
+
+
+
 
     fun onOptionChange() {
         Log.d("my", "onOptionChange")

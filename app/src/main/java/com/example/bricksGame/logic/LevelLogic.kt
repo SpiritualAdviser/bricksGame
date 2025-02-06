@@ -10,6 +10,7 @@ import com.example.bricksGame.gameData.FieldBrick
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ButtonController
+import com.example.bricksGame.logic.controller.BricksController
 import com.example.bricksGame.logic.controller.FieldController
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -21,6 +22,7 @@ class LevelLogic @Inject constructor(
     private var buttonController: ButtonController,
     private var levelData: LevelData,
     private var fieldController: FieldController,
+    private var bricksController: BricksController,
 ) {
 
     init {
@@ -53,9 +55,13 @@ class LevelLogic @Inject constructor(
     }
 
     private fun createLevelResources(level: Level) {
-        val bricksOnField = fieldController.createBricksList(level)
-        levelData.setBrickOnField(bricksOnField)
         levelData.setActiveLevel(level)
+
+        val bricksOnField = fieldController.createBricksList(level)
+        val bricksOnLevel = bricksController.createBricksList(level)
+
+        levelData.setBrickOnField(bricksOnField)
+        levelData.setBricksList(bricksOnLevel)
     }
 
     private fun setRowsAndColumnsOnLevel(level: Level) {
@@ -65,12 +71,12 @@ class LevelLogic @Inject constructor(
         levelColumns.clear()
 
         for (index in 0 until level.fieldRow) {
-            row = levelData.brickOnFields.filter { index == it.position.second }
+            row = levelData.getBrickOnFields().filter { index == it.position.second }
             levelRows.add(row)
         }
 
         for (index in 0 until level.fieldColumn) {
-            column = levelData.brickOnFields.filter { index == it.position.first }
+            column = levelData.getBrickOnFields().filter { index == it.position.first }
             levelColumns.add(column)
         }
         println()

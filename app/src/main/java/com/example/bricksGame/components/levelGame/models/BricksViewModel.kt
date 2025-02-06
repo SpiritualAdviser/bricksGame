@@ -1,34 +1,49 @@
 package com.example.bricksGame.components.levelGame.models
 
-import androidx.compose.runtime.mutableIntStateOf
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.toMutableStateList
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
-import com.example.bricksGame.logic.controller.BricksController
-import com.example.bricksGame.logic.controller.FieldController
+import androidx.lifecycle.viewModelScope
 import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.gameData.Brick
 import com.example.bricksGame.gameData.LevelData
-import com.example.bricksGame.helper.ScreenSize
-import com.example.bricksGame.helper.SoundController
 import com.example.bricksGame.logic.CollisionBricksOnLevel
-import com.example.bricksGame.logic.LevelLogic
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.max
 
 @HiltViewModel
 class BricksViewModel @Inject constructor(
     val gameConfig: GameConfig,
-    var soundController: SoundController,
-    val collisionBricksOnLevel: CollisionBricksOnLevel,
-    private var levelData: LevelData,
+    private val collisionBricksOnLevel: CollisionBricksOnLevel,
+    levelData: LevelData,
 
     ) : ViewModel() {
 
-    private var _bricksList = levelData._bricksList
+    init {
+        Log.d("my", "BricksViewModel_init")
+    }
+
+    var brickBgColor: Color = gameConfig.BRICK_BG_COLOR
+    var brickCorner: Int = gameConfig.BRICK_ROUNDED_CORNER
+    var brickSize = mutableStateOf(levelData.brickSize)
+
+    private var fieldRows = levelData.getActiveLevel()?.fieldRow ?: gameConfig.ROWS
+    var offsetBricksBlock = (brickSize.value * (fieldRows + 2)) / 2
+
+
+    private var _bricksList = levelData.getBricksList()
     val bricks
         get() = _bricksList
 
+    fun observeCenterObjects(brick: Brick) {
+        collisionBricksOnLevel.observeCenterObjects(brick)
+    }
+
+    suspend fun takeAPlaces(brick: Brick) {
+            brick.takeAPlaces()
+    }
 }
 
 

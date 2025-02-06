@@ -2,48 +2,59 @@ package com.example.bricksGame.logic.controller
 
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.toMutableStateList
-import com.example.bricksGame.gameData.Brick
 import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.gameData.Brick
+import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ScreenSize
-import com.example.bricksGame.helper.SoundController
-import com.example.bricksGame.logic.LevelLogic
 import javax.inject.Inject
 import kotlin.math.max
 
 
 class BricksController @Inject constructor(
-    private var levelLogic: LevelLogic,
     private var levelData: LevelData,
-    private var fieldController: FieldController,
-    private var screenSize: ScreenSize,
     val gameConfig: GameConfig,
-    var soundController: SoundController,
+    val screenSize: ScreenSize
+//    var soundController: SoundController,
 ) {
     private var brickId = 0
 
-    fun resetData() {
-        brickId = 0
-        levelData._bricksList.clear()
-        levelData._bricksList = createBricksList().toMutableStateList()
-    }
+//    fun resetData() {
+//        brickId = 0
+//        levelData._bricksList.clear()
+//        levelData._bricksList = createBricksList().toMutableStateList()
+//    }
 
-    fun createBricksList(): MutableList<Brick> {
+    fun createBricksList(level: Level): MutableList<Brick> {
         val bricksList: MutableList<Brick> = mutableListOf()
-        for (i in 0 until gameConfig.MAX_BRICKS_ON_LEVEL) {
+        for (i in 0 until level.additionalBrick) {
 
-            bricksList.add(createBrick())
+            bricksList.add(createBrick(level))
         }
-        levelData.setBricksList(bricksList.toMutableStateList())
         return bricksList
     }
 
-    private fun getRandomImage(): Int {
-        var maxColors: Int = 0
-        maxColors = max(gameConfig.COLUMNS, gameConfig.ROWS)
+    private fun createBrick(level: Level): Brick {
+        val newBrick = Brick(
+            x = mutableIntStateOf(0),
+            y = mutableIntStateOf(0),
+            id = ++brickId,
+            position = brickId.toString(),
+            assetImage = getRandomImage(level),
+            borderColor = gameConfig.BRICK_BORDER_COLOR,
+            padding =    gameConfig.BRICK_BORDER_SIZE * screenSize.density,
+            translationXInit = screenSize.screenWidthPx.toFloat(),
+            translationYInit = screenSize.screenHeightPx.toFloat(),
+            activeBonusBorder = mutableStateOf(gameConfig.BRICK_BORDER_COLOR),
+        )
 
-        if (gameConfig.WIN_NUMBER_LINE == 0) maxColors else maxColors += 1
+        return newBrick
+    }
+
+    private fun getRandomImage(level: Level): Int {
+        var maxColors = max(level.fieldColumn, level.fieldRow)
+
+        if (level.numberOfBricksToWin == 0) maxColors else maxColors += 1
 
         if (gameConfig.imagesBricks.elementAtOrNull(maxColors) == null) {
             maxColors = gameConfig.imagesBricks.size - 1
@@ -51,36 +62,24 @@ class BricksController @Inject constructor(
         return gameConfig.imagesBricks[(0..maxColors).random()]
     }
 
+
     fun removeBrick(brick: Brick) {
 //        fieldController.setBricksOnField(brick)
-        levelData._bricksList.remove(brick)
+
+        levelData.bricksListRemove(brick)
         this.checkIfNeedNewBricksList()
     }
 
     private fun checkIfNeedNewBricksList() {
-        if (levelData._bricksList.size <= gameConfig.MIN_BRICKS_TO_ADD_NEXT) {
-            for (i in levelData._bricksList.size until gameConfig.MAX_BRICKS_ON_LEVEL) {
-                levelData._bricksList.add(createBrick())
+        val bricksList = levelData.getBricksList()
+        val level = levelData.getActiveLevel()
+
+        if (bricksList.size <= gameConfig.MIN_BRICKS_TO_ADD_NEXT) {
+            for (i in bricksList.size until gameConfig.MAX_BRICKS_ON_LEVEL) {
+                level?.let {
+                    levelData.addToBricksList(createBrick(it))
+                }
             }
         }
-    }
-
-    private fun createBrick(): Brick {
-        val newBrick = Brick(
-            x = mutableIntStateOf(0),
-            y = mutableIntStateOf(0),
-            id = ++brickId,
-            position = brickId.toString(),
-            assetImage = getRandomImage(),
-            gameConfig = gameConfig,
-            screenSize = screenSize,
-            soundController = soundController,
-            levelLogic = levelLogic,
-            bricksController = this
-        )
-
-        newBrick.borderColor = gameConfig.BRICK_BORDER_COLOR
-        newBrick.activeBonusBorder = mutableStateOf(gameConfig.BRICK_BORDER_COLOR)
-        return newBrick
     }
 }

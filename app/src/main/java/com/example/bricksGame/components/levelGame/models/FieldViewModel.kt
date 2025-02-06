@@ -27,7 +27,7 @@ class FieldViewModel @Inject constructor(
 
     private var activeLevel: Level? = levelData.getActiveLevel()
 
-    var brickOnField: MutableList<FieldBrick> = levelData.brickOnFields
+    var brickOnField: MutableList<FieldBrick> = levelData.getBrickOnFields()
 
     var brickCorner = gameConfig.BRICK_ROUNDED_CORNER
     var fieldBgColor = gameConfig.FIELD_BG_COLOR

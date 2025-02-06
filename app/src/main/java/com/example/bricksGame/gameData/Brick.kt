@@ -16,12 +16,7 @@ import com.example.bricksGame.logic.LevelLogic
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
-class Brick @Inject constructor(
-    var gameConfig: GameConfig,
-    var screenSize: ScreenSize,
-    var soundController: SoundController,
-    var levelLogic: LevelLogic,
-    var bricksController: BricksController,
+class Brick(
 
     var name: String = "brick",
     var id: Int,
@@ -43,15 +38,17 @@ class Brick @Inject constructor(
     var hasBonusOwnerId: FieldBrick? = null,
     var fieldBrickOnCollision: FieldBrick? = null,
 
-    ) {
-
-    var borderColor: Color = gameConfig.BRICK_BORDER_COLOR
-    lateinit var activeBonusBorder: MutableState<Color>
+    var borderColor: Color,
+    private var padding: Float,
+    private var translationXInit: Float,
+    private var translationYInit: Float,
+    private var activeBonusBorder: MutableState<Color>
+) {
 
     var wasAnimated = mutableStateOf(false)
     val rotation = Animatable(initialValue = 360f)
-    val translationX = Animatable(initialValue = screenSize.screenWidthPx.toFloat())
-    val translationY = Animatable(initialValue = screenSize.screenHeightPx.toFloat())
+    val translationX = Animatable(initialValue = translationXInit)
+    val translationY = Animatable(initialValue = translationYInit)
     var delayTranslation = 0
 
     fun changeZIndex(index: Float) {
@@ -88,10 +85,10 @@ class Brick @Inject constructor(
 
                 val offsetAmount = getOffsetAmount(fieldBrickOnCollision!!)
                 dragging(offsetAmount.getValue("x"), offsetAmount.getValue("y"))
-                bricksController.removeBrick(this)
+//                bricksController.removeBrick(this)
 //                levelLogic.checkRound(this)
-                freeSpace()
-                soundController.pushCristal()
+//                freeSpace()
+//                soundController.pushCristal()
 //                MapModel.changeLevelStepOnRound()
 
             } else {
@@ -103,7 +100,6 @@ class Brick @Inject constructor(
     }
 
     private fun getOffsetAmount(fieldBrickOnCollision: FieldBrick): Map<String, Float> {
-        val padding: Float = gameConfig.BRICK_BORDER_SIZE * screenSize.density
 
         val globalX = fieldBrickOnCollision.globalX + padding
         val globalY = fieldBrickOnCollision.globalY + padding

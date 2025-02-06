@@ -22,7 +22,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.BitmapPainter
@@ -40,13 +39,7 @@ import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.players.PlayerScoreBlock
-import com.example.bricksGame.components.popups.WinLine
-import com.example.bricksGame.components.popups.WinPopup
-import com.example.bricksGame.components.popups.animations.AnimationsPopups.RunAnimationScale
-import com.example.bricksGame.components.popups.models.PopupsViewModel
-import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.LevelLandscapeBg
-import com.example.bricksGame.logic.CollisionBricksOnLevel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -57,7 +50,7 @@ fun LandscapeLayout() {
     LeftBar()
     GridFieldBox()
 //    BonusBlock()
-//    BricksBlock()
+    BricksBlock()
 
 //    if (PopupsViewModel.showPopupWinLine.value) {
 //        RunAnimationScale()
@@ -157,65 +150,65 @@ private fun GridFieldBox(fieldViewModel: FieldViewModel = hiltViewModel()) {
     }
 }
 
-//@Composable
-//private fun BricksBlock() {
-//    val coroutine = rememberCoroutineScope()
-//
-//    Column(
-//        modifier = Modifier
-//            .offset((FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 2)) / 2),
-////            .border(4.dp, Color.Magenta),
-//        verticalArrangement = Arrangement.Center
-//
-//    ) {
-//        (BricksViewModel.bricks.forEachIndexed { index, brick ->
-//
-//            key(brick.id) {
-//                Box(
-//                    Modifier
-//                        .offset { IntOffset(brick.x.intValue, brick.y.intValue) }
-//                        .size(FieldViewModel.brickSizeLandscape)
-//                        .background(GameConfig.BRICK_BG_COLOR)
-//                        .graphicsLayer {
-//                            if (AnimationsBrick.canRunTranslation.value && !brick.wasAnimated.value) {
-//                                translationY = brick.translationY.value
-//                            }
-//                        }
-//                        .paint(
-//                            painterResource(brick.assetImage),
-//                            sizeToIntrinsics = true,
-//                            contentScale = ContentScale.FillBounds
-//                        )
-//                        .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
-//                        .onGloballyPositioned { coordinates ->
-//                            brick.setGloballyPosition(coordinates)
-//                        }
-//                        .pointerInput(Unit) {
-//                            detectDragGestures(
-//                                onDragStart = { AnimationsBrick.canRunTranslation.value = true },
-//                                onDrag = { _, dragAmount ->
-//                                    brick.dragging(dragAmount.x, dragAmount.y)
-//                                    coroutine.launch {
-//                                        CollisionBricksOnLevel.observeCenterObjects(brick)
-//                                    }
-//                                },
-//                                onDragEnd = {
-//                                    coroutine.launch {
-//                                        brick.takeAPlaces()
-//                                    }
-//                                },
-//                                onDragCancel = { },
-//                            )
-//                        }
-//                )
-//                Spacer(Modifier.size(10.dp))
-//            }
-//            AnimationsBrick.InitAnimationTranslationY(brick)
-//            AnimationsBrick.runAnimationTranslation(brick, index)
-//        })
-//    }
-//}
-//
+@Composable
+private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
+    val coroutine = rememberCoroutineScope()
+
+    Column(
+        modifier = Modifier
+            .offset(bricksViewModel.offsetBricksBlock),
+//            .border(4.dp, Color.Magenta),
+        verticalArrangement = Arrangement.Center
+
+    ) {
+        (bricksViewModel.bricks.forEachIndexed { index, brick ->
+
+            key(brick.id) {
+                Box(
+                    Modifier
+                        .offset { IntOffset(brick.x.intValue, brick.y.intValue) }
+                        .size(bricksViewModel.brickSize.value)
+                        .background(bricksViewModel.brickBgColor)
+                        .graphicsLayer {
+                            if (AnimationsBrick.canRunTranslation.value && !brick.wasAnimated.value) {
+                                translationY = brick.translationY.value
+                            }
+                        }
+                        .paint(
+                            painterResource(brick.assetImage),
+                            sizeToIntrinsics = true,
+                            contentScale = ContentScale.FillBounds
+                        )
+                        .clip(RoundedCornerShape(bricksViewModel.brickCorner))
+                        .onGloballyPositioned { coordinates ->
+                            brick.setGloballyPosition(coordinates)
+                        }
+                        .pointerInput(Unit) {
+                            detectDragGestures(
+                                onDragStart = { AnimationsBrick.canRunTranslation.value = true },
+                                onDrag = { _, dragAmount ->
+                                    brick.dragging(dragAmount.x, dragAmount.y)
+                                    coroutine.launch {
+                                        bricksViewModel.observeCenterObjects(brick)
+                                    }
+                                },
+                                onDragEnd = {
+                                    coroutine.launch {
+                                        bricksViewModel.takeAPlaces(brick)
+                                    }
+                                },
+                                onDragCancel = { },
+                            )
+                        }
+                )
+                Spacer(Modifier.size(10.dp))
+            }
+            AnimationsBrick.InitAnimationTranslationY(brick)
+            AnimationsBrick.runAnimationTranslation(brick, index)
+        })
+    }
+}
+
 //@Composable
 //private fun BonusBlock() {
 //    val coroutine = rememberCoroutineScope()
