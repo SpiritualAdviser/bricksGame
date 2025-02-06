@@ -11,6 +11,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import com.example.bricksGame.components.levelGame.animations.AnimationsBrick
+import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.AppNavigation
 import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
@@ -29,6 +30,9 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var screenSize: ScreenSize
 
+    @Inject
+    lateinit var levelData: LevelData
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge(
@@ -39,7 +43,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             screenSize.GetScreenSize()
-
+            levelData.onOptionChange()
             AppTheme {
                 appNavigation.CreateNavHost()
             }

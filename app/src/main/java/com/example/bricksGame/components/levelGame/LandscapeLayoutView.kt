@@ -110,8 +110,8 @@ private fun GridFieldBox(fieldViewModel: FieldViewModel = hiltViewModel()) {
             userScrollEnabled = false,
             modifier = Modifier
                 .size(
-                    fieldViewModel.fieldWidthLandscape,
-                    fieldViewModel.fieldHeightLandscape
+                    fieldViewModel.fieldWidth.value,
+                    fieldViewModel.fieldHeight.value
                 )
         ) {
 
@@ -124,7 +124,7 @@ private fun GridFieldBox(fieldViewModel: FieldViewModel = hiltViewModel()) {
                             fieldViewModel.brickBorderSize, it.borderColor.value,
                             RoundedCornerShape(fieldViewModel.brickCorner.dp)
                         )
-                        .size(fieldViewModel.brickSizeLandscape)
+                        .size(fieldViewModel.brickSize.value)
                         .background(fieldViewModel.brickBgColor)
                         .paint(
                             painter = if (it.hasSprite.value && it.spriteSheet != null) {

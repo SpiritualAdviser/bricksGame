@@ -1,10 +1,10 @@
 package com.example.bricksGame.helper
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.*
 import androidx.compose.ui.unit.dp
-import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.gameData.LevelData
+import com.example.bricksGame.config.Level
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,6 +15,11 @@ class ScreenSize @Inject constructor() {
     var screenWidthDp = 0.dp
     var screenHeightDp = 0.dp
     var density = 0f
+    var isPortraitMode: Boolean = true
+
+    init {
+        Log.d("my", "ScreenSize_init")
+    }
 
     @Composable
     fun GetScreenSize() {
@@ -30,6 +35,10 @@ class ScreenSize @Inject constructor() {
         val configuration = LocalConfiguration.current
         this.screenWidthDp = configuration.screenWidthDp.dp
         this.screenHeightDp = configuration.screenHeightDp.dp
+
+        isPortraitMode = screenWidthDp > screenHeightDp
     }
 }
+
+
 
