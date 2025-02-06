@@ -36,10 +36,9 @@ class FieldViewModel @Inject constructor(
     var fieldColumns = activeLevel?.fieldColumn ?: 0
     var brickBorderSize = gameConfig.BRICK_BORDER_SIZE.dp
 
-    var fieldWidth = mutableStateOf(levelData.fieldWidth)
-    var fieldHeight = mutableStateOf(levelData.fieldHeight)
-    var brickSize = mutableStateOf(levelData.brickSize)
-
+    var fieldWidth = levelData.fieldWidth
+    var fieldHeight = levelData.fieldHeight
+    var brickSize = levelData.brickSize
 
     override fun onCleared() {
         super.onCleared()

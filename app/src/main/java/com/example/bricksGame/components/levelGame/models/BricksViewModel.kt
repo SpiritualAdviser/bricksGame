@@ -27,7 +27,7 @@ class BricksViewModel @Inject constructor(
 
     var brickBgColor: Color = gameConfig.BRICK_BG_COLOR
     var brickCorner: Int = gameConfig.BRICK_ROUNDED_CORNER
-    var brickSize = mutableStateOf(levelData.brickSize)
+    var brickSize = levelData.brickSize
 
     private var fieldRows = levelData.getActiveLevel()?.fieldRow ?: gameConfig.ROWS
     var offsetBricksBlock = (brickSize.value * (fieldRows + 2)) / 2
