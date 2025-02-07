@@ -1,4 +1,4 @@
-package com.example.bricksGame.gameData
+package com.example.bricksGame.gameObjects
 
 import android.content.Context
 import android.graphics.BitmapFactory

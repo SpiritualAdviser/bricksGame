@@ -1,14 +1,9 @@
 package com.example.bricksGame.components.levelGame.controller
 
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.config.Level
-import com.example.bricksGame.gameData.BrickType
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ScreenSize
 import javax.inject.Inject
-import kotlin.math.max
 
 
 class BricksController @Inject constructor(

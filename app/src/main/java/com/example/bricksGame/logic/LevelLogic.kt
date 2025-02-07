@@ -6,7 +6,7 @@ import com.example.bricksGame.components.map.models.MapModel.currentLevel
 //import com.example.bricksGame.components.players.models.PlayerViewModel.updatePlayerOnLevelWin
 import android.util.Log
 import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.gameData.PlaceOnField
+import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ButtonController

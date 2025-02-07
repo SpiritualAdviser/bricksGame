@@ -1,8 +1,8 @@
 package com.example.bricksGame.logic
 
-import com.example.bricksGame.gameData.PlaceOnField
+import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.gameData.BrickType
+import com.example.bricksGame.gameObjects.GameObjects
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -28,7 +28,7 @@ class CollisionBricksOnLevel @Inject constructor(
         }
     }
 
-    fun observeCenterObjects(brick: BrickType.Brick) {
+    fun observeCenterObjects(brick: GameObjects.Brick) {
         if (isRun) {
 
             var xCollision: Boolean
@@ -54,7 +54,7 @@ class CollisionBricksOnLevel @Inject constructor(
         }
     }
 
-    private fun onCollision(brick: BrickType.Brick, placeOnField: PlaceOnField) {
+    private fun onCollision(brick: GameObjects.Brick, placeOnField: PlaceOnField) {
 
 //        if (placeOnField.hasOwnerId == gameConfig.NEGATIVE_BONUS_ROCK ||
 //            placeOnField.hasOwnerId == gameConfig.NEGATIVE_BONUS_LEAVES
@@ -80,7 +80,7 @@ class CollisionBricksOnLevel @Inject constructor(
 //        }
     }
 
-    private fun outOfCollision(brick: BrickType.Brick, placeOnField: PlaceOnField) {
+    private fun outOfCollision(brick: GameObjects.Brick, placeOnField: PlaceOnField) {
 
 //        if (brick.position == "Bonus") {
 //
