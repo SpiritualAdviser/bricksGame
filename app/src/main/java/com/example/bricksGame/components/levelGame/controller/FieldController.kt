@@ -7,6 +7,7 @@ import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.PlaceOnField
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.config.NegativeBonus
+import com.example.bricksGame.gameData.BaseModel
 import com.example.bricksGame.gameData.BrickType
 import com.example.bricksGame.logic.CollisionBricksOnLevel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -47,7 +48,7 @@ class FieldController @Inject constructor(
     private fun createBrick(positionColumn: Int, positionRow: Int): PlaceOnField {
         return PlaceOnField(
             position = Pair(positionColumn, positionRow),
-            slot = mutableStateOf(BrickType.Empty),
+            slot = mutableStateOf(BrickType.Empty(BaseModel(context))),
         )
     }
 

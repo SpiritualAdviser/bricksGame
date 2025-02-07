@@ -21,17 +21,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.bricksGame.R
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.players.PlayerScoreBlock
-import com.example.bricksGame.gameData.BrickType
 import com.example.bricksGame.helper.LevelPortraitBg
 
 @Composable
@@ -138,20 +133,10 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
                         .size(fieldViewModel.placeSizeOnField.value)
                         .background(fieldViewModel.placeBgColor)
                         .paint(
-                            painter = when (placeOnField.slot.value) {
-                                is BrickType.Empty -> BitmapPainter(
-                                    image = ImageBitmap.imageResource(
-                                        R.drawable.bgfielbrickempty
-                                    )
-                                )
-
-                                is BrickType.Brick -> (placeOnField.slot.value as BrickType.Brick).getBitmapPainter()
-
-
-//                        .onGloballyPositioned { coordinates ->
+                            painter = fieldViewModel.getBitmapPainter(placeOnField.slot.value),
+                            //                        .onGloballyPositioned { coordinates ->
 //                            it.setGloballyPosition(coordinates)
 
-                            },
                             sizeToIntrinsics = true,
                             contentScale = ContentScale.FillBounds
                         )

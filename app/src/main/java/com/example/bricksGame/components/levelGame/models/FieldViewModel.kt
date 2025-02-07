@@ -5,16 +5,16 @@ import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.R
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
+import com.example.bricksGame.gameData.BaseModel
 import com.example.bricksGame.gameData.BrickType
-import com.example.bricksGame.gameData.PlaceOnField
 import com.example.bricksGame.gameData.LevelData
+import com.example.bricksGame.gameData.PlaceOnField
 import com.example.bricksGame.helper.ScreenSize
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -26,7 +26,7 @@ class FieldViewModel @Inject constructor(
     val gameConfig: GameConfig,
     val screenSize: ScreenSize,
     @ApplicationContext val context: Context
-    ) : ViewModel() {
+) : ViewModel() {
 
     init {
         Log.d("my", "FieldViewModel_init")
@@ -54,9 +54,19 @@ class FieldViewModel @Inject constructor(
         Log.d("my", "FieldViewModel_onCleared")
     }
 
+    fun getBitmapPainter(slot: BrickType): BitmapPainter {
+        return when (slot) {
+            is BrickType.Brick -> slot.baseModel.getBitmapPainter()
+            is BrickType.Bonus -> slot.baseModel.getBitmapPainter()
+            is BrickType.Leaves -> slot.baseModel.getBitmapPainter()
+            is BrickType.Rock -> slot.baseModel.getBitmapPainter()
+            is BrickType.Empty -> slot.baseModel.getBitmapPainter()
+        }
+    }
+
     fun onClick(placeOnField: PlaceOnField) {
-
-        placeOnField.slot.value=BrickType.Brick(context)
-
+        val bm=BaseModel(context)
+        bm.assetImage= R.drawable.blue_brick
+        placeOnField.slot.value = BrickType.Brick(bm)
     }
 }

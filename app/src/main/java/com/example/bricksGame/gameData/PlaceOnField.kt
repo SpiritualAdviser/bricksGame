@@ -14,7 +14,6 @@ import com.example.bricksGame.helper.SpriteAnimation
 
 
 class PlaceOnField(
-
     val position: Pair<Int, Int>,
     var slot: MutableState<BrickType>,
 )
