@@ -2,7 +2,6 @@ package com.example.bricksGame.gameData
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
@@ -19,50 +18,50 @@ class LevelData @Inject constructor(
         Log.d("my", "LevelData_init")
     }
 
-    private lateinit var brickOnFields: MutableList<FieldBrick>
-    private lateinit var bricksList: MutableList<Brick>
-    private lateinit var bonusList: SnapshotStateList<Brick>
+    private lateinit var placesOnField: MutableList<PlaceOnField>
+//    private lateinit var bricksList: MutableList<Brick>
+//    private lateinit var bonusList: SnapshotStateList<Brick>
 
     private var activeLevel: Level? = null
 
     var fieldWidth = mutableStateOf(0.dp)
     var fieldHeight = mutableStateOf(0.dp)
-    var brickSize = mutableStateOf(0.dp)
+    var placeSizeOnField = mutableStateOf(0.dp)
 
     fun getActiveLevel(): Level? {
         return activeLevel
     }
-    fun getBrickOnFields(): MutableList<FieldBrick> {
-        return brickOnFields
+    fun getPlacesOnFields(): MutableList<PlaceOnField> {
+        return placesOnField
     }
-    fun getBonusList(): SnapshotStateList<Brick> {
-        return bonusList
-    }
-    fun getBricksList(): MutableList<Brick> {
-      return  bricksList
-    }
-
-    fun setBrickOnField(brickOnFieldInner: MutableList<FieldBrick>) {
-        brickOnFields = brickOnFieldInner
+//    fun getBonusList(): SnapshotStateList<Brick> {
+//        return bonusList
+//    }
+//    fun getBricksList(): MutableList<Brick> {
+//      return  bricksList
+//
+//    }
+    fun setPlacesOnField(placeOnFieldInner: MutableList<PlaceOnField>) {
+        placesOnField = placeOnFieldInner
     }
     fun setActiveLevel(level: Level) {
         activeLevel = level
         onOptionChange()
     }
-    fun setBricksList(toMutableStateList: MutableList<Brick>) {
-        bricksList = toMutableStateList
-    }
-    fun setBonusList(toMutableStateList: SnapshotStateList<Brick>) {
-        bonusList = toMutableStateList
-    }
-
-    fun addToBricksList(brick: Brick){
-        bricksList.add(brick)
-    }
-
-    fun bricksListRemove(brick: Brick) {
-        bricksList.remove(brick)
-    }
+//    fun setBricksList(toMutableStateList: MutableList<Brick>) {
+//        bricksList = toMutableStateList
+//    }
+//    fun setBonusList(toMutableStateList: SnapshotStateList<Brick>) {
+//        bonusList = toMutableStateList
+//    }
+//
+//    fun addToBricksList(brick: Brick){
+//        bricksList.add(brick)
+//    }
+//
+//    fun bricksListRemove(brick: Brick) {
+//        bricksList.remove(brick)
+//    }
 
     fun onOptionChange() {
         Log.d("my", "onOptionChange")
@@ -76,14 +75,14 @@ class LevelData @Inject constructor(
 
         if (screenSize.screenWidthDp > screenSize.screenHeightDp) {
             fieldMAxSize = screenSize.screenHeightDp - (gameConfig.PADDING_FIELD.dp * 2)
-            brickSize.value = fieldMAxSize / level.fieldColumn
+            placeSizeOnField.value = fieldMAxSize / level.fieldColumn
         } else {
             fieldMAxSize = screenSize.screenWidthDp - (gameConfig.PADDING_FIELD.dp * 2)
-            brickSize.value = fieldMAxSize / level.fieldRow
+            placeSizeOnField.value = fieldMAxSize / level.fieldRow
         }
 
-        fieldWidth.value =  brickSize.value * level.fieldRow + gameConfig.BRICK_BORDER_SIZE.dp
-        fieldHeight.value =  brickSize.value * level.fieldColumn + gameConfig.BRICK_BORDER_SIZE.dp
+        fieldWidth.value =  placeSizeOnField.value * level.fieldRow + gameConfig.BRICK_BORDER_SIZE.dp
+        fieldHeight.value =  placeSizeOnField.value * level.fieldColumn + gameConfig.BRICK_BORDER_SIZE.dp
         println()
     }
 }

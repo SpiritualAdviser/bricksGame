@@ -1,13 +1,15 @@
-package com.example.bricksGame.logic.controller
+package com.example.bricksGame.components.levelGame.controller
 
+import android.content.Context
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.gameData.Brick
-import com.example.bricksGame.gameData.FieldBrick
+import com.example.bricksGame.gameData.PlaceOnField
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.config.NegativeBonus
-import com.example.bricksGame.helper.SoundController
+import com.example.bricksGame.gameData.BrickType
 import com.example.bricksGame.logic.CollisionBricksOnLevel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class FieldController @Inject constructor(
@@ -15,19 +17,20 @@ class FieldController @Inject constructor(
     gameConfig: GameConfig,
     private val collisionBricksOnLevel: CollisionBricksOnLevel,
 //    var soundController: SoundController,
+    @ApplicationContext val context: Context
 ) {
 
     init {
         Log.d("my", "FieldController_init")
     }
 
-    fun createBricksList(level: Level): MutableList<FieldBrick> {
-        val allBrickOnField = level.fieldRow * level.fieldColumn
-        val bricksList: MutableList<FieldBrick> = mutableListOf()
+    fun createPlacesOnFieldList(level: Level): MutableList<PlaceOnField> {
+        val allPlacesOnField = level.fieldRow * level.fieldColumn
+        val bricksList: MutableList<PlaceOnField> = mutableListOf()
         var positionColumn = 0
         var positionRow = 0
 
-        for (i in 0 until allBrickOnField) {
+        for (i in 0 until allPlacesOnField) {
 
             if (i != 0 && i % level.fieldRow == 0) {
                 ++positionColumn
@@ -41,11 +44,10 @@ class FieldController @Inject constructor(
         return bricksList
     }
 
-    private fun createBrick(positionColumn: Int, positionRow: Int): FieldBrick {
-        return FieldBrick(
+    private fun createBrick(positionColumn: Int, positionRow: Int): PlaceOnField {
+        return PlaceOnField(
             position = Pair(positionColumn, positionRow),
-            borderDefaultColor = gameConfig.BRICK_BORDER_COLOR,
-            borderHooverColor = gameConfig.BRICK_BORDER_HOVER_COLOR,
+            slot = mutableStateOf(BrickType.Empty),
         )
     }
 
@@ -54,18 +56,6 @@ class FieldController @Inject constructor(
 //        currentFieldBrick?.setImageOnStickBrick(brick.assetImage)
 //        currentFieldBrick?.id = brick.assetImage.toString()
 //    }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     fun resetData() {
@@ -89,7 +79,7 @@ class FieldController @Inject constructor(
 //        collisionBricksOnLevel.runCollision(true)
     }
 
-    fun checkNeedChangeAsset(fieldBrick: FieldBrick) {
+    fun checkNeedChangeAsset(placeOnField: PlaceOnField) {
 
 //        when (fieldBrick.hasOwnerId) {
 //
@@ -117,7 +107,7 @@ class FieldController @Inject constructor(
 //        }
     }
 
-    private fun setAssetsOnNegativeBonus(fieldBrick: FieldBrick, bonus: NegativeBonus) {
+    private fun setAssetsOnNegativeBonus(placeOnField: PlaceOnField, bonus: NegativeBonus) {
 
 //        if (fieldBrick.hasSprite.value) {
 //            var animationName = bonus.animationFullLife

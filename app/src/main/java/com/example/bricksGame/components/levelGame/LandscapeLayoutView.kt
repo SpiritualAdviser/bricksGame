@@ -48,9 +48,9 @@ fun LandscapeLayout() {
     LevelLandscapeBg()
     ButtonBlock()
     LeftBar()
-    GridFieldBox()
+//    GridFieldBox()
 //    BonusBlock()
-    BricksBlock()
+//    BricksBlock()
 
 //    if (PopupsViewModel.showPopupWinLine.value) {
 //        RunAnimationScale()
@@ -89,125 +89,125 @@ private fun ButtonBlock() {
     }
 }
 
-@Composable
-private fun GridFieldBox(fieldViewModel: FieldViewModel = hiltViewModel()) {
-    Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(fieldViewModel.brickCorner.dp))
-            .background(fieldViewModel.fieldBgColor)
-//            .border(4.dp, Color.Green)
-    ) {
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(fieldViewModel.fieldRows),
-            horizontalArrangement = Arrangement.Center,
-            userScrollEnabled = false,
-            modifier = Modifier
-                .size(
-                    fieldViewModel.fieldWidth.value,
-                    fieldViewModel.fieldHeight.value
-                )
-        ) {
+//@Composable
+//private fun GridFieldBox(fieldViewModel: FieldViewModel = hiltViewModel()) {
+//    Box(
+//        modifier = Modifier
+//            .clip(RoundedCornerShape(fieldViewModel.brickCorner.dp))
+//            .background(fieldViewModel.fieldBgColor)
+////            .border(4.dp, Color.Green)
+//    ) {
+//        LazyVerticalGrid(
+//            columns = GridCells.Fixed(fieldViewModel.fieldRows),
+//            horizontalArrangement = Arrangement.Center,
+//            userScrollEnabled = false,
+//            modifier = Modifier
+//                .size(
+//                    fieldViewModel.fieldWidth.value,
+//                    fieldViewModel.fieldHeight.value
+//                )
+//        ) {
+//
+//            items(fieldViewModel.placesOnField) {
+//
+//                Box(
+//                    Modifier
+//                        .clip(RoundedCornerShape(fieldViewModel.brickCorner.dp))
+//                        .border(
+//                            fieldViewModel.brickBorderSize, it.borderColor.value,
+//                            RoundedCornerShape(fieldViewModel.brickCorner.dp)
+//                        )
+//                        .size(fieldViewModel.brickSize.value)
+//                        .background(fieldViewModel.brickBgColor)
+//                        .paint(
+//                            painter = if (it.hasSprite.value && it.spriteSheet != null) {
+//                                BitmapPainter(
+//                                    image = it.spriteSheet!!,
+//                                    srcOffset = IntOffset(
+//                                        x = it.xSrcOffset.intValue,
+//                                        y = it.ySrcOffset.intValue
+//                                    ),
+//                                    srcSize = IntSize(
+//                                        width = it.wSrcSize.intValue,
+//                                        height = it.hSrcSize.intValue
+//                                    )
+//                                )
+//                            } else {
+//                                BitmapPainter(
+//                                    image = ImageBitmap.imageResource(it.assetImage.value)
+//                                )
+//                            },
+//
+//                            sizeToIntrinsics = true,
+//                            contentScale = ContentScale.FillBounds
+//                        )
+//                        .onGloballyPositioned { coordinates ->
+//                            it.setGloballyPosition(coordinates)
+//                        }
+//                )
+//            }
+//        }
+//    }
+//}
 
-            items(fieldViewModel.brickOnField) {
-
-                Box(
-                    Modifier
-                        .clip(RoundedCornerShape(fieldViewModel.brickCorner.dp))
-                        .border(
-                            fieldViewModel.brickBorderSize, it.borderColor.value,
-                            RoundedCornerShape(fieldViewModel.brickCorner.dp)
-                        )
-                        .size(fieldViewModel.brickSize.value)
-                        .background(fieldViewModel.brickBgColor)
-                        .paint(
-                            painter = if (it.hasSprite.value && it.spriteSheet != null) {
-                                BitmapPainter(
-                                    image = it.spriteSheet!!,
-                                    srcOffset = IntOffset(
-                                        x = it.xSrcOffset.intValue,
-                                        y = it.ySrcOffset.intValue
-                                    ),
-                                    srcSize = IntSize(
-                                        width = it.wSrcSize.intValue,
-                                        height = it.hSrcSize.intValue
-                                    )
-                                )
-                            } else {
-                                BitmapPainter(
-                                    image = ImageBitmap.imageResource(it.assetImage.value)
-                                )
-                            },
-
-                            sizeToIntrinsics = true,
-                            contentScale = ContentScale.FillBounds
-                        )
-                        .onGloballyPositioned { coordinates ->
-                            it.setGloballyPosition(coordinates)
-                        }
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
-    val coroutine = rememberCoroutineScope()
-
-    Column(
-        modifier = Modifier
-            .offset(bricksViewModel.offsetBricksBlock),
-//            .border(4.dp, Color.Magenta),
-        verticalArrangement = Arrangement.Center
-
-    ) {
-        (bricksViewModel.bricks.forEachIndexed { index, brick ->
-
-            key(brick.id) {
-                Box(
-                    Modifier
-                        .offset { IntOffset(brick.x.intValue, brick.y.intValue) }
-                        .size(bricksViewModel.brickSize.value)
-                        .background(bricksViewModel.brickBgColor)
-                        .graphicsLayer {
-                            if (AnimationsBrick.canRunTranslation.value && !brick.wasAnimated.value) {
-                                translationY = brick.translationY.value
-                            }
-                        }
-                        .paint(
-                            painterResource(brick.assetImage),
-                            sizeToIntrinsics = true,
-                            contentScale = ContentScale.FillBounds
-                        )
-                        .clip(RoundedCornerShape(bricksViewModel.brickCorner))
-                        .onGloballyPositioned { coordinates ->
-                            brick.setGloballyPosition(coordinates)
-                        }
-                        .pointerInput(Unit) {
-                            detectDragGestures(
-                                onDragStart = { AnimationsBrick.canRunTranslation.value = true },
-                                onDrag = { _, dragAmount ->
-                                    brick.dragging(dragAmount.x, dragAmount.y)
-                                    coroutine.launch {
-                                        bricksViewModel.observeCenterObjects(brick)
-                                    }
-                                },
-                                onDragEnd = {
-                                    coroutine.launch {
-                                        bricksViewModel.takeAPlaces(brick)
-                                    }
-                                },
-                                onDragCancel = { },
-                            )
-                        }
-                )
-                Spacer(Modifier.size(10.dp))
-            }
-            AnimationsBrick.InitAnimationTranslationY(brick)
-            AnimationsBrick.runAnimationTranslation(brick, index)
-        })
-    }
-}
+//@Composable
+//private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
+//    val coroutine = rememberCoroutineScope()
+//
+//    Column(
+//        modifier = Modifier
+//            .offset(bricksViewModel.offsetBricksBlock),
+////            .border(4.dp, Color.Magenta),
+//        verticalArrangement = Arrangement.Center
+//
+//    ) {
+//        (bricksViewModel.bricks.forEachIndexed { index, brick ->
+//
+//            key(brick.id) {
+//                Box(
+//                    Modifier
+//                        .offset { IntOffset(brick.x.intValue, brick.y.intValue) }
+//                        .size(bricksViewModel.brickSize.value)
+//                        .background(bricksViewModel.brickBgColor)
+//                        .graphicsLayer {
+//                            if (AnimationsBrick.canRunTranslation.value && !brick.wasAnimated.value) {
+//                                translationY = brick.translationY.value
+//                            }
+//                        }
+//                        .paint(
+//                            painterResource(brick.assetImage),
+//                            sizeToIntrinsics = true,
+//                            contentScale = ContentScale.FillBounds
+//                        )
+//                        .clip(RoundedCornerShape(bricksViewModel.brickCorner))
+//                        .onGloballyPositioned { coordinates ->
+//                            brick.setGloballyPosition(coordinates)
+//                        }
+//                        .pointerInput(Unit) {
+//                            detectDragGestures(
+//                                onDragStart = { AnimationsBrick.canRunTranslation.value = true },
+//                                onDrag = { _, dragAmount ->
+//                                    brick.dragging(dragAmount.x, dragAmount.y)
+//                                    coroutine.launch {
+//                                        bricksViewModel.observeCenterObjects(brick)
+//                                    }
+//                                },
+//                                onDragEnd = {
+//                                    coroutine.launch {
+//                                        bricksViewModel.takeAPlaces(brick)
+//                                    }
+//                                },
+//                                onDragCancel = { },
+//                            )
+//                        }
+//                )
+//                Spacer(Modifier.size(10.dp))
+//            }
+//            AnimationsBrick.InitAnimationTranslationY(brick)
+//            AnimationsBrick.runAnimationTranslation(brick, index)
+//        })
+//    }
+//}
 
 //@Composable
 //private fun BonusBlock() {

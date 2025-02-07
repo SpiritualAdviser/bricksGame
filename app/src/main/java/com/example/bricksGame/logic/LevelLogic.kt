@@ -6,12 +6,12 @@ import com.example.bricksGame.components.map.models.MapModel.currentLevel
 //import com.example.bricksGame.components.players.models.PlayerViewModel.updatePlayerOnLevelWin
 import android.util.Log
 import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.gameData.FieldBrick
+import com.example.bricksGame.gameData.PlaceOnField
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ButtonController
-import com.example.bricksGame.logic.controller.BricksController
-import com.example.bricksGame.logic.controller.FieldController
+import com.example.bricksGame.components.levelGame.controller.BricksController
+import com.example.bricksGame.components.levelGame.controller.FieldController
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -34,8 +34,8 @@ class LevelLogic @Inject constructor(
 
     private var activeLevel: Level? = null
 
-    private var levelRows = mutableListOf<List<FieldBrick>>()
-    private var levelColumns = mutableListOf<List<FieldBrick>>()
+    private var levelRows = mutableListOf<List<PlaceOnField>>()
+    private var levelColumns = mutableListOf<List<PlaceOnField>>()
 
     fun onStartLevel(level: Level) {
         activeLevel = level
@@ -57,26 +57,26 @@ class LevelLogic @Inject constructor(
     private fun createLevelResources(level: Level) {
         levelData.setActiveLevel(level)
 
-        val bricksOnField = fieldController.createBricksList(level)
-        val bricksOnLevel = bricksController.createBricksList(level)
+        val bricksOnField = fieldController.createPlacesOnFieldList(level)
+//        val bricksOnLevel = bricksController.createBricksList(level)
 
-        levelData.setBrickOnField(bricksOnField)
-        levelData.setBricksList(bricksOnLevel)
+        levelData.setPlacesOnField(bricksOnField)
+//        levelData.setBricksList(bricksOnLevel)
     }
 
     private fun setRowsAndColumnsOnLevel(level: Level) {
-        var column: List<FieldBrick>
-        var row: List<FieldBrick>
+        var column: List<PlaceOnField>
+        var row: List<PlaceOnField>
         levelRows.clear()
         levelColumns.clear()
 
         for (index in 0 until level.fieldRow) {
-            row = levelData.getBrickOnFields().filter { index == it.position.second }
+            row = levelData.getPlacesOnFields().filter { index == it.position.second }
             levelRows.add(row)
         }
 
         for (index in 0 until level.fieldColumn) {
-            column = levelData.getBrickOnFields().filter { index == it.position.first }
+            column = levelData.getPlacesOnFields().filter { index == it.position.first }
             levelColumns.add(column)
         }
         println()
