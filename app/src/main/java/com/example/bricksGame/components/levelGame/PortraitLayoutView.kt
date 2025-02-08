@@ -124,7 +124,6 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
                 Box(
                     Modifier
                         .clip(RoundedCornerShape(fieldViewModel.placeCorner.dp))
-                        .clickable { fieldViewModel.onClick(placeOnField) }
                         .border(
                             fieldViewModel.placeBorderSize,
                             fieldViewModel.placeBorderColor.value,
@@ -134,12 +133,11 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
                         .background(fieldViewModel.placeBgColor)
                         .paint(
                             painter = fieldViewModel.getBitmapPainter(placeOnField.slot.value),
-                            //                        .onGloballyPositioned { coordinates ->
-//                            it.setGloballyPosition(coordinates)
-
                             sizeToIntrinsics = true,
                             contentScale = ContentScale.FillBounds
                         )
+                    //                        .onGloballyPositioned { coordinates ->
+//                            it.setGloballyPosition(coordinates)
                 )
             }
         }

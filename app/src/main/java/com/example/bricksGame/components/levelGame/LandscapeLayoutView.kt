@@ -48,7 +48,7 @@ fun LandscapeLayout() {
     LevelLandscapeBg()
     ButtonBlock()
     LeftBar()
-//    GridFieldBox()
+    FieldOnLevel()
 //    BonusBlock()
 //    BricksBlock()
 
@@ -89,66 +89,51 @@ private fun ButtonBlock() {
     }
 }
 
-//@Composable
-//private fun GridFieldBox(fieldViewModel: FieldViewModel = hiltViewModel()) {
-//    Box(
-//        modifier = Modifier
-//            .clip(RoundedCornerShape(fieldViewModel.brickCorner.dp))
-//            .background(fieldViewModel.fieldBgColor)
-////            .border(4.dp, Color.Green)
-//    ) {
-//        LazyVerticalGrid(
-//            columns = GridCells.Fixed(fieldViewModel.fieldRows),
-//            horizontalArrangement = Arrangement.Center,
-//            userScrollEnabled = false,
-//            modifier = Modifier
-//                .size(
-//                    fieldViewModel.fieldWidth.value,
-//                    fieldViewModel.fieldHeight.value
-//                )
-//        ) {
-//
-//            items(fieldViewModel.placesOnField) {
-//
-//                Box(
-//                    Modifier
-//                        .clip(RoundedCornerShape(fieldViewModel.brickCorner.dp))
-//                        .border(
-//                            fieldViewModel.brickBorderSize, it.borderColor.value,
-//                            RoundedCornerShape(fieldViewModel.brickCorner.dp)
-//                        )
-//                        .size(fieldViewModel.brickSize.value)
-//                        .background(fieldViewModel.brickBgColor)
-//                        .paint(
-//                            painter = if (it.hasSprite.value && it.spriteSheet != null) {
-//                                BitmapPainter(
-//                                    image = it.spriteSheet!!,
-//                                    srcOffset = IntOffset(
-//                                        x = it.xSrcOffset.intValue,
-//                                        y = it.ySrcOffset.intValue
-//                                    ),
-//                                    srcSize = IntSize(
-//                                        width = it.wSrcSize.intValue,
-//                                        height = it.hSrcSize.intValue
-//                                    )
-//                                )
-//                            } else {
-//                                BitmapPainter(
-//                                    image = ImageBitmap.imageResource(it.assetImage.value)
-//                                )
-//                            },
-//
-//                            sizeToIntrinsics = true,
-//                            contentScale = ContentScale.FillBounds
-//                        )
+@Composable
+private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(fieldViewModel.placeCorner.dp))
+            .background(fieldViewModel.fieldBgColor)
+//            .border(4.dp, Color.Green)
+    ) {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(fieldViewModel.fieldRows),
+            horizontalArrangement = Arrangement.Center,
+            userScrollEnabled = false,
+            modifier = Modifier
+                .size(
+                    fieldViewModel.fieldWidth.value,
+                    fieldViewModel.fieldHeight.value
+                )
+        ) {
+
+            items(fieldViewModel.placesOnField) {placeOnField ->
+
+                Box(
+                    Modifier
+                        .clip(RoundedCornerShape(fieldViewModel.placeCorner.dp))
+                        .border(
+                            fieldViewModel.placeBorderSize,
+                            fieldViewModel.placeBorderColor.value,
+                            RoundedCornerShape(fieldViewModel.placeCorner.dp)
+                        )
+                        .size(fieldViewModel.placeSizeOnField.value)
+                        .background(fieldViewModel.placeBgColor)
+                        .paint(
+                            painter = fieldViewModel.getBitmapPainter(placeOnField.slot.value),
+
+                            sizeToIntrinsics = true,
+                            contentScale = ContentScale.FillBounds
+                        )
 //                        .onGloballyPositioned { coordinates ->
-//                            it.setGloballyPosition(coordinates)
+//                            placeOnField.setGloballyPosition(coordinates)
 //                        }
-//                )
-//            }
-//        }
-//    }
-//}
+                )
+            }
+        }
+    }
+}
 
 //@Composable
 //private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {

@@ -37,7 +37,7 @@ class FieldController @Inject constructor(
                 ++positionColumn
                 positionRow = 0
             }
-            val fieldBrick = createBrick(positionColumn, positionRow)
+            val fieldBrick = createPlace(positionColumn, positionRow)
             bricksList.add(fieldBrick)
             ++positionRow
         }
@@ -45,7 +45,7 @@ class FieldController @Inject constructor(
         return bricksList
     }
 
-    private fun createBrick(positionColumn: Int, positionRow: Int): PlaceOnField {
+    private fun createPlace(positionColumn: Int, positionRow: Int): PlaceOnField {
         return PlaceOnField(
             position = Pair(positionColumn, positionRow),
             slot = mutableStateOf(GameObjects.Empty(BaseModel(context))),

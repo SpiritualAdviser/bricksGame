@@ -22,7 +22,7 @@ class LevelLogic @Inject constructor(
     private var buttonController: ButtonController,
     private var levelData: LevelData,
     private var fieldController: FieldController,
-    private var bricksController: BricksController,
+//    private var bricksController: BricksController,
 ) {
 
     init {
