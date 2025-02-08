@@ -2,10 +2,8 @@ package com.example.bricksGame.components.levelGame.models
 
 import android.util.Log
 import androidx.compose.runtime.MutableFloatState
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

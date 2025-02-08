@@ -8,14 +8,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
-import com.example.bricksGame.R
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
-import com.example.bricksGame.gameObjects.BaseModel
-import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameData.LevelData
-import com.example.bricksGame.gameObjects.Animation
-import com.example.bricksGame.gameObjects.Cords
+import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ScreenSize
 import dagger.hilt.android.lifecycle.HiltViewModel

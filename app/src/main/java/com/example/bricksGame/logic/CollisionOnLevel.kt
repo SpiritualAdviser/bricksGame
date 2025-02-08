@@ -1,5 +1,6 @@
 package com.example.bricksGame.logic
 
+import android.util.Log
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameObjects.GameObjects
@@ -7,26 +8,29 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CollisionBricksOnLevel @Inject constructor(
+class CollisionOnLevel @Inject constructor(
     var gameConfig: GameConfig
 ) {
+    init {
+        Log.d("my", "CollisionOnLevel_init")
+    }
 
-    private var fieldBricksList: MutableList<PlaceOnField> = mutableListOf()
+    private var placeListOnField: MutableList<PlaceOnField> = mutableListOf()
     private var isRun = false
+
+    fun setPlacesFieldOnCollision(placesOnField: MutableList<PlaceOnField>) {
+        placeListOnField = placesOnField
+    }
+
 
     fun runCollision(state: Boolean) {
         isRun = state
     }
 
     fun resetData() {
-        this.fieldBricksList.clear()
+        this.placeListOnField.clear()
     }
 
-    fun addToCollision(placeOnField: PlaceOnField? = null) {
-        if (placeOnField != null) {
-            fieldBricksList.add(placeOnField)
-        }
-    }
 
     fun observeCenterObjects(brick: GameObjects.Brick) {
         if (isRun) {

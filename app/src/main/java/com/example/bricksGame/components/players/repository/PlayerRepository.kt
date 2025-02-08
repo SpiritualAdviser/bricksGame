@@ -1,6 +1,8 @@
 package com.example.bricksGame.components.players.repository
 
 import android.util.Log
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import com.example.bricksGame.components.players.data.DataRepository
 import com.example.bricksGame.components.players.data.Player
 import com.example.bricksGame.config.LevelsConfig
@@ -27,6 +29,8 @@ class PlayerRepository @Inject constructor(
     private var activePlayer: Player = Player(
         playerName = "Player"
     )
+    var playerAchievements = mutableIntStateOf(activePlayer.achievements)
+    var nameActivePlayer = mutableStateOf(activePlayer.playerName)
 
     private fun start() {
         allPlayers = dataRepository.getAllPlayers()
@@ -39,6 +43,7 @@ class PlayerRepository @Inject constructor(
                 }
                 Log.d("my", "on allPlayers.collectLatest${it.size}")
                 activePlayer = dataRepository.getActivePlayer()
+                updatePlayerParams()
             }
         }
     }
@@ -63,6 +68,14 @@ class PlayerRepository @Inject constructor(
         player.isActive = true
         dataRepository.addPlayer(player)
         activePlayer = player
+        updatePlayerParams()
+    }
+
+    private fun updatePlayerParams() {
+        activePlayer?.let {
+            playerAchievements.intValue = it.achievements
+            nameActivePlayer.value = it.playerName
+        }
     }
 
     fun update(player: Player) {

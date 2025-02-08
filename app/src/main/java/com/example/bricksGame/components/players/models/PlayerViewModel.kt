@@ -24,9 +24,10 @@ class PlayerViewModel @Inject constructor(
     var nameNewPlayer = mutableStateOf("")
 
     private var activePlayer: Player = playerRepository.getActivePlayer()
+
     var playerScore = mutableIntStateOf(0)
-    var playerAchievements = mutableIntStateOf(activePlayer.achievements)
-    var nameActivePlayer = mutableStateOf(activePlayer.playerName)
+    var playerAchievements = playerRepository.playerAchievements
+    var nameActivePlayer = playerRepository.nameActivePlayer
 
     init {
         Log.d("my", "PlayerViewModel_init")

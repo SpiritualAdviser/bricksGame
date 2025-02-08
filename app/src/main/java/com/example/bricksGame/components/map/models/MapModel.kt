@@ -25,7 +25,6 @@ class MapModel @Inject constructor(
 
     init {
         Log.d("my", "MapModel_init")
-        openLevelOnMap()
     }
 
     override fun onCleared() {
@@ -33,44 +32,39 @@ class MapModel @Inject constructor(
         Log.d("my", "MapModel_onCleared")
     }
 
-    val visibility = mutableStateOf(false)
+    var playerLevels: SnapshotStateList<Level> = openLevelOnMap()
 
-    var levelTarget = mutableIntStateOf(0)
-    var levelWinLine: String = ""
-    var levelStep = mutableIntStateOf(0)
+    private fun openLevelOnMap(): SnapshotStateList<Level> {
+        val player = playerRepository.getActivePlayer()
+        val levelsState = mutableStateListOf<Level>()
 
-    var playerLevels: SnapshotStateList<Level> = mutableStateListOf()
+        levelsState.clear()
+        levelsState.addAll(player.levels.gameLevelList)
+        val openLevelsOnPlayer = player.levels.openLevelList
 
-    private fun openLevelOnMap() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val player = playerRepository.getActivePlayer()
-            playerLevels.clear()
-            playerLevels.addAll(player.levels.gameLevelList)
-            val openLevelsOnPlayer = player.levels.openLevelList
+        if (gameConfig.CHEAT) {
+            levelsState.forEach {
+                it.isActive = true
+            }
+        } else {
+            levelsState.forEach {
+                it.isActive = false
+            }
 
-            if (gameConfig.CHEAT) {
-                playerLevels.forEach {
+            openLevelsOnPlayer.forEach { openLevel ->
+                levelsState.find { it.numberLevel == openLevel.numberLevel }?.let {
                     it.isActive = true
-                }
-            } else {
-                playerLevels.forEach {
-                    it.isActive = false
-                }
-
-                openLevelsOnPlayer.forEach { openLevel ->
-                    playerLevels.find { it.numberLevel == openLevel.numberLevel }?.let {
-                        it.isActive = true
-                    }
                 }
             }
         }
+        return levelsState
     }
 
     fun runLevel(level: Level) {
         levelLogic.onStartLevel(level)
     }
 
-    fun goToHome(){
+    fun goToHome() {
         levelLogic.goToHome()
     }
 

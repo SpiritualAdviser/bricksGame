@@ -9,15 +9,13 @@ import com.example.bricksGame.config.Level
 import com.example.bricksGame.config.NegativeBonus
 import com.example.bricksGame.gameObjects.BaseModel
 import com.example.bricksGame.gameObjects.GameObjects
-import com.example.bricksGame.logic.CollisionBricksOnLevel
+import com.example.bricksGame.logic.CollisionOnLevel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class FieldController @Inject constructor(
     private val
-    gameConfig: GameConfig,
-    private val collisionBricksOnLevel: CollisionBricksOnLevel,
-//    var soundController: SoundController,
+    collisionOnLevel: CollisionOnLevel,
     @ApplicationContext val context: Context
 ) {
 

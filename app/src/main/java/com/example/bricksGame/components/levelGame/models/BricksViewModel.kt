@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.GameObjects
-import com.example.bricksGame.logic.CollisionBricksOnLevel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,7 +15,6 @@ import javax.inject.Inject
 @HiltViewModel
 class BricksViewModel @Inject constructor(
     val gameConfig: GameConfig,
-    private val collisionBricksOnLevel: CollisionBricksOnLevel,
     levelData: LevelData,
 
     ) : ViewModel() {

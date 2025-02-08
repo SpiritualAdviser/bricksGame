@@ -26,6 +26,7 @@ class LevelLogic @Inject constructor(
     private var fieldController: FieldController,
     private var bricksController: BricksController,
     private var bonusController: BonusController,
+    private var collisionOnLevel: CollisionOnLevel,
 ) {
 
     init {
@@ -67,6 +68,8 @@ class LevelLogic @Inject constructor(
         levelData.setPlacesOnField(placesOnField)
         levelData.setBricksList(bricksOnLevel)
         levelData.setBonusList(bonusesOnLevel)
+
+        collisionOnLevel.setPlacesFieldOnCollision(placesOnField)
     }
 
     private fun setRowsAndColumnsOnLevel(level: Level) {
