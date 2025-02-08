@@ -156,7 +156,6 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
 
 @Composable
 private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
-    val coroutine = rememberCoroutineScope()
     Row(
         modifier = Modifier
 //            .border(4.dp, Color.Magenta),
@@ -187,11 +186,9 @@ private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
 //                        }
                         .pointerInput(Unit) {
                             detectDragGestures(
-                                onDragStart = { AnimationsBrick.canRunTranslation.value = true },
+//                                onDragStart = { AnimationsBrick.canRunTranslation.value = true },
                                 onDrag = { _, dragAmount ->
                                     bricksViewModel.dragging(brick, dragAmount)
-
-                                    bricksViewModel.observeCenterObjects(brick)
                                 },
                                 onDragEnd = {
                                     bricksViewModel.onDragEnd(brick)
