@@ -193,65 +193,69 @@ private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
 @Composable
 private fun BonusBlock(bonusViewModel: BonusViewModel = hiltViewModel()) {
 
-    Column(
-        modifier = Modifier
+    Box(
+        Modifier
             .offset(x = bonusViewModel.offsetBonusBlock)
-//            .border(4.dp, Color.Magenta),
-    ) {
-        bonusViewModel.bonuses.forEach { bonus ->
-            Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(bonusViewModel.bonusCorner))
-                    .border(
-                        bonusViewModel.bonusBorderSize,
-                        color = bonus.baseModel.activeBorderColor.value,
-                        shape = RoundedCornerShape(bonusViewModel.bonusCorner)
-                    )
-                    .size(bonusViewModel.bonusSize.value)
-                    .background(bonusViewModel.bonusBgColor)
-            ) {}
-            Spacer(Modifier.size(10.dp))
-        }
-    }
-    Column(
-        modifier = Modifier
             .zIndex(bonusViewModel.zIndexBonusBlock.floatValue)
-            .offset(x = bonusViewModel.offsetBonusBlock)
-//            .border(4.dp, Color.Magenta),
     ) {
-        (bonusViewModel.bonuses.forEach { bonus ->
-            key(bonus.baseModel.id) {
+
+        Column(
+            modifier = Modifier
+//            .border(4.dp, Color.Magenta),
+        ) {
+            bonusViewModel.bonuses.forEach { bonus ->
                 Box(
-                    Modifier
-                        .zIndex(bonus.baseModel.zIndex.value)
-                        .offset { IntOffset(bonus.cords.x.intValue, bonus.cords.y.intValue) }
-                        .size(bonusViewModel.bonusSize.value)
-                        .paint(
-                            painterResource(bonus.baseModel.assetImage),
-                            alpha = bonus.baseModel.alpha.value,
-                            sizeToIntrinsics = true,
-                            contentScale = ContentScale.FillBounds
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(bonusViewModel.bonusCorner))
+                        .border(
+                            bonusViewModel.bonusBorderSize,
+                            color = bonus.baseModel.activeBorderColor.value,
+                            shape = RoundedCornerShape(bonusViewModel.bonusCorner)
                         )
+                        .size(bonusViewModel.bonusSize.value)
+                        .background(bonusViewModel.bonusBgColor)
+                ) {}
+                Spacer(Modifier.size(10.dp))
+            }
+        }
+        Column(
+            modifier = Modifier
+//            .border(4.dp, Color.Magenta),
+        ) {
+            (bonusViewModel.bonuses.forEach { bonus ->
+                key(bonus.baseModel.id) {
+                    Box(
+                        Modifier
+                            .zIndex(bonus.baseModel.zIndex.value)
+                            .offset { IntOffset(bonus.cords.x.intValue, bonus.cords.y.intValue) }
+                            .size(bonusViewModel.bonusSize.value)
+                            .paint(
+                                painterResource(bonus.baseModel.assetImage),
+                                alpha = bonus.baseModel.alpha.value,
+                                sizeToIntrinsics = true,
+                                contentScale = ContentScale.FillBounds
+                            )
 //                        .onGloballyPositioned { coordinates ->
 //                            bonus.setGloballyPosition(coordinates)
 //                        }
-                        .pointerInput(bonus) {
-                            detectDragGestures(
-                                onDragStart = {},
-                                onDrag = { _, dragAmount ->
-                                    if (bonus.cords.canDrag) {
-                                        bonusViewModel.dragging(bonus, dragAmount)
-                                    }
-                                },
-                                onDragEnd = {
-                                    bonusViewModel.onDragEnd(bonus)
-                                },
-                                onDragCancel = {},
-                            )
-                        }
-                )
-                Spacer(Modifier.size(10.dp))
-            }
-        })
+                            .pointerInput(bonus) {
+                                detectDragGestures(
+                                    onDragStart = {},
+                                    onDrag = { _, dragAmount ->
+                                        if (bonus.cords.canDrag) {
+                                            bonusViewModel.dragging(bonus, dragAmount)
+                                        }
+                                    },
+                                    onDragEnd = {
+                                        bonusViewModel.onDragEnd(bonus)
+                                    },
+                                    onDragCancel = {},
+                                )
+                            }
+                    )
+                    Spacer(Modifier.size(10.dp))
+                }
+            })
+        }
     }
 }

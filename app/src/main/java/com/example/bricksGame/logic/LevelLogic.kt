@@ -63,7 +63,6 @@ class LevelLogic @Inject constructor(
         val bricksOnLevel = bricksController.createBricksList(level)
         val bonusesOnLevel = bonusController.createBonusList()
 
-
         levelData.setPlacesOnField(placesOnField)
         levelData.setBricksList(bricksOnLevel)
         levelData.setBonusList(bonusesOnLevel)
