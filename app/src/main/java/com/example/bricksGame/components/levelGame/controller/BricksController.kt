@@ -1,6 +1,7 @@
 package com.example.bricksGame.components.levelGame.controller
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import com.example.bricksGame.R
@@ -32,6 +33,10 @@ class BricksController @Inject constructor(
 ////        levelData._bricksList = createBricksList().toMutableStateList()
 ////    }
 //
+    init {
+        Log.d("my", "BricksController_init")
+    }
+
     fun createBricksList(level: Level): MutableList<GameObjects.Brick> {
         val bricksList: MutableList<GameObjects.Brick> = mutableListOf()
         for (i in 0 until level.additionalBrick) {

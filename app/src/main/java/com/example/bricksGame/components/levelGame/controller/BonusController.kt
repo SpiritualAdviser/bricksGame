@@ -1,6 +1,7 @@
 package com.example.bricksGame.components.levelGame.controller
 
 import android.content.Context
+import android.util.Log
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameObjects.BaseModel
 import com.example.bricksGame.gameObjects.Cords
@@ -17,6 +18,10 @@ class BonusController @Inject constructor(
 //    private var bricksController: BricksController,
     @ApplicationContext val context: Context
 ) {
+
+    init {
+        Log.d("my", "BonusController_init")
+    }
 
     fun createBonusList(): MutableList<GameObjects.Bonus> {
         val bonusList: MutableList<GameObjects.Bonus> = mutableListOf()

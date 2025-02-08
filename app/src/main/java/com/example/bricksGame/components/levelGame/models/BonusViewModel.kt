@@ -1,5 +1,6 @@
 package com.example.bricksGame.components.levelGame.models
 
+import android.util.Log
 import androidx.compose.runtime.MutableFloatState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableFloatStateOf
@@ -22,6 +23,10 @@ class BonusViewModel @Inject constructor(
     var soundController: SoundController,
     private var levelData: LevelData,
 ) : ViewModel() {
+
+    init {
+        Log.d("my", "BonusViewModel_init")
+    }
 
     private var bonusList = levelData.getBonusList()
 
