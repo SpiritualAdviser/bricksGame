@@ -2,6 +2,7 @@ package com.example.bricksGame.components.levelGame
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -116,7 +118,7 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
             .clip(RoundedCornerShape(fieldViewModel.placeCorner.dp))
             .background(fieldViewModel.fieldBgColor)
             .onGloballyPositioned { coordinates ->
-                fieldViewModel.setGloballyPosition(coordinates)
+                fieldViewModel.setFieldSizeOnCollision(coordinates)
             }
 //            .border(4.dp, Color.Green)
     ) {
@@ -138,7 +140,7 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
                         .clip(RoundedCornerShape(fieldViewModel.placeCorner.dp))
                         .border(
                             fieldViewModel.placeBorderSize,
-                            fieldViewModel.placeBorderColor.value,
+                            placeOnField.baseModel.activeBorderColor.value,
                             RoundedCornerShape(fieldViewModel.placeCorner.dp)
                         )
                         .size(fieldViewModel.placeSizeOnField.value)
@@ -197,7 +199,7 @@ private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
                                 onDragEnd = {
                                     bricksViewModel.onDragEnd(brick)
                                 },
-                                onDragCancel = { },
+                                onDragCancel = { bricksViewModel.onDragCancel(brick) },
                             )
                         }
                 )
@@ -255,9 +257,9 @@ private fun BonusBlock(
                                 sizeToIntrinsics = true,
                                 contentScale = ContentScale.FillBounds
                             )
-//                            .onGloballyPositioned { coordinates ->
-//                                it.setGloballyPosition(coordinates)
-//                            }
+                            .onGloballyPositioned { coordinates ->
+                                bonusViewModel.setGloballyPosition(bonus, coordinates)
+                            }
                             .pointerInput(bonus) {
                                 detectDragGestures(
                                     onDragStart = {},

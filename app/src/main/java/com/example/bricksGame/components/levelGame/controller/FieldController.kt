@@ -47,6 +47,7 @@ class FieldController @Inject constructor(
         return PlaceOnField(
             position = Pair(positionColumn, positionRow),
             slot = mutableStateOf(GameObjects.Empty(BaseModel(context))),
+            baseModel = BaseModel(context)
         )
     }
 

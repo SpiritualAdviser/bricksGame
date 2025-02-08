@@ -4,21 +4,24 @@ import android.util.Log
 import androidx.compose.runtime.MutableFloatState
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.layout.LayoutCoordinates
+import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bricksGame.components.levelGame.controller.BonusController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.GameObjects
-import com.example.bricksGame.helper.SoundController
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class BonusViewModel @Inject constructor(
     val gameConfig: GameConfig,
-    var soundController: SoundController,
+    private var bonusController: BonusController,
     private var levelData: LevelData,
 ) : ViewModel() {
 
@@ -46,12 +49,20 @@ class BonusViewModel @Inject constructor(
         get() = bonusList
 
 
-    fun dragging(bonus: GameObjects.Bonus, dragAmount: Offset) {
-        bonus.baseModel.zIndex.value = 999F
-        zIndexBonusBlock.floatValue = 999F
-        viewModelScope.launch {
-            bonus.cords.x.intValue += dragAmount.x.toInt()
-            bonus.cords.y.intValue += dragAmount.y.toInt()
+    fun dragging(bonus: GameObjects, dragAmount: Offset) {
+        when (bonus) {
+            is GameObjects.Bonus
+                -> {
+                bonus.baseModel.zIndex.value = 999F
+                zIndexBonusBlock.floatValue = 999F
+                viewModelScope.launch {
+                    bonus.cords.x.intValue += dragAmount.x.toInt()
+                    bonus.cords.y.intValue += dragAmount.y.toInt()
+                    observeCenterObjects(bonus)
+                }
+            }
+
+            else -> return
         }
     }
 
@@ -60,8 +71,8 @@ class BonusViewModel @Inject constructor(
         bonus.cords.y.intValue = 0
     }
 
-    fun observeCenterObjects(bonus: GameObjects.Bonus) {
-//        collisionBricksOnLevel.observeCenterObjects(brick)
+    private fun observeCenterObjects(bonus: GameObjects.Bonus) {
+        bonusController.observeCenterObjects(bonus)
     }
 
     fun takeAPlaces(bonus: GameObjects.Bonus) {
@@ -73,8 +84,19 @@ class BonusViewModel @Inject constructor(
         bonus.baseModel.zIndex.value = 0F
         zIndexBonusBlock.floatValue = 0F
 //       takeAPlaces(brick)
+
+        viewModelScope.launch {
+            delay(30)
+            bonusController.onDragCancel()
+        }
     }
 
+    fun setGloballyPosition(bonus: GameObjects.Bonus, coordinates: LayoutCoordinates) {
+        bonus.cords.globalWidth = coordinates.size.width
+        bonus.cords.globalHeight = coordinates.size.height
+        bonus.cords.globalX = coordinates.positionInWindow().x
+        bonus.cords.globalY = coordinates.positionInWindow().y
+    }
 
 }
 

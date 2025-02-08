@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.LayoutCoordinates
@@ -73,9 +74,10 @@ class FieldViewModel @Inject constructor(
         placeOnField.cords.globalY = coordinates.positionInWindow().y
     }
 
-    fun setGloballyPosition(coordinates: LayoutCoordinates) {
+    fun setFieldSizeOnCollision(coordinates: LayoutCoordinates) {
         fieldController.setFieldSizeOnCollision(coordinates)
     }
+
 
     fun onClick(placeOnField: PlaceOnField) {
 //        val baseModel = BaseModel(context)

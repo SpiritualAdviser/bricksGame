@@ -2,11 +2,16 @@ package com.example.bricksGame.components.levelGame.controller
 
 import android.content.Context
 import android.util.Log
+import androidx.compose.ui.layout.LayoutCoordinates
+import androidx.compose.ui.layout.positionInWindow
+import androidx.lifecycle.viewModelScope
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameObjects.BaseModel
 import com.example.bricksGame.gameObjects.Cords
 import com.example.bricksGame.gameObjects.GameObjects
+import com.example.bricksGame.logic.CollisionOnLevel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class BonusController @Inject constructor(
@@ -16,6 +21,7 @@ class BonusController @Inject constructor(
 //    private var levelData: LevelData,
 //    private var levelLogic: LevelLogic,
 //    private var bricksController: BricksController,
+    private var collisionOnLevel: CollisionOnLevel,
     @ApplicationContext val context: Context
 ) {
 
@@ -36,6 +42,14 @@ class BonusController @Inject constructor(
         newBonus.baseModel.assetImage = gameConfig.imagesBricksBonuses[i]
 
         return newBonus
+    }
+
+    fun observeCenterObjects(bonus: GameObjects) {
+        collisionOnLevel.observeCenterObjects(bonus)
+    }
+
+    fun onDragCancel() {
+        collisionOnLevel.outOfField()
     }
 
 //    fun setAlpha(countAlpha: Float) {

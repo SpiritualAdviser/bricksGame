@@ -97,6 +97,9 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
         modifier = Modifier
             .clip(RoundedCornerShape(fieldViewModel.placeCorner.dp))
             .background(fieldViewModel.fieldBgColor)
+            .onGloballyPositioned { coordinates ->
+                fieldViewModel.setFieldSizeOnCollision(coordinates)
+            }
 //            .border(4.dp, Color.Green)
     ) {
         LazyVerticalGrid(
@@ -117,7 +120,7 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
                         .clip(RoundedCornerShape(fieldViewModel.placeCorner.dp))
                         .border(
                             fieldViewModel.placeBorderSize,
-                            fieldViewModel.placeBorderColor.value,
+                            placeOnField.baseModel.activeBorderColor.value,
                             RoundedCornerShape(fieldViewModel.placeCorner.dp)
                         )
                         .size(fieldViewModel.placeSizeOnField.value)
@@ -128,9 +131,9 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
                             sizeToIntrinsics = true,
                             contentScale = ContentScale.FillBounds
                         )
-//                        .onGloballyPositioned { coordinates ->
-//                            placeOnField.setGloballyPosition(coordinates)
-//                        }
+                        .onGloballyPositioned { coordinates ->
+                            fieldViewModel.setGloballyPosition(placeOnField, coordinates)
+                        }
                 )
             }
         }
@@ -166,9 +169,9 @@ private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
                             contentScale = ContentScale.FillBounds
                         )
                         .clip(RoundedCornerShape(bricksViewModel.brickCorner))
-//                        .onGloballyPositioned { coordinates ->
-//                            brick.setGloballyPosition(coordinates)
-//                        }
+                        .onGloballyPositioned { coordinates ->
+                            bricksViewModel.setGloballyPosition(brick, coordinates)
+                        }
                         .pointerInput(Unit) {
                             detectDragGestures(
 //                                onDragStart = { AnimationsBrick.canRunTranslation.value = true },
@@ -235,9 +238,9 @@ private fun BonusBlock(bonusViewModel: BonusViewModel = hiltViewModel()) {
                                 sizeToIntrinsics = true,
                                 contentScale = ContentScale.FillBounds
                             )
-//                        .onGloballyPositioned { coordinates ->
-//                            bonus.setGloballyPosition(coordinates)
-//                        }
+                            .onGloballyPositioned { coordinates ->
+                                bonusViewModel.setGloballyPosition(bonus, coordinates)
+                            }
                             .pointerInput(bonus) {
                                 detectDragGestures(
                                     onDragStart = {},

@@ -21,6 +21,7 @@ class CollisionOnLevel @Inject constructor(
     private var placeListOnField: MutableList<PlaceOnField> = mutableListOf()
     private var fieldCords = Cords()
     private var isRun = false
+    private var fieldBorder = 200
 
     fun setPlacesFieldOnCollision(placesOnField: MutableList<PlaceOnField>) {
         placeListOnField = placesOnField
@@ -41,32 +42,56 @@ class CollisionOnLevel @Inject constructor(
         this.placeListOnField.clear()
     }
 
-    private fun checkInField(brick: GameObjects.Brick): Boolean {
+    private fun checkInField(cords: Cords): Boolean {
         var inFieldX = false
         var inFieldY = false
-        val brickCenterX = brick.cords.globalX + brick.cords.globalWidth / 2
-        val brickCenterY = brick.cords.globalY + brick.cords.globalHeight / 2
+        val brickCenterX = cords.globalX + cords.globalWidth / 2
+        val brickCenterY = cords.globalY + cords.globalHeight / 2
+
+        val fieldWidthSize = fieldCords.globalX + fieldCords.globalWidth + fieldBorder
+        val fieldHeightSize = fieldCords.globalY + fieldCords.globalHeight + fieldBorder
 
         inFieldX =
-            brickCenterX < fieldCords.globalX + fieldCords.globalWidth &&
-                    brickCenterX > fieldCords.globalX
+            brickCenterX < fieldWidthSize &&
+                    brickCenterX > fieldCords.globalX-fieldBorder
 
         inFieldY =
-            brickCenterY < fieldCords.globalY + fieldCords.globalHeight &&
-                    brickCenterY > fieldCords.globalY
+            brickCenterY < fieldHeightSize &&
+                    brickCenterY > fieldCords.globalY-fieldBorder
+
+//        if (inFieldX && inFieldY){
+//            Log.d("my", "checkInField tru")
+//        } else{
+//            Log.d("my", "checkInField fff")
+//        }
 
         return inFieldX && inFieldY
     }
 
-    fun observeCenterObjects(brick: GameObjects.Brick) {
+    fun observeCenterObjects(gameObj: GameObjects) {
 
-        if (isRun && checkInField(brick)) {
+        when (gameObj) {
+            is GameObjects.Brick -> {
+                checkCollision(gameObj, gameObj.cords)
+            }
+
+            is GameObjects.Bonus -> {
+                checkCollision(gameObj, gameObj.cords)
+            }
+
+            else -> return
+        }
+    }
+
+    private fun checkCollision(gameObj: GameObjects, cords: Cords) {
+
+        if (isRun && checkInField(cords)) {
 
             var xCollision: Boolean
             var yCollision: Boolean
 
-            val brickCenterX = brick.cords.globalX + brick.cords.globalWidth / 2
-            val brickCenterY = brick.cords.globalY + brick.cords.globalHeight / 2
+            val brickCenterX = cords.globalX + cords.globalWidth / 2
+            val brickCenterY = cords.globalY + cords.globalHeight / 2
 
             placeListOnField.forEach { placeOnField ->
 
@@ -79,15 +104,17 @@ class CollisionOnLevel @Inject constructor(
                             brickCenterY > placeOnField.cords.globalY
 
                 if (xCollision && yCollision) {
-                    onCollision(brick, placeOnField)
+                    onCollision(gameObj, placeOnField)
                 } else {
-                    outOfCollision(brick, placeOnField)
+                    outOfCollision(gameObj, placeOnField)
                 }
             }
         }
     }
 
-    private fun onCollision(brick: GameObjects.Brick, placeOnField: PlaceOnField) {
+    private fun onCollision(gameObj: GameObjects, placeOnField: PlaceOnField) {
+
+        placeOnField.baseModel.activeBorderColor.value = gameConfig.BRICK_BORDER_HOVER_COLOR
 
 //        if (placeOnField.hasOwnerId == gameConfig.NEGATIVE_BONUS_ROCK ||
 //            placeOnField.hasOwnerId == gameConfig.NEGATIVE_BONUS_LEAVES
@@ -113,7 +140,9 @@ class CollisionOnLevel @Inject constructor(
 //        }
     }
 
-    private fun outOfCollision(brick: GameObjects.Brick, placeOnField: PlaceOnField) {
+    private fun outOfCollision(gameObj: GameObjects, placeOnField: PlaceOnField) {
+
+        placeOnField.baseModel.activeBorderColor.value = gameConfig.BRICK_BORDER_COLOR
 
 //        if (brick.position == "Bonus") {
 //
@@ -135,6 +164,12 @@ class CollisionOnLevel @Inject constructor(
 //            placeOnField.hasOwnerId = null
 //            placeOnField.setBorderBlack()
 //        }
+    }
+
+    fun outOfField() {
+        placeListOnField.forEach {
+            it.baseModel.activeBorderColor.value = gameConfig.BRICK_BORDER_COLOR
+        }
     }
 }
 

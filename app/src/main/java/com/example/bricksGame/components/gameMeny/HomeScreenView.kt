@@ -1,6 +1,9 @@
 package com.example.bricksGame.components.gameMeny
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,10 +13,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
@@ -28,6 +35,7 @@ import com.example.bricksGame.ui.theme.gameVersionText
 fun RunHomeScreen(
     homeScreenViewModel: HomeScreenViewModel = hiltViewModel(),
 ) {
+//    FocusableSample()
 
     MainMenuBg()
     Row(
@@ -74,6 +82,37 @@ fun RunHomeScreen(
     }
 
 }
+
+//@Composable
+//fun FocusableSample() {
+//    // initialize focus reference to be able to request focus programmatically
+//    val focusRequester = remember { FocusRequester() }
+//    // MutableInteractionSource to track changes of the component's interactions (like "focused")
+//    val interactionSource = remember { MutableInteractionSource() }
+//
+//    // text below will change when we focus it via button click
+//    val isFocused = interactionSource.collectIsFocusedAsState().value
+//    val text =
+//        if (isFocused) {
+//            "Focused! tap anywhere to free the focus"
+//        } else {
+//            "Bring focus to me by tapping the button below!"
+//        }
+//    Column {
+//        // this Text will change it's text parameter depending on the presence of a focus
+//        Text(
+//            text = text,
+//            modifier =
+//            Modifier
+//                // add focusRequester modifier before the focusable (or even in the parent)
+//                .focusRequester(focusRequester)
+//                .focusable(interactionSource = interactionSource)
+//        )
+//        Button(onClick = { focusRequester.requestFocus() }) {
+//            Text("Bring focus to the text above")
+//        }
+//    }
+//}
 
 
 

@@ -12,6 +12,7 @@ import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.GameObjects
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,12 +44,19 @@ class BricksViewModel @Inject constructor(
     val bricks
         get() = bricksList
 
-    fun dragging(brick: GameObjects.Brick, dragAmount: Offset) {
-        brick.baseModel.zIndex.value = 999F
-        viewModelScope.launch {
-            brick.cords.x.intValue += dragAmount.x.toInt()
-            brick.cords.y.intValue += dragAmount.y.toInt()
-            observeCenterObjects(brick)
+    fun dragging(brick: GameObjects, dragAmount: Offset) {
+        when (brick) {
+            is GameObjects.Brick
+                -> {
+                brick.baseModel.zIndex.value = 999F
+
+                viewModelScope.launch {
+                    brick.cords.x.intValue += dragAmount.x.toInt()
+                    brick.cords.y.intValue += dragAmount.y.toInt()
+                    observeCenterObjects(brick)
+                }
+            }
+            else -> return
         }
     }
 
@@ -57,7 +65,7 @@ class BricksViewModel @Inject constructor(
         brick.cords.y.intValue = 0
     }
 
-    private fun observeCenterObjects(brick: GameObjects.Brick) {
+    private fun observeCenterObjects(brick: GameObjects) {
         viewModelScope.launch {
             bricksController.observeCenterObjects(brick)
         }
@@ -70,6 +78,17 @@ class BricksViewModel @Inject constructor(
     fun onDragEnd(brick: GameObjects.Brick) {
         goBack(brick)
         brick.baseModel.zIndex.value = 0F
+//       takeAPlaces(brick)
+
+        viewModelScope.launch {
+            delay(30)
+            bricksController.onDragCancel()
+        }
+    }
+
+    fun onDragCancel(brick: GameObjects.Brick) {
+//        goBack(brick)
+//        brick.baseModel.zIndex.value = 0F
 //       takeAPlaces(brick)
     }
 

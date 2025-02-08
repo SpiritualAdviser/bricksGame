@@ -3,8 +3,6 @@ package com.example.bricksGame.components.levelGame.controller
 import android.content.Context
 import android.util.Log
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.AnimationVector1D
-import com.example.bricksGame.R
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
@@ -74,8 +72,12 @@ class BricksController @Inject constructor(
         return gameConfig.imagesBricks[(0..maxColors).random()]
     }
 
-    fun observeCenterObjects(brick: GameObjects.Brick) {
+    fun observeCenterObjects(brick: GameObjects) {
         collisionOnLevel.observeCenterObjects(brick)
+    }
+
+    fun onDragCancel() {
+        collisionOnLevel.outOfField()
     }
 
 
