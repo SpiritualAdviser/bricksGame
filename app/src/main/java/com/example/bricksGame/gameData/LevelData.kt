@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
+import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ScreenSize
 import javax.inject.Inject
@@ -19,8 +20,8 @@ class LevelData @Inject constructor(
         Log.d("my", "LevelData_init")
     }
 
-    private lateinit var placesOnField: MutableList<PlaceOnField>
-//    private lateinit var bricksList: MutableList<Brick>
+    private var placesOnField: MutableList<PlaceOnField> = mutableListOf()
+    private var bricksList: MutableList<GameObjects.Brick> = mutableListOf()
 //    private lateinit var bonusList: SnapshotStateList<Brick>
 
     private var activeLevel: Level? = null
@@ -32,26 +33,31 @@ class LevelData @Inject constructor(
     fun getActiveLevel(): Level? {
         return activeLevel
     }
+
     fun getPlacesOnFields(): MutableList<PlaceOnField> {
         return placesOnField
     }
-//    fun getBonusList(): SnapshotStateList<Brick> {
+
+    //    fun getBonusList(): SnapshotStateList<Brick> {
 //        return bonusList
 //    }
-//    fun getBricksList(): MutableList<Brick> {
-//      return  bricksList
-//
-//    }
+
+    fun getBricksList(): MutableList<GameObjects.Brick> {
+        return bricksList
+    }
+
     fun setPlacesOnField(placeOnFieldInner: MutableList<PlaceOnField>) {
         placesOnField = placeOnFieldInner
     }
+
     fun setActiveLevel(level: Level) {
         activeLevel = level
         onOptionChange()
     }
-//    fun setBricksList(toMutableStateList: MutableList<Brick>) {
-//        bricksList = toMutableStateList
-//    }
+
+    fun setBricksList(toMutableStateList: MutableList<GameObjects.Brick>) {
+        bricksList = toMutableStateList
+    }
 //    fun setBonusList(toMutableStateList: SnapshotStateList<Brick>) {
 //        bonusList = toMutableStateList
 //    }
@@ -82,8 +88,9 @@ class LevelData @Inject constructor(
             placeSizeOnField.value = fieldMAxSize / level.fieldRow
         }
 
-        fieldWidth.value =  placeSizeOnField.value * level.fieldRow + gameConfig.BRICK_BORDER_SIZE.dp
-        fieldHeight.value =  placeSizeOnField.value * level.fieldColumn + gameConfig.BRICK_BORDER_SIZE.dp
+        fieldWidth.value = placeSizeOnField.value * level.fieldRow + gameConfig.BRICK_BORDER_SIZE.dp
+        fieldHeight.value =
+            placeSizeOnField.value * level.fieldColumn + gameConfig.BRICK_BORDER_SIZE.dp
         println()
     }
 }

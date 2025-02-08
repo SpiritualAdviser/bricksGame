@@ -14,6 +14,8 @@ import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameObjects.BaseModel
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameData.LevelData
+import com.example.bricksGame.gameObjects.Animation
+import com.example.bricksGame.gameObjects.Cords
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ScreenSize
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -65,8 +67,11 @@ class FieldViewModel @Inject constructor(
     }
 
     fun onClick(placeOnField: PlaceOnField) {
-        val bm= BaseModel(context)
-        bm.assetImage= R.drawable.blue_brick
-        placeOnField.slot.value = GameObjects.Brick(bm)
+//        val baseModel = BaseModel(context)
+//        baseModel.assetImage = R.drawable.blue_brick
+//        val cords: Cords = Cords()
+//        val animation: Animation = Animation()
+//
+//        placeOnField.slot.value = GameObjects.Brick(baseModel, cords, animation)
     }
 }

@@ -1,12 +1,16 @@
 package com.example.bricksGame.components.levelGame.models
 
 import android.util.Log
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.LevelData
+import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.logic.CollisionBricksOnLevel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,18 +32,31 @@ class BricksViewModel @Inject constructor(
     private var fieldRows = levelData.getActiveLevel()?.fieldRow ?: gameConfig.ROWS
     var offsetBricksBlock = (brickSize.value * (fieldRows + 2)) / 2
 
+    private var bricksList: MutableList<GameObjects.Brick> = levelData.getBricksList()
 
-//    private var _bricksList = levelData.getBricksList()
-//    val bricks
-//        get() = _bricksList
-//
-//    fun observeCenterObjects(brick: Brick) {
+    val bricks
+        get() = bricksList
+
+    fun dragging(brick: GameObjects.Brick, dragAmount: Offset) {
+        brick.baseModel.zIndex.value = 999F
+        viewModelScope.launch {
+            brick.cords.x.intValue += dragAmount.x.toInt()
+            brick.cords.y.intValue += dragAmount.y.toInt()
+        }
+    }
+
+    fun observeCenterObjects(brick: GameObjects.Brick) {
 //        collisionBricksOnLevel.observeCenterObjects(brick)
-//    }
-//
-//    suspend fun takeAPlaces(brick: Brick) {
+    }
+
+    fun takeAPlaces(brick: GameObjects.Brick) {
 //            brick.takeAPlaces()
-//    }
+    }
+
+    fun onDragEnd(brick: GameObjects.Brick) {
+        brick.baseModel.zIndex.value = 0F
+//       takeAPlaces(brick)
+    }
 }
 
 

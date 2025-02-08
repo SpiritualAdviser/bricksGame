@@ -3,6 +3,8 @@ package com.example.bricksGame.gameObjects
 import android.content.Context
 import android.graphics.BitmapFactory
 import androidx.compose.runtime.MutableIntState
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
@@ -12,15 +14,19 @@ import com.example.bricksGame.R
 import com.example.bricksGame.helper.Sprite
 
 class BaseModel(var context: Context) {
-   var assetImage: Int = R.drawable.bgfielbrickempty
+    var id = 0
+    var assetImage: Int = R.drawable.bgfielbrickempty
+    var alpha: MutableState<Float> = mutableFloatStateOf(1f)
+    var zIndex: MutableState<Float> = mutableFloatStateOf(0f)
+
     /**
      * animation sprite
      */
     var sprite: Sprite? = null
     val xSrcOffset: MutableIntState = mutableIntStateOf(0)
     val ySrcOffset: MutableIntState = mutableIntStateOf(0)
-    val widthSize: MutableIntState = mutableIntStateOf(60)
-    val heightSize: MutableIntState = mutableIntStateOf(60)
+    val widthSize: MutableIntState = mutableIntStateOf(0)
+    val heightSize: MutableIntState = mutableIntStateOf(0)
 
     fun getBitmapPainter(): BitmapPainter {
 

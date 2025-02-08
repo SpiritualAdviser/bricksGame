@@ -5,12 +5,12 @@ import com.example.bricksGame.components.map.models.MapModel.currentLevel
 */
 //import com.example.bricksGame.components.players.models.PlayerViewModel.updatePlayerOnLevelWin
 import android.util.Log
+import com.example.bricksGame.components.levelGame.controller.BricksController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ButtonController
-import com.example.bricksGame.components.levelGame.controller.BricksController
 import com.example.bricksGame.components.levelGame.controller.FieldController
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -22,7 +22,7 @@ class LevelLogic @Inject constructor(
     private var buttonController: ButtonController,
     private var levelData: LevelData,
     private var fieldController: FieldController,
-//    private var bricksController: BricksController,
+    private var bricksController: BricksController,
 ) {
 
     init {
@@ -57,11 +57,11 @@ class LevelLogic @Inject constructor(
     private fun createLevelResources(level: Level) {
         levelData.setActiveLevel(level)
 
-        val bricksOnField = fieldController.createPlacesOnFieldList(level)
-//        val bricksOnLevel = bricksController.createBricksList(level)
+        val placesOnField = fieldController.createPlacesOnFieldList(level)
+        val bricksOnLevel = bricksController.createBricksList(level)
 
-        levelData.setPlacesOnField(bricksOnField)
-//        levelData.setBricksList(bricksOnLevel)
+        levelData.setPlacesOnField(placesOnField)
+        levelData.setBricksList(bricksOnLevel)
     }
 
     private fun setRowsAndColumnsOnLevel(level: Level) {
