@@ -5,6 +5,7 @@ import com.example.bricksGame.components.map.models.MapModel.currentLevel
 */
 //import com.example.bricksGame.components.players.models.PlayerViewModel.updatePlayerOnLevelWin
 import android.util.Log
+import com.example.bricksGame.components.levelGame.controller.BonusController
 import com.example.bricksGame.components.levelGame.controller.BricksController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameObjects.PlaceOnField
@@ -23,6 +24,7 @@ class LevelLogic @Inject constructor(
     private var levelData: LevelData,
     private var fieldController: FieldController,
     private var bricksController: BricksController,
+    private var bonusController: BonusController,
 ) {
 
     init {
@@ -59,9 +61,12 @@ class LevelLogic @Inject constructor(
 
         val placesOnField = fieldController.createPlacesOnFieldList(level)
         val bricksOnLevel = bricksController.createBricksList(level)
+        val bonusesOnLevel = bonusController.createBonusList()
+
 
         levelData.setPlacesOnField(placesOnField)
         levelData.setBricksList(bricksOnLevel)
+        levelData.setBonusList(bonusesOnLevel)
     }
 
     private fun setRowsAndColumnsOnLevel(level: Level) {

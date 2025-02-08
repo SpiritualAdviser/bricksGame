@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bricksGame.components.levelGame.animations.AnimationsBrick
+import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
@@ -50,7 +51,7 @@ fun LandscapeLayout() {
     ButtonBlock()
     LeftBar()
     FieldOnLevel()
-//    BonusBlock()
+    BonusBlock()
     BricksBlock()
 
 //    if (PopupsViewModel.showPopupWinLine.value) {
@@ -189,75 +190,68 @@ private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
     }
 }
 
-//@Composable
-//private fun BonusBlock() {
-//    val coroutine = rememberCoroutineScope()
-//
-//    Column(
-//        modifier = Modifier
-//            .offset(x = -((FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 2)) / 2))
-////            .border(4.dp, Color.Magenta),
-//    ) {
-//        BonusViewModel.bonuses.forEach {
-//            Box(
-//                modifier = Modifier
-//                    .clip(RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp))
-//                    .border(
-//                        GameConfig.BRICK_BORDER_SIZE.dp, color = it.activeBonusBorder.value,
-//                        shape = RoundedCornerShape(GameConfig.BRICK_ROUNDED_CORNER.dp)
-//                    )
-//                    .size(FieldViewModel.brickSizeLandscape)
-//                    .background(GameConfig.FIELD_BG_COLOR)
-//            ) {}
-//            Spacer(Modifier.size(10.dp))
-//        }
-//    }
-//
-//    Column(
-//        modifier = Modifier
-//            .offset(x = -((FieldViewModel.brickSizeLandscape * (GameConfig.ROWS + 2)) / 2))
-////            .border(4.dp, Color.Magenta),
-//    ) {
-//        (BonusViewModel.bonuses.forEach {
-//            key(it.id) {
-//                Box(
-//                    Modifier
-//                        .offset { IntOffset(it.x.intValue, it.y.intValue) }
-//                        .size(FieldViewModel.brickSizeLandscape)
-//                        .paint(
-//                            painterResource(it.assetImage),
-//                            alpha = it.alpha.value,
-//                            sizeToIntrinsics = true,
-//                            contentScale = ContentScale.FillBounds
-//                        )
+@Composable
+private fun BonusBlock(bonusViewModel: BonusViewModel = hiltViewModel()) {
+
+    Column(
+        modifier = Modifier
+            .offset(x = bonusViewModel.offsetBonusBlock)
+//            .border(4.dp, Color.Magenta),
+    ) {
+        bonusViewModel.bonuses.forEach { bonus ->
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(bonusViewModel.bonusCorner))
+                    .border(
+                        bonusViewModel.bonusBorderSize,
+                        color = bonus.baseModel.activeBorderColor.value,
+                        shape = RoundedCornerShape(bonusViewModel.bonusCorner)
+                    )
+                    .size(bonusViewModel.bonusSize.value)
+                    .background(bonusViewModel.bonusBgColor)
+            ) {}
+            Spacer(Modifier.size(10.dp))
+        }
+    }
+    Column(
+        modifier = Modifier
+            .zIndex(bonusViewModel.zIndexBonusBlock.floatValue)
+            .offset(x = bonusViewModel.offsetBonusBlock)
+//            .border(4.dp, Color.Magenta),
+    ) {
+        (bonusViewModel.bonuses.forEach { bonus ->
+            key(bonus.baseModel.id) {
+                Box(
+                    Modifier
+                        .zIndex(bonus.baseModel.zIndex.value)
+                        .offset { IntOffset(bonus.cords.x.intValue, bonus.cords.y.intValue) }
+                        .size(bonusViewModel.bonusSize.value)
+                        .paint(
+                            painterResource(bonus.baseModel.assetImage),
+                            alpha = bonus.baseModel.alpha.value,
+                            sizeToIntrinsics = true,
+                            contentScale = ContentScale.FillBounds
+                        )
 //                        .onGloballyPositioned { coordinates ->
-//                            it.setGloballyPosition(coordinates)
+//                            bonus.setGloballyPosition(coordinates)
 //                        }
-//                        .pointerInput(Unit) {
-//                            detectDragGestures(
-//                                onDragStart = { },
-//                                onDrag = { _, dragAmount ->
-//                                    if (it.canDrag) {
-//                                        it.dragging(dragAmount.x, dragAmount.y)
-//                                        coroutine.launch {
-//                                            CollisionBricksOnLevel.observeCenterObjects(it)
-//                                        }
-//                                    }
-//                                },
-//                                onDragEnd = {
-//                                    if (it.canDrag) {
-//                                        coroutine.launch {
-//                                            it.takeAPlaces()
-////                                        FieldViewModel.checkFieldOnFinishRound()
-//                                        }
-//                                    }
-//                                },
-//                                onDragCancel = { },
-//                            )
-//                        }
-//                )
-//                Spacer(Modifier.size(10.dp))
-//            }
-//        })
-//    }
-//}
+                        .pointerInput(bonus) {
+                            detectDragGestures(
+                                onDragStart = {},
+                                onDrag = { _, dragAmount ->
+                                    if (bonus.cords.canDrag) {
+                                        bonusViewModel.dragging(bonus, dragAmount)
+                                    }
+                                },
+                                onDragEnd = {
+                                    bonusViewModel.onDragEnd(bonus)
+                                },
+                                onDragCancel = {},
+                            )
+                        }
+                )
+                Spacer(Modifier.size(10.dp))
+            }
+        })
+    }
+}

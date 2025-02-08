@@ -1,43 +1,38 @@
-//package com.example.bricksGame.components.levelGame.controller
-//
-//import androidx.compose.runtime.mutableIntStateOf
-//import androidx.compose.runtime.mutableStateOf
-//import androidx.compose.runtime.toMutableStateList
-//import com.example.bricksGame.gameData.Brick
-//import com.example.bricksGame.gameData.FieldBrick
-//import com.example.bricksGame.config.GameConfig
-//import com.example.bricksGame.gameData.LevelData
-//import com.example.bricksGame.helper.ScreenSize
-//import com.example.bricksGame.helper.SoundController
-//import com.example.bricksGame.logic.LevelLogic
-//import com.example.bricksGame.ui.theme.primaryContainerDark
-//import kotlinx.coroutines.CoroutineScope
-//import kotlinx.coroutines.Dispatchers
-//import kotlinx.coroutines.delay
-//import kotlinx.coroutines.launch
-//import javax.inject.Inject
-//
-//class BonusController @Inject constructor(
+package com.example.bricksGame.components.levelGame.controller
+
+import android.content.Context
+import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.gameObjects.BaseModel
+import com.example.bricksGame.gameObjects.Cords
+import com.example.bricksGame.gameObjects.GameObjects
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+
+class BonusController @Inject constructor(
 //    private var screenSize: ScreenSize,
-//    val gameConfig: GameConfig,
+    val gameConfig: GameConfig,
 //    var soundController: SoundController,
 //    private var levelData: LevelData,
 //    private var levelLogic: LevelLogic,
 //    private var bricksController: BricksController,
-//) {
-//
-//    fun createBonusList(): MutableList<Brick> {
-//        val bonusList: MutableList<Brick> = mutableListOf()
-//        bonusList.add(createBonus(0))
-//        bonusList.add(createBonus(1))
-//        bonusList.add(createBonus(2))
-//        bonusList.forEach {
-//            setOfBonus(it)
-//        }
-//        levelData.setBonusList(bonusList.toMutableStateList())
-//        return bonusList
-//    }
-//
+    @ApplicationContext val context: Context
+) {
+
+    fun createBonusList(): MutableList<GameObjects.Bonus> {
+        val bonusList: MutableList<GameObjects.Bonus> = mutableListOf()
+        bonusList.add(createBonus(0))
+        bonusList.add(createBonus(1))
+        bonusList.add(createBonus(2))
+        return bonusList
+    }
+
+    private fun createBonus(i: Int): GameObjects.Bonus {
+        val newBonus = GameObjects.Bonus(baseModel = BaseModel(context = context), Cords())
+        newBonus.baseModel.assetImage = gameConfig.imagesBricksBonuses[i]
+
+        return newBonus
+    }
+
 //    fun setAlpha(countAlpha: Float) {
 //
 //        levelData._bonusList.forEach {
@@ -50,40 +45,13 @@
 //            }
 //        }
 //    }
-//
+
 //    private fun setOfBonus(brick: Brick) {
 //        brick.alpha.value = 0.02f
 //        brick.canDrag = false
 //        brick.activeBonusBorder.value = gameConfig.BRICK_BORDER_COLOR
 //    }
-//
-//    private fun createBonus(i: Int): Brick {
-//        var name = ""
-//        when (i) {
-//            0 -> name = "iceBonus"
-//            1 -> name = "fireBonus"
-//            2 -> name = "hammerBonus"
-//        }
-//        val newBrick = Brick(
-//            x = mutableIntStateOf(0),
-//            y = mutableIntStateOf(0),
-//            canDrag = false,
-//            id = 0,
-//            position = "Bonus",
-//            name = name,
-//            assetImage = gameConfig.imagesBricksBonuses[i],
-//            gameConfig = gameConfig,
-//            screenSize = screenSize,
-//            soundController = soundController,
-//            levelLogic = levelLogic,
-//            bricksController = bricksController
-//
-//        )
-//        newBrick.borderColor = gameConfig.BRICK_BORDER_COLOR
-//        newBrick.activeBonusBorder = mutableStateOf(gameConfig.BRICK_BORDER_COLOR)
-//        return newBrick
-//    }
-//
+
 //    private fun onBonusHammer(brick: Brick) {
 //        brick.hasBonusOwnerId?.onDragEnd()
 //    }
@@ -167,4 +135,4 @@
 //    private fun getPlaceOnField(): FieldBrick {
 //        return levelData.brickOnFields.random()
 //    }
-//}
+}

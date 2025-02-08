@@ -65,6 +65,7 @@ class GameConfig @Inject constructor() {
     val BRICK_BG_COLOR = Color.Transparent
     val BRICK_BG_FIELD_COLOR = Color(0xB92C2C2C)
     val FIELD_BG_COLOR = Color(0xCD2A2A2A)
+
     val BRICK_BORDER_SIZE = 1
     val BRICK_BORDER_COLOR = Color.Black
     val BRICK_BORDER_HOVER_COLOR = errorLight

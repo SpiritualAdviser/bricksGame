@@ -22,7 +22,7 @@ class LevelData @Inject constructor(
 
     private var placesOnField: MutableList<PlaceOnField> = mutableListOf()
     private var bricksList: MutableList<GameObjects.Brick> = mutableListOf()
-//    private lateinit var bonusList: SnapshotStateList<Brick>
+    private var bonusList: MutableList<GameObjects.Bonus> = mutableListOf()
 
     private var activeLevel: Level? = null
 
@@ -38,9 +38,9 @@ class LevelData @Inject constructor(
         return placesOnField
     }
 
-    //    fun getBonusList(): SnapshotStateList<Brick> {
-//        return bonusList
-//    }
+    fun getBonusList(): MutableList<GameObjects.Bonus> {
+        return bonusList
+    }
 
     fun getBricksList(): MutableList<GameObjects.Brick> {
         return bricksList
@@ -58,9 +58,10 @@ class LevelData @Inject constructor(
     fun setBricksList(toMutableStateList: MutableList<GameObjects.Brick>) {
         bricksList = toMutableStateList
     }
-//    fun setBonusList(toMutableStateList: SnapshotStateList<Brick>) {
-//        bonusList = toMutableStateList
-//    }
+
+    fun setBonusList(bonusesOnLevel: MutableList<GameObjects.Bonus>) {
+        bonusList = bonusesOnLevel
+    }
 //
 //    fun addToBricksList(brick: Brick){
 //        bricksList.add(brick)

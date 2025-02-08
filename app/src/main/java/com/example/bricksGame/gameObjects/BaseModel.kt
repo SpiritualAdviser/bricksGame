@@ -6,6 +6,8 @@ import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.unit.IntOffset
@@ -18,6 +20,8 @@ class BaseModel(var context: Context) {
     var assetImage: Int = R.drawable.bgfielbrickempty
     var alpha: MutableState<Float> = mutableFloatStateOf(1f)
     var zIndex: MutableState<Float> = mutableFloatStateOf(0f)
+
+    var activeBorderColor: MutableState<Color> = mutableStateOf(Color.Black)
 
     /**
      * animation sprite
