@@ -45,6 +45,11 @@ class BricksViewModel @Inject constructor(
         }
     }
 
+    private fun goBack(brick: GameObjects.Brick) {
+            brick.cords.x.intValue = 0
+            brick.cords.y.intValue = 0
+    }
+
     fun observeCenterObjects(brick: GameObjects.Brick) {
 //        collisionBricksOnLevel.observeCenterObjects(brick)
     }
@@ -54,6 +59,7 @@ class BricksViewModel @Inject constructor(
     }
 
     fun onDragEnd(brick: GameObjects.Brick) {
+        goBack(brick)
         brick.baseModel.zIndex.value = 0F
 //       takeAPlaces(brick)
     }
