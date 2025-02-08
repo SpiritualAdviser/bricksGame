@@ -13,13 +13,14 @@ import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.components.levelGame.controller.FieldController
+import com.example.bricksGame.components.players.repository.PlayerRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class LevelLogic @Inject constructor(
     var gameConfig: GameConfig,
-//    var playerRepository: PlayerRepository,
+    private var playerRepository: PlayerRepository,
     private var buttonController: ButtonController,
     private var levelData: LevelData,
     private var fieldController: FieldController,

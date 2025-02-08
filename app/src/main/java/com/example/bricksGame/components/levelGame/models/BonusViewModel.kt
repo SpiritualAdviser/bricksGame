@@ -28,6 +28,11 @@ class BonusViewModel @Inject constructor(
         Log.d("my", "BonusViewModel_init")
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("my", "BonusViewModel_onCleared")
+    }
+
     private var bonusList = levelData.getBonusList()
 
     var bonusCorner: Int = gameConfig.BRICK_ROUNDED_CORNER

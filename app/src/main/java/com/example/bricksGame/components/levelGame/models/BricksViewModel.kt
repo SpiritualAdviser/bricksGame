@@ -25,6 +25,11 @@ class BricksViewModel @Inject constructor(
         Log.d("my", "BricksViewModel_init")
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("my", "BricksViewModel_onCleared")
+    }
+
     var brickBgColor: Color = gameConfig.BRICK_BG_COLOR
     var brickCorner: Int = gameConfig.BRICK_ROUNDED_CORNER
     var brickSize = levelData.placeSizeOnField

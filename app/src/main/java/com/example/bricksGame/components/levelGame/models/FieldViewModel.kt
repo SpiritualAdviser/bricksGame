@@ -33,6 +33,10 @@ class FieldViewModel @Inject constructor(
     init {
         Log.d("my", "FieldViewModel_init")
     }
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("my", "FieldViewModel_onCleared")
+    }
 
     private var activeLevel: Level? = levelData.getActiveLevel()
 
@@ -50,11 +54,6 @@ class FieldViewModel @Inject constructor(
     var fieldWidth = levelData.fieldWidth
     var fieldHeight = levelData.fieldHeight
     var placeSizeOnField = levelData.placeSizeOnField
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("my", "FieldViewModel_onCleared")
-    }
 
     fun getBitmapPainter(slot: GameObjects): BitmapPainter {
         return when (slot) {

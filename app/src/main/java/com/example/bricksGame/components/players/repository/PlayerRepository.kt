@@ -38,12 +38,12 @@ class PlayerRepository @Inject constructor(
                     addPlayer("Player")
                 }
                 Log.d("my", "on allPlayers.collectLatest${it.size}")
+                activePlayer = dataRepository.getActivePlayer()
             }
         }
     }
 
     fun getActivePlayer(): Player {
-        activePlayer = dataRepository.getActivePlayer()
         return activePlayer
     }
 
@@ -59,10 +59,10 @@ class PlayerRepository @Inject constructor(
     }
 
     private suspend fun setActivePlayerOnGame(player: Player) {
-        activePlayer = player
         dataRepository.setInactiveAllPlayers()
         player.isActive = true
         dataRepository.addPlayer(player)
+        activePlayer = player
     }
 
     fun update(player: Player) {
