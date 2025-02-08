@@ -70,6 +70,7 @@ class LevelLogic @Inject constructor(
         levelData.setBonusList(bonusesOnLevel)
 
         collisionOnLevel.setPlacesFieldOnCollision(placesOnField)
+        collisionOnLevel.runCollision(true)
     }
 
     private fun setRowsAndColumnsOnLevel(level: Level) {

@@ -6,8 +6,11 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.BitmapPainter
+import androidx.compose.ui.layout.LayoutCoordinates
+import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
+import com.example.bricksGame.components.levelGame.controller.FieldController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
@@ -23,12 +26,14 @@ class FieldViewModel @Inject constructor(
     private var levelData: LevelData,
     val gameConfig: GameConfig,
     val screenSize: ScreenSize,
+    private var fieldController: FieldController,
     @ApplicationContext val context: Context
 ) : ViewModel() {
 
     init {
         Log.d("my", "FieldViewModel_init")
     }
+
     override fun onCleared() {
         super.onCleared()
         Log.d("my", "FieldViewModel_onCleared")
@@ -59,6 +64,17 @@ class FieldViewModel @Inject constructor(
             is GameObjects.Rock -> slot.baseModel.getBitmapPainter()
             is GameObjects.Empty -> slot.baseModel.getBitmapPainter()
         }
+    }
+
+    fun setGloballyPosition(placeOnField: PlaceOnField, coordinates: LayoutCoordinates) {
+        placeOnField.cords.globalWidth = coordinates.size.width
+        placeOnField.cords.globalHeight = coordinates.size.height
+        placeOnField.cords.globalX = coordinates.positionInWindow().x
+        placeOnField.cords.globalY = coordinates.positionInWindow().y
+    }
+
+    fun setGloballyPosition(coordinates: LayoutCoordinates) {
+        fieldController.setFieldSizeOnCollision(coordinates)
     }
 
     fun onClick(placeOnField: PlaceOnField) {

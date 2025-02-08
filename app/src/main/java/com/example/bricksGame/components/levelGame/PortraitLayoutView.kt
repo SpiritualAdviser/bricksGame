@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -114,6 +115,9 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
         modifier = Modifier
             .clip(RoundedCornerShape(fieldViewModel.placeCorner.dp))
             .background(fieldViewModel.fieldBgColor)
+            .onGloballyPositioned { coordinates ->
+                fieldViewModel.setGloballyPosition(coordinates)
+            }
 //            .border(4.dp, Color.Green)
     ) {
 
@@ -144,8 +148,9 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
                             sizeToIntrinsics = true,
                             contentScale = ContentScale.FillBounds
                         )
-                    //                        .onGloballyPositioned { coordinates ->
-//                            it.setGloballyPosition(coordinates)
+                        .onGloballyPositioned { coordinates ->
+                            fieldViewModel.setGloballyPosition(placeOnField, coordinates)
+                        }
                 )
             }
         }
@@ -180,9 +185,9 @@ private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
                             contentScale = ContentScale.FillBounds
                         )
                         .clip(RoundedCornerShape(bricksViewModel.brickCorner))
-//                        .onGloballyPositioned { coordinates ->
-//                            brick.setGloballyPosition(coordinates)
-//                        }
+                        .onGloballyPositioned { coordinates ->
+                            bricksViewModel.setGloballyPosition(brick, coordinates)
+                        }
                         .pointerInput(Unit) {
                             detectDragGestures(
 //                                onDragStart = { AnimationsBrick.canRunTranslation.value = true },

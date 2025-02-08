@@ -13,6 +13,7 @@ import com.example.bricksGame.gameObjects.BaseModel
 import com.example.bricksGame.gameObjects.Cords
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.helper.ScreenSize
+import com.example.bricksGame.logic.CollisionOnLevel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlin.math.max
@@ -22,6 +23,7 @@ class BricksController @Inject constructor(
     private var levelData: LevelData,
     val gameConfig: GameConfig,
     val screenSize: ScreenSize,
+    private var collisionOnLevel: CollisionOnLevel,
     @ApplicationContext val context: Context
 //    var soundController: SoundController,
 ) {
@@ -71,6 +73,13 @@ class BricksController @Inject constructor(
         }
         return gameConfig.imagesBricks[(0..maxColors).random()]
     }
+
+    fun observeCenterObjects(brick: GameObjects.Brick) {
+        collisionOnLevel.observeCenterObjects(brick)
+    }
+
+
+
 //
 //
 //    fun removeBrick(brick: Brick) {

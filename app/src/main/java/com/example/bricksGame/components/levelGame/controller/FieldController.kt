@@ -3,7 +3,7 @@ package com.example.bricksGame.components.levelGame.controller
 import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
-import com.example.bricksGame.config.GameConfig
+import androidx.compose.ui.layout.LayoutCoordinates
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.config.NegativeBonus
@@ -48,6 +48,10 @@ class FieldController @Inject constructor(
             position = Pair(positionColumn, positionRow),
             slot = mutableStateOf(GameObjects.Empty(BaseModel(context))),
         )
+    }
+
+    fun setFieldSizeOnCollision(coordinates: LayoutCoordinates) {
+        collisionOnLevel.setFieldSizeOnCollision(coordinates)
     }
 
 //    fun setBricksOnField(brick: Brick) {

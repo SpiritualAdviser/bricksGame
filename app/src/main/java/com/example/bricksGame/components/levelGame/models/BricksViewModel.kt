@@ -3,8 +3,11 @@ package com.example.bricksGame.components.levelGame.models
 import android.util.Log
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.LayoutCoordinates
+import androidx.compose.ui.layout.positionInWindow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bricksGame.components.levelGame.controller.BricksController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.GameObjects
@@ -16,8 +19,8 @@ import javax.inject.Inject
 class BricksViewModel @Inject constructor(
     val gameConfig: GameConfig,
     levelData: LevelData,
-
-    ) : ViewModel() {
+    private var bricksController: BricksController,
+) : ViewModel() {
 
     init {
         Log.d("my", "BricksViewModel_init")
@@ -45,16 +48,19 @@ class BricksViewModel @Inject constructor(
         viewModelScope.launch {
             brick.cords.x.intValue += dragAmount.x.toInt()
             brick.cords.y.intValue += dragAmount.y.toInt()
+            observeCenterObjects(brick)
         }
     }
 
     private fun goBack(brick: GameObjects.Brick) {
-            brick.cords.x.intValue = 0
-            brick.cords.y.intValue = 0
+        brick.cords.x.intValue = 0
+        brick.cords.y.intValue = 0
     }
 
-    fun observeCenterObjects(brick: GameObjects.Brick) {
-//        collisionBricksOnLevel.observeCenterObjects(brick)
+    private fun observeCenterObjects(brick: GameObjects.Brick) {
+        viewModelScope.launch {
+            bricksController.observeCenterObjects(brick)
+        }
     }
 
     fun takeAPlaces(brick: GameObjects.Brick) {
@@ -65,6 +71,13 @@ class BricksViewModel @Inject constructor(
         goBack(brick)
         brick.baseModel.zIndex.value = 0F
 //       takeAPlaces(brick)
+    }
+
+    fun setGloballyPosition(brick: GameObjects.Brick, coordinates: LayoutCoordinates) {
+        brick.cords.globalWidth = coordinates.size.width
+        brick.cords.globalHeight = coordinates.size.height
+        brick.cords.globalX = coordinates.positionInWindow().x
+        brick.cords.globalY = coordinates.positionInWindow().y
     }
 }
 

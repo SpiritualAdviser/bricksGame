@@ -1,8 +1,11 @@
 package com.example.bricksGame.logic
 
 import android.util.Log
+import androidx.compose.ui.layout.LayoutCoordinates
+import androidx.compose.ui.layout.positionInWindow
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.gameObjects.Cords
 import com.example.bricksGame.gameObjects.GameObjects
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -16,12 +19,19 @@ class CollisionOnLevel @Inject constructor(
     }
 
     private var placeListOnField: MutableList<PlaceOnField> = mutableListOf()
+    private var fieldCords = Cords()
     private var isRun = false
 
     fun setPlacesFieldOnCollision(placesOnField: MutableList<PlaceOnField>) {
         placeListOnField = placesOnField
     }
 
+    fun setFieldSizeOnCollision(coordinates: LayoutCoordinates) {
+        fieldCords.globalWidth = coordinates.size.width
+        fieldCords.globalHeight = coordinates.size.height
+        fieldCords.globalX = coordinates.positionInWindow().x
+        fieldCords.globalY = coordinates.positionInWindow().y
+    }
 
     fun runCollision(state: Boolean) {
         isRun = state
@@ -31,30 +41,49 @@ class CollisionOnLevel @Inject constructor(
         this.placeListOnField.clear()
     }
 
+    private fun checkInField(brick: GameObjects.Brick): Boolean {
+        var inFieldX = false
+        var inFieldY = false
+        val brickCenterX = brick.cords.globalX + brick.cords.globalWidth / 2
+        val brickCenterY = brick.cords.globalY + brick.cords.globalHeight / 2
+
+        inFieldX =
+            brickCenterX < fieldCords.globalX + fieldCords.globalWidth &&
+                    brickCenterX > fieldCords.globalX
+
+        inFieldY =
+            brickCenterY < fieldCords.globalY + fieldCords.globalHeight &&
+                    brickCenterY > fieldCords.globalY
+
+        return inFieldX && inFieldY
+    }
 
     fun observeCenterObjects(brick: GameObjects.Brick) {
-        if (isRun) {
+
+        if (isRun && checkInField(brick)) {
 
             var xCollision: Boolean
             var yCollision: Boolean
 
-//            val brickX = brick.globalX + brick.globalWidth / 2
-//            val brickY = brick.globalY + brick.globalHeight / 2
+            val brickCenterX = brick.cords.globalX + brick.cords.globalWidth / 2
+            val brickCenterY = brick.cords.globalY + brick.cords.globalHeight / 2
 
-//            fieldBricksList.forEachIndexed { indexFieldBrick, fieldBrick ->
-//
-//                xCollision = brickX < fieldBrick.globalX + fieldBrick.globalWidth &&
-//                        brickX > fieldBrick.globalX
-//
-//                yCollision = brickY < fieldBrick.globalY + fieldBrick.globalHeight &&
-//                        brickY > fieldBrick.globalY
-//
-//                if (xCollision && yCollision) {
-//                    onCollision(brick, fieldBrick)
-//                } else {
-//                    outOfCollision(brick, fieldBrick)
-//                }
-//            }
+            placeListOnField.forEach { placeOnField ->
+
+                xCollision =
+                    brickCenterX < placeOnField.cords.globalX + placeOnField.cords.globalWidth &&
+                            brickCenterX > placeOnField.cords.globalX
+
+                yCollision =
+                    brickCenterY < placeOnField.cords.globalY + placeOnField.cords.globalHeight &&
+                            brickCenterY > placeOnField.cords.globalY
+
+                if (xCollision && yCollision) {
+                    onCollision(brick, placeOnField)
+                } else {
+                    outOfCollision(brick, placeOnField)
+                }
+            }
         }
     }
 
