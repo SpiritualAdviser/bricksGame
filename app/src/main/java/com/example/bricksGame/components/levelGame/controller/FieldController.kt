@@ -3,12 +3,12 @@ package com.example.bricksGame.components.levelGame.controller
 import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.layout.LayoutCoordinates
-import com.example.bricksGame.gameObjects.PlaceOnField
+import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
-import com.example.bricksGame.config.NegativeBonus
 import com.example.bricksGame.gameObjects.BaseModel
 import com.example.bricksGame.gameObjects.GameObjects
+import com.example.bricksGame.gameObjects.PlaceOnField
+import com.example.bricksGame.helper.SpriteAnimation
 import com.example.bricksGame.logic.CollisionOnLevel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -16,6 +16,7 @@ import javax.inject.Inject
 class FieldController @Inject constructor(
     private val
     collisionOnLevel: CollisionOnLevel,
+    private var gameConfig: GameConfig,
     @ApplicationContext val context: Context
 ) {
 
@@ -51,12 +52,36 @@ class FieldController @Inject constructor(
         )
     }
 
-//    fun setBricksOnField(brick: Brick) {
-//        val currentFieldBrick = brick.fieldBrickOnCollision
-//        currentFieldBrick?.setImageOnStickBrick(brick.assetImage)
-//        currentFieldBrick?.id = brick.assetImage.toString()
-//    }
+    fun setNegativeSlotOnField(placesOnField: MutableList<PlaceOnField>, level: Level) {
 
+        level.negativeBonuses.forEachIndexed { indexSlot, numberSlot ->
+            val typeOfSlot = gameConfig.negativeBonuses[indexSlot]
+
+            for (i in 0 until numberSlot) {
+                val placeOnField = placesOnField.random()
+                val slot: GameObjects = createSlot(typeOfSlot)
+                placeOnField.slot.value = slot
+            }
+        }
+    }
+
+    private fun createSlot(typeOfSlot: GameConfig.NegativeSlot): GameObjects {
+        val baseModel = BaseModel(context)
+        val slotOption = typeOfSlot.option
+
+        val slot: GameObjects = when (typeOfSlot) {
+            GameConfig.NegativeSlot.ROCK -> {
+                baseModel.sprite = SpriteAnimation.getSprite(slotOption.spriteName)
+                GameObjects.Rock(baseModel)
+            }
+
+            GameConfig.NegativeSlot.LEAVES -> {
+                baseModel.sprite = SpriteAnimation.getSprite(slotOption.spriteName)
+                GameObjects.Leaves(baseModel)
+            }
+        }
+        return slot
+    }
 
     fun resetData() {
 //        levelData.brickOnFields.clear()
@@ -64,102 +89,8 @@ class FieldController @Inject constructor(
     }
 
 
-    fun addToCollision() {
-//        levelData.brickOnFields.forEach() {
-//            collisionBricksOnLevel.addToCollision(fieldBrick = it)
-//        }
-//        runCollision()
-    }
-
     fun changeZIndex(index: Float) {
 //        levelData.zIndex.floatValue = index
     }
 
-    private fun runCollision() {
-//        collisionBricksOnLevel.runCollision(true)
-    }
-
-    fun checkNeedChangeAsset(placeOnField: PlaceOnField) {
-
-//        when (fieldBrick.hasOwnerId) {
-//
-//            gameConfig.NEGATIVE_BONUS_LEAVES -> {
-//
-//                gameConfig.negativeBonuses.find { it.id == gameConfig.NEGATIVE_BONUS_LEAVES }
-//                    ?.let { bonus ->
-//                        setAssetsOnNegativeBonus(fieldBrick, bonus)
-//                    }
-//            }
-//
-//            gameConfig.NEGATIVE_BONUS_ROCK -> {
-//
-//                gameConfig.negativeBonuses.find { it.id == gameConfig.NEGATIVE_BONUS_ROCK }
-//                    ?.let { bonus ->
-//                        setAssetsOnNegativeBonus(fieldBrick, bonus)
-//                    }
-//            }
-//
-//            else -> {
-//                fieldBrick.assetImage.value = R.drawable.bgfielbrickempty
-//                fieldBrick.onDestroy = true
-//                fieldBrick.resetFieldBrick()
-//            }
-//        }
-    }
-
-    private fun setAssetsOnNegativeBonus(placeOnField: PlaceOnField, bonus: NegativeBonus) {
-
-//        if (fieldBrick.hasSprite.value) {
-//            var animationName = bonus.animationFullLife
-//
-//            when (fieldBrick.life) {
-//
-//                1 -> {
-//                    animationName = bonus.animationOnDamage
-//                }
-//
-//                0 -> {
-//                    fieldBrick.onDestroy = true
-//                    animationName = bonus.animationOnDestroy
-//                }
-//            }
-//
-//            animationName?.let {
-//                fieldBrick.startAnimation(animationName)
-//                playSound(animationName, bonus)
-//            }
-//
-//        } else {
-//            fieldBrick.assetImage.value =
-//                if (fieldBrick.life == 1) bonus.imageOnDamage else bonus.imageFullLife
-//
-//            if (fieldBrick.life <= 0) {
-//                fieldBrick.onDestroy = true
-//                fieldBrick.resetFieldBrick()
-//            }
-//        }
-    }
-
-    private fun playSound(animationName: String, bonus: NegativeBonus) {
-
-//        if (bonus.id == gameConfig.NEGATIVE_BONUS_ROCK) {
-//            when (animationName) {
-//                "crash" -> {
-//                    soundController.stoneCrack()
-//                }
-//
-//                "destroy" -> {
-//                    soundController.stoneDestroy()
-//                }
-//            }
-//        }
-//
-//        if (bonus.id == gameConfig.NEGATIVE_BONUS_LEAVES) {
-//            when (animationName) {
-//                "destroy" -> {
-//                    soundController.rustleOfLeaves()
-//                }
-//            }
-//        }
-    }
 }

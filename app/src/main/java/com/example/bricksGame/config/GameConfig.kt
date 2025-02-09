@@ -114,28 +114,35 @@ class GameConfig @Inject constructor() {
     val NEGATIVE_BONUS_ROCK_LIFE = 2
     val MAX_CLOSED_PERCENT_GAME_FIELD = 30
 
-    val negativeBonuses = listOf(
-        NegativeBonus(
-            id = NEGATIVE_BONUS_ROCK,
-            life = NEGATIVE_BONUS_ROCK_LIFE,
-            imageFullLife = R.drawable.bg_close_brick,
-            imageOnDamage = R.drawable.bg_close_brick_damage,
-            spriteName = "bg_close_brick.json",
-            animationFullLife = "idle",
-            animationOnDamage = "crash",
-            animationOnDestroy = "destroy",
+    enum class NegativeSlot(val option: NegativeBonus) {
+        ROCK(
+            NegativeBonus(
+                id = 0,
+                life = 2,
+                imageFullLife = R.drawable.bg_close_brick,
+                imageOnDamage = R.drawable.bg_close_brick_damage,
+                spriteName = "bg_close_brick.json",
+                animationFullLife = "idle",
+                animationOnDamage = "crash",
+                animationOnDestroy = "destroy",
+            )
         ),
+        LEAVES(
+            NegativeBonus(
+                id = 2,
+                life = 1,
+                imageFullLife = R.drawable.bg_close_liaves,
+                imageOnDamage = R.drawable.bg_close_liaves,
+                spriteName = "bg_close_leaves.json",
+                animationFullLife = "idle",
+                animationOnDamage = "idle",
+                animationOnDestroy = "destroy",
+            )
+        )
+    }
 
-        NegativeBonus(
-            id = NEGATIVE_BONUS_LEAVES,
-            life = NEGATIVE_BONUS_LEAVES_LIFE,
-            imageFullLife = R.drawable.bg_close_liaves,
-            imageOnDamage = R.drawable.bg_close_liaves,
-            spriteName = "bg_close_leaves.json",
-            animationFullLife = "idle",
-            animationOnDamage = "idle",
-            animationOnDestroy = "destroy",
-        ),
+    val negativeBonuses = listOf(
+        NegativeSlot.LEAVES, NegativeSlot.ROCK
     )
 
     var WIN_LINE_DESTROY_NEGATIVE_BONUS = true

@@ -69,6 +69,8 @@ class LevelLogic @Inject constructor(
         levelData.setBricksList(bricksOnLevel)
         levelData.setBonusList(bonusesOnLevel)
 
+        fieldController.setNegativeSlotOnField(placesOnField, level)
+
         collisionOnLevel.setPlacesFieldOnCollision(placesOnField)
         collisionOnLevel.runCollision(true)
     }

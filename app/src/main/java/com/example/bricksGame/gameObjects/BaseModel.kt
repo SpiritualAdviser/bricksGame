@@ -29,8 +29,8 @@ class BaseModel(var context: Context) {
     var sprite: Sprite? = null
     val xSrcOffset: MutableIntState = mutableIntStateOf(0)
     val ySrcOffset: MutableIntState = mutableIntStateOf(0)
-    val widthSize: MutableIntState = mutableIntStateOf(0)
-    val heightSize: MutableIntState = mutableIntStateOf(0)
+    val widthSize: MutableIntState = mutableIntStateOf(10)
+    val heightSize: MutableIntState = mutableIntStateOf(10)
 
     fun getBitmapPainter(): BitmapPainter {
 
@@ -39,6 +39,8 @@ class BaseModel(var context: Context) {
         )
 
         sprite?.let {
+            onFrameChanged()
+
             painter = BitmapPainter(
                 image = it.imageSheet,
                 srcOffset = IntOffset(
@@ -51,6 +53,33 @@ class BaseModel(var context: Context) {
                 )
             )
         }
+
         return painter
+    }
+
+    private fun onFrameChanged() {
+        sprite?.let {
+            xSrcOffset.intValue = it.currentFrame.frame.x
+            ySrcOffset.intValue = it.currentFrame.frame.y
+            widthSize.intValue = it.currentFrame.frame.w
+            heightSize.intValue = it.currentFrame.frame.h
+        }
+    }
+
+    fun startAnimation(nameAnimation: String, isLoop: Boolean = false) {
+        sprite?.runAnimation(
+            nameAnimation,
+            isLoop,
+            onFrameChangedCallback = ::onFrameChanged,
+            onEndAnimationCallback = ::onEndAnimation,
+        )
+    }
+
+    private fun onEndAnimation() {
+
+    }
+
+    private fun resetSprite() {
+
     }
 }
