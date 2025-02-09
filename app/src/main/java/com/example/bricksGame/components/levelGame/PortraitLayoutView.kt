@@ -117,9 +117,9 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
         modifier = Modifier
             .clip(RoundedCornerShape(fieldViewModel.placeCorner.dp))
             .background(fieldViewModel.fieldBgColor)
-            .onGloballyPositioned { coordinates ->
-                fieldViewModel.setFieldSizeOnCollision(coordinates)
-            }
+//            .onGloballyPositioned { coordinates ->
+//                fieldViewModel.setFieldSizeOnCollision(coordinates)
+//            }
 //            .border(4.dp, Color.Green)
     ) {
 

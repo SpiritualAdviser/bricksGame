@@ -87,7 +87,7 @@ class BonusViewModel @Inject constructor(
 
         viewModelScope.launch {
             delay(30)
-            bonusController.onDragCancel()
+            bonusController.onDragEnd()
         }
     }
 

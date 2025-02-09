@@ -74,17 +74,4 @@ class FieldViewModel @Inject constructor(
         placeOnField.cords.globalY = coordinates.positionInWindow().y
     }
 
-    fun setFieldSizeOnCollision(coordinates: LayoutCoordinates) {
-        fieldController.setFieldSizeOnCollision(coordinates)
-    }
-
-
-    fun onClick(placeOnField: PlaceOnField) {
-//        val baseModel = BaseModel(context)
-//        baseModel.assetImage = R.drawable.blue_brick
-//        val cords: Cords = Cords()
-//        val animation: Animation = Animation()
-//
-//        placeOnField.slot.value = GameObjects.Brick(baseModel, cords, animation)
-    }
 }

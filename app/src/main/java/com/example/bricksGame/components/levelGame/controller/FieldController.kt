@@ -51,10 +51,6 @@ class FieldController @Inject constructor(
         )
     }
 
-    fun setFieldSizeOnCollision(coordinates: LayoutCoordinates) {
-        collisionOnLevel.setFieldSizeOnCollision(coordinates)
-    }
-
 //    fun setBricksOnField(brick: Brick) {
 //        val currentFieldBrick = brick.fieldBrickOnCollision
 //        currentFieldBrick?.setImageOnStickBrick(brick.assetImage)

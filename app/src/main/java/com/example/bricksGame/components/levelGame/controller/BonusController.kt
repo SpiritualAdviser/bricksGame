@@ -48,7 +48,7 @@ class BonusController @Inject constructor(
         collisionOnLevel.observeCenterObjects(bonus)
     }
 
-    fun onDragCancel() {
+    fun onDragEnd() {
         collisionOnLevel.outOfField()
     }
 

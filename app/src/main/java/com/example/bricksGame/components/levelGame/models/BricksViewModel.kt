@@ -82,7 +82,7 @@ class BricksViewModel @Inject constructor(
 
         viewModelScope.launch {
             delay(30)
-            bricksController.onDragCancel()
+            bricksController.onDragEnd()
         }
     }
 

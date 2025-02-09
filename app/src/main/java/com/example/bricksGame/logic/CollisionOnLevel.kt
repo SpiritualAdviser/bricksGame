@@ -19,53 +19,14 @@ class CollisionOnLevel @Inject constructor(
     }
 
     private var placeListOnField: MutableList<PlaceOnField> = mutableListOf()
-    private var fieldCords = Cords()
     private var isRun = false
-    private var fieldBorder = 200
 
     fun setPlacesFieldOnCollision(placesOnField: MutableList<PlaceOnField>) {
         placeListOnField = placesOnField
     }
 
-    fun setFieldSizeOnCollision(coordinates: LayoutCoordinates) {
-        fieldCords.globalWidth = coordinates.size.width
-        fieldCords.globalHeight = coordinates.size.height
-        fieldCords.globalX = coordinates.positionInWindow().x
-        fieldCords.globalY = coordinates.positionInWindow().y
-    }
-
     fun runCollision(state: Boolean) {
         isRun = state
-    }
-
-    fun resetData() {
-        this.placeListOnField.clear()
-    }
-
-    private fun checkInField(cords: Cords): Boolean {
-        var inFieldX = false
-        var inFieldY = false
-        val brickCenterX = cords.globalX + cords.globalWidth / 2
-        val brickCenterY = cords.globalY + cords.globalHeight / 2
-
-        val fieldWidthSize = fieldCords.globalX + fieldCords.globalWidth + fieldBorder
-        val fieldHeightSize = fieldCords.globalY + fieldCords.globalHeight + fieldBorder
-
-        inFieldX =
-            brickCenterX < fieldWidthSize &&
-                    brickCenterX > fieldCords.globalX-fieldBorder
-
-        inFieldY =
-            brickCenterY < fieldHeightSize &&
-                    brickCenterY > fieldCords.globalY-fieldBorder
-
-//        if (inFieldX && inFieldY){
-//            Log.d("my", "checkInField tru")
-//        } else{
-//            Log.d("my", "checkInField fff")
-//        }
-
-        return inFieldX && inFieldY
     }
 
     fun observeCenterObjects(gameObj: GameObjects) {
@@ -85,7 +46,7 @@ class CollisionOnLevel @Inject constructor(
 
     private fun checkCollision(gameObj: GameObjects, cords: Cords) {
 
-        if (isRun && checkInField(cords)) {
+        if (isRun) {
 
             var xCollision: Boolean
             var yCollision: Boolean
@@ -172,6 +133,7 @@ class CollisionOnLevel @Inject constructor(
         }
     }
 }
+
 
 
 
