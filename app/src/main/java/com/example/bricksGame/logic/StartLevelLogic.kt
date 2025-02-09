@@ -7,10 +7,11 @@ import com.example.bricksGame.components.levelGame.controller.FieldController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
-import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ButtonController
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class StartLevelLogic @Inject constructor(
     var gameConfig: GameConfig,
     private var buttonController: ButtonController,
@@ -19,22 +20,21 @@ class StartLevelLogic @Inject constructor(
     private var bricksController: BricksController,
     private var bonusController: BonusController,
     private var collisionOnLevel: CollisionOnLevel,
-    private var roundLogic: RoundLogic
+    private var roundLogic: RoundLogic,
+    private val levelLogic: LevelLogic
 ) {
 
     init {
-        Log.d("my", "LevelLogic_init")
+        Log.d("my", "StartLevelLogic_init")
     }
 
     private var activeLevel: Level? = null
-    private var levelRows = mutableListOf<List<PlaceOnField>>()
-    private var levelColumns = mutableListOf<List<PlaceOnField>>()
 
     fun onStartLevel(level: Level) {
         activeLevel = level
         activeLevel?.let {
             createLevelResources(it)
-            setRowsAndColumnsOnLevel(it)
+            levelLogic.onStartLevel(it)
             goToLevel()
         }
     }
@@ -56,24 +56,8 @@ class StartLevelLogic @Inject constructor(
         collisionOnLevel.runCollision(true)
     }
 
-    private fun setRowsAndColumnsOnLevel(level: Level) {
-        var column: List<PlaceOnField>
-        var row: List<PlaceOnField>
-        levelRows.clear()
-        levelColumns.clear()
 
-        for (index in 0 until level.fieldRow) {
-            row = levelData.getPlacesOnFields().filter { index == it.position.second }
-            levelRows.add(row)
-        }
-
-        for (index in 0 until level.fieldColumn) {
-            column = levelData.getPlacesOnFields().filter { index == it.position.first }
-            levelColumns.add(column)
-        }
-    }
-
-    fun goToLevel() {
+    private fun goToLevel() {
         buttonController.navigateToLevelGame()
     }
 

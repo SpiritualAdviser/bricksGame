@@ -16,6 +16,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.max
+
 @Singleton
 class GameObjectBuilder @Inject constructor(
     @ApplicationContext val context: Context,
@@ -83,7 +84,6 @@ class GameObjectBuilder @Inject constructor(
         )
 
         newBrick.baseModel.assetImage = getRandomImage(level)
-
         return newBrick
     }
 
@@ -95,6 +95,8 @@ class GameObjectBuilder @Inject constructor(
         if (gameConfig.imagesBricks.elementAtOrNull(maxColors) == null) {
             maxColors = gameConfig.imagesBricks.size - 1
         }
+        maxColors=2
+
         return gameConfig.imagesBricks[(0..maxColors).random()]
     }
 

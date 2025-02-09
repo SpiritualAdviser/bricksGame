@@ -17,6 +17,7 @@ class RoundLogic @Inject constructor(
     private var gameConfig: GameConfig,
     private val levelData: LevelData,
     private val gameObjectBuilder: GameObjectBuilder,
+    private val levelLogic: LevelLogic
 ) {
     private var activeLevel: Level? = null
 
@@ -86,7 +87,7 @@ class RoundLogic @Inject constructor(
     private fun resetOnTakePlace(gameObj: GameObjects, placeOnField: PlaceOnField) {
         when (gameObj) {
             is GameObjects.Bonus -> resetOnBonus(gameObj, placeOnField)
-            is GameObjects.Brick -> resetOnBrick(gameObj)
+            is GameObjects.Brick -> resetOnBrick(gameObj, placeOnField)
             is GameObjects.Empty -> return
             is GameObjects.Leaves -> return
             is GameObjects.Rock -> return
@@ -98,7 +99,7 @@ class RoundLogic @Inject constructor(
         placeOnField.slot.value = GameObjects.Empty(BaseModel(context))
     }
 
-    private fun resetOnBrick(gameObj: GameObjects.Brick) {
+    private fun resetOnBrick(gameObj: GameObjects.Brick, placeOnField: PlaceOnField) {
 
         activeLevel?.let { level ->
             levelData.removeBricksList(gameObj)
@@ -106,6 +107,7 @@ class RoundLogic @Inject constructor(
             if (levelData.getBricksList().size <= level.lastBrickToAdd) {
                 gameObjectBuilder.updateBricksList(level)
             }
+            levelLogic.checkRound(gameObj, placeOnField)
         }
     }
 }
