@@ -1,8 +1,6 @@
 package com.example.bricksGame.logic
 
 import android.util.Log
-import androidx.compose.ui.layout.LayoutCoordinates
-import androidx.compose.ui.layout.positionInWindow
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameObjects.Cords
@@ -29,22 +27,22 @@ class CollisionOnLevel @Inject constructor(
         isRun = state
     }
 
-    fun observeCenterObjects(gameObj: GameObjects) {
+    fun observeCenterObjects(gameObj: GameObjects, onTakePlace: Boolean = false) {
 
         when (gameObj) {
             is GameObjects.Brick -> {
-                checkCollision(gameObj, gameObj.cords)
+                checkCollision(gameObj, gameObj.cords, onTakePlace)
             }
 
             is GameObjects.Bonus -> {
-                checkCollision(gameObj, gameObj.cords)
+                checkCollision(gameObj, gameObj.cords, onTakePlace)
             }
 
             else -> return
         }
     }
 
-    private fun checkCollision(gameObj: GameObjects, cords: Cords) {
+    private fun checkCollision(gameObj: GameObjects, cords: Cords, onTakePlace: Boolean) {
 
         if (isRun) {
 
@@ -65,7 +63,7 @@ class CollisionOnLevel @Inject constructor(
                             brickCenterY > placeOnField.cords.globalY
 
                 if (xCollision && yCollision) {
-                    onCollision(gameObj, placeOnField)
+                    onCollision(gameObj, placeOnField, onTakePlace)
                 } else {
                     outOfCollision(gameObj, placeOnField)
                 }
@@ -73,32 +71,54 @@ class CollisionOnLevel @Inject constructor(
         }
     }
 
-    private fun onCollision(gameObj: GameObjects, placeOnField: PlaceOnField) {
+    private fun onCollision(
+        gameObj: GameObjects,
+        placeOnField: PlaceOnField,
+        onTakePlace: Boolean
+    ) {
+        when (gameObj) {
+            is GameObjects.Bonus -> onBonus(gameObj, placeOnField, onTakePlace)
+            is GameObjects.Brick -> onBrick(gameObj, placeOnField, onTakePlace)
+            is GameObjects.Empty -> return
+            is GameObjects.Leaves -> return
+            is GameObjects.Rock -> return
+        }
+    }
 
+    private fun onBrick(
+        gameObj: GameObjects.Brick,
+        placeOnField: PlaceOnField,
+        onTakePlace: Boolean
+    ) {
+        when (placeOnField.slot.value) {
+            is GameObjects.Empty -> changeField(gameObj, placeOnField, onTakePlace)
+            else -> return
+        }
+    }
+
+    private fun onBonus(
+        gameObj: GameObjects.Bonus,
+        placeOnField: PlaceOnField,
+        onTakePlace: Boolean
+    ) {
+        when (placeOnField.slot.value) {
+            is GameObjects.Brick -> changeField(gameObj, placeOnField, onTakePlace)
+            else -> return
+        }
+    }
+
+    private fun changeField(
+        gameObj: GameObjects,
+        placeOnField: PlaceOnField,
+        onTakePlace: Boolean
+    ) {
         placeOnField.baseModel.activeBorderColor.value = gameConfig.BRICK_BORDER_HOVER_COLOR
 
-//        if (placeOnField.hasOwnerId == gameConfig.NEGATIVE_BONUS_ROCK ||
-//            placeOnField.hasOwnerId == gameConfig.NEGATIVE_BONUS_LEAVES
-//        ) {
-//            println()
-//            return
-//        }
-//
-//        if (brick.position == "Bonus") {
-//
-//            if (placeOnField.hasOwnerId != null) {
-//                placeOnField.hasBonusOwnerId = brick.name
-//                brick.hasBonusOwnerId = placeOnField
-//                placeOnField.setBorderRed()
-//                println("Bonus Collision")
-//            }
-//        } else {
-//            if (placeOnField.hasOwnerId == null) {
-//                placeOnField.hasOwnerId = brick.id
-//                brick.keepSpace(placeOnField)
-//                placeOnField.setBorderRed()
-//            }
-//        }
+        if (onTakePlace) {
+            placeOnField.slot.value = gameObj
+            println()
+            placeOnField.baseModel.activeBorderColor.value = gameConfig.BRICK_BORDER_COLOR
+        }
     }
 
     private fun outOfCollision(gameObj: GameObjects, placeOnField: PlaceOnField) {
@@ -125,6 +145,10 @@ class CollisionOnLevel @Inject constructor(
 //            placeOnField.hasOwnerId = null
 //            placeOnField.setBorderBlack()
 //        }
+    }
+
+    fun takeAPlaces(gameObj: GameObjects) {
+        observeCenterObjects(gameObj, onTakePlace = true)
     }
 
     fun outOfField() {

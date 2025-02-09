@@ -12,7 +12,6 @@ import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.GameObjects
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -56,6 +55,7 @@ class BricksViewModel @Inject constructor(
                     observeCenterObjects(brick)
                 }
             }
+
             else -> return
         }
     }
@@ -78,12 +78,12 @@ class BricksViewModel @Inject constructor(
     fun onDragEnd(brick: GameObjects.Brick) {
         goBack(brick)
         brick.baseModel.zIndex.value = 0F
-//       takeAPlaces(brick)
+        bricksController.onDragEnd(brick)
 
-        viewModelScope.launch {
-            delay(30)
-            bricksController.onDragEnd()
-        }
+//        viewModelScope.launch {
+//            delay(30)
+//            bricksController.onDragEnd()
+//        }
     }
 
     fun onDragCancel(brick: GameObjects.Brick) {

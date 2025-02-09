@@ -76,8 +76,8 @@ class BricksController @Inject constructor(
         collisionOnLevel.observeCenterObjects(brick)
     }
 
-    fun onDragEnd() {
-        collisionOnLevel.outOfField()
+    fun onDragEnd(brick: GameObjects.Brick) {
+        collisionOnLevel.takeAPlaces(brick)
     }
 
 

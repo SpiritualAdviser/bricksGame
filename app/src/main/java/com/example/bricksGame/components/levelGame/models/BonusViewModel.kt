@@ -83,12 +83,8 @@ class BonusViewModel @Inject constructor(
         goBack(bonus)
         bonus.baseModel.zIndex.value = 0F
         zIndexBonusBlock.floatValue = 0F
-//       takeAPlaces(brick)
+        bonusController.onDragEnd(bonus)
 
-        viewModelScope.launch {
-            delay(30)
-            bonusController.onDragEnd()
-        }
     }
 
     fun setGloballyPosition(bonus: GameObjects.Bonus, coordinates: LayoutCoordinates) {

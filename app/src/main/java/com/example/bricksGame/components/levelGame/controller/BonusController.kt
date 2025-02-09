@@ -48,8 +48,8 @@ class BonusController @Inject constructor(
         collisionOnLevel.observeCenterObjects(bonus)
     }
 
-    fun onDragEnd() {
-        collisionOnLevel.outOfField()
+    fun onDragEnd(bonus: GameObjects.Bonus) {
+        collisionOnLevel.takeAPlaces(bonus)
     }
 
 //    fun setAlpha(countAlpha: Float) {
