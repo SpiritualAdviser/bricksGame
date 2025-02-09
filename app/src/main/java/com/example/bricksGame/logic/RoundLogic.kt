@@ -2,19 +2,27 @@ package com.example.bricksGame.logic
 
 import android.content.Context
 import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.BaseModel
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class RoundLogic @Inject constructor(
     @ApplicationContext val context: Context,
     private var gameConfig: GameConfig,
     private val levelData: LevelData,
     private val gameObjectBuilder: GameObjectBuilder,
 ) {
+    private var activeLevel: Level? = null
+
+    fun setActiveLevel(level: Level) {
+        activeLevel = level
+    }
 
     fun onCollision(gameObj: GameObjects, placeOnField: PlaceOnField, onTakePlace: Boolean) {
         sortOnCollision(gameObj, placeOnField, onTakePlace)
@@ -91,7 +99,13 @@ class RoundLogic @Inject constructor(
     }
 
     private fun resetOnBrick(gameObj: GameObjects.Brick) {
-        val bricksList = levelData.getBricksList()
-        bricksList.remove(gameObj)
+
+        activeLevel?.let { level ->
+            levelData.removeBricksList(gameObj)
+
+            if (levelData.getBricksList().size <= level.lastBrickToAdd) {
+                gameObjectBuilder.updateBricksList(level)
+            }
+        }
     }
 }

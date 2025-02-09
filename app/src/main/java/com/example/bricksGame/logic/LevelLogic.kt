@@ -21,6 +21,7 @@ class LevelLogic @Inject constructor(
     private var bricksController: BricksController,
     private var bonusController: BonusController,
     private var collisionOnLevel: CollisionOnLevel,
+    private var roundLogic: RoundLogic
 ) {
 
     init {
@@ -42,6 +43,7 @@ class LevelLogic @Inject constructor(
 
     private fun createLevelResources(level: Level) {
         levelData.setActiveLevel(level)
+        roundLogic.setActiveLevel(level)
 
         val placesOnField = fieldController.createPlacesOnFieldList(level)
         val bricksOnLevel = bricksController.createBricksList(level)

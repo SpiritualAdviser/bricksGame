@@ -62,14 +62,14 @@ class LevelData @Inject constructor(
     fun setBonusList(bonusesOnLevel: MutableList<GameObjects.Bonus>) {
         bonusList = bonusesOnLevel
     }
-//
-//    fun addToBricksList(brick: Brick){
-//        bricksList.add(brick)
-//    }
-//
-//    fun bricksListRemove(brick: Brick) {
-//        bricksList.remove(brick)
-//    }
+
+    fun addToBricksList(brick: GameObjects.Brick) {
+        bricksList.add(brick)
+    }
+
+    fun removeBricksList(brick: GameObjects.Brick) {
+        bricksList.remove(brick)
+    }
 
     fun onOptionChange() {
         Log.d("my", "onOptionChange")

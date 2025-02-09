@@ -5,6 +5,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.runtime.mutableStateOf
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
+import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.Animation
 import com.example.bricksGame.gameObjects.BaseModel
 import com.example.bricksGame.gameObjects.Cords
@@ -13,12 +14,14 @@ import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ScreenSize
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.math.max
-
+@Singleton
 class GameObjectBuilder @Inject constructor(
     @ApplicationContext val context: Context,
     private val screenSize: ScreenSize,
-    private val gameConfig: GameConfig
+    private val gameConfig: GameConfig,
+    private val levelData: LevelData,
 ) {
     private var brickId = 0L
 
@@ -60,6 +63,13 @@ class GameObjectBuilder @Inject constructor(
         return bricksList
     }
 
+    fun updateBricksList(level: Level) {
+        val size = levelData.getBricksList().size
+        for (i in size until level.additionalBrick) {
+            levelData.addToBricksList(createBrick(level))
+        }
+    }
+
     private fun createBrick(level: Level): GameObjects.Brick {
         val baseModel = BaseModel(context)
         baseModel.id = ++brickId
@@ -87,7 +97,6 @@ class GameObjectBuilder @Inject constructor(
         }
         return gameConfig.imagesBricks[(0..maxColors).random()]
     }
-
 
     fun createBonusList(): MutableList<GameObjects.Bonus> {
         val bonusList: MutableList<GameObjects.Bonus> = mutableListOf()
