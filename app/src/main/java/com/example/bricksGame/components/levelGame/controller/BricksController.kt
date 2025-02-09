@@ -16,28 +16,21 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlin.math.max
 
-
 class BricksController @Inject constructor(
     private var levelData: LevelData,
     val gameConfig: GameConfig,
     val screenSize: ScreenSize,
     private var collisionOnLevel: CollisionOnLevel,
     @ApplicationContext val context: Context
-//    var soundController: SoundController,
 ) {
-    //    private var brickId = 0
-//
-////    fun resetData() {
-////        brickId = 0
-////        levelData._bricksList.clear()
-////        levelData._bricksList = createBricksList().toMutableStateList()
-////    }
-//
     init {
         Log.d("my", "BricksController_init")
     }
 
+    private var brickId = 0L
+
     fun createBricksList(level: Level): MutableList<GameObjects.Brick> {
+        brickId = 0L
         val bricksList: MutableList<GameObjects.Brick> = mutableListOf()
         for (i in 0 until level.additionalBrick) {
 
@@ -47,8 +40,10 @@ class BricksController @Inject constructor(
     }
 
     private fun createBrick(level: Level): GameObjects.Brick {
+        val baseModel = BaseModel(context)
+        baseModel.id = ++brickId
         val newBrick = GameObjects.Brick(
-            baseModel = BaseModel(context),
+            baseModel = baseModel,
             cords = Cords(),
             animation = Animation(
                 translationX = Animatable(initialValue = screenSize.screenWidthPx.toFloat()),
@@ -79,7 +74,6 @@ class BricksController @Inject constructor(
     fun onDragEnd(brick: GameObjects.Brick) {
         collisionOnLevel.takeAPlaces(brick)
     }
-
 
 
 //

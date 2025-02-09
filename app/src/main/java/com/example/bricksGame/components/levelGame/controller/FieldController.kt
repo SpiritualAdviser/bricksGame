@@ -14,8 +14,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class FieldController @Inject constructor(
-    private val
-    collisionOnLevel: CollisionOnLevel,
     private var gameConfig: GameConfig,
     @ApplicationContext val context: Context
 ) {

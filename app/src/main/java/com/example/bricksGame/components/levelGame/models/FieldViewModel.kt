@@ -43,7 +43,7 @@ class FieldViewModel @Inject constructor(
 
     var placesOnField: MutableList<PlaceOnField> = levelData.getPlacesOnFields()
 
-    var placeBorderColor: MutableState<Color> = mutableStateOf(gameConfig.BRICK_BORDER_COLOR)
+//    var placeBorderColor: MutableState<Color> = mutableStateOf(gameConfig.BRICK_BORDER_COLOR)
 
     var placeCorner = gameConfig.BRICK_ROUNDED_CORNER
     var fieldBgColor = gameConfig.FIELD_BG_COLOR

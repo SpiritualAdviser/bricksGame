@@ -2,6 +2,7 @@ package com.example.bricksGame.logic
 
 import android.content.Context
 import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.BaseModel
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
@@ -11,6 +12,7 @@ import javax.inject.Inject
 class RoundLogic @Inject constructor(
     @ApplicationContext val context: Context,
     var gameConfig: GameConfig,
+    val levelData: LevelData,
 ) {
 
     fun onCollision(gameObj: GameObjects, placeOnField: PlaceOnField, onTakePlace: Boolean) {
@@ -89,6 +91,7 @@ class RoundLogic @Inject constructor(
     }
 
     private fun resetOnBrick(gameObj: GameObjects.Brick) {
-
+        val bricksList=levelData.getBricksList()
+        bricksList.remove(gameObj)
     }
 }

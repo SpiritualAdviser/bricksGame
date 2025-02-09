@@ -16,7 +16,7 @@ import com.example.bricksGame.R
 import com.example.bricksGame.helper.Sprite
 
 class BaseModel(var context: Context) {
-    var id = 0
+    var id = 0L
     var assetImage: Int = R.drawable.bgfielbrickempty
     var alpha: MutableState<Float> = mutableFloatStateOf(1f)
     var zIndex: MutableState<Float> = mutableFloatStateOf(0f)
