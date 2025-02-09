@@ -46,6 +46,10 @@ class GameObjectBuilder @Inject constructor(
         return bricksList
     }
 
+    fun getEmptyPlace(): GameObjects.Empty {
+       return GameObjects.Empty(BaseModel(context))
+    }
+
     private fun createPlace(positionColumn: Int, positionRow: Int): PlaceOnField {
         return PlaceOnField(
             position = Pair(positionColumn, positionRow),

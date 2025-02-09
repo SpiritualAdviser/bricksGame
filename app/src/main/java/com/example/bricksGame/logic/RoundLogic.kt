@@ -7,6 +7,7 @@ import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.BaseModel
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
+import com.example.bricksGame.helper.SoundController
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,7 +18,8 @@ class RoundLogic @Inject constructor(
     private var gameConfig: GameConfig,
     private val levelData: LevelData,
     private val gameObjectBuilder: GameObjectBuilder,
-    private val levelLogic: LevelLogic
+    private val levelLogic: LevelLogic,
+    private val soundController: SoundController
 ) {
     private var activeLevel: Level? = null
 
@@ -78,9 +80,9 @@ class RoundLogic @Inject constructor(
 
         if (onTakePlace) {
             placeOnField.slot.value = gameObj
-            println()
             placeOnField.baseModel.activeBorderColor.value = gameConfig.BRICK_BORDER_COLOR
             resetOnTakePlace(gameObj, placeOnField)
+            soundController.pushCristal()
         }
     }
 

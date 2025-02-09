@@ -15,13 +15,16 @@ import androidx.compose.ui.unit.IntSize
 import com.example.bricksGame.R
 import com.example.bricksGame.helper.Sprite
 
-class BaseModel(var context: Context) {
+class BaseModel(var context: Context?) {
     var id = 0L
     var assetImage: Int = R.drawable.bgfielbrickempty
     var alpha: MutableState<Float> = mutableFloatStateOf(1f)
     var zIndex: MutableState<Float> = mutableFloatStateOf(0f)
-
+    var life = 1
     var activeBorderColor: MutableState<Color> = mutableStateOf(Color.Black)
+
+    private var placeOnField: PlaceOnField? = null
+    var needReset: Boolean = false
 
     /**
      * animation sprite
@@ -35,7 +38,7 @@ class BaseModel(var context: Context) {
     fun getBitmapPainter(): BitmapPainter {
 
         var painter = BitmapPainter(
-            image = BitmapFactory.decodeResource(context.resources, assetImage).asImageBitmap(),
+            image = BitmapFactory.decodeResource(context?.resources, assetImage).asImageBitmap(),
         )
 
         sprite?.let {
@@ -66,7 +69,19 @@ class BaseModel(var context: Context) {
         }
     }
 
-    fun startAnimation(nameAnimation: String, isLoop: Boolean = false) {
+    fun startAnimation(
+        nameAnimation: String,
+        isLoop: Boolean = false,
+        place: PlaceOnField? = null,
+        needReset: Boolean = false
+    ) {
+        this.needReset = needReset
+        placeOnField = if (needReset) {
+            place
+        } else {
+            null
+        }
+
         sprite?.runAnimation(
             nameAnimation,
             isLoop,
@@ -76,10 +91,13 @@ class BaseModel(var context: Context) {
     }
 
     private fun onEndAnimation() {
-
-    }
-
-    private fun resetSprite() {
-
+        placeOnField?.let {
+            if (needReset) {
+                it.slot.value = GameObjects.Empty(BaseModel(context))
+                placeOnField = null
+                context = null
+            }
+        }
+        needReset = false
     }
 }

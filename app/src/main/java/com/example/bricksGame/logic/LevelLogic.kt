@@ -4,12 +4,15 @@ import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
+import com.example.bricksGame.helper.SoundController
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class LevelLogic @Inject constructor(
-    private var levelData: LevelData
+    private var levelData: LevelData,
+    private var gameObjectBuilder: GameObjectBuilder,
+    private var soundController: SoundController
 ) {
 
     private var activeLevel: Level? = null
@@ -60,7 +63,7 @@ class LevelLogic @Inject constructor(
             else -> return
         }
 
-//        onEndRound(winningPositions)
+        onEndRound(wonPlaces)
     }
 
     private fun getWinningPlaces(
@@ -80,6 +83,7 @@ class LevelLogic @Inject constructor(
             wonPlaces.clear()
         } else {
             wonPlaces.addAll(closedPlaces)
+            wasWin = true
         }
         return wonPlaces
     }
@@ -99,14 +103,17 @@ class LevelLogic @Inject constructor(
                         wonPlaces.add(linePlaces[index])
                     }
                 }
+
                 is GameObjects.Leaves -> {
                     closedPlaces.add(linePlaces[index])
                     break
                 }
+
                 is GameObjects.Rock -> {
                     closedPlaces.add(linePlaces[index])
                     break
                 }
+
                 is GameObjects.Bonus -> break
                 is GameObjects.Empty -> break
             }
@@ -128,14 +135,17 @@ class LevelLogic @Inject constructor(
                         wonPlaces.add(linePlaces[index])
                     }
                 }
+
                 is GameObjects.Leaves -> {
                     closedPlaces.add(linePlaces[index])
                     break
                 }
+
                 is GameObjects.Rock -> {
                     closedPlaces.add(linePlaces[index])
                     break
                 }
+
                 is GameObjects.Bonus -> break
                 is GameObjects.Empty -> break
             }
@@ -152,6 +162,59 @@ class LevelLogic @Inject constructor(
             }
         }
         return winLine
+    }
+
+    private fun onEndRound(wonPlaces: MutableList<PlaceOnField>) {
+        if (wasWin) {
+            onWin(wonPlaces)
+        }
+        wasWin = false
+    }
+
+    private fun onWin(wonPlaces: MutableList<PlaceOnField>) {
+        soundController.winReel()
+        wonPlaces.forEach { place ->
+            var life = 1
+
+            when (val slot = place.slot.value) {
+                is GameObjects.Bonus -> return
+                is GameObjects.Brick -> resetPlace(place)
+                is GameObjects.Empty -> return
+                is GameObjects.Leaves -> {
+                    life = --slot.baseModel.life
+                    when (life) {
+                        0 -> {
+                            slot.baseModel.startAnimation("destroy", false, place, needReset = true)
+                            soundController.rustleOfLeaves()
+                        }
+
+                        else -> return
+                    }
+                }
+
+                is GameObjects.Rock -> {
+                    life = --slot.baseModel.life
+                    when (life) {
+                        0 -> {
+                            slot.baseModel.startAnimation("destroy", false, place, needReset = true)
+                            soundController.stoneDestroy()
+                        }
+
+                        1 -> {
+                            slot.baseModel.startAnimation("crash")
+                            soundController.stoneCrack()
+                        }
+
+                        else -> return
+                    }
+                }
+            }
+        }
+    }
+
+    private fun resetPlace(place: PlaceOnField) {
+        val emptyPlace = gameObjectBuilder.getEmptyPlace()
+        place.slot.value = emptyPlace
     }
 
 

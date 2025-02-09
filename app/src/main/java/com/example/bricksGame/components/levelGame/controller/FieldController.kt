@@ -46,11 +46,13 @@ class FieldController @Inject constructor(
         val slot: GameObjects = when (typeOfSlot) {
             GameConfig.NegativeSlot.ROCK -> {
                 baseModel.sprite = SpriteAnimation.getSprite(slotOption.spriteName)
+                baseModel.life = slotOption.life
                 GameObjects.Rock(baseModel)
             }
 
             GameConfig.NegativeSlot.LEAVES -> {
                 baseModel.sprite = SpriteAnimation.getSprite(slotOption.spriteName)
+                baseModel.life = slotOption.life
                 GameObjects.Leaves(baseModel)
             }
         }
