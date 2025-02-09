@@ -1,26 +1,21 @@
 package com.example.bricksGame.components.map.models
 
 import android.util.Log
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.bricksGame.components.players.repository.PlayerRepository
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
-import com.example.bricksGame.logic.LevelLogic
+import com.example.bricksGame.logic.StartLevelLogic
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MapModel @Inject constructor(
     private var playerRepository: PlayerRepository,
     private val gameConfig: GameConfig,
-    private var levelLogic: LevelLogic,
+    private var startLevelLogic: StartLevelLogic,
 ) : ViewModel() {
 
     init {
@@ -61,11 +56,11 @@ class MapModel @Inject constructor(
     }
 
     fun runLevel(level: Level) {
-        levelLogic.onStartLevel(level)
+        startLevelLogic.onStartLevel(level)
     }
 
     fun goToHome() {
-        levelLogic.goToHome()
+        startLevelLogic.goToHome()
     }
 
 //    fun changeLevelTargetOnRound(score: Int) {
