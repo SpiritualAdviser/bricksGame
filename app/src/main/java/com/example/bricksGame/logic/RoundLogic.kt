@@ -11,8 +11,9 @@ import javax.inject.Inject
 
 class RoundLogic @Inject constructor(
     @ApplicationContext val context: Context,
-    var gameConfig: GameConfig,
-    val levelData: LevelData,
+    private var gameConfig: GameConfig,
+    private val levelData: LevelData,
+    private val gameObjectBuilder: GameObjectBuilder,
 ) {
 
     fun onCollision(gameObj: GameObjects, placeOnField: PlaceOnField, onTakePlace: Boolean) {
@@ -22,7 +23,6 @@ class RoundLogic @Inject constructor(
     fun outOfCollision(gameObj: GameObjects, placeOnField: PlaceOnField) {
         placeOnField.baseModel.activeBorderColor.value = gameConfig.BRICK_BORDER_COLOR
     }
-
 
     private fun sortOnCollision(
         gameObj: GameObjects,
@@ -91,7 +91,7 @@ class RoundLogic @Inject constructor(
     }
 
     private fun resetOnBrick(gameObj: GameObjects.Brick) {
-        val bricksList=levelData.getBricksList()
+        val bricksList = levelData.getBricksList()
         bricksList.remove(gameObj)
     }
 }

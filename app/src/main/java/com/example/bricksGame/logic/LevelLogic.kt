@@ -1,26 +1,20 @@
 package com.example.bricksGame.logic
 
-/*
-import com.example.bricksGame.components.map.models.MapModel.currentLevel
-*/
-//import com.example.bricksGame.components.players.models.PlayerViewModel.updatePlayerOnLevelWin
 import android.util.Log
 import com.example.bricksGame.components.levelGame.controller.BonusController
 import com.example.bricksGame.components.levelGame.controller.BricksController
+import com.example.bricksGame.components.levelGame.controller.FieldController
 import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
+import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ButtonController
-import com.example.bricksGame.components.levelGame.controller.FieldController
-import com.example.bricksGame.components.players.repository.PlayerRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class LevelLogic @Inject constructor(
     var gameConfig: GameConfig,
-    private var playerRepository: PlayerRepository,
     private var buttonController: ButtonController,
     private var levelData: LevelData,
     private var fieldController: FieldController,
@@ -33,11 +27,7 @@ class LevelLogic @Inject constructor(
         Log.d("my", "LevelLogic_init")
     }
 
-    val EMPTY_ID = "Color.Transparent"
-    var wasWin = false
-
     private var activeLevel: Level? = null
-
     private var levelRows = mutableListOf<List<PlaceOnField>>()
     private var levelColumns = mutableListOf<List<PlaceOnField>>()
 
@@ -48,14 +38,6 @@ class LevelLogic @Inject constructor(
             setRowsAndColumnsOnLevel(it)
             goToLevel()
         }
-        println()
-//        fieldController.onOptionChange()
-//        fieldController.resetData()
-//        bricksControllerInstance.resetData()
-//        bonusControllerInstance.setNegativeBonusOnLevelField()
-//        setRowsAndColumnOnLevel()
-//        fieldController.addToCollision()
-
     }
 
     private fun createLevelResources(level: Level) {
@@ -70,7 +52,6 @@ class LevelLogic @Inject constructor(
         levelData.setBonusList(bonusesOnLevel)
 
         fieldController.setNegativeSlotOnField(placesOnField, level)
-
         collisionOnLevel.setPlacesFieldOnCollision(placesOnField)
         collisionOnLevel.runCollision(true)
     }
