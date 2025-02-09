@@ -90,7 +90,6 @@ class LevelLogic @Inject constructor(
             column = levelData.getPlacesOnFields().filter { index == it.position.first }
             levelColumns.add(column)
         }
-        println()
     }
 
 //    fun checkRoundOnBonus(winningPositions: MutableList<Pair<Int, Int>>, onBonus: Boolean) {

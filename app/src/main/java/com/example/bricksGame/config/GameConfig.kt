@@ -78,6 +78,7 @@ class GameConfig @Inject constructor() {
 
     var SPEED_OPEN_BONUS = 0.01f
     var MAX_SPEED_OPEN_BONUS = 0.1f
+    var INIT_ALPHA_BONUS = 0.1f
 
     val imagesBricks = listOf(
 
