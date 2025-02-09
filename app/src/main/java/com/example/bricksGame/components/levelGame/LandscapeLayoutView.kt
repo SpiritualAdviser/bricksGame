@@ -97,9 +97,6 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
         modifier = Modifier
             .clip(RoundedCornerShape(fieldViewModel.placeCorner.dp))
             .background(fieldViewModel.fieldBgColor)
-//            .onGloballyPositioned { coordinates ->
-//                fieldViewModel.setFieldSizeOnCollision(coordinates)
-//            }
 //            .border(4.dp, Color.Green)
     ) {
         LazyVerticalGrid(
@@ -158,11 +155,11 @@ private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
                         .offset { IntOffset(brick.cords.x.intValue, brick.cords.y.intValue) }
                         .size(bricksViewModel.brickSize.value)
                         .background(bricksViewModel.brickBgColor)
-//                        .graphicsLayer {
-//                            if (AnimationsBrick.canRunTranslation.value && !brick.animation.wasAnimated.value) {
-//                                translationY = brick.animation.translationY.value
-//                            }
-//                        }
+                        .graphicsLayer {
+                            if (AnimationsBrick.canRunTranslation.value && !brick.animation.wasAnimated.value) {
+                                translationY = brick.animation.translationY.value
+                            }
+                        }
                         .paint(
                             painterResource(brick.baseModel.assetImage),
                             sizeToIntrinsics = true,
@@ -174,7 +171,7 @@ private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
                         }
                         .pointerInput(Unit) {
                             detectDragGestures(
-//                                onDragStart = { AnimationsBrick.canRunTranslation.value = true },
+                                onDragStart = { AnimationsBrick.canRunTranslation.value = true },
                                 onDrag = { _, dragAmount ->
                                     bricksViewModel.dragging(brick, dragAmount)
                                 },
@@ -187,8 +184,8 @@ private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
                 )
                 Spacer(Modifier.size(10.dp))
             }
-//            AnimationsBrick.InitAnimationTranslationY(brick)
-//            AnimationsBrick.runAnimationTranslation(brick, index)
+            AnimationsBrick.InitAnimationTranslationY(brick)
+            AnimationsBrick.runAnimationTranslation(brick, index)
         })
     }
 }
