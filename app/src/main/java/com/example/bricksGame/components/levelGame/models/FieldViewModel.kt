@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.LayoutCoordinates
@@ -72,6 +71,14 @@ class FieldViewModel @Inject constructor(
         placeOnField.cords.globalHeight = coordinates.size.height
         placeOnField.cords.globalX = coordinates.positionInWindow().x
         placeOnField.cords.globalY = coordinates.positionInWindow().y
+    }
+
+    fun onClick(placeOnField: PlaceOnField) {
+        when (val slot=placeOnField.slot.value) {
+
+            is GameObjects.Leaves -> slot.baseModel.startAnimation("destroy")
+            else -> return
+        }
     }
 
 }
