@@ -1,6 +1,7 @@
 package com.example.bricksGame.components.levelGame.models
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.LayoutCoordinates
@@ -12,6 +13,9 @@ import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.GameObjects
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -39,6 +43,8 @@ class BricksViewModel @Inject constructor(
     var offsetBricksBlock = (brickSize.value * (fieldRows + 2)) / 2
 
     private var bricksList: MutableList<GameObjects.Brick> = levelData.getBricksList()
+
+    var canRunTranslation = mutableStateOf(false)
 
     val bricks
         get() = bricksList
@@ -97,6 +103,16 @@ class BricksViewModel @Inject constructor(
         brick.cords.globalHeight = coordinates.size.height
         brick.cords.globalX = coordinates.positionInWindow().x
         brick.cords.globalY = coordinates.positionInWindow().y
+    }
+
+    fun runAnimationTranslation(brick: GameObjects.Brick, index: Int) {
+        brick.animation.delayTranslation = 250 * (index + 1)
+
+        viewModelScope.launch(Dispatchers.Main) {
+
+            delay((brick.animation.delayTranslation + 200).toLong())
+            brick.animation.wasAnimated.value = true
+        }
     }
 }
 

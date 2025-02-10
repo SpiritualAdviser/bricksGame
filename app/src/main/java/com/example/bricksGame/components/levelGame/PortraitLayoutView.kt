@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.bricksGame.components.levelGame.animations.AnimationsBrick
+import com.example.bricksGame.components.levelGame.animations.InitAnimationTranslationX
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
@@ -179,7 +179,7 @@ private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
                         .size(bricksViewModel.brickSize.value)
                         .background(bricksViewModel.brickBgColor)
                         .graphicsLayer {
-                            if (AnimationsBrick.canRunTranslation.value && !brick.animation.wasAnimated.value) {
+                            if (bricksViewModel.canRunTranslation.value && !brick.animation.wasAnimated.value) {
                                 translationX = brick.animation.translationX.value
                             }
                         }
@@ -194,7 +194,7 @@ private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
                         }
                         .pointerInput(Unit) {
                             detectDragGestures(
-                                onDragStart = { AnimationsBrick.canRunTranslation.value = true },
+                                onDragStart = { bricksViewModel.canRunTranslation.value = true },
                                 onDrag = { _, dragAmount ->
                                     bricksViewModel.dragging(brick, dragAmount)
                                 },
@@ -207,8 +207,8 @@ private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
                 )
                 Spacer(Modifier.size(10.dp))
             }
-            AnimationsBrick.InitAnimationTranslationX(brick)
-            AnimationsBrick.runAnimationTranslation(brick, index)
+            InitAnimationTranslationX(brick)
+            bricksViewModel.runAnimationTranslation(brick, index)
         })
     }
 }
