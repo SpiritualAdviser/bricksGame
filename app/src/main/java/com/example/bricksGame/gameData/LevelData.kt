@@ -80,18 +80,28 @@ class LevelData @Inject constructor(
 
     private fun resizeFieldSize(level: Level) {
         var fieldMAxSize = 0.dp
+        var placeSize = 0.dp
+        var maxPlaceSize = gameConfig.MAX_BRICKS_SIZE
 
         if (screenSize.screenWidthDp > screenSize.screenHeightDp) {
             fieldMAxSize = screenSize.screenHeightDp - (gameConfig.PADDING_FIELD.dp * 2)
-            placeSizeOnField.value = fieldMAxSize / level.fieldColumn
+            maxPlaceSize = screenSize.screenHeightDp / 7
+
+            placeSize = fieldMAxSize / level.fieldColumn
+
+
         } else {
             fieldMAxSize = screenSize.screenWidthDp - (gameConfig.PADDING_FIELD.dp * 2)
-            placeSizeOnField.value = fieldMAxSize / level.fieldRow
+            maxPlaceSize = screenSize.screenWidthDp / 7
+            placeSize = fieldMAxSize / level.fieldRow
         }
+
+        placeSizeOnField.value =
+            if (placeSize < maxPlaceSize) placeSize else maxPlaceSize
 
         fieldWidth.value = placeSizeOnField.value * level.fieldRow + gameConfig.BRICK_BORDER_SIZE.dp
         fieldHeight.value =
             placeSizeOnField.value * level.fieldColumn + gameConfig.BRICK_BORDER_SIZE.dp
-        println()
+
     }
 }

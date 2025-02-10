@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.example.bricksGame.R
 import com.example.bricksGame.ui.theme.errorLight
 import javax.inject.Inject
@@ -49,7 +50,7 @@ class GameConfig @Inject constructor() {
     var MAX_BRICKS_ON_LEVEL = 3
     var MAX_NEGATIVE_BRICKS_ON_LEVEL = listOf<Int>(0, 0)
     var MIN_BRICKS_TO_ADD_NEXT = 0
-    val MAX_BRICKS_SIZE = 60
+    val MAX_BRICKS_SIZE = 60.dp
 
     /**
      * options for padding FieldGame in Dp

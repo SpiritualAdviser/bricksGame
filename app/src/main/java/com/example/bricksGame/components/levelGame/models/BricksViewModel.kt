@@ -13,7 +13,6 @@ import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.GameObjects
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -43,6 +42,8 @@ class BricksViewModel @Inject constructor(
     var offsetBricksBlock = (brickSize.value * (fieldRows + 2)) / 2
 
     private var bricksList: MutableList<GameObjects.Brick> = levelData.getBricksList()
+
+//    var canRunTranslation = bricksController.canRunTranslation
 
     var canRunTranslation = mutableStateOf(false)
 

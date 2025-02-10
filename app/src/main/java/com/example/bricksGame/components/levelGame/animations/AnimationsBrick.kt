@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.example.bricksGame.gameObjects.GameObjects
 
-
 @Composable
 fun InitAnimationTranslationX(brick: GameObjects.Brick) {
 

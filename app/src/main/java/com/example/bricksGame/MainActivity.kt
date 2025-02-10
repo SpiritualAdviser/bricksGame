@@ -10,7 +10,7 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
-import com.example.bricksGame.components.levelGame.animations.AnimationsBrick
+import com.example.bricksGame.components.levelGame.controller.BricksController
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.AppNavigation
 import com.example.bricksGame.helper.ScreenSize
@@ -32,6 +32,7 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var levelData: LevelData
+//    @Inject lateinit var bricksController:BricksController
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +53,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onStop() {
         super.onStop()
-        AnimationsBrick.canRunTranslation.value = false
+//        bricksController.canRunTranslation.value = false need Check Ivan!!!
         if (!isChangingConfigurations) {
             soundController.soundMuteOnStop()
         }
