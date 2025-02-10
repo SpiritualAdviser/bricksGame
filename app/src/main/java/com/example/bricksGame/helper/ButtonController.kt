@@ -1,21 +1,21 @@
 package com.example.bricksGame.helper
 
-import com.example.bricksGame.components.freeGame.FreeGameModel
-import com.example.bricksGame.components.map.models.MapModel
+import com.example.bricksGame.components.map.controller.MapController
 import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.logic.LevelLogic
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class ButtonController @Inject constructor(
     var gameConfig: GameConfig,
-    ) {
+) {
     @Inject
     lateinit var soundController: SoundController
 
     @Inject
     lateinit var appNavigation: AppNavigation
+    @Inject
+    lateinit var mapController: MapController
 
     fun navigateToHome() {
 
@@ -32,8 +32,6 @@ class ButtonController @Inject constructor(
 //        gameConfig.GAME_TYPE_FREE = onFree
         soundController.clickUi()
         soundController.playLevelTheme()
-
-//        levelLogic.onStartLevel()
         appNavigation.getNavController().navigate(Routes.LevelGame.route) {
             popUpTo(Routes.LevelGame.route)
             launchSingleTop = true
@@ -52,8 +50,8 @@ class ButtonController @Inject constructor(
     fun navigateToMap() {
         soundController.clickUi()
         soundController.playMainTheme()
+        mapController.setLevelOnMap()
 
-//        mapModel?.openLevelOnMap()
         appNavigation.getNavController().navigate(Routes.Map.route) {
 
             popUpTo(Routes.Map.route)
@@ -64,9 +62,6 @@ class ButtonController @Inject constructor(
     fun navigateFreeGame() {
         soundController.clickUi()
         soundController.playMainTheme()
-//        mapModel.openLevelOnMap()
-
-//        freeGameModel.onRunLevel(mapModel)
         navigateToLevelGame(true)
     }
 

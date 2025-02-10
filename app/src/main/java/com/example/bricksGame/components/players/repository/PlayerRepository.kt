@@ -4,7 +4,10 @@ import android.util.Log
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import com.example.bricksGame.components.players.data.DataRepository
+import com.example.bricksGame.components.players.data.LevelPlayer
 import com.example.bricksGame.components.players.data.Player
+import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.config.Level
 import com.example.bricksGame.config.LevelsConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +20,7 @@ import javax.inject.Singleton
 class PlayerRepository @Inject constructor(
     val dataRepository: DataRepository,
     private val levelsConfig: LevelsConfig,
+    private var gameConfig: GameConfig,
 ) {
 
     init {
@@ -82,5 +86,44 @@ class PlayerRepository @Inject constructor(
         dataRepository.setInactiveAllPlayers()
         player.isActive = true
         dataRepository.update(player)
+    }
+
+    private fun updatePlayerLevels(player: Player) {
+        CoroutineScope(Dispatchers.IO).launch {
+            dataRepository.update(player)
+        }
+    }
+
+    fun updatePlayerOnLevelWin(level: Level) {
+        if (gameConfig.CHEAT) {
+            return
+        }
+
+        val gameLevelList = activePlayer.levels.gameLevelList
+
+        if (!gameConfig.GAME_TYPE_FREE) {
+
+            val currentGameLevel =
+                gameLevelList.find { it.numberLevel == level.numberLevel }
+
+            currentGameLevel?.let {
+                it.numberLevelPasses += 1
+            }
+
+            val nextLevel = gameLevelList.find { it.numberLevel == level.numberLevel + 1 }
+
+            nextLevel?.let {
+
+                val newOpenLevel = listOf(
+                    LevelPlayer(
+                        numberLevel = it.numberLevel,
+                        numberLevelPasses = 0,
+                        isActive = true
+                    )
+                )
+                activePlayer.levels.openLevelList += newOpenLevel
+                updatePlayerLevels(activePlayer)
+            }
+        }
     }
 }

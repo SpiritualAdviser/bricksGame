@@ -65,38 +65,6 @@ class PlayerViewModel @Inject constructor(
 //        }
     }
 
-    fun updatePlayerOnLevelWin() {
-//        val currentLevel = MapModel.currentLevel
-//        val dataPlayerList = activePlayer.activeLevelList.activeLevelList
-//
-//        if (gameConfig.CHEAT) {
-//            return
-//        }
-//
-//        if (currentLevel != null && !gameConfig.GAME_TYPE_FREE) {
-//
-//            val currentDataLevel =
-//                dataPlayerList.find { it.numberLevel == currentLevel.numberLevel }
-//            currentDataLevel?.let {
-//                it.numberLevelPasses += 1
-//            }
-//
-//            val nextLevel = dataPlayerList.find { it.numberLevel == currentLevel.numberLevel + 1 }
-//
-//            if (nextLevel == null) {
-//                val nextLevel = listOf(
-//                    LevelPlayer(
-//                        numberLevel = currentLevel.numberLevel + 1,
-//                        numberLevelPasses = 0,
-//                        isActive = true
-//                    )
-//                )
-//                val newDataPlayerList = dataPlayerList.plus(nextLevel)
-//                activePlayer.activeLevelList.activeLevelList = newDataPlayerList
-//            }
-//        }
-//        update(activePlayer)
-    }
 
     private fun resetPlayers() {
         playerRepository.dataRepository.setInactiveAllPlayers()
