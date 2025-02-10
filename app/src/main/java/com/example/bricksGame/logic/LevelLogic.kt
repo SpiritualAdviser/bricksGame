@@ -4,6 +4,7 @@ import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
+import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.helper.SoundController
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -12,7 +13,8 @@ import javax.inject.Singleton
 class LevelLogic @Inject constructor(
     private var levelData: LevelData,
     private var gameObjectBuilder: GameObjectBuilder,
-    private var soundController: SoundController
+    private var soundController: SoundController,
+    private var buttonController: ButtonController
 ) {
 
     private var activeLevel: Level? = null
@@ -76,8 +78,8 @@ class LevelLogic @Inject constructor(
         val startIndex = linePlaces.indexOfFirst { it.position == placeOnField.position }
         val numberWinLine = getNumberWinLine(linePlaces)
 
-        goAhead(linePlaces, startIndex, comparedSlot, wonPlaces, closedPlaces)
-        goBack(linePlaces, startIndex, comparedSlot, wonPlaces, closedPlaces)
+        goAhead(linePlaces, startIndex, comparedSlot, wonPlaces, closedPlaces, numberWinLine)
+        goBack(linePlaces, startIndex, comparedSlot, wonPlaces, closedPlaces, numberWinLine)
 
         if (wonPlaces.size < numberWinLine) {
             wonPlaces.clear()
@@ -93,7 +95,8 @@ class LevelLogic @Inject constructor(
         startIndex: Int,
         comparedSlot: GameObjects.Brick,
         wonPlaces: MutableList<PlaceOnField>,
-        closedPlaces: MutableList<PlaceOnField>
+        closedPlaces: MutableList<PlaceOnField>,
+        numberWinLine: Int
     ) {
         for (index in startIndex until linePlaces.size) {
 
@@ -101,6 +104,11 @@ class LevelLogic @Inject constructor(
                 is GameObjects.Brick -> {
                     if (slot.baseModel.assetImage == comparedSlot.baseModel.assetImage) {
                         wonPlaces.add(linePlaces[index])
+                    } else {
+                        if (wonPlaces.size < numberWinLine) {
+                            wonPlaces.clear()
+                        }
+                        break
                     }
                 }
 
@@ -118,6 +126,8 @@ class LevelLogic @Inject constructor(
                 is GameObjects.Empty -> break
             }
         }
+        wonPlaces.size
+        println()
     }
 
     private fun goBack(
@@ -125,7 +135,8 @@ class LevelLogic @Inject constructor(
         startIndex: Int,
         comparedSlot: GameObjects.Brick,
         wonPlaces: MutableList<PlaceOnField>,
-        closedPlaces: MutableList<PlaceOnField>
+        closedPlaces: MutableList<PlaceOnField>,
+        numberWinLine: Int
     ) {
         for (index in startIndex - 1 downTo 0) {
             when (val slot = linePlaces[index].slot.value) {
@@ -133,6 +144,11 @@ class LevelLogic @Inject constructor(
 
                     if (slot.baseModel.assetImage == comparedSlot.baseModel.assetImage) {
                         wonPlaces.add(linePlaces[index])
+                    } else {
+                        if (wonPlaces.size < numberWinLine) {
+                            wonPlaces.clear()
+                        }
+                        break
                     }
                 }
 
@@ -150,6 +166,8 @@ class LevelLogic @Inject constructor(
                 is GameObjects.Empty -> break
             }
         }
+        wonPlaces.size
+        println()
     }
 
     private fun getNumberWinLine(linePlaces: List<PlaceOnField>): Int {
@@ -169,6 +187,7 @@ class LevelLogic @Inject constructor(
             onWin(wonPlaces)
         }
         wasWin = false
+        checkEndLevel()
     }
 
     private fun onWin(wonPlaces: MutableList<PlaceOnField>) {
@@ -217,154 +236,15 @@ class LevelLogic @Inject constructor(
         place.slot.value = emptyPlace
     }
 
+    private fun checkEndLevel() {
+//        var stepsOnLevel = MapModel.levelStep.intValue
+        val fieldGameIsFull =
+            levelData.getPlacesOnFields().all { it.slot.value !is GameObjects.Empty }
 
-//    private fun getEndIndex(
-//        linePlaces: List<PlaceOnField>,
-//        startIndex: Int,
-//        numberWinLine: Int
-//    ): Int {
-//        return if (linePlaces.size - numberWinLine <= startIndex) {
-//            startIndex
-//        } else {
-//            linePlaces.size - numberWinLine
-//        }
-//    }
+        if (fieldGameIsFull) {
+            closeLevel()
+        }
 
-
-//    fun checkRoundOnBonus(winningPositions: MutableList<Pair<Int, Int>>, onBonus: Boolean) {
-//        onEndRound(winningPositions, onBonus)
-//    }
-
-
-//    private fun onEndRound(
-//        winningPositions: MutableList<Pair<Int, Int>>,
-//        onBonus: Boolean = false
-//    ) {
-//        if (winningPositions.isNotEmpty()) {
-//
-//            onWin(winningPositions, onBonus)
-//        }
-//        checkEndLevel()
-//    }
-
-//    private fun onWin(winningPositions: MutableList<Pair<Int, Int>>, onBonus: Boolean) {
-//        soundController.winReel()
-//        addScore(winningPositions)
-//        resetLineOnWin(winningPositions, onBonus)
-//    }
-
-
-//
-//    private fun runComparator(
-//        brick: FieldBrick,
-//        bricks: List<FieldBrick>,
-//        numberWinLine: Int,
-//    ): MutableList<Int> {
-//        val indexList = mutableListOf<Int>()
-//
-//        bricks.forEachIndexed { index, fieldBrick ->
-//            if (!wasWin) {
-//                if (brick.id == fieldBrick.id) {
-//                    indexList.add(index)
-//                } else {
-//                    wasWin = checkWin(indexList, numberWinLine)
-//                }
-//            }
-//        }
-//        wasWin = checkWin(indexList, numberWinLine)
-//
-//        if (wasWin) {
-//            getClosedFieldBricks(indexList, bricks)
-//        }
-//
-//        return indexList
-//    }
-//
-//    private fun checkWin(indexList: MutableList<Int>, numberWinLine: Int): Boolean {
-//        return if (indexList.size >= numberWinLine) {
-//            true
-//        } else {
-//            indexList.clear()
-//            false
-//        }
-//    }
-//
-
-//
-
-//
-//    private fun isClosedBrick(fieldBrick: FieldBrick): Boolean {
-//        return fieldBrick.hasOwnerId == gameConfig.NEGATIVE_BONUS_LEAVES || fieldBrick.hasOwnerId == gameConfig.NEGATIVE_BONUS_ROCK
-//    }
-//
-//    private fun getClosedFieldBricks(indexList: MutableList<Int>, bricks: List<FieldBrick>) {
-//        val firstIndexBrick = indexList.first() - 1
-//        val lastIndexBrick = indexList.last() + 1
-//
-//        bricks.getOrNull(firstIndexBrick)?.run {
-//            if (isClosedBrick(bricks[firstIndexBrick])) {
-//                indexList.add(firstIndexBrick)
-//            }
-//        }
-//
-//        bricks.getOrNull(lastIndexBrick)?.run {
-//            if (isClosedBrick(bricks[lastIndexBrick])) {
-//                indexList.add(lastIndexBrick)
-//            }
-//        }
-//    }
-
-//    private fun resetLineOnWin(
-//        winningPositions: MutableList<Pair<Int, Int>>,
-//        onBonus: Boolean = false
-//    ) {
-//        if (!onBonus) {
-////            bonusControllerInstance.setAlpha(gameConfig.SPEED_OPEN_BONUS * winningPositions.size)
-//        }
-//
-//        winningPositions.forEach { winPosition ->
-//
-//            levelData.brickOnFields.find { it.position == winPosition }?.let {
-//                onResetFieldBrick(it)
-//            }
-//        }
-//    }
-
-//    private fun addScore(winningPositions: MutableList<Pair<Int, Int>>) {
-//        var score = winningPositions.size
-//        val numberWin =
-//            if (gameConfig.WIN_NUMBER_LINE == 0) winningPositions.size else gameConfig.WIN_NUMBER_LINE
-//
-//        var overBonus = winningPositions.size - (numberWin - 1)
-//
-//        if (overBonus > 0) {
-////            PlayerViewModel.addScore(numberWin * overBonus)
-//
-//            if (score > numberWin) {
-//                popupOnWinLine(true, winningPositions)
-//            } else {
-//                popupOnWinLine(false, winningPositions)
-//            }
-//
-//        } else {
-////            PlayerViewModel.addScore(score)
-//            popupOnWinLine(false, winningPositions)
-//
-//        }
-//    }
-//
-//    private fun onResetFieldBrick(fieldBrick: FieldBrick) {
-//        if (fieldBrick.life > 0) {
-//            --fieldBrick.life
-//            fieldBrick.hasBonusOwnerId = null
-//        }
-////        fieldController.checkNeedChangeAsset(fieldBrick)
-//    }
-
-//    private fun checkEndLevel() {
-////        var stepsOnLevel = MapModel.levelStep.intValue
-//        val noPlaceOnFieldGame = levelData.brickOnFields.all { it.id != EMPTY_ID }
-//
 //        if (gameConfig.GAME_TYPE_FREE) {
 //
 //            if (noPlaceOnFieldGame) {
@@ -374,7 +254,7 @@ class LevelLogic @Inject constructor(
 //            }
 //            return
 //        }
-
+//
 //        if (stepsOnLevel > 0 && !noPlaceOnFieldGame) {
 //            if (checkWinLevelOrNot()) {
 //
@@ -389,7 +269,12 @@ class LevelLogic @Inject constructor(
 //                closeLevel(checkWinLevelOrNot())
 //            }
 //        }
-//}
+    }
+
+    fun closeLevel() {
+        buttonController.navigateToHome()
+    }
+
 
 //    private fun checkWinLevelOrNot(): Boolean {
 //        val currentLevel = currentLevel
