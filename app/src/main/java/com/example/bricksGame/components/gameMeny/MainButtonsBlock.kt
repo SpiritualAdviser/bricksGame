@@ -18,7 +18,6 @@ import com.example.bricksGame.R
 import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
 import com.example.bricksGame.ui.theme.buttonText
 
-
 @Composable
 fun MainButtonsBlock(
     homeScreenViewModel: HomeScreenViewModel = hiltViewModel(),

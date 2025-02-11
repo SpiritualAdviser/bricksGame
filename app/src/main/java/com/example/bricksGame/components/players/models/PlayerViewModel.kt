@@ -1,7 +1,6 @@
 package com.example.bricksGame.components.players.models
 
 import android.util.Log
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,8 +21,6 @@ class PlayerViewModel @Inject constructor(
 
     var allPlayers = playerRepository.allPlayers
     var nameNewPlayer = mutableStateOf("")
-
-    private var activePlayer: Player = playerRepository.getActivePlayer()
 
     var playerScore = playerRepository.playerScore
     var playerAchievements = playerRepository.playerAchievements
@@ -48,23 +45,7 @@ class PlayerViewModel @Inject constructor(
             player.isActive = true
             update(player)
         }
-//        setGamePlayerParams(player)
     }
-
-    fun addScore(score: Int) {
-
-//        playerScore.value += score
-//
-//        MapModel.changeLevelTargetOnRound(score)
-//
-//        if (activePlayer.achievements < playerScore.intValue) {
-//            activePlayer.achievements = playerScore.intValue
-//            setGamePlayerParams(activePlayer)
-//
-//            update(activePlayer)
-//        }
-    }
-
 
     private fun resetPlayers() {
         playerRepository.dataRepository.setInactiveAllPlayers()
