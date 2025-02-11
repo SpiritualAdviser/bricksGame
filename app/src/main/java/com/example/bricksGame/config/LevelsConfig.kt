@@ -37,12 +37,12 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
 
         Level(
             numberLevel = 1,
-            fieldRow = 3,
-            fieldColumn = 3,
+            fieldRow = 4,
+            fieldColumn = 4,
             additionalBrick = 5,
             lastBrickToAdd = 0,
             numberOfBricksToWin = 3,
-            negativeBonuses = listOf<Int>(2, 2),
+            negativeBonuses = listOf<Int>(1, 0),
             bonusFillSpeed = 0.1f,
             numberOfScoreToWin = 40,
             levelMaxStep = 150

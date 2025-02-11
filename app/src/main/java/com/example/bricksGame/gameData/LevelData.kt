@@ -1,6 +1,7 @@
 package com.example.bricksGame.gameData
 
 import android.util.Log
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.unit.dp
 import com.example.bricksGame.config.GameConfig
@@ -30,6 +31,10 @@ class LevelData @Inject constructor(
     var fieldHeight = mutableStateOf(0.dp)
     var placeSizeOnField = mutableStateOf(0.dp)
 
+    var levelTarget = mutableIntStateOf(0)
+    var levelWinLine = mutableIntStateOf(0)
+    var levelStep = mutableIntStateOf(0)
+
     fun getActiveLevel(): Level? {
         return activeLevel
     }
@@ -52,6 +57,9 @@ class LevelData @Inject constructor(
 
     fun setActiveLevel(level: Level) {
         activeLevel = level
+        levelTarget.intValue = level.numberOfScoreToWin
+        levelWinLine.intValue = level.numberOfBricksToWin
+        levelStep.intValue = level.levelMaxStep
         onOptionChange()
     }
 
@@ -86,7 +94,6 @@ class LevelData @Inject constructor(
         if (screenSize.screenWidthDp > screenSize.screenHeightDp) {
             fieldMAxSize = screenSize.screenHeightDp - (gameConfig.PADDING_FIELD.dp * 2)
             maxPlaceSize = screenSize.screenHeightDp / 7
-
             placeSize = fieldMAxSize / level.fieldColumn
 
 

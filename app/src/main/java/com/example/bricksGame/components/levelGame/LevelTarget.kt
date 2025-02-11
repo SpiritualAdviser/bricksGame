@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.bricksGame.components.map.models.MapModel
+import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.ui.theme.onPrimaryLight
 
 @Composable
@@ -25,15 +25,14 @@ fun LevelTargetBlockPortrait() {
 
 @Composable
 fun LevelTargetBlockLandscape() {
-    Column(
-    ) {
+    Column {
         BlockLevelTarget()
     }
 }
 
 @Composable
-fun BlockLevelTarget() {
-//    Text(text = "Target: ${mapModel.levelTarget.intValue}", color = onPrimaryLight)
-//    Text("winLine: ${mapModel.levelWinLine}", color = onPrimaryLight)
-//    Text("Step: ${mapModel.levelStep.intValue}", color = onPrimaryLight)
+fun BlockLevelTarget(fieldViewModel: FieldViewModel = hiltViewModel()) {
+    Text(text = "Target: ${fieldViewModel.levelTarget.intValue}", color = onPrimaryLight)
+    Text("winLine: ${fieldViewModel.levelWinLine.intValue}", color = onPrimaryLight)
+    Text("Step: ${fieldViewModel.levelStep.intValue}", color = onPrimaryLight)
 }

@@ -9,6 +9,7 @@ import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.helper.SoundController
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.math.pow
 
 @Singleton
 class LevelLogic @Inject constructor(
@@ -28,6 +29,7 @@ class LevelLogic @Inject constructor(
     fun onStartLevel(level: Level) {
         activeLevel = level
         setRowsAndColumnsOnLevel(level)
+        playerRepository.playerScore.intValue = 0
     }
 
     private fun setRowsAndColumnsOnLevel(level: Level) {
@@ -79,7 +81,7 @@ class LevelLogic @Inject constructor(
         val wonPlaces = mutableListOf<PlaceOnField>()
         val closedPlaces = mutableListOf<PlaceOnField>()
         val startIndex = linePlaces.indexOfFirst { it.position == placeOnField.position }
-        val numberWinLine = getNumberWinLine(linePlaces)
+        val numberWinLine = getNumberWinLine(linePlaces.size)
 
         goAhead(linePlaces, startIndex, comparedSlot, wonPlaces, closedPlaces, numberWinLine)
         goBack(linePlaces, startIndex, comparedSlot, wonPlaces, closedPlaces, numberWinLine)
@@ -174,11 +176,11 @@ class LevelLogic @Inject constructor(
         println()
     }
 
-    private fun getNumberWinLine(linePlaces: List<PlaceOnField>): Int {
+    private fun getNumberWinLine(linePlaces: Int): Int {
         var winLine = 0
         activeLevel?.numberOfBricksToWin?.let {
-            winLine = if (it == 0 || it > linePlaces.size) {
-                linePlaces.size
+            winLine = if (it == 0 || it > linePlaces) {
+                linePlaces
             } else {
                 it
             }
@@ -187,9 +189,11 @@ class LevelLogic @Inject constructor(
     }
 
     private fun onEndRound(wonPlaces: MutableList<PlaceOnField>, placeOnField: PlaceOnField) {
+
         if (wasWin) {
             popupOnResetLine(placeOnField)
             onWinResetLine(wonPlaces)
+            addScoreOnPlayer(wonPlaces.size)
         }
         wasWin = false
         checkEndLevel()
@@ -246,18 +250,40 @@ class LevelLogic @Inject constructor(
         megaWin = false
     }
 
+    private fun addScoreOnPlayer(size: Int) {
+        val numberWinLine = getNumberWinLine(size)
+        var overScore = 0
+
+        if (size > numberWinLine) {
+            overScore = (size - numberWinLine).toDouble().pow(2.0).toInt()
+        }
+
+        val score = size + overScore
+        playerRepository.playerScore.intValue += score
+
+        if (playerRepository.playerScore.intValue > playerRepository.playerAchievements.intValue) {
+            playerRepository.playerAchievements.intValue = playerRepository.playerScore.intValue
+            playerRepository.updateOnIncreaseAchievements()
+        }
+
+        levelData.levelTarget.intValue -= score
+    }
+
     private fun checkEndLevel() {
         val fieldGameIsFull =
             levelData.getPlacesOnFields().all { it.slot.value !is GameObjects.Empty }
+        val stepOnLevel = --levelData.levelStep.intValue
+        val levelTarget = levelData.levelTarget.intValue
+        val onLevelWin = levelTarget <= 0
 
-        if (fieldGameIsFull) {
-            closeLevel(true)
+        if (onLevelWin || fieldGameIsFull || stepOnLevel <= 0) {
+            closeLevel(onLevelWin)
         }
     }
 
-    private fun closeLevel(onWin: Boolean) {
+    private fun closeLevel(onLevelWin: Boolean) {
 
-        if (onWin) {
+        if (onLevelWin) {
             activeLevel?.let {
                 playerRepository.updatePlayerOnLevelWin(it)
             }

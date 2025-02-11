@@ -1,4 +1,4 @@
-package com.example.bricksGame.components.players
+package com.example.bricksGame.components.levelGame
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

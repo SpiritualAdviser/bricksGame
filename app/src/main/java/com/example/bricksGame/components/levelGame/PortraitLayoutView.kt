@@ -38,7 +38,6 @@ import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.naviBar.ButtonNaviBar
-import com.example.bricksGame.components.players.PlayerScoreBlock
 import com.example.bricksGame.helper.LevelPortraitBg
 
 @Composable

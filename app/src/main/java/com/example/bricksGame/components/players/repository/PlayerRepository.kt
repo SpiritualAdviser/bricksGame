@@ -33,6 +33,8 @@ class PlayerRepository @Inject constructor(
     private var activePlayer: Player = Player(
         playerName = "Player"
     )
+
+    var playerScore = mutableIntStateOf(0)
     var playerAchievements = mutableIntStateOf(activePlayer.achievements)
     var nameActivePlayer = mutableStateOf(activePlayer.playerName)
 
@@ -88,7 +90,7 @@ class PlayerRepository @Inject constructor(
         dataRepository.update(player)
     }
 
-    private fun updatePlayerLevels(player: Player) {
+    private fun updatePlayerOnLevel(player: Player) {
         CoroutineScope(Dispatchers.IO).launch {
             dataRepository.update(player)
         }
@@ -122,8 +124,13 @@ class PlayerRepository @Inject constructor(
                     )
                 )
                 activePlayer.levels.openLevelList += newOpenLevel
-                updatePlayerLevels(activePlayer)
+                updatePlayerOnLevel(activePlayer)
             }
         }
+    }
+
+    fun updateOnIncreaseAchievements() {
+        activePlayer.achievements = playerAchievements.intValue
+        updatePlayerOnLevel(activePlayer)
     }
 }

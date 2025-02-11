@@ -53,6 +53,10 @@ class FieldViewModel @Inject constructor(
     var fieldHeight = levelData.fieldHeight
     var placeSizeOnField = levelData.placeSizeOnField
 
+    var levelTarget = levelData.levelTarget
+    var levelWinLine = levelData.levelWinLine
+    var levelStep = levelData.levelStep
+
     fun getBitmapPainter(slot: GameObjects): BitmapPainter {
         return when (slot) {
             is GameObjects.Brick -> slot.baseModel.getBitmapPainter()
