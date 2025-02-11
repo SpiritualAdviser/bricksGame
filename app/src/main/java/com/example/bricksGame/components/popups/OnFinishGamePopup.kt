@@ -36,9 +36,11 @@ fun WinPopup() {
 
 @Composable
 fun WinBlock(popupsViewModel:PopupsViewModel= hiltViewModel()) {
-
-    GifImage(popupsViewModel.imageAssetOnWinLevel)
-
+    if (popupsViewModel.levelWin.value){
+        GifImage(popupsViewModel.imageAssetOnWinLevel)
+    }else{
+        GifImage(popupsViewModel.imageAssetOnLoseLevel)
+    }
 }
 
 @Composable
@@ -57,7 +59,7 @@ fun GifImage(imageAsset: Int) {
     Image(
         painter = rememberAsyncImagePainter(imageAsset, imageLoader),
         contentDescription = null,
-        modifier = Modifier.scale(2F)
+        modifier = Modifier.scale(1.5F)
     )
 }
 

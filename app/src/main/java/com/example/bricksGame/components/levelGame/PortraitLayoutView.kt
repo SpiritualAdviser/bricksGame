@@ -38,10 +38,14 @@ import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.naviBar.ButtonNaviBar
+import com.example.bricksGame.components.popups.WinLine
+import com.example.bricksGame.components.popups.WinPopup
+import com.example.bricksGame.components.popups.animations.RunAnimationScale
+import com.example.bricksGame.components.popups.models.PopupsViewModel
 import com.example.bricksGame.helper.LevelPortraitBg
 
 @Composable
-fun PortraitLayout() {
+fun PortraitLayout(popupsViewModel: PopupsViewModel = hiltViewModel()) {
     LevelPortraitBg()
     Column(
         Modifier.fillMaxSize(),
@@ -51,14 +55,14 @@ fun PortraitLayout() {
         TopBar()
         FieldBlock()
     }
-//    if (PopupsViewModel.showPopupWinLine.value) {
-//        RunAnimationScale()
-//        WinLine()
-//    }
-//
-//    if (PopupsViewModel.showPopupOnFinishGame.value) {
-//        WinPopup()
-//    }
+    if (popupsViewModel.showPopupWinLine.value) {
+        RunAnimationScale()
+        WinLine()
+    }
+
+    if (popupsViewModel.showPopupOnFinishGame.value) {
+        WinPopup()
+    }
 }
 
 @Composable

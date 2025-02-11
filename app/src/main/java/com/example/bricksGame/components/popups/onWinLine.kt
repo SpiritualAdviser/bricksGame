@@ -11,13 +11,10 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.hilt.navigation.compose.hiltViewModel
-
 import com.example.bricksGame.components.popups.models.PopupsViewModel
 
-
-@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun WinLine(popupsViewModel:PopupsViewModel= hiltViewModel()) {
+fun WinLine(popupsViewModel: PopupsViewModel = hiltViewModel()) {
 
     Image(modifier = Modifier
         .offset {

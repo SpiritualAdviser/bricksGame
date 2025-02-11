@@ -1,12 +1,17 @@
 package com.example.bricksGame.logic
 
 import com.example.bricksGame.components.players.repository.PlayerRepository
+import com.example.bricksGame.components.popups.controller.PopupsController
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.helper.SoundController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.pow
@@ -17,7 +22,8 @@ class LevelLogic @Inject constructor(
     private var gameObjectBuilder: GameObjectBuilder,
     private var soundController: SoundController,
     private var buttonController: ButtonController,
-    private var playerRepository: PlayerRepository
+    private var playerRepository: PlayerRepository,
+    private var popupsController: PopupsController
 ) {
 
     private var activeLevel: Level? = null
@@ -246,7 +252,7 @@ class LevelLogic @Inject constructor(
     }
 
     private fun popupOnResetLine(placeOnField: PlaceOnField) {
-//        PopupsViewModel.onWinLine(megaWin, placeOnField, winLineSize, rowDirection)
+        popupsController.onWinLine(megaWin, placeOnField)
         megaWin = false
     }
 
@@ -288,47 +294,11 @@ class LevelLogic @Inject constructor(
                 playerRepository.updatePlayerOnLevelWin(it)
             }
         }
-        buttonController.navigateToHome()
+        CoroutineScope(Dispatchers.Main).launch {
+            popupsController.showPopupOnFinishGame(onLevelWin)
+            delay(1850)
+            popupsController.closePopupOnFinishGame()
+            buttonController.navigateToHome()
+        }
     }
-
-
-//    private fun checkWinLevelOrNot(): Boolean {
-//        val currentLevel = currentLevel
-//        return currentLevel != null && PlayerViewModel.playerScore.intValue >= currentLevel.numberOfScoreToWin
-//    }
-
-//
-//        val centerIndexPosition = winLineSize.div(2)
-//        val rowDirection = winningPositions.first().first == winningPositions.last().first
-//
-//        val fieldBrick =
-//            levelData.brickOnFields.find { it.position == winningPositions[centerIndexPosition] }
-//
-////        PopupsViewModel.onWinLine(megaWin, fieldBrick, winLineSize, rowDirection)
-//
-//        CoroutineScope(Dispatchers.Main).launch {
-//            delay(500)
-////            PopupsViewModel.closePopupOnWinLine()
-//        }
-//    }
-//
-//    private suspend fun closeLevel(onWin: Boolean) {
-//        if (onWin) {
-////            updatePlayerOnLevelWin()
-//        }
-////        PopupsViewModel.setImageOnLevelEnd(onWin)
-////        delay(300)
-////        PopupsViewModel.showPopupOnFinishGame()
-////        delay(1800)
-//
-//        if (gameConfig.GAME_TYPE_FREE) {
-////            fieldController.buttonController.navigateToHome()
-//        } else {
-////            fieldController.buttonController.navigateToMap()
-//        }
-//
-//        delay(300)
-////        PopupsViewModel.closePopupOnFinishGame()
-//    }
-
 }

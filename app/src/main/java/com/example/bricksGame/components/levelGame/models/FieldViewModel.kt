@@ -8,6 +8,7 @@ import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.controller.FieldController
+import com.example.bricksGame.components.popups.controller.PopupsController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
@@ -16,6 +17,10 @@ import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ScreenSize
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,7 +29,8 @@ class FieldViewModel @Inject constructor(
     val gameConfig: GameConfig,
     val screenSize: ScreenSize,
     private var fieldController: FieldController,
-    @ApplicationContext val context: Context
+    @ApplicationContext val context: Context,
+   private var popupsController: PopupsController
 ) : ViewModel() {
 
     init {
@@ -75,11 +81,18 @@ class FieldViewModel @Inject constructor(
     }
 
     fun onClick(placeOnField: PlaceOnField) {
-        when (val slot=placeOnField.slot.value) {
-
-            is GameObjects.Leaves -> slot.baseModel.startAnimation("destroy")
-            else -> return
-        }
+//        popupsController.onWinLine(true, placeOnField)
+//        CoroutineScope(Dispatchers.Main).launch {
+//            popupsController.showPopupOnFinishGame(true)
+//            delay(1800)
+//            popupsController.closePopupOnFinishGame()
+//        }
+//        when (val slot=placeOnField.slot.value) {
+//
+//            is GameObjects.Leaves -> slot.baseModel.startAnimation("destroy")
+//            else -> return
+//
+//        }
     }
 
 }
