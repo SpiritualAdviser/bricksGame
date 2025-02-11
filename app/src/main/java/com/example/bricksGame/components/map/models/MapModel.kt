@@ -33,13 +33,4 @@ class MapModel @Inject constructor(
     fun goToHome() {
         startLevelLogic.goToHome()
     }
-
-//    fun changeLevelTargetOnRound(score: Int) {
-//        levelTarget.intValue =
-//            if (levelTarget.intValue - score <= 0) 0 else levelTarget.intValue - score
-//    }
-//
-//    fun changeLevelStepOnRound() {
-//        levelStep.intValue = if (levelStep.intValue - 1 <= 0) 0 else levelStep.intValue - 1
-//    }
 }

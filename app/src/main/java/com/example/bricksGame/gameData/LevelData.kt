@@ -35,6 +35,8 @@ class LevelData @Inject constructor(
     var levelWinLine = mutableIntStateOf(0)
     var levelStep = mutableIntStateOf(0)
 
+    var freeGame = false
+
     fun getActiveLevel(): Level? {
         return activeLevel
     }

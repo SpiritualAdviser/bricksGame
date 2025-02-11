@@ -14,6 +14,7 @@ class ButtonController @Inject constructor(
 
     @Inject
     lateinit var appNavigation: AppNavigation
+
     @Inject
     lateinit var mapController: MapController
 
@@ -28,10 +29,10 @@ class ButtonController @Inject constructor(
         }
     }
 
-    fun navigateToLevelGame(onFree: Boolean = false) {
-//        gameConfig.GAME_TYPE_FREE = onFree
+    fun navigateToLevelGame() {
         soundController.clickUi()
         soundController.playLevelTheme()
+
         appNavigation.getNavController().navigate(Routes.LevelGame.route) {
             popUpTo(Routes.LevelGame.route)
             launchSingleTop = true
@@ -57,12 +58,6 @@ class ButtonController @Inject constructor(
             popUpTo(Routes.Map.route)
             launchSingleTop = true
         }
-    }
-
-    fun navigateFreeGame() {
-        soundController.clickUi()
-        soundController.playMainTheme()
-        navigateToLevelGame(true)
     }
 
     fun navigateToInfo() {

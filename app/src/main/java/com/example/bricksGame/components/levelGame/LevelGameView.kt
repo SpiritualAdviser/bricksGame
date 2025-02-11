@@ -10,19 +10,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bricksGame.R
-import com.example.bricksGame.config.GameConfig
-import com.example.bricksGame.helper.ButtonController
+import com.example.bricksGame.components.levelGame.models.FieldViewModel
 
 @Composable
-fun RunLevelGame() {
-//    BackHandler {
-//        if (GameConfig.GAME_TYPE_FREE) {
-//            ButtonController.navigateToHome()
-//        } else {
-//            ButtonController.navigateToMap()
-//        }
-//    }
+fun RunLevelGame(fieldViewModel: FieldViewModel = hiltViewModel()) {
+    BackHandler {
+        if (fieldViewModel.freeGame) {
+            fieldViewModel.navigateToHome()
+        } else {
+            fieldViewModel.navigateToMap()
+        }
+    }
 
     Box(
         contentAlignment = Alignment.Center,

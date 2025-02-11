@@ -7,11 +7,13 @@ import com.example.bricksGame.R
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.helper.SoundController
+import com.example.bricksGame.logic.StartLevelLogic
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeScreenViewModel @Inject constructor() : ViewModel() {
+class HomeScreenViewModel @Inject constructor(private var startLevelLogic: StartLevelLogic) :
+    ViewModel() {
     @Inject
     lateinit var gameConfig: GameConfig
 
@@ -23,6 +25,10 @@ class HomeScreenViewModel @Inject constructor() : ViewModel() {
 
     val imageBgPortrait by mutableIntStateOf(R.drawable.bg_main_portrait)
     val imageBgLandscape by mutableIntStateOf(R.drawable.bg_main_landscape)
+
+    fun startFreeGame() {
+        startLevelLogic.onStartFreeGame()
+    }
 }
 
 

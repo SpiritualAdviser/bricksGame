@@ -39,7 +39,7 @@ fun MainButtonsBlock(
 
         IconButton(
             onClick = {
-                homeScreenViewModel.buttonController.navigateFreeGame()
+                homeScreenViewModel.startFreeGame()
             },
             modifier = Modifier
                 .size(100.dp, 43.dp)

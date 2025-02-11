@@ -6,6 +6,7 @@ import com.example.bricksGame.components.levelGame.controller.BricksController
 import com.example.bricksGame.components.levelGame.controller.FieldController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
+import com.example.bricksGame.config.LevelsConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ButtonController
 import javax.inject.Inject
@@ -21,7 +22,8 @@ class StartLevelLogic @Inject constructor(
     private var bonusController: BonusController,
     private var collisionOnLevel: CollisionOnLevel,
     private var roundLogic: RoundLogic,
-    private val levelLogic: LevelLogic
+    private val levelLogic: LevelLogic,
+    private var levelsConfig: LevelsConfig
 ) {
 
     init {
@@ -30,7 +32,13 @@ class StartLevelLogic @Inject constructor(
 
     private var activeLevel: Level? = null
 
-    fun onStartLevel(level: Level) {
+    fun onStartFreeGame() {
+        val level = levelsConfig.gameFreeLevel
+        onStartLevel(level, true)
+    }
+
+    fun onStartLevel(level: Level, freeGame: Boolean = false) {
+        levelData.freeGame = freeGame
         activeLevel = level
         activeLevel?.let {
             createLevelResources(it)
@@ -63,5 +71,9 @@ class StartLevelLogic @Inject constructor(
 
     fun goToHome() {
         buttonController.navigateToHome()
+    }
+
+    fun goToMap() {
+        buttonController.navigateToMap()
     }
 }

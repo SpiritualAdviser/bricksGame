@@ -7,15 +7,18 @@ import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameObjects.BaseModel
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
+import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.logic.GameObjectBuilder
 import com.example.bricksGame.helper.SpriteAnimation
+import com.example.bricksGame.logic.StartLevelLogic
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class FieldController @Inject constructor(
     @ApplicationContext val context: Context,
     private var gameConfig: GameConfig,
-    private val gameObjectBuilder: GameObjectBuilder
+    private val gameObjectBuilder: GameObjectBuilder,
+    private var buttonController: ButtonController
 ) {
 
     init {
@@ -57,5 +60,13 @@ class FieldController @Inject constructor(
             }
         }
         return slot
+    }
+
+    fun goToHome() {
+        buttonController.navigateToHome()
+    }
+
+    fun goToMap() {
+        buttonController.navigateToMap()
     }
 }

@@ -8,7 +8,7 @@ import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.components.levelGame.controller.FieldController
-import com.example.bricksGame.components.popups.controller.PopupsController
+import com.example.bricksGame.components.map.controller.MapController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
@@ -17,10 +17,6 @@ import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ScreenSize
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,7 +26,6 @@ class FieldViewModel @Inject constructor(
     val screenSize: ScreenSize,
     private var fieldController: FieldController,
     @ApplicationContext val context: Context,
-   private var popupsController: PopupsController
 ) : ViewModel() {
 
     init {
@@ -41,6 +36,8 @@ class FieldViewModel @Inject constructor(
         super.onCleared()
         Log.d("my", "FieldViewModel_onCleared")
     }
+
+    var freeGame = levelData.freeGame
 
     private var activeLevel: Level? = levelData.getActiveLevel()
 
@@ -95,4 +92,11 @@ class FieldViewModel @Inject constructor(
 //        }
     }
 
+    fun navigateToHome() {
+        fieldController.goToHome()
+    }
+
+    fun navigateToMap() {
+        fieldController.goToMap()
+    }
 }

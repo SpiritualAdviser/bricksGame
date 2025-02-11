@@ -1,5 +1,6 @@
 package com.example.bricksGame.logic
 
+import com.example.bricksGame.components.map.controller.MapController
 import com.example.bricksGame.components.players.repository.PlayerRepository
 import com.example.bricksGame.components.popups.controller.PopupsController
 import com.example.bricksGame.config.Level
@@ -23,7 +24,8 @@ class LevelLogic @Inject constructor(
     private var soundController: SoundController,
     private var buttonController: ButtonController,
     private var playerRepository: PlayerRepository,
-    private var popupsController: PopupsController
+    private var popupsController: PopupsController,
+    private var mapController: MapController
 ) {
 
     private var activeLevel: Level? = null
@@ -267,9 +269,14 @@ class LevelLogic @Inject constructor(
         val score = size + overScore
         playerRepository.playerScore.intValue += score
 
+
         if (playerRepository.playerScore.intValue > playerRepository.playerAchievements.intValue) {
             playerRepository.playerAchievements.intValue = playerRepository.playerScore.intValue
             playerRepository.updateOnIncreaseAchievements()
+        }
+
+        if (levelData.freeGame) {
+            return
         }
 
         levelData.levelTarget.intValue -= score
@@ -278,10 +285,17 @@ class LevelLogic @Inject constructor(
     private fun checkEndLevel() {
         val fieldGameIsFull =
             levelData.getPlacesOnFields().all { it.slot.value !is GameObjects.Empty }
-        val stepOnLevel = --levelData.levelStep.intValue
-        val levelTarget = levelData.levelTarget.intValue
-        val onLevelWin = levelTarget <= 0
 
+
+        var stepOnLevel = levelData.levelStep.intValue
+        val levelTarget = levelData.levelTarget.intValue
+        var onLevelWin = levelTarget <= 0
+
+        if (levelData.freeGame) {
+            stepOnLevel = 10
+            onLevelWin = false
+        }
+        --stepOnLevel
         if (onLevelWin || fieldGameIsFull || stepOnLevel <= 0) {
             closeLevel(onLevelWin)
         }
@@ -289,7 +303,7 @@ class LevelLogic @Inject constructor(
 
     private fun closeLevel(onLevelWin: Boolean) {
 
-        if (onLevelWin) {
+        if (onLevelWin && !levelData.freeGame) {
             activeLevel?.let {
                 playerRepository.updatePlayerOnLevelWin(it)
             }
@@ -298,6 +312,7 @@ class LevelLogic @Inject constructor(
             popupsController.showPopupOnFinishGame(onLevelWin)
             delay(1850)
             popupsController.closePopupOnFinishGame()
+            delay(200)
             buttonController.navigateToHome()
         }
     }
