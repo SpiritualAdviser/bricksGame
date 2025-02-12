@@ -2,14 +2,12 @@ package com.example.bricksGame.components.levelGame.controller
 
 import android.content.Context
 import android.util.Log
-import androidx.compose.runtime.mutableStateOf
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameObjects.GameObjects
-import com.example.bricksGame.logic.GameObjectBuilder
 import com.example.bricksGame.logic.CollisionOnLevel
+import com.example.bricksGame.logic.GameObjectBuilder
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import javax.inject.Singleton
 
 
 class BricksController @Inject constructor(

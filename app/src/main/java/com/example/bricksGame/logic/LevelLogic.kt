@@ -165,11 +165,6 @@ class LevelLogic @Inject constructor(
                 is GameObjects.Brick -> {
                     if (slot.baseModel.assetImage == comparedSlot.baseModel.assetImage) {
                         wonPlaces.add(linePlaces[index])
-                    } else {
-                        if (wonPlaces.size < numberWinLine) {
-                            wonPlaces.clear()
-                        }
-                        break
                     }
                 }
 

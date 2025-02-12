@@ -100,6 +100,7 @@ class GameObjectBuilder @Inject constructor(
         if (gameConfig.imagesBricks.elementAtOrNull(maxColors) == null) {
             maxColors = gameConfig.imagesBricks.size - 1
         }
+       maxColors = 2
 
         return gameConfig.imagesBricks[(0..maxColors).random()]
     }
@@ -135,7 +136,7 @@ class GameObjectBuilder @Inject constructor(
         val min = 0.001F
         val max = 0.7F
         newBonus.baseModel.alpha.value = ((Math.random() * (max - min) + min).toFloat())
-
+        newBonus.baseModel.alpha.value=1F
         return newBonus
     }
 }
