@@ -22,12 +22,12 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
     val gameFreeLevel: Level =
         Level(
             numberLevel = 1,
-            fieldRow = 5,
-            fieldColumn = 6,
+            fieldRow = 6,
+            fieldColumn = 7,
             additionalBrick = 3,
             lastBrickToAdd = 0,
-            numberOfBricksToWin = 2,
-            negativeBonuses = listOf<Int>(3, 3),
+            numberOfBricksToWin = 3,
+            negativeBonuses = listOf<Int>(2, 2),
             bonusFillSpeed = 0.05f,
             numberOfScoreToWin = 0,
             levelMaxStep = 0

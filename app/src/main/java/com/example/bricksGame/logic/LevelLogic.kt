@@ -165,6 +165,8 @@ class LevelLogic @Inject constructor(
                 is GameObjects.Brick -> {
                     if (slot.baseModel.assetImage == comparedSlot.baseModel.assetImage) {
                         wonPlaces.add(linePlaces[index])
+                    } else {
+                        break
                     }
                 }
 
@@ -200,9 +202,6 @@ class LevelLogic @Inject constructor(
                     if (slot.baseModel.assetImage == comparedSlot.baseModel.assetImage) {
                         wonPlaces.add(linePlaces[index])
                     } else {
-                        if (wonPlaces.size < numberWinLine) {
-                            wonPlaces.clear()
-                        }
                         break
                     }
                 }
@@ -238,13 +237,13 @@ class LevelLogic @Inject constructor(
     }
 
     private fun onEndRound(wonPlaces: MutableList<PlaceOnField>, placeOnField: PlaceOnField) {
-
+println()
         if (wasWinLine) {
             popupOnResetLine(placeOnField)
             onWinResetLine(wonPlaces)
             addScoreOnPlayer(wonPlaces.size)
 
-            levelData.getBonusList().forEach {bonus->
+            levelData.getBonusList().forEach { bonus ->
                 if (bonus.baseModel.alpha.value < 1F) {
 
                     activeLevel?.let {
@@ -266,7 +265,7 @@ class LevelLogic @Inject constructor(
             when (val slot = place.slot.value) {
                 is GameObjects.Bonus -> resetPlace(place)
                 is GameObjects.Brick -> resetPlace(place)
-                is GameObjects.Empty -> return
+                is GameObjects.Empty -> {}
                 is GameObjects.Leaves -> {
                     life = --slot.baseModel.life
                     when (life) {
@@ -275,7 +274,7 @@ class LevelLogic @Inject constructor(
                             soundController.rustleOfLeaves()
                         }
 
-                        else -> return
+                        else -> {}
                     }
                 }
 
@@ -292,7 +291,7 @@ class LevelLogic @Inject constructor(
                             soundController.stoneCrack()
                         }
 
-                        else -> return
+                        else -> {}
                     }
                 }
             }
