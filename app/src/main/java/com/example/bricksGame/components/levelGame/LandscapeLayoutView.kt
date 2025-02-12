@@ -35,10 +35,14 @@ import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
 import com.example.bricksGame.components.naviBar.ButtonNaviBar
+import com.example.bricksGame.components.popups.WinLine
+import com.example.bricksGame.components.popups.WinPopup
+import com.example.bricksGame.components.popups.animations.RunAnimationScale
+import com.example.bricksGame.components.popups.models.PopupsViewModel
 import com.example.bricksGame.helper.LevelLandscapeBg
 
 @Composable
-fun LandscapeLayout() {
+fun LandscapeLayout(popupsViewModel: PopupsViewModel = hiltViewModel()) {
 
     LevelLandscapeBg()
     ButtonBlock()
@@ -47,14 +51,14 @@ fun LandscapeLayout() {
     BonusBlock()
     BricksBlock()
 
-//    if (PopupsViewModel.showPopupWinLine.value) {
-//        RunAnimationScale()
-//        WinLine()
-//    }
-//
-//    if (PopupsViewModel.showPopupOnFinishGame.value) {
-//        WinPopup()
-//    }
+    if (popupsViewModel.showPopupWinLine.value) {
+        RunAnimationScale()
+        WinLine()
+    }
+
+    if (popupsViewModel.showPopupOnFinishGame.value) {
+        WinPopup()
+    }
 }
 
 @Composable
