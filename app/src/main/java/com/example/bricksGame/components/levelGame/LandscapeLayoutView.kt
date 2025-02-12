@@ -221,6 +221,14 @@ private fun BonusBlock(bonusViewModel: BonusViewModel = hiltViewModel()) {
         ) {
             (bonusViewModel.bonuses.forEach { bonus ->
                 key(bonus.baseModel.id) {
+                    if (bonus.baseModel.alpha.value >= 1F) {
+                        bonus.baseModel.activeBorderColor.value =
+                            bonus.baseModel.hoverBorder
+                    } else {
+                        bonus.baseModel.activeBorderColor.value =
+                            bonus.baseModel.defaultBorder
+                    }
+
                     Box(
                         Modifier
                             .zIndex(bonus.baseModel.zIndex.value)
@@ -239,7 +247,7 @@ private fun BonusBlock(bonusViewModel: BonusViewModel = hiltViewModel()) {
                                 detectDragGestures(
                                     onDragStart = {},
                                     onDrag = { _, dragAmount ->
-                                        if (bonus.cords.canDrag) {
+                                        if (bonus.baseModel.alpha.value >= 1F) {
                                             bonusViewModel.dragging(bonus, dragAmount)
                                         }
                                     },

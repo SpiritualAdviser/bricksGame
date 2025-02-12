@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
@@ -251,6 +252,13 @@ private fun BonusBlock(
         ) {
             bonusViewModel.bonuses.forEach { bonus ->
                 key(bonus.baseModel.id) {
+                    if (bonus.baseModel.alpha.value >= 1F) {
+                        bonus.baseModel.activeBorderColor.value =
+                            bonus.baseModel.hoverBorder
+                    } else {
+                        bonus.baseModel.activeBorderColor.value =
+                            bonus.baseModel.defaultBorder
+                    }
                     Box(
                         Modifier
                             .zIndex(bonus.baseModel.zIndex.value)
@@ -269,7 +277,7 @@ private fun BonusBlock(
                                 detectDragGestures(
                                     onDragStart = {},
                                     onDrag = { _, dragAmount ->
-                                        if (bonus.cords.canDrag) {
+                                        if (bonus.baseModel.alpha.value >= 1F) {
                                             bonusViewModel.dragging(bonus, dragAmount)
                                         }
                                     },

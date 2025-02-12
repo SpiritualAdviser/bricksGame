@@ -11,5 +11,5 @@ data class Cords(
     var globalY: Float = 0f,
     var globalWidth: Int = 0,
     var globalHeight: Int = 0,
-    var canDrag: Boolean = true,
+    var canDrag: Boolean = false,
 )

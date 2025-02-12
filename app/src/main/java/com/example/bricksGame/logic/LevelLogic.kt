@@ -249,6 +249,16 @@ class LevelLogic @Inject constructor(
             popupOnResetLine(placeOnField)
             onWinResetLine(wonPlaces)
             addScoreOnPlayer(wonPlaces.size)
+
+            levelData.getBonusList().forEach {bonus->
+                if (bonus.baseModel.alpha.value < 1F) {
+
+                    activeLevel?.let {
+                        val addAlpha = wonPlaces.size * it.bonusFillSpeed
+                        bonus.baseModel.alpha.value += addAlpha
+                    }
+                }
+            }
         }
         wasWinLine = false
         checkEndLevel()

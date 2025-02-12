@@ -133,6 +133,10 @@ class GameObjectBuilder @Inject constructor(
             }
         }
 
+        val min = 0.001F
+        val max = 0.7F
+        newBonus.baseModel.alpha.value = ((Math.random() * (max - min) + min).toFloat())
+
         return newBonus
     }
 }
