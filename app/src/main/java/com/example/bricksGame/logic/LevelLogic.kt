@@ -1,6 +1,5 @@
 package com.example.bricksGame.logic
 
-import com.example.bricksGame.components.map.controller.MapController
 import com.example.bricksGame.components.players.repository.PlayerRepository
 import com.example.bricksGame.components.popups.controller.PopupsController
 import com.example.bricksGame.config.Level
@@ -25,13 +24,12 @@ class LevelLogic @Inject constructor(
     private var buttonController: ButtonController,
     private var playerRepository: PlayerRepository,
     private var popupsController: PopupsController,
-    private var mapController: MapController
 ) {
 
     private var activeLevel: Level? = null
     private var levelRows = mutableListOf<List<PlaceOnField>>()
     private var levelColumns = mutableListOf<List<PlaceOnField>>()
-    private var wasWin = false
+    private var wasWinLine = false
     private var megaWin = false
 
     fun onStartLevel(level: Level) {
@@ -54,6 +52,55 @@ class LevelLogic @Inject constructor(
         for (index in 0 until level.fieldColumn) {
             column = levelData.getPlacesOnFields().filter { index == it.position.first }
             levelColumns.add(column)
+        }
+    }
+
+    fun checkRoundOnBonus(gameObj: GameObjects.Bonus, placeOnField: PlaceOnField) {
+
+        if (gameObj.bonusType.ise) {
+            val column =
+                levelColumns.find { it.first().position.first == placeOnField.position.first }
+            runBonusEffect(column, gameObj, placeOnField)
+        }
+
+        if (gameObj.bonusType.fire) {
+            val row =
+                levelRows.find { it.first().position.second == placeOnField.position.second }
+            runBonusEffect(row, gameObj, placeOnField)
+        }
+        if (gameObj.bonusType.hammer) {
+            resetPlace(placeOnField)
+        }
+    }
+
+    private fun runBonusEffect(
+        line: List<PlaceOnField>?,
+        gameObj: GameObjects.Bonus,
+        placeOnField: PlaceOnField
+    ) {
+        val wonPlaces = mutableListOf<PlaceOnField>()
+
+        line?.let { isLine ->
+            isLine.forEach { placeField ->
+
+                when (placeField.slot.value) {
+                    is GameObjects.Brick -> {
+                        placeField.slot.value = gameObj
+                        wonPlaces.add(placeField)
+                    }
+
+                    is GameObjects.Bonus -> wonPlaces.add(placeField)
+                    is GameObjects.Leaves -> wonPlaces.add(placeField)
+                    is GameObjects.Rock -> wonPlaces.add(placeField)
+                    else -> {}
+                }
+            }
+        }
+
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(200)
+            wasWinLine = wonPlaces.isNotEmpty()
+            onEndRound(wonPlaces, placeOnField)
         }
     }
 
@@ -99,7 +146,7 @@ class LevelLogic @Inject constructor(
         } else {
             megaWin = wonPlaces.size > numberWinLine
             wonPlaces.addAll(closedPlaces)
-            wasWin = true
+            wasWinLine = true
         }
         return wonPlaces
     }
@@ -198,12 +245,12 @@ class LevelLogic @Inject constructor(
 
     private fun onEndRound(wonPlaces: MutableList<PlaceOnField>, placeOnField: PlaceOnField) {
 
-        if (wasWin) {
+        if (wasWinLine) {
             popupOnResetLine(placeOnField)
             onWinResetLine(wonPlaces)
             addScoreOnPlayer(wonPlaces.size)
         }
-        wasWin = false
+        wasWinLine = false
         checkEndLevel()
     }
 
@@ -213,7 +260,7 @@ class LevelLogic @Inject constructor(
             var life = 1
 
             when (val slot = place.slot.value) {
-                is GameObjects.Bonus -> return
+                is GameObjects.Bonus -> resetPlace(place)
                 is GameObjects.Brick -> resetPlace(place)
                 is GameObjects.Empty -> return
                 is GameObjects.Leaves -> {

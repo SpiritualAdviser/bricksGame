@@ -4,7 +4,6 @@ import android.content.Context
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
-import com.example.bricksGame.gameObjects.BaseModel
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.SoundController
@@ -98,7 +97,7 @@ class RoundLogic @Inject constructor(
 
     private fun resetOnBonus(gameObj: GameObjects.Bonus, placeOnField: PlaceOnField) {
         gameObj.baseModel.alpha.value = gameConfig.INIT_ALPHA_BONUS
-        placeOnField.slot.value = GameObjects.Empty(BaseModel(context))
+        levelLogic.checkRoundOnBonus(gameObj, placeOnField)
     }
 
     private fun resetOnBrick(gameObj: GameObjects.Brick, placeOnField: PlaceOnField) {

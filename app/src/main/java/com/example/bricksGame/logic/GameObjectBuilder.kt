@@ -8,6 +8,7 @@ import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.Animation
 import com.example.bricksGame.gameObjects.BaseModel
+import com.example.bricksGame.gameObjects.BonusType
 import com.example.bricksGame.gameObjects.Cords
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
@@ -47,7 +48,7 @@ class GameObjectBuilder @Inject constructor(
     }
 
     fun getEmptyPlace(): GameObjects.Empty {
-       return GameObjects.Empty(BaseModel(context))
+        return GameObjects.Empty(BaseModel(context))
     }
 
     private fun createPlace(positionColumn: Int, positionRow: Int): PlaceOnField {
@@ -99,7 +100,7 @@ class GameObjectBuilder @Inject constructor(
         if (gameConfig.imagesBricks.elementAtOrNull(maxColors) == null) {
             maxColors = gameConfig.imagesBricks.size - 1
         }
-        maxColors=2
+        maxColors = 2
 
         return gameConfig.imagesBricks[(0..maxColors).random()]
     }
@@ -113,8 +114,24 @@ class GameObjectBuilder @Inject constructor(
     }
 
     private fun createBonus(i: Int): GameObjects.Bonus {
-        val newBonus = GameObjects.Bonus(baseModel = BaseModel(context = context), Cords())
-        newBonus.baseModel.assetImage = gameConfig.imagesBricksBonuses[i]
+        val newBonus =
+            GameObjects.Bonus(baseModel = BaseModel(context = context), Cords(), BonusType())
+        when (i) {
+            0 -> {
+                newBonus.bonusType.ise = true
+                newBonus.baseModel.assetImage = gameConfig.imagesBricksBonuses[0]
+            }
+
+            1 -> {
+                newBonus.bonusType.fire = true
+                newBonus.baseModel.assetImage = gameConfig.imagesBricksBonuses[1]
+            }
+
+            2 -> {
+                newBonus.bonusType.hammer = true
+                newBonus.baseModel.assetImage = gameConfig.imagesBricksBonuses[2]
+            }
+        }
 
         return newBonus
     }
