@@ -10,11 +10,12 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
-import com.example.bricksGame.components.levelGame.controller.BricksController
+import androidx.compose.ui.platform.LocalContext
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.AppNavigation
 import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
+import com.example.bricksGame.helper.SpriteAnimation
 import com.example.bricksGame.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -32,7 +33,6 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var levelData: LevelData
-//    @Inject lateinit var bricksController:BricksController
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +43,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
+
+            val context = LocalContext.current
+            if (!soundController.isRun) {
+                soundController.setContext(context)
+                soundController.playMainTheme()
+            }
+
+            setSprite(context)
+
             screenSize.GetScreenSize()
             levelData.onOptionChange()
             AppTheme {
@@ -72,6 +81,11 @@ class MainActivity : ComponentActivity() {
             newOverride.fontScale = 1.3f
         applyOverrideConfiguration(newOverride)
         super.attachBaseContext(newBase)
+    }
+
+    private fun setSprite(context: Context) {
+        val animList = listOf("bg_close_brick.json", "bg_close_leaves.json")
+        SpriteAnimation.setAnimationOnGame(context, animList)
     }
 }
 

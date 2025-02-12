@@ -26,7 +26,7 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
             fieldColumn = 6,
             additionalBrick = 3,
             lastBrickToAdd = 0,
-            numberOfBricksToWin = 4,
+            numberOfBricksToWin = 2,
             negativeBonuses = listOf<Int>(3, 3),
             bonusFillSpeed = 0.05f,
             numberOfScoreToWin = 0,

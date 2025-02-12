@@ -183,7 +183,6 @@ class LevelLogic @Inject constructor(
             }
         }
         wonPlaces.size
-        println()
     }
 
     private fun goBack(
