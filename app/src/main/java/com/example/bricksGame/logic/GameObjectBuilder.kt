@@ -100,7 +100,6 @@ class GameObjectBuilder @Inject constructor(
         if (gameConfig.imagesBricks.elementAtOrNull(maxColors) == null) {
             maxColors = gameConfig.imagesBricks.size - 1
         }
-        maxColors = 2
 
         return gameConfig.imagesBricks[(0..maxColors).random()]
     }
