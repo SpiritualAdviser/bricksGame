@@ -6,11 +6,15 @@ import android.graphics.BitmapFactory
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import com.google.gson.Gson
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 
 data class Cords(
     val x: Int,
@@ -130,13 +134,32 @@ class Sprite(
 
 }
 
-object SpriteAnimation {
+@Singleton
+class SpriteAnimation @Inject constructor(
+    @ApplicationContext val context: Context
+) {
+
+   private val spriteFileNames = listOf(
+        "bg_close_brick.json",
+        "bg_close_leaves.json",
+        "blue_brick.json",
+        "bronze_brick.json",
+        "dark_blue_brick.json",
+        "dark_brick.json",
+        "gold_brick.json",
+        "green_brick.json",
+        "orange_brick.json",
+        "pink_brick.json",
+        "purple_brick.json",
+        "red_brick.json"
+    )
+
     private var animations = mutableListOf<Sprite>()
 
     private val gson = Gson()
 
-    fun setAnimationOnGame(context: Context, fileNames: List<String>) {
-        fileNames.forEach { nameSprite ->
+    fun setAnimationOnGame() {
+        spriteFileNames.forEach { nameSprite ->
             val jsonString = getJsonDataFromAsset(context, nameSprite)
             jsonString?.let { nameSpriteString ->
                 val sprite = unparseJson(nameSpriteString)

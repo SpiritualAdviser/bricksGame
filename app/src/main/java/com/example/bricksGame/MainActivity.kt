@@ -50,8 +50,6 @@ class MainActivity : ComponentActivity() {
                 soundController.playMainTheme()
             }
 
-            setSprite(context)
-
             screenSize.GetScreenSize()
             levelData.onOptionChange()
             AppTheme {
@@ -81,11 +79,6 @@ class MainActivity : ComponentActivity() {
             newOverride.fontScale = 1.3f
         applyOverrideConfiguration(newOverride)
         super.attachBaseContext(newBase)
-    }
-
-    private fun setSprite(context: Context) {
-        val animList = listOf("bg_close_brick.json", "bg_close_leaves.json")
-        SpriteAnimation.setAnimationOnGame(context, animList)
     }
 }
 

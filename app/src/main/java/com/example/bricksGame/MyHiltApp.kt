@@ -20,8 +20,12 @@ class MyHiltApp : Application() {
     @Inject
     lateinit var playerRepository: PlayerRepository
 
+    @Inject
+    lateinit var spriteAnimation: SpriteAnimation
+
     override fun onCreate() {
         super.onCreate()
+        spriteAnimation.setAnimationOnGame()
 
 //      applicationContext.deleteDatabase("player_database")
 

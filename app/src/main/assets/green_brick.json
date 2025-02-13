@@ -1,0 +1,137 @@
+{ "frames": [
+   {
+    "filename": "orange_brick 0.png",
+    "frame": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "sourceSize": { "w": 110, "h": 111 },
+    "duration": 100
+   },
+   {
+    "filename": "orange_brick 1.png",
+    "frame": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "sourceSize": { "w": 110, "h": 111 },
+    "duration": 100
+   },
+   {
+    "filename": "orange_brick 2.png",
+    "frame": { "x": 110, "y": 0, "w": 110, "h": 111 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "sourceSize": { "w": 110, "h": 111 },
+    "duration": 100
+   },
+   {
+    "filename": "orange_brick 3.png",
+    "frame": { "x": 220, "y": 0, "w": 110, "h": 111 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "sourceSize": { "w": 110, "h": 111 },
+    "duration": 100
+   },
+   {
+    "filename": "orange_brick 4.png",
+    "frame": { "x": 330, "y": 0, "w": 110, "h": 111 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "sourceSize": { "w": 110, "h": 111 },
+    "duration": 100
+   },
+   {
+    "filename": "orange_brick 5.png",
+    "frame": { "x": 0, "y": 111, "w": 110, "h": 111 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "sourceSize": { "w": 110, "h": 111 },
+    "duration": 100
+   },
+   {
+    "filename": "orange_brick 6.png",
+    "frame": { "x": 110, "y": 111, "w": 110, "h": 111 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "sourceSize": { "w": 110, "h": 111 },
+    "duration": 100
+   },
+   {
+    "filename": "orange_brick 7.png",
+    "frame": { "x": 220, "y": 111, "w": 110, "h": 111 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "sourceSize": { "w": 110, "h": 111 },
+    "duration": 100
+   },
+   {
+    "filename": "orange_brick 8.png",
+    "frame": { "x": 330, "y": 111, "w": 110, "h": 111 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "sourceSize": { "w": 110, "h": 111 },
+    "duration": 100
+   },
+   {
+    "filename": "orange_brick 9.png",
+    "frame": { "x": 0, "y": 222, "w": 110, "h": 111 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "sourceSize": { "w": 110, "h": 111 },
+    "duration": 100
+   },
+   {
+    "filename": "orange_brick 10.png",
+    "frame": { "x": 110, "y": 222, "w": 110, "h": 111 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "sourceSize": { "w": 110, "h": 111 },
+    "duration": 100
+   },
+   {
+    "filename": "orange_brick 11.png",
+    "frame": { "x": 220, "y": 222, "w": 110, "h": 111 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "sourceSize": { "w": 110, "h": 111 },
+    "duration": 100
+   },
+   {
+    "filename": "orange_brick 12.png",
+    "frame": { "x": 330, "y": 222, "w": 110, "h": 111 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
+    "sourceSize": { "w": 110, "h": 111 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.12-x64",
+  "image": "green_brick-sheet.png",
+  "format": "RGBA8888",
+  "size": { "w": 440, "h": 333 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "idle", "from": 0, "to": 0, "direction": "forward", "color": "#000000ff" },
+   { "name": "destroy", "from": 1, "to": 12, "direction": "forward", "color": "#000000ff" }
+  ],
+  "layers": [
+   { "name": "Layer", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
