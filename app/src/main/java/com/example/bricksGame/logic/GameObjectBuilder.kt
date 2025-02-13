@@ -13,6 +13,8 @@ import com.example.bricksGame.gameObjects.Cords
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ScreenSize
+import com.example.bricksGame.helper.Sprite
+import com.example.bricksGame.helper.SpriteAnimation
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -24,6 +26,7 @@ class GameObjectBuilder @Inject constructor(
     private val screenSize: ScreenSize,
     private val gameConfig: GameConfig,
     private val levelData: LevelData,
+    private val spriteAnimation: SpriteAnimation
 ) {
     private var brickId = 0L
 
@@ -88,8 +91,27 @@ class GameObjectBuilder @Inject constructor(
             )
         )
 
-        newBrick.baseModel.assetImage = getRandomImage(level)
+        baseModel.sprite = getRandomSprite(level)
+
+//        newBrick.baseModel.assetImage = getRandomImage(level)
         return newBrick
+    }
+
+    private fun getRandomSprite(level: Level): Sprite? {
+
+        var maxColors = max(level.fieldColumn, level.fieldRow)
+
+        if (level.numberOfBricksToWin == 0) maxColors else maxColors += 1
+
+        if (gameConfig.spriteBrickList.elementAtOrNull(maxColors) == null) {
+            maxColors = gameConfig.spriteBrickList.size - 1
+        }
+//       maxColors = 2
+
+        val nameSprite = gameConfig.spriteBrickList[(0..maxColors).random()]
+
+        val sprite = spriteAnimation.getSprite(nameSprite)
+        return sprite
     }
 
     private fun getRandomImage(level: Level): Int {
@@ -136,7 +158,7 @@ class GameObjectBuilder @Inject constructor(
         val min = 0.001F
         val max = 0.7F
         newBonus.baseModel.alpha.value = ((Math.random() * (max - min) + min).toFloat())
-        newBonus.baseModel.alpha.value=1F
+        newBonus.baseModel.alpha.value = 1F
         return newBonus
     }
 }

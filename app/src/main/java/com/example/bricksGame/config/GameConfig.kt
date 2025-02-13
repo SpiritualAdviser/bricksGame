@@ -95,6 +95,19 @@ class GameConfig @Inject constructor() {
         R.drawable.dark_brick,
     )
 
+    val spriteBrickList = listOf(
+        "blue_brick.json",
+        "bronze_brick.json",
+        "dark_blue_brick.json",
+        "dark_brick.json",
+        "gold_brick.json",
+        "green_brick.json",
+        "orange_brick.json",
+        "pink_brick.json",
+        "purple_brick.json",
+        "red_brick.json"
+    )
+
     val imagesWinLine = listOf(
         R.drawable.wow,
         R.drawable.mega,

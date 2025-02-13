@@ -21,8 +21,8 @@ class BaseModel(var context: Context?) {
     var alpha: MutableState<Float> = mutableFloatStateOf(1f)
     var zIndex: MutableState<Float> = mutableFloatStateOf(0f)
     var life = 1
-    var hoverBorder= Color(0xFF01A817)
-    var defaultBorder= Color.Black
+    var hoverBorder = Color(0xFF01A817)
+    var defaultBorder = Color.Black
     var activeBorderColor: MutableState<Color> = mutableStateOf(defaultBorder)
 
     private var placeOnField: PlaceOnField? = null

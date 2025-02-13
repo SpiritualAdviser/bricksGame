@@ -6,7 +6,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
     "sourceSize": { "w": 110, "h": 111 },
-    "duration": 100
+    "duration": 80
    },
    {
     "filename": "orange_brick 1.png",
@@ -15,7 +15,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
     "sourceSize": { "w": 110, "h": 111 },
-    "duration": 100
+    "duration": 80
    },
    {
     "filename": "orange_brick 2.png",
@@ -24,7 +24,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
     "sourceSize": { "w": 110, "h": 111 },
-    "duration": 100
+    "duration": 80
    },
    {
     "filename": "orange_brick 3.png",
@@ -33,7 +33,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
     "sourceSize": { "w": 110, "h": 111 },
-    "duration": 100
+    "duration": 80
    },
    {
     "filename": "orange_brick 4.png",
@@ -42,7 +42,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
     "sourceSize": { "w": 110, "h": 111 },
-    "duration": 100
+    "duration": 80
    },
    {
     "filename": "orange_brick 5.png",
@@ -51,7 +51,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
     "sourceSize": { "w": 110, "h": 111 },
-    "duration": 100
+    "duration": 80
    },
    {
     "filename": "orange_brick 6.png",
@@ -60,7 +60,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
     "sourceSize": { "w": 110, "h": 111 },
-    "duration": 100
+    "duration": 80
    },
    {
     "filename": "orange_brick 7.png",
@@ -69,7 +69,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
     "sourceSize": { "w": 110, "h": 111 },
-    "duration": 100
+    "duration": 80
    },
    {
     "filename": "orange_brick 8.png",
@@ -78,7 +78,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
     "sourceSize": { "w": 110, "h": 111 },
-    "duration": 100
+    "duration": 80
    },
    {
     "filename": "orange_brick 9.png",
@@ -87,7 +87,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
     "sourceSize": { "w": 110, "h": 111 },
-    "duration": 100
+    "duration": 80
    },
    {
     "filename": "orange_brick 10.png",
@@ -96,7 +96,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
     "sourceSize": { "w": 110, "h": 111 },
-    "duration": 100
+    "duration": 80
    },
    {
     "filename": "orange_brick 11.png",
@@ -105,7 +105,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
     "sourceSize": { "w": 110, "h": 111 },
-    "duration": 100
+    "duration": 80
    },
    {
     "filename": "orange_brick 12.png",
@@ -114,7 +114,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 110, "h": 111 },
     "sourceSize": { "w": 110, "h": 111 },
-    "duration": 100
+    "duration": 80
    }
  ],
  "meta": {

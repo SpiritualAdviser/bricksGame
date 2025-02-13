@@ -163,10 +163,25 @@ class LevelLogic @Inject constructor(
 
             when (val slot = linePlaces[index].slot.value) {
                 is GameObjects.Brick -> {
-                    if (slot.baseModel.assetImage == comparedSlot.baseModel.assetImage) {
-                        wonPlaces.add(linePlaces[index])
+                    val sprite = slot.baseModel.sprite
+                    val comparedSprite = comparedSlot.baseModel.sprite
+
+                    if (sprite != null && comparedSprite != null) {
+
+                        if (sprite.imageSheet == comparedSprite.imageSheet) {
+                            wonPlaces.add(linePlaces[index])
+                        } else {
+                            break
+                        }
+
                     } else {
-                        break
+
+                        if (slot.baseModel.assetImage == comparedSlot.baseModel.assetImage) {
+                            wonPlaces.add(linePlaces[index])
+                        } else {
+                            break
+                        }
+
                     }
                 }
 
@@ -198,11 +213,24 @@ class LevelLogic @Inject constructor(
         for (index in startIndex - 1 downTo 0) {
             when (val slot = linePlaces[index].slot.value) {
                 is GameObjects.Brick -> {
+                    val sprite = slot.baseModel.sprite
+                    val comparedSprite = comparedSlot.baseModel.sprite
 
-                    if (slot.baseModel.assetImage == comparedSlot.baseModel.assetImage) {
-                        wonPlaces.add(linePlaces[index])
+                    if (sprite != null && comparedSprite != null) {
+
+                        if (sprite.imageSheet == comparedSprite.imageSheet) {
+                            wonPlaces.add(linePlaces[index])
+                        } else {
+                            break
+                        }
+
                     } else {
-                        break
+
+                        if (slot.baseModel.assetImage == comparedSlot.baseModel.assetImage) {
+                            wonPlaces.add(linePlaces[index])
+                        } else {
+                            break
+                        }
                     }
                 }
 
@@ -237,7 +265,7 @@ class LevelLogic @Inject constructor(
     }
 
     private fun onEndRound(wonPlaces: MutableList<PlaceOnField>, placeOnField: PlaceOnField) {
-println()
+        println()
         if (wasWinLine) {
             popupOnResetLine(placeOnField)
             onWinResetLine(wonPlaces)
@@ -264,7 +292,18 @@ println()
 
             when (val slot = place.slot.value) {
                 is GameObjects.Bonus -> resetPlace(place)
-                is GameObjects.Brick -> resetPlace(place)
+                is GameObjects.Brick -> {
+                    val sprite = slot.baseModel.sprite
+
+                    if (sprite != null) {
+
+                        slot.baseModel.startAnimation("destroy", false, place, needReset = true)
+
+                    } else {
+                        resetPlace(place)
+                    }
+                }
+
                 is GameObjects.Empty -> {}
                 is GameObjects.Leaves -> {
                     life = --slot.baseModel.life
