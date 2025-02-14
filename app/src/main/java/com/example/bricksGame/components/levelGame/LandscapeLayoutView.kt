@@ -158,7 +158,7 @@ private fun BricksBlock(bricksViewModel: BricksViewModel = hiltViewModel()) {
                             }
                         }
                         .paint(
-                            painterResource(brick.baseModel.assetImage),
+                            painter = brick.baseModel.getBitmapPainter(),
                             sizeToIntrinsics = true,
                             contentScale = ContentScale.FillBounds
                         )
