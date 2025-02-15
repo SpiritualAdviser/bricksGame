@@ -2,6 +2,8 @@ Cavas And Crystals
 ========
 ![logo](https://github.com/user-attachments/assets/b7e392d9-3e62-4190-b1a2-cd04561b7a96)
 
+# Demo
+
 # History
 
 When I was writing web games in javascript, I had the idea that it would be great to create a standalone game that is not connected to the Internet. At this point, I decided to learn the new kotlin programming language and android application development. So I got excited to write my own game.
