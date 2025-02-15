@@ -12,3 +12,6 @@ Creating this project was a challenge for me to create a game in a new language.
 
 # How to play
 In the game you have to open 200 scrolls, Each scroll is a level in which you need to complete the objectives. The next level opens after completing the previous one. By dropping combinations of colored crystals, you score points. When the required number of points is reached, the level is completed successfully. You have a limited number of moves to do this, and there are obstacles on the playing squares that need to be cleared. Among other things, your achievements are saved in the player's card. You can create as many players as you need, but each player has their own game progress.
+
+# Technologies
+In the game, I use elements from my engine to calculate collisions of objects on the stage. The visual design is implemented on Jetpack Compose. I use Hilt for dependencies. The database is based on Room. I deploy json files using the libs.gson library. To animate the winning and losing levels libs.coil.gif . The game has Sprite startup logic implemented by me without any libraries. I use navigation compose to navigate the game. The sound was made using MediaPlayer
