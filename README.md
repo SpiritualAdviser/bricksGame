@@ -15,3 +15,9 @@ In the game you have to open 200 scrolls, Each scroll is a level in which you ne
 
 # Technologies
 In the game, I use elements from my engine to calculate collisions of objects on the stage. The visual design is implemented on Jetpack Compose. I use Hilt for dependencies. The database is based on Room. I deploy json files using the libs.gson library. To animate the winning and losing levels libs.coil.gif . The game has Sprite startup logic implemented by me without any libraries. I use navigation compose to navigate the game. The sound was made using MediaPlayer
+# Game elements
+## The main menu is the main component of the entrance to the application
+## Player menu - here we create and select players in the game
+## Free-to-play mode - One level for endless play and practice
+## Adventure is the main story mode of the game
+## Information - information about the author and links to his works
