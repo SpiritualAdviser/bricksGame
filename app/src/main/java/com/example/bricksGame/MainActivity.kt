@@ -72,6 +72,7 @@ class MainActivity : ComponentActivity() {
 //                    dataModal = dataPlayerRecords
 //                )
             Log.d("myy: ", result.toString())
+            println()
         }
 
         setContent {
