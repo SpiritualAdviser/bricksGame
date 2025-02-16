@@ -1,14 +1,14 @@
 <h1 align="center">Hi there, I'm <a href="https://spiritualadviser.github.io/Standcorexam/index.html" target="_blank">Roma</a> 
-:hand:
-<p align="center"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=300&duration=3000&pause=2000&color=F7840E&center=true&vCenter=true&width=260&lines=I+present+my+project" alt="Typing SVG" />
-<br align="center"><img src="https://github.com/user-attachments/assets/ce42938f-1b73-4397-ba71-4f97f18e402d" width=210 height="110"/>
-<h1 align="center">History</h1>
+:hand:</h1>
+
 <p  align="left">When I was writing web games in javaScript, I had the idea that it would be great to create a standalone game that is not connected to the Internet. At this point, I decided to learn the new kotlin programming language and android application development. So I got excited to write my own game.</p>
+
+<p align="left"> Creating this project was a challenge for me to create a game in a new language. The goal of this project was to create a simple, ad-free logic game aimed at the average player. At the same time, it is not loaded logically and allows you to spend time comfortably.</p>
  
-<p align="left"> Creating this project was a challenge for me to create a game in a new language. The goal of this project was to create a simple, ad-free logic game aimed at the average player. This game contains the best three-in-a-row game mechanics. At the same time, it is not loaded logically and allows you to spend time comfortably.</p>
+<p align="center"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=300&duration=3000&pause=2000&color=F7840E&center=true&vCenter=true&width=260&lines=I+present+my+project" alt="Typing SVG" />
+<br align="center"><img src="https://github.com/user-attachments/assets/ce42938f-1b73-4397-ba71-4f97f18e402d" width=210 height="110"/></p>
 
 <h1 align="center">How to play</h1>
-
 In the game you have to open 200 scrolls, Each scroll is a level in which you need to complete the objectives. The next level opens after completing the previous one. By dropping combinations of colored crystals, you score points. When the required number of points is reached, the level is completed successfully. You have a limited number of moves to do this, and there are obstacles on the playing squares that need to be cleared. Among other things, your achievements are saved in the player's card. You can create as many players as you need, but each player has their own game progress.
 
 <h1 align="center">Technologies</h1>
@@ -23,7 +23,7 @@ In the game you have to open 200 scrolls, Each scroll is a level in which you ne
  ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 
 The game supports flipping the screen. as well as tablet screens and devices with Fold type screens.
-The project is implemented using the Single Activity Application pattern. In the game, I use elements from my engine to calculate collisions of objects on the stage. The visual design is implemented on Jetpack Compose. I use Hilt for dependencies. The database is based on Room. I am deploying json files using the libs.gson library. To animate the winning and losing levels libs.coil.gif . The game implements the logic of launching sprites without using any libraries. I use navigation compose to navigate the game. The audio was played using MediaPlayer
+The project is implemented using the Single Activity Application pattern. In the game, I use elements from my engine to calculate collisions of objects on the stage. The visual design is implemented on Jetpack Compose. I use Hilt for dependencies. The database is based on Room. I am deploying json files using the libs.gson library. To animate the winning and losing levels libs.coil.gif. The game implements the logic of launching sprites without using any libraries. I use navigation compose to navigate the game. The audio was played using MediaPlayer
 
 # Game elements
 ## The main menu is the main component of the entrance to the application
