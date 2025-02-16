@@ -1,8 +1,10 @@
-Cavas And Crystals 
-========
-![logo](https://github.com/user-attachments/assets/b7e392d9-3e62-4190-b1a2-cd04561b7a96)
+<h1 align="center">Hi there, I'm <a href="https://spiritualadviser.github.io/Standcorexam/index.html" target="_blank">Roma</a> 
+<img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
+<h3 align="center">IT developer from Russia 🇷🇺</h3>
+<h1 align="center"><img src="https://github.com/user-attachments/assets/ce42938f-1b73-4397-ba71-4f97f18e402d" height="60"/></h1>
 
-# Demo
+
+ # Demo
 
 # History
 
