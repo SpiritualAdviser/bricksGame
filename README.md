@@ -33,7 +33,12 @@ The project is implemented using the Single Activity Application pattern. In the
 <p>Adventure is the main story mode of the game</p>
 <p>Information - information about the author and links to his works</p>
 
-<h1 align="center">Info</h1>
-
+<h1 align="center">
+<p align="center">:mailbox_with_mail: <a href="https://spiritualadviser.github.io/Standcorexam/index.html" target="_blank">contacts</a> :mailbox_with_mail: </p>
+ </h1>
+ 
+<h2 align="center">
+ 
 [![trophy](https://github-profile-trophy.vercel.app/?username=SpiritualAdviser)](https://github.com/SpiritualAdviser)
 [![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=SpiritualAdviser)](https://github.com/SpiritualAdviser)
+</h2>
