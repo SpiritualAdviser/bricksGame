@@ -32,3 +32,7 @@ The project is implemented using the Single Activity Application pattern. In the
 <p>Free-to-play mode - One level for endless play and practice</p>
 <p>Adventure is the main story mode of the game</p>
 <p>Information - information about the author and links to his works</p>
+
+<h1 align="center">Info</h1>
+
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=SpiritualAdviser)](https://github.com/SpiritualAdviser/github-readme-stats)
