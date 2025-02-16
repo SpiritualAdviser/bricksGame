@@ -9,7 +9,7 @@ data class DataPlayerRecords(
 
 @Serializable
 data class PlayerAchievement(
-    var id: Int,
+    var id: String,
     var name: String,
     var achievements: Int = 0,
     var levels: Int,

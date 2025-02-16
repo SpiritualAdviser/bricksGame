@@ -2,16 +2,16 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "71295ba3c159ef6c2fed2fa5cb5af488",
+    "identityHash": "69adf4ae39b475795530a1665188bbc3",
     "entities": [
       {
         "tableName": "players",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `playerName` TEXT NOT NULL, `achievements` INTEGER NOT NULL, `isActive` INTEGER NOT NULL, `levels` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `playerName` TEXT NOT NULL, `achievements` INTEGER NOT NULL, `isActive` INTEGER NOT NULL, `levels` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -40,7 +40,7 @@
           }
         ],
         "primaryKey": {
-          "autoGenerate": true,
+          "autoGenerate": false,
           "columnNames": [
             "id"
           ]
@@ -52,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '71295ba3c159ef6c2fed2fa5cb5af488')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '69adf4ae39b475795530a1665188bbc3')"
     ]
   }
 }

@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
                 soundController.setContext(context)
                 soundController.playMainTheme()
             }
-
+//            context.deleteDatabase("player_database")
             screenSize.GetScreenSize()
             levelData.onOptionChange()
             AppTheme {

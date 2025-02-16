@@ -14,8 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PlayerViewModel @Inject constructor(
     private var playerRepository: PlayerRepository,
-) :
-    ViewModel() {
+) : ViewModel() {
 
     var nameNoEmpty = false
 

@@ -29,8 +29,8 @@ class MyHiltApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        spriteAnimation.setAnimationOnGame()
-        playerRecordsRepository.getRecords()
 
+        spriteAnimation.setAnimationOnGame()
+//        playerRecordsRepository.getRecords()
     }
 }

@@ -9,6 +9,7 @@ import com.example.bricksGame.components.players.data.Player
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.config.LevelsConfig
+import com.example.bricksGame.internet.PlayerRecordsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -21,6 +22,7 @@ class PlayerRepository @Inject constructor(
     val dataRepository: DataRepository,
     private val levelsConfig: LevelsConfig,
     private var gameConfig: GameConfig,
+    private var playerRecordsRepository: PlayerRecordsRepository
 ) {
 
     init {
@@ -123,8 +125,10 @@ class PlayerRepository @Inject constructor(
                         isActive = true
                     )
                 )
+
                 activePlayer.levels.openLevelList += newOpenLevel
                 updatePlayerOnLevel(activePlayer)
+                playerRecordsRepository.setRecords(activePlayer)
             }
         }
     }

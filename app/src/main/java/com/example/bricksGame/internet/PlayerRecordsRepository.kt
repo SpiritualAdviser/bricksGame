@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateListOf
 import com.example.bricksGame.components.players.data.Player
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,7 +21,7 @@ class PlayerRecordsRepository @Inject constructor() {
     private var defaultPlayerRecords: DataPlayerRecords = DataPlayerRecords(
         players = mutableListOf(
             PlayerAchievement(
-                id = 0,
+                id = "111111111",
                 name = "0",
                 achievements = 0,
                 levels = 1
@@ -35,10 +36,13 @@ class PlayerRecordsRepository @Inject constructor() {
         CoroutineScope(Dispatchers.IO).launch {
             val result = apiService.getData()
             if (result.isSuccessful) {
-                result.body()?.let {
+                result.body()?.let { dataRecords ->
+                    val sortRecords = dataRecords.players
+                    sortRecords.sortByDescending { it.achievements }
+
                     playerRecords.clear()
-                    playerRecords.addAll(it.players)
-                    dataPlayerRecords = it
+                    playerRecords.addAll(sortRecords)
+                    dataPlayerRecords = dataRecords
                 }
                 println()
             }
@@ -49,12 +53,12 @@ class PlayerRecordsRepository @Inject constructor() {
 
         val newPlayerRecords =
             PlayerAchievement(
-                id = 0,
+                id = player.id,
                 name = player.playerName,
                 achievements = player.achievements,
                 levels = player.levels.openLevelList.size
             )
-        val isIndexPlayer = dataPlayerRecords.players.indexOfFirst { it.name == player.playerName }
+        val isIndexPlayer = dataPlayerRecords.players.indexOfFirst { it.id == player.id }
 
         if (isIndexPlayer >= 0) {
             dataPlayerRecords.players[isIndexPlayer] = newPlayerRecords
@@ -65,6 +69,7 @@ class PlayerRecordsRepository @Inject constructor() {
 
         CoroutineScope(Dispatchers.IO).launch {
             val result = apiService.postData("application/json", dataModal = dataPlayerRecords)
+            delay(6000)
             getRecords()
         }
     }

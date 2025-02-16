@@ -3,11 +3,12 @@ package com.example.bricksGame.components.players.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.bricksGame.config.Level
+import java.util.UUID
 import kotlin.collections.mutableListOf
 
 @Entity(tableName = "players")
 class Player(
-    @PrimaryKey(autoGenerate = true) var id: Long = 0,
+    @PrimaryKey() var id: String = UUID.randomUUID().toString(),
     var playerName: String,
     var achievements: Int = 0,
     var isActive: Boolean = true,

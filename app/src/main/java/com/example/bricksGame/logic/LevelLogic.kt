@@ -8,6 +8,7 @@ import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.helper.SoundController
+import com.example.bricksGame.internet.PlayerRecordsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -374,7 +375,6 @@ class LevelLogic @Inject constructor(
     private fun checkEndLevel() {
         val fieldGameIsFull =
             levelData.getPlacesOnFields().all { it.slot.value !is GameObjects.Empty }
-
 
         var stepOnLevel = levelData.levelStep.intValue
         val levelTarget = levelData.levelTarget.intValue

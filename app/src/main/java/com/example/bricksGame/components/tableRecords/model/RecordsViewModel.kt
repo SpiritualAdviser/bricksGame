@@ -15,8 +15,8 @@ class RecordsViewModel @Inject constructor(
     var playerRecords = getPlayers()
 
     private fun getPlayers(): SnapshotStateList<PlayerAchievement> {
-        val sortRecords = playerRecordsRepository.playerRecords
-        sortRecords.sortByDescending { it.achievements }
-        return sortRecords
+        playerRecordsRepository.getRecords()
+
+        return playerRecordsRepository.playerRecords
     }
 }
