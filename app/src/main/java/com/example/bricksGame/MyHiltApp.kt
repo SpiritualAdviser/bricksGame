@@ -7,6 +7,7 @@ import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.helper.SoundController
 import com.example.bricksGame.helper.SpriteAnimation
+import com.example.bricksGame.internet.PlayerRecordsRepository
 import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
@@ -23,22 +24,13 @@ class MyHiltApp : Application() {
     @Inject
     lateinit var spriteAnimation: SpriteAnimation
 
+    @Inject
+    lateinit var playerRecordsRepository: PlayerRecordsRepository
+
     override fun onCreate() {
         super.onCreate()
         spriteAnimation.setAnimationOnGame()
+        playerRecordsRepository.getRecords()
 
-//      applicationContext.deleteDatabase("player_database")
-
-//        if (!soundController.isRun) {
-//            soundController.setContext(applicationContext)
-//            soundController.playMainTheme()
-//        }
-//
-//        setSprite()
     }
-
-//    private fun setSprite() {
-//        val animList = listOf("bg_close_brick.json", "bg_close_leaves.json")
-//        SpriteAnimation.setAnimationOnGame(applicationContext, animList)
-//    }
 }

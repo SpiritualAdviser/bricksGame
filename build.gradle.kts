@@ -9,3 +9,9 @@ plugins {
 
     id("com.google.dagger.hilt.android") version "2.55" apply false
 }
+
+buildscript {
+    dependencies {
+        classpath(libs.secrets.gradle.plugin)
+    }
+}

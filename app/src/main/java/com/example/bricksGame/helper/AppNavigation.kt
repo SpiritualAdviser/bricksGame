@@ -1,8 +1,6 @@
 package com.example.bricksGame.helper
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.LinearEasing
@@ -20,6 +18,7 @@ import com.example.bricksGame.components.info.Info
 import com.example.bricksGame.components.levelGame.RunLevelGame
 import com.example.bricksGame.components.map.MapComponent
 import com.example.bricksGame.components.players.PlayerView
+import com.example.bricksGame.components.tableRecords.Records
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -59,6 +58,8 @@ class AppNavigation @Inject constructor() {
             composable(Routes.Players.route) { PlayerView() }
             composable(Routes.Info.route) { Info("https://spiritualadviser.github.io/Standcorexam/") }
             composable(Routes.Map.route) { MapComponent() }
+
+            composable(Routes.Records.route) { Records() }
         }
     }
 
@@ -73,6 +74,7 @@ sealed class Routes(val route: String) {
     data object Players : Routes("Players")
     data object Info : Routes("Description")
     data object Map : Routes("Map")
+    data object Records : Routes("Records")
 }
 
 

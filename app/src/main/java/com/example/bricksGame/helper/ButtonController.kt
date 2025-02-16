@@ -48,6 +48,15 @@ class ButtonController @Inject constructor(
         }
     }
 
+    fun navigateToRecords() {
+        soundController.clickUi()
+        appNavigation.getNavController().navigate(Routes.Records.route) {
+
+            popUpTo(Routes.Players.route)
+            launchSingleTop = true
+        }
+    }
+
     fun navigateToMap() {
         soundController.clickUi()
         soundController.playMainTheme()

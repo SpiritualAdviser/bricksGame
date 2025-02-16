@@ -2,6 +2,7 @@ package com.example.bricksGame.components.players.data
 
 import android.content.Context
 import com.example.bricksGame.config.GameConfig
+import com.example.bricksGame.internet.PlayerRecordsRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -12,6 +13,7 @@ class DataRepository @Inject constructor(
     @ApplicationContext
     private val context: Context,
     var gameConfig: GameConfig,
+    private var playerRecordsRepository: PlayerRecordsRepository
 ) {
 
    private var playerDatabase: PlayerDatabase = getPlayerDatabase(context)
@@ -29,6 +31,7 @@ class DataRepository @Inject constructor(
     }
 
     suspend fun addPlayer(player: Player) {
+        playerRecordsRepository.setRecords(player)
         playerDatabase.getDao().addData(player)
     }
 
@@ -38,6 +41,7 @@ class DataRepository @Inject constructor(
 
     fun update(player: Player) {
         if (!gameConfig.CHEAT) {
+            playerRecordsRepository.setRecords(player)
             playerDatabase.getDao().update(player)
         }
     }

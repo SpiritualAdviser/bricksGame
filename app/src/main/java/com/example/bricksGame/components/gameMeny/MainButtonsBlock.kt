@@ -59,6 +59,16 @@ fun MainButtonsBlock(
         ) { Text("Players", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
 
         IconButton(
+            onClick = { homeScreenViewModel.buttonController.navigateToRecords() },
+            modifier = Modifier
+                .size(100.dp, 43.dp)
+                .paint(
+                    painter = painterResource(R.drawable.buttons_empty),
+                    contentScale = ContentScale.Fit
+                )
+        ) { Text("Records", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
+
+        IconButton(
             onClick = { homeScreenViewModel.buttonController.navigateToInfo() },
             modifier = Modifier
                 .size(100.dp, 43.dp)

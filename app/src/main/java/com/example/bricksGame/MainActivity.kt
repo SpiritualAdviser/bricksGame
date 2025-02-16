@@ -51,32 +51,7 @@ class MainActivity : ComponentActivity() {
         )
         super.onCreate(savedInstanceState)
 
-        val apiService = RetrofitClient.getClient().create(APIService::class.java)
-
-        val dataPlayerRecords = DataPlayerRecords(
-            players = mutableListOf(
-                PlayerAchievement(
-                    id = 0,
-                    name = "111",
-                    achievements = 0,
-                    levels = 1
-                )
-            )
-        )
-
-        lifecycleScope.launch(Dispatchers.IO) {
-            delay(4000)
-            val result =
-               apiService.getData()
-//                apiService.postData(
-//                    dataModal = dataPlayerRecords
-//                )
-            Log.d("myy: ", result.toString())
-            println()
-        }
-
         setContent {
-
             val context = LocalContext.current
             if (!soundController.isRun) {
                 soundController.setContext(context)
