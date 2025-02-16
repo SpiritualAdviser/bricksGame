@@ -1,4 +1,4 @@
-<h1 align="center">Hi there, I'm <a href="https://spiritualadviser.github.io/Standcorexam/index.html" target="_blank">Roma</a> 
+<h1 align="center">Hi there, I'm <a href="https://spiritualadviser.github.io/Standcorexam/index.html" target="_blank">Roman</a> 
 :hand:</h1>
 
 <p  align="left">When I was writing web games in javaScript, I had the idea that it would be great to create a standalone game that is not connected to the Internet. At this point, I decided to learn the new kotlin programming language and android application development. So I got excited to write my own game.</p>
@@ -35,4 +35,5 @@ The project is implemented using the Single Activity Application pattern. In the
 
 <h1 align="center">Info</h1>
 
-[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=SpiritualAdviser)](https://github.com/SpiritualAdviser/github-readme-stats)
+[![trophy](https://github-profile-trophy.vercel.app/?username=SpiritualAdviser)](https://github.com/SpiritualAdviser)
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=SpiritualAdviser)](https://github.com/SpiritualAdviser)
