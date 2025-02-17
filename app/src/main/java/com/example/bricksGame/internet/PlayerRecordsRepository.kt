@@ -69,8 +69,8 @@ class PlayerRecordsRepository @Inject constructor() {
 
         CoroutineScope(Dispatchers.IO).launch {
             val result = apiService.postData("application/json", dataModal = dataPlayerRecords)
-            delay(6000)
-            getRecords()
+//            delay(6000)
+//            getRecords()
         }
     }
 }

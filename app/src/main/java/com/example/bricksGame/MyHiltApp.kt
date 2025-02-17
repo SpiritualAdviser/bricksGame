@@ -24,13 +24,13 @@ class MyHiltApp : Application() {
     @Inject
     lateinit var spriteAnimation: SpriteAnimation
 
-    @Inject
-    lateinit var playerRecordsRepository: PlayerRecordsRepository
+//    @Inject
+//    lateinit var playerRecordsRepository: PlayerRecordsRepository
 
     override fun onCreate() {
         super.onCreate()
 
         spriteAnimation.setAnimationOnGame()
-//        playerRecordsRepository.getRecords()
+//       playerRecordsRepository.getRecords()
     }
 }

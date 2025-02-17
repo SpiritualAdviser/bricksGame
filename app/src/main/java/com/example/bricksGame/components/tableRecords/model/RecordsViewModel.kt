@@ -1,5 +1,6 @@
 package com.example.bricksGame.components.tableRecords.model
 
+import android.util.Log
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import com.example.bricksGame.internet.PlayerAchievement
@@ -11,6 +12,10 @@ import javax.inject.Inject
 class RecordsViewModel @Inject constructor(
     private var playerRecordsRepository: PlayerRecordsRepository
 ) : ViewModel() {
+
+    init {
+        Log.d("my", "RecordsViewModel_init")
+    }
 
     var playerRecords = getPlayers()
 
