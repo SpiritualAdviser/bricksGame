@@ -3,6 +3,7 @@ package com.example.bricksGame.internet
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import com.example.bricksGame.components.players.data.Player
+import com.example.bricksGame.components.players.repository.PlayerRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -15,6 +16,8 @@ class PlayerRecordsRepository @Inject constructor() {
     init {
         Log.d("my", "PlayersRecordsRepository")
     }
+
+    private var activePlayer: Player? = null
 
     private val apiService = RetrofitClient.getClient().create(APIService::class.java)
 
@@ -42,6 +45,10 @@ class PlayerRecordsRepository @Inject constructor() {
 
                     playerRecords.clear()
                     playerRecords.addAll(sortRecords)
+
+                    activePlayer?.let { player ->
+                        playerRecords.find { it.id == player.id }?.active = true
+                    }
                     dataPlayerRecords = dataRecords
                 }
                 println()
@@ -72,5 +79,15 @@ class PlayerRecordsRepository @Inject constructor() {
 //            delay(6000)
 //            getRecords()
         }
+    }
+
+    fun updateTypeOfBase() {
+        CoroutineScope(Dispatchers.IO).launch {
+            apiService.postData("application/json", dataModal = defaultPlayerRecords)
+        }
+    }
+
+    fun setActivePlayer(player: Player) {
+        activePlayer = player
     }
 }

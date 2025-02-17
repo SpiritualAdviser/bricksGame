@@ -83,6 +83,7 @@ class PlayerRepository @Inject constructor(
         activePlayer?.let {
             playerAchievements.intValue = it.achievements
             nameActivePlayer.value = it.playerName
+            playerRecordsRepository.setActivePlayer(activePlayer)
         }
     }
 

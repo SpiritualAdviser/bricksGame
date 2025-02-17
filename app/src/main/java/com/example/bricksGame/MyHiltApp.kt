@@ -31,6 +31,6 @@ class MyHiltApp : Application() {
         super.onCreate()
 
         spriteAnimation.setAnimationOnGame()
-//       playerRecordsRepository.getRecords()
+//        playerRecordsRepository.updateTypeOfBase()
     }
 }

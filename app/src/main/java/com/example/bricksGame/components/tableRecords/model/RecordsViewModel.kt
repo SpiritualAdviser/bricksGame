@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecordsViewModel @Inject constructor(
-    private var playerRecordsRepository: PlayerRecordsRepository
+    private var playerRecordsRepository: PlayerRecordsRepository,
 ) : ViewModel() {
 
     init {
@@ -21,7 +21,6 @@ class RecordsViewModel @Inject constructor(
 
     private fun getPlayers(): SnapshotStateList<PlayerAchievement> {
         playerRecordsRepository.getRecords()
-
         return playerRecordsRepository.playerRecords
     }
 }

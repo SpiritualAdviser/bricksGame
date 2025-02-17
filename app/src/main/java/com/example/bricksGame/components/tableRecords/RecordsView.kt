@@ -36,6 +36,7 @@ import com.example.bricksGame.internet.PlayerAchievement
 import com.example.bricksGame.ui.theme.activePlayerBgCard
 import com.example.bricksGame.ui.theme.errorContainerDarkMediumContrast
 import com.example.bricksGame.ui.theme.onPrimaryLight
+import com.example.bricksGame.ui.theme.outlineVariantDark
 import com.example.bricksGame.ui.theme.playerTextDark
 import com.example.bricksGame.ui.theme.playersBgBlock
 
@@ -108,18 +109,29 @@ fun PlayerRecordCard(playerAchievement: PlayerAchievement) {
             Text(playerAchievement.name, fontSize = 14.sp, color = playerTextDark)
         }
         Row {
-            Text("achievement: ${playerAchievement.achievements}", fontSize = 14.sp, color = playerTextDark)
+            Text(
+                "achievement: ${playerAchievement.achievements}",
+                fontSize = 14.sp,
+                color = playerTextDark
+            )
         }
         Box(
-            Modifier.fillMaxWidth(),
+            Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
             contentAlignment = Alignment.CenterEnd,
-        ) {
+
+            ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(
                     Icons.Filled.Star, contentDescription = "Star",
-                    tint = errorContainerDarkMediumContrast
+                    tint = if (playerAchievement.active) {
+                        errorContainerDarkMediumContrast
+                    } else {
+                        outlineVariantDark
+                    }
                 )
             }
         }

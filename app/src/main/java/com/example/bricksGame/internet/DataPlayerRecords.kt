@@ -13,5 +13,6 @@ data class PlayerAchievement(
     var name: String,
     var achievements: Int = 0,
     var levels: Int,
+    var active: Boolean = false
 )
 
