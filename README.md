@@ -23,7 +23,7 @@ In the game you have to open 200 scrolls, Each scroll is a level in which you ne
  ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 
 The game supports flipping the screen. as well as tablet screens and devices with Fold type screens.
-The project is implemented using the Single Activity Application pattern. In the game, I use elements from my engine to calculate collisions of objects on the stage. The visual design is implemented on Jetpack Compose. I use Hilt for dependencies. The database is based on Room. I am deploying json files using the libs.gson library. To animate the winning and losing levels libs.coil.gif. The game implements the logic of launching sprites without using any libraries. I use navigation compose to navigate the game. The audio was played using MediaPlayer
+The project is implemented using the Single Activity Application pattern. In the game, I use elements from my engine to calculate collisions of objects on the stage. The visual design is implemented on Jetpack Compose. I use Hilt for dependencies. The database is based on Room. I am deploying json files using the libs.gson library. To animate the winning and losing levels libs.coil.gif. The game implements the logic of launching sprites without using any libraries and Kotlin Coroutines. I use navigation compose to navigate the game. The audio was played using MediaPlayer. The table storage is implemented on the server, the game receives and updates it using Retrofit.
 
 <h1 align="center">Game elements</h1>
 
