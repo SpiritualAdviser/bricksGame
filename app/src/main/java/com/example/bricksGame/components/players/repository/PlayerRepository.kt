@@ -129,8 +129,8 @@ class PlayerRepository @Inject constructor(
 
                 activePlayer.levels.openLevelList += newOpenLevel
                 updatePlayerOnLevel(activePlayer)
-                playerRecordsRepository.setRecords(activePlayer)
             }
+            playerRecordsRepository.setRecords(activePlayer)
         }
     }
 
