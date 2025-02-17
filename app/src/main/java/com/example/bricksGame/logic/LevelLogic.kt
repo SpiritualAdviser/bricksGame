@@ -402,7 +402,11 @@ class LevelLogic @Inject constructor(
             delay(1850)
             popupsController.closePopupOnFinishGame()
             delay(200)
-            buttonController.navigateToHome()
+            if (levelData.freeGame) {
+                buttonController.navigateToHome()
+            } else {
+                buttonController.navigateToMap()
+            }
         }
     }
 }
