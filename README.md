@@ -31,6 +31,7 @@ The project is implemented using the Single Activity Application pattern. In the
 <p>Player menu - here we create and select players in the game</p>
 <p>Free-to-play mode - One level for endless play and practice</p>
 <p>Adventure is the main story mode of the game</p>
+<p>Records - information about the author and links to his works</p>
 <p>Information - information about the author and links to his works</p>
 
 <h1 align="center">
