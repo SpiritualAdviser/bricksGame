@@ -6,12 +6,9 @@ import android.net.NetworkCapabilities
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import com.example.bricksGame.components.players.data.Player
-import com.example.bricksGame.components.players.repository.PlayerRepository
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -25,34 +22,22 @@ class PlayerRecordsRepository @Inject constructor(
         Log.d("my", "PlayersRecordsRepository")
     }
 
-    private var activePlayer: Player? = null
-
     private val apiService = RetrofitClient.getClient().create(APIService::class.java)
 
-    private var defaultPlayerRecords: DataPlayerRecords = DataPlayerRecords(
-        players = mutableListOf(
-            PlayerAchievement(
-                id = "111111111",
-                name = "0",
-                achievements = 0,
-                levels = 1
-            )
-        )
-    )
-
     var playerRecords = mutableStateListOf<PlayerAchievement>()
-    private var dataPlayerRecords: DataPlayerRecords = defaultPlayerRecords
+    private var serverPlayerRecords: DataPlayerRecords? = null
 
-    fun getRecords() {
+    private var activePlayer: Player? = null
+
+    fun getRecords(nedSendToServer: Boolean = false) {
         if (!isOnline(context)) {
             return
         }
-
         CoroutineScope(Dispatchers.IO).launch {
             val result = apiService.getData()
             if (result.isSuccessful) {
-                result.body()?.let { dataRecords ->
-                    val sortRecords = dataRecords.players
+                result.body()?.let { serverRecords ->
+                    val sortRecords = serverRecords.players
                     sortRecords.sortByDescending { it.achievements }
 
                     playerRecords.clear()
@@ -60,46 +45,51 @@ class PlayerRecordsRepository @Inject constructor(
 
                     activePlayer?.let { player ->
                         playerRecords.find { it.id == player.id }?.active = true
+                        if (nedSendToServer) {
+                            setPlayer(player)
+                        }
                     }
-                    dataPlayerRecords = dataRecords
+                    serverPlayerRecords = serverRecords
                 }
-                println()
             }
         }
     }
 
     fun setRecords(player: Player) {
+        activePlayer = player
+
+        if (serverPlayerRecords != null) {
+            setPlayer(player)
+        } else {
+            getRecords(true)
+        }
+    }
+
+    private fun setPlayer(player: Player) {
         if (!isOnline(context)) {
             return
         }
 
-        val newPlayerRecords =
-            PlayerAchievement(
-                id = player.id,
-                name = player.playerName,
-                achievements = player.achievements,
-                levels = player.levels.openLevelList.size
-            )
-        val isIndexPlayer = dataPlayerRecords.players.indexOfFirst { it.id == player.id }
+        serverPlayerRecords?.let { serverRecords ->
+            val newPlayerRecords =
+                PlayerAchievement(
+                    id = player.id,
+                    name = player.playerName,
+                    achievements = player.achievements,
+                    levels = player.levels.openLevelList.size
+                )
+            val isIndexPlayer = serverRecords.players.indexOfFirst { it.id == player.id }
 
-        if (isIndexPlayer >= 0) {
-            dataPlayerRecords.players[isIndexPlayer] = newPlayerRecords
-            println()
-        } else {
-            dataPlayerRecords.players.add(newPlayerRecords)
-        }
+            if (isIndexPlayer >= 0) {
+                serverRecords.players[isIndexPlayer] = newPlayerRecords
+            } else {
+                serverRecords.players.add(newPlayerRecords)
+            }
+            serverRecords.players.forEach { it.active = false }
 
-        dataPlayerRecords.players.forEach { it.active = false }
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = apiService.postData("application/json", dataModal = dataPlayerRecords)
-//            delay(6000)
-//            getRecords()
-        }
-    }
-
-    fun updateTypeOfBase() {
-        CoroutineScope(Dispatchers.IO).launch {
-            apiService.postData("application/json", dataModal = defaultPlayerRecords)
+            CoroutineScope(Dispatchers.IO).launch {
+                apiService.postData("application/json", dataModal = serverRecords)
+            }
         }
     }
 

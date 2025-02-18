@@ -14,10 +14,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -79,46 +79,48 @@ fun RecordsList(recordsViewModel: RecordsViewModel = hiltViewModel()) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(items = recordsViewModel.playerRecords) {
-            PlayerRecordCard(it)
+        itemsIndexed(items = recordsViewModel.playerRecords) { index, item ->
+
+            PlayerRecordCard(item, index)
         }
     }
 }
 
 @Composable
-fun PlayerRecordCard(playerAchievement: PlayerAchievement) {
+fun PlayerRecordCard(playerAchievement: PlayerAchievement, index: Int) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)
             .clip(RoundedCornerShape(5.dp))
-            .background(activePlayerBgCard),
+            .background(activePlayerBgCard)
+            .padding(7.dp)
+        ,
 
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-
+            Text("$index")
         Row(
             verticalAlignment = Alignment.CenterVertically,
 
             ) {
             Icon(
-                Icons.Filled.AccountBox,
+                Icons.Filled.Face,
                 contentDescription = "player",
             )
             Text(playerAchievement.name, fontSize = 14.sp, color = playerTextDark)
         }
         Row {
             Text(
-                "achievement: ${playerAchievement.achievements}",
+                "achiev: ${playerAchievement.achievements}",
                 fontSize = 14.sp,
                 color = playerTextDark
             )
         }
         Box(
             Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
+                .fillMaxWidth(),
             contentAlignment = Alignment.CenterEnd,
 
             ) {
