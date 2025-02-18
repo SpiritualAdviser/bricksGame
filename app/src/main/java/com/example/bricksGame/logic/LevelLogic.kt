@@ -384,7 +384,7 @@ class LevelLogic @Inject constructor(
             stepOnLevel = 10
             onLevelWin = false
         }
-        --stepOnLevel
+        levelData.levelStep.intValue-=1
         if (onLevelWin || fieldGameIsFull || stepOnLevel <= 0) {
             closeLevel(onLevelWin)
         }

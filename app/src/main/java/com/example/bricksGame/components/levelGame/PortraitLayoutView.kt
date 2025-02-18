@@ -233,12 +233,17 @@ private fun BonusBlock(
 //                .border(4.dp, Color.Magenta),
         ) {
             bonusViewModel.bonuses.forEach { bonus ->
+
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(bonusViewModel.bonusCorner))
                         .border(
                             bonusViewModel.bonusBorderSize,
-                            color = bonus.baseModel.activeBorderColor.value,
+                            color = if (bonus.baseModel.alpha.value >= 1F) {
+                                bonus.baseModel.hoverBorder
+                            } else {
+                                bonus.baseModel.defaultBorder
+                            },
                             shape = RoundedCornerShape(bonusViewModel.bonusCorner)
                         )
                         .size(bonusViewModel.bonusSize.value)
@@ -253,13 +258,6 @@ private fun BonusBlock(
         ) {
             bonusViewModel.bonuses.forEach { bonus ->
                 key(bonus.baseModel.id) {
-                    if (bonus.baseModel.alpha.value >= 1F) {
-                        bonus.baseModel.activeBorderColor.value =
-                            bonus.baseModel.hoverBorder
-                    } else {
-                        bonus.baseModel.activeBorderColor.value =
-                            bonus.baseModel.defaultBorder
-                    }
                     Box(
                         Modifier
                             .zIndex(bonus.baseModel.zIndex.value)
