@@ -160,7 +160,7 @@ fun PlayerCard(player: Player, playerViewModel: PlayerViewModel = hiltViewModel(
             .clickable(onClick = {
                 playerViewModel.setActivePlayerOnGame(player)
             })
-            .height(50.dp)
+            .height(55.dp)
             .clip(RoundedCornerShape(5.dp))
             .background(
                 if (player.isActive) {
@@ -168,7 +168,9 @@ fun PlayerCard(player: Player, playerViewModel: PlayerViewModel = hiltViewModel(
                 } else {
                     playerBgCard
                 }
-            ),
+            )
+            .padding(6.dp)
+        ,
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -187,14 +189,14 @@ fun PlayerCard(player: Player, playerViewModel: PlayerViewModel = hiltViewModel(
                 }
             )
             Text(
-                player.playerName, fontSize = 14.sp, color = playerTextDark,
+                player.playerName, fontSize = 15.sp, color = playerTextDark,
                 maxLines = 1,
-                modifier = Modifier.fillMaxWidth(.45F),
+                modifier = Modifier.fillMaxWidth(.42F),
                 overflow = TextOverflow.Ellipsis
             )
         }
         Row {
-            Text("achiev: ${player.achievements}", fontSize = 14.sp, color = playerTextDark)
+            Text("achiev: ${player.achievements}", fontSize = 15.sp, color = playerTextDark)
         }
         Box(
             Modifier.fillMaxWidth(),
@@ -206,13 +208,15 @@ fun PlayerCard(player: Player, playerViewModel: PlayerViewModel = hiltViewModel(
                 if (player.isActive) {
                     Icon(
                         Icons.Filled.Check,
-                        modifier = Modifier.offset(x = 10.dp),
+                       modifier = Modifier.offset(x = 23.dp),
                         tint = activePlayerIcon,
                         contentDescription = "activePlayer",
                     )
                 }
 
-                IconButton(onClick = { playerViewModel.delete(player) }) {
+                IconButton(onClick = { playerViewModel.delete(player) },
+                        modifier = Modifier.offset(x = 10.dp),
+                ) {
                     Icon(Icons.Filled.Delete, contentDescription = "delete player")
                 }
             }
