@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -100,7 +101,7 @@ fun PlayerRecordCard(playerAchievement: PlayerAchievement, index: Int) {
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-            Text("$index")
+            Text("${index+1}")
         Row(
             verticalAlignment = Alignment.CenterVertically,
 
@@ -109,7 +110,13 @@ fun PlayerRecordCard(playerAchievement: PlayerAchievement, index: Int) {
                 Icons.Filled.Face,
                 contentDescription = "player",
             )
-            Text(playerAchievement.name, fontSize = 14.sp, color = playerTextDark)
+            Text(playerAchievement.name,
+                fontSize = 14.sp,
+                color = playerTextDark,
+                maxLines = 1,
+                modifier = Modifier.fillMaxWidth(.5F),
+                overflow= TextOverflow.Ellipsis
+            )
         }
         Row {
             Text(

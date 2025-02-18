@@ -42,6 +42,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -185,10 +186,15 @@ fun PlayerCard(player: Player, playerViewModel: PlayerViewModel = hiltViewModel(
                     playerTextDark
                 }
             )
-            Text(player.playerName, fontSize = 14.sp, color = playerTextDark)
+            Text(
+                player.playerName, fontSize = 14.sp, color = playerTextDark,
+                maxLines = 1,
+                modifier = Modifier.fillMaxWidth(.45F),
+                overflow = TextOverflow.Ellipsis
+            )
         }
         Row {
-            Text("achievement: ${player.achievements}", fontSize = 14.sp, color = playerTextDark)
+            Text("achiev: ${player.achievements}", fontSize = 14.sp, color = playerTextDark)
         }
         Box(
             Modifier.fillMaxWidth(),
