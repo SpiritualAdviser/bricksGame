@@ -34,12 +34,15 @@ import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.tableRecords.model.RecordsViewModel
 import com.example.bricksGame.helper.MainMenuBg
 import com.example.bricksGame.internet.PlayerAchievement
-import com.example.bricksGame.ui.theme.activePlayerBgCard
-import com.example.bricksGame.ui.theme.errorContainerDarkMediumContrast
 import com.example.bricksGame.ui.theme.onPrimaryLight
-import com.example.bricksGame.ui.theme.outlineVariantDark
+import com.example.bricksGame.ui.theme.playerDefaultPlaceBgCard
+import com.example.bricksGame.ui.theme.playerFirstPlaceBgCard
+import com.example.bricksGame.ui.theme.playerSecondPlaceBgCard
 import com.example.bricksGame.ui.theme.playerTextDark
+import com.example.bricksGame.ui.theme.playerThirdPlaceBgCard
 import com.example.bricksGame.ui.theme.playersBgBlock
+import com.example.bricksGame.ui.theme.starActive
+import com.example.bricksGame.ui.theme.starDefault
 
 @Composable
 fun Records() {
@@ -94,14 +97,20 @@ fun PlayerRecordCard(playerAchievement: PlayerAchievement, index: Int) {
             .fillMaxWidth()
             .height(50.dp)
             .clip(RoundedCornerShape(5.dp))
-            .background(activePlayerBgCard)
-            .padding(7.dp)
-        ,
+            .background(
+                when (index) {
+                    0 -> playerFirstPlaceBgCard
+                    1 -> playerSecondPlaceBgCard
+                    2 -> playerThirdPlaceBgCard
+                    else -> playerDefaultPlaceBgCard
+                }
+            )
+            .padding(7.dp),
 
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-            Text("${index+1}")
+        Text("${index + 1}")
         Row(
             verticalAlignment = Alignment.CenterVertically,
 
@@ -110,12 +119,13 @@ fun PlayerRecordCard(playerAchievement: PlayerAchievement, index: Int) {
                 Icons.Filled.Face,
                 contentDescription = "player",
             )
-            Text(playerAchievement.name,
+            Text(
+                playerAchievement.name,
                 fontSize = 14.sp,
                 color = playerTextDark,
                 maxLines = 1,
                 modifier = Modifier.fillMaxWidth(.5F),
-                overflow= TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis
             )
         }
         Row {
@@ -137,9 +147,9 @@ fun PlayerRecordCard(playerAchievement: PlayerAchievement, index: Int) {
                 Icon(
                     Icons.Filled.Star, contentDescription = "Star",
                     tint = if (playerAchievement.active) {
-                        errorContainerDarkMediumContrast
+                        starActive
                     } else {
-                        outlineVariantDark
+                        starDefault
                     }
                 )
             }

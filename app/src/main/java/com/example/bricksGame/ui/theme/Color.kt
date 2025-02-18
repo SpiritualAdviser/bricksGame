@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 val overlayBg = Color(0xB91A1A1A)
 val playersBgBlock = Color(0xBE000306)
 val playerBgCard = Color(0xFFB69872)
-val activePlayerBgCard = Color(0xFACCBEA9)
+val activePlayerBgCard = Color(0xFABDB493)
 val playerTextDark = Color(0xFF101510)
 val activePlayerIcon = Color(0xFFBA1A1A)
 val onPrimaryLight = Color(0xFFFFFFFF)
@@ -12,6 +12,14 @@ val unfocusedTextFieldBg = Color(0xFFB69872)
 val focusedTextFieldBg = Color(0xFACCBEA9)
 val gameVersionText = Color(0xFACCBEA9)
 val buttonText = Color(0xFF212121)
+
+val playerFirstPlaceBgCard = Color(0xFFF5DB55)
+val playerSecondPlaceBgCard = Color(0xFFE1D5D5)
+val playerThirdPlaceBgCard = Color(0xFFD59048)
+val playerDefaultPlaceBgCard = Color(0xFAA49E8A)
+
+val starActive = Color(0xFFF52714)
+val starDefault = Color(0xFF414941)
 
 
 val primaryLight = Color(0xFF2E6A44)
