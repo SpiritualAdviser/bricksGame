@@ -233,23 +233,20 @@ private fun BonusBlock(
 //                .border(4.dp, Color.Magenta),
         ) {
             bonusViewModel.bonuses.forEach { bonus ->
-
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(bonusViewModel.bonusCorner))
-                        .border(
-                            bonusViewModel.bonusBorderSize,
-                            color = if (bonus.baseModel.alpha.value >= 1F) {
-                                bonus.baseModel.hoverBorder
-                            } else {
-                                bonus.baseModel.defaultBorder
-                            },
-                            shape = RoundedCornerShape(bonusViewModel.bonusCorner)
-                        )
-                        .size(bonusViewModel.bonusSize.value)
-                        .background(bonusViewModel.bonusBgColor)
-                ) {}
-                Spacer(Modifier.size(10.dp))
+                key(bonus.baseModel.id) {
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(bonusViewModel.bonusCorner))
+                            .border(
+                                bonusViewModel.bonusBorderSize,
+                                color = bonus.baseModel.activeBorderColor.value,
+                                shape = RoundedCornerShape(bonusViewModel.bonusCorner)
+                            )
+                            .size(bonusViewModel.bonusSize.value)
+                            .background(bonusViewModel.bonusBgColor)
+                    ) {}
+                    Spacer(Modifier.size(10.dp))
+                }
             }
         }
 

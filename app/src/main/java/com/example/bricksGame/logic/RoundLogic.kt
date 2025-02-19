@@ -97,6 +97,7 @@ class RoundLogic @Inject constructor(
 
     private fun resetOnBonus(gameObj: GameObjects.Bonus, placeOnField: PlaceOnField) {
         gameObj.baseModel.alpha.value = gameConfig.INIT_ALPHA_BONUS
+        gameObj.baseModel.activeBorderColor.value=gameObj.baseModel.defaultBorder
         levelLogic.checkRoundOnBonus(gameObj, placeOnField)
     }
 
