@@ -387,6 +387,7 @@ class LevelLogic @Inject constructor(
 
         if (levelData.freeGame) {
             stepOnLevel = 10
+            levelData.levelStep.intValue = stepOnLevel
             onLevelWin = false
         }
         levelData.levelStep.intValue -= 1
