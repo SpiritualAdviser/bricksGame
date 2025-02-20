@@ -24,7 +24,6 @@ class LevelLogic @Inject constructor(
     private var buttonController: ButtonController,
     private var playerRepository: PlayerRepository,
     private var popupsController: PopupsController,
-    private var survival: Survival
 ) {
 
     private var activeLevel: Level? = null
@@ -37,11 +36,6 @@ class LevelLogic @Inject constructor(
         activeLevel = level
         setRowsAndColumnsOnLevel(level)
         playerRepository.playerScore.intValue = 0
-    }
-
-    fun onStarSurvival(level: Level) {
-        activeLevel = level
-        setRowsAndColumnsOnLevel(level)
     }
 
     private fun setRowsAndColumnsOnLevel(level: Level) {

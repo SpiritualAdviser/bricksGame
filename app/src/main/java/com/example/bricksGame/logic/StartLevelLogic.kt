@@ -28,6 +28,7 @@ class StartLevelLogic @Inject constructor(
     private var roundLogic: RoundLogic,
     private val levelLogic: LevelLogic,
     private var levelsConfig: LevelsConfig,
+    private var survival: Survival
 ) {
 
     init {
@@ -39,25 +40,9 @@ class StartLevelLogic @Inject constructor(
     private var placesOnField:
             MutableList<PlaceOnField>? = null
 
-    fun onSurvivalMode() {
-        val level = levelsConfig.gameSurvival
-
-        println()
-        CoroutineScope(Dispatchers.Main).launch {
-            levelData.survivalStage.collect {
-                it
-                println()
-                if (it % 10 == 0) {
-                    placesOnField?.let {places->
-                        fieldController.setNegativeSlotOnField(places, level)
-                    }
-                }
-            }
-        }
-    }
 
     fun onStartFreeGame() {
-        onSurvivalMode()
+        survival.onSurvivalMode()
         val level = levelsConfig.gameFreeLevel
         onStartLevel(level, true)
     }

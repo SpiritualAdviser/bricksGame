@@ -42,6 +42,19 @@ class FieldController @Inject constructor(
         }
     }
 
+    fun setNegativeSlotOnSurvival(placesOnField: MutableList<PlaceOnField>, level: Level) {
+
+        level.negativeBonuses.forEachIndexed { indexSlot, numberSlot ->
+            val typeOfSlot = gameConfig.negativeBonuses[indexSlot]
+
+            for (i in 0 until numberSlot) {
+                val placeOnField = placesOnField.random()
+                val slot: GameObjects = createSlot(typeOfSlot)
+                placeOnField.slot.value = slot
+            }
+        }
+    }
+
     private fun createSlot(typeOfSlot: GameConfig.NegativeSlot): GameObjects {
         val baseModel = BaseModel(context)
         val slotOption = typeOfSlot.option
