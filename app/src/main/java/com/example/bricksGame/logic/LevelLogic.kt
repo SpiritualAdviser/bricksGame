@@ -8,7 +8,6 @@ import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.helper.SoundController
-import com.example.bricksGame.internet.PlayerRecordsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -25,6 +24,7 @@ class LevelLogic @Inject constructor(
     private var buttonController: ButtonController,
     private var playerRepository: PlayerRepository,
     private var popupsController: PopupsController,
+    private var survival: Survival
 ) {
 
     private var activeLevel: Level? = null
@@ -37,6 +37,11 @@ class LevelLogic @Inject constructor(
         activeLevel = level
         setRowsAndColumnsOnLevel(level)
         playerRepository.playerScore.intValue = 0
+    }
+
+    fun onStarSurvival(level: Level) {
+        activeLevel = level
+        setRowsAndColumnsOnLevel(level)
     }
 
     private fun setRowsAndColumnsOnLevel(level: Level) {
@@ -288,6 +293,14 @@ class LevelLogic @Inject constructor(
             }
         }
         wasWinLine = false
+
+        if (levelData.freeGame) {
+            levelData.levelStep.intValue += 1
+            levelData.emitSurvivalStageFlow(levelData.levelStep.intValue)
+
+        } else {
+            levelData.levelStep.intValue -= 1
+        }
         checkEndLevel()
     }
 
@@ -381,16 +394,13 @@ class LevelLogic @Inject constructor(
         val fieldGameIsFull =
             levelData.getPlacesOnFields().all { it.slot.value !is GameObjects.Empty }
 
-        var stepOnLevel = levelData.levelStep.intValue
+        val stepOnLevel = levelData.levelStep.intValue
         val levelTarget = levelData.levelTarget.intValue
         var onLevelWin = levelTarget <= 0
 
         if (levelData.freeGame) {
-            stepOnLevel = 10
-            levelData.levelStep.intValue = stepOnLevel
             onLevelWin = false
         }
-        levelData.levelStep.intValue -= 1
         if (onLevelWin || fieldGameIsFull || stepOnLevel <= 0) {
             closeLevel(onLevelWin)
         }

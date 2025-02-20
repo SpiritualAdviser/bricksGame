@@ -33,6 +33,20 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
             levelMaxStep = 0
         )
 
+    val gameSurvival: Level =
+        Level(
+            numberLevel = 1,
+            fieldRow = 4,
+            fieldColumn = 4,
+            additionalBrick = 3,
+            lastBrickToAdd = 0,
+            numberOfBricksToWin = 4,
+            negativeBonuses = listOf<Int>(2, 3),
+            bonusFillSpeed = 0.05f,
+            numberOfScoreToWin = 0,
+            levelMaxStep = 0
+        )
+
     private val gameFixLevels: List<Level> = listOf(
 
         Level(

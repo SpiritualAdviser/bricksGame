@@ -8,7 +8,11 @@ import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.config.LevelsConfig
 import com.example.bricksGame.gameData.LevelData
+import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ButtonController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,7 +27,7 @@ class StartLevelLogic @Inject constructor(
     private var collisionOnLevel: CollisionOnLevel,
     private var roundLogic: RoundLogic,
     private val levelLogic: LevelLogic,
-    private var levelsConfig: LevelsConfig
+    private var levelsConfig: LevelsConfig,
 ) {
 
     init {
@@ -32,7 +36,28 @@ class StartLevelLogic @Inject constructor(
 
     private var activeLevel: Level? = null
 
+    private var placesOnField:
+            MutableList<PlaceOnField>? = null
+
+    fun onSurvivalMode() {
+        val level = levelsConfig.gameSurvival
+
+        println()
+        CoroutineScope(Dispatchers.Main).launch {
+            levelData.survivalStage.collect {
+                it
+                println()
+                if (it % 10 == 0) {
+                    placesOnField?.let {places->
+                        fieldController.setNegativeSlotOnField(places, level)
+                    }
+                }
+            }
+        }
+    }
+
     fun onStartFreeGame() {
+        onSurvivalMode()
         val level = levelsConfig.gameFreeLevel
         onStartLevel(level, true)
     }
@@ -51,17 +76,19 @@ class StartLevelLogic @Inject constructor(
         levelData.setActiveLevel(level)
         roundLogic.setActiveLevel(level)
 
-        val placesOnField = fieldController.createPlacesOnFieldList(level)
+        placesOnField = fieldController.createPlacesOnFieldList(level)
         val bricksOnLevel = bricksController.createBricksList(level)
         val bonusesOnLevel = bonusController.createBonusList()
+        placesOnField?.let {
 
-        levelData.setPlacesOnField(placesOnField)
-        levelData.setBricksList(bricksOnLevel)
-        levelData.setBonusList(bonusesOnLevel)
+            levelData.setPlacesOnField(it)
+            levelData.setBricksList(bricksOnLevel)
+            levelData.setBonusList(bonusesOnLevel)
 
-        fieldController.setNegativeSlotOnField(placesOnField, level)
-        collisionOnLevel.setPlacesFieldOnCollision(placesOnField)
-        collisionOnLevel.runCollision(true)
+            fieldController.setNegativeSlotOnField(it, level)
+            collisionOnLevel.setPlacesFieldOnCollision(it)
+            collisionOnLevel.runCollision(true)
+        }
     }
 
 

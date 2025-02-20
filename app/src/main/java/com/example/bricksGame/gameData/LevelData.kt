@@ -9,6 +9,12 @@ import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ScreenSize
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -34,8 +40,17 @@ class LevelData @Inject constructor(
     var levelTarget = mutableIntStateOf(0)
     var levelWinLine = mutableIntStateOf(0)
     var levelStep = mutableIntStateOf(0)
+    private var _survivalStage: MutableSharedFlow<Int> = MutableSharedFlow<Int>(0)
+    var survivalStage: SharedFlow<Int> = _survivalStage.asSharedFlow()
+
 
     var freeGame = false
+
+    fun emitSurvivalStageFlow(value: Int) {
+        CoroutineScope(Dispatchers.Main).launch {
+            _survivalStage.emit(value)
+        }
+    }
 
     fun getActiveLevel(): Level? {
         return activeLevel
