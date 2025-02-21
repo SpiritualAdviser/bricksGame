@@ -102,6 +102,7 @@ class Survival @Inject constructor(
                         }
                     }
                 }
+                levelLogic.canPlaySoundWin = true
                 currentNumberOfBricksToWin = level.numberOfBricksToWin
             } else {
                 levelLogic.checkEndLevel()

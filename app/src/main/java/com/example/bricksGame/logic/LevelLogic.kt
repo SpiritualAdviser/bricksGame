@@ -311,7 +311,6 @@ class LevelLogic @Inject constructor(
         if (canPlaySoundWin) {
             soundController.winReel()
         }
-
         canPlaySoundWin = !onChangeStage
 
         wonPlaces.forEach { place ->
