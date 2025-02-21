@@ -32,10 +32,16 @@ class LevelLogic @Inject constructor(
     private var wasWinLine = false
     private var megaWin = false
 
+    private var onChangeStage = false
+
     fun onStartLevel(level: Level) {
         activeLevel = level
         setRowsAndColumnsOnLevel(level)
         playerRepository.playerScore.intValue = 0
+    }
+
+    fun onChangeStageSurvivalMod(level: Level) {
+        activeLevel = level
     }
 
     private fun setRowsAndColumnsOnLevel(level: Level) {
@@ -104,7 +110,8 @@ class LevelLogic @Inject constructor(
         }
     }
 
-    fun checkRound(gameObj: GameObjects, placeOnField: PlaceOnField) {
+    fun checkRound(placeOnField: PlaceOnField, isChangeStage: Boolean = false) {
+        this.onChangeStage = isChangeStage
 
         val columnIndex = placeOnField.position.first
         val rowIndex = placeOnField.position.second
@@ -289,9 +296,10 @@ class LevelLogic @Inject constructor(
         wasWinLine = false
 
         if (levelData.freeGame) {
-            levelData.levelStep.intValue += 1
-            levelData.emitSurvivalStageFlow(levelData.levelStep.intValue)
-
+            if (!onChangeStage) {
+                levelData.levelStep.intValue += 1
+                levelData.emitSurvivalStageFlow(levelData.levelStep.intValue)
+            }
         } else {
             levelData.levelStep.intValue -= 1
         }
@@ -384,7 +392,7 @@ class LevelLogic @Inject constructor(
         levelData.levelTarget.intValue -= score
     }
 
-    private fun checkEndLevel() {
+    fun checkEndLevel() {
         val fieldGameIsFull =
             levelData.getPlacesOnFields().all { it.slot.value !is GameObjects.Empty }
 

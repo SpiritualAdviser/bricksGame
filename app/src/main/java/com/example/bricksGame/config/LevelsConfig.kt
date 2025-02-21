@@ -25,7 +25,7 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
             fieldRow = 6,
             fieldColumn = 7,
             additionalBrick = 3,
-            lastBrickToAdd = 0,
+            lastBrickToAdd = 1,
             numberOfBricksToWin = 4,
             negativeBonuses = listOf<Int>(2, 3),
             bonusFillSpeed = 0.05f,
@@ -33,21 +33,35 @@ class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
             levelMaxStep = 0
         )
 
-    val gameSurvival: Level =
+    val levelsSurvival: List<Level> = listOf(
         Level(
             numberLevel = 1,
-            fieldRow = 4,
-            fieldColumn = 4,
+            fieldRow = 7,
+            fieldColumn = 8,
+            additionalBrick = 4,
+            lastBrickToAdd = 2,
+            numberOfBricksToWin = 5,
+            negativeBonuses = listOf<Int>(0, 0),
+            bonusFillSpeed = 0.03f,
+            numberOfScoreToWin = 0,
+            levelMaxStep = 0
+        ),
+        Level(
+            numberLevel = 1,
+            fieldRow = 7,
+            fieldColumn = 8,
             additionalBrick = 3,
-            lastBrickToAdd = 0,
-            numberOfBricksToWin = 4,
-            negativeBonuses = listOf<Int>(2, 3),
-            bonusFillSpeed = 0.05f,
+            lastBrickToAdd = 1,
+            numberOfBricksToWin = 5,
+            negativeBonuses = listOf<Int>(2, 2),
+            bonusFillSpeed = 0.06f,
             numberOfScoreToWin = 0,
             levelMaxStep = 0
         )
+    )
 
-    private val gameFixLevels: List<Level> = listOf(
+    private
+    val gameFixLevels: List<Level> = listOf(
 
         Level(
             numberLevel = 1,

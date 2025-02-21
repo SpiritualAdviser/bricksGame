@@ -43,7 +43,7 @@ class StartLevelLogic @Inject constructor(
 
     fun onStartFreeGame() {
         survival.onSurvivalMode()
-        val level = levelsConfig.gameFreeLevel
+        val level = levelsConfig.levelsSurvival[0]
         onStartLevel(level, true)
     }
 

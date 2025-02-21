@@ -42,7 +42,7 @@ class FieldController @Inject constructor(
         }
     }
 
-    fun setNegativeSlotOnSurvival(placesOnField: MutableList<PlaceOnField>, level: Level) {
+    fun setNegativeSlotOnSurvival(placesOnField: List<PlaceOnField>, level: Level) {
 
         level.negativeBonuses.forEachIndexed { indexSlot, numberSlot ->
             val typeOfSlot = gameConfig.negativeBonuses[indexSlot]

@@ -46,7 +46,7 @@ fun MainButtonsBlock(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit
                 )
-        ) { Text("Free game", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
+        ) { Text("Survival", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
 
         IconButton(
             onClick = { homeScreenViewModel.buttonController.navigateToPlayers() },

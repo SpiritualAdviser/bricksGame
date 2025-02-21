@@ -109,7 +109,7 @@ class RoundLogic @Inject constructor(
             if (levelData.getBricksList().size <= level.lastBrickToAdd) {
                 gameObjectBuilder.updateBricksList(level)
             }
-            levelLogic.checkRound(gameObj, placeOnField)
+            levelLogic.checkRound(placeOnField)
         }
     }
 }
