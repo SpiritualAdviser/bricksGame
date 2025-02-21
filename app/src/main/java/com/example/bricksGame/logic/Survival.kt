@@ -28,7 +28,7 @@ class Survival @Inject constructor(
         CoroutineScope(Dispatchers.Main).launch {
 
             levelData.survivalStage.collect {
-                val randomStage = listOf(8, 10, 12, 14).random()
+                val randomStage = listOf(5, 8, 10).random()
 
                 if (it % randomStage == 0) {
                     setNextStage()
@@ -51,32 +51,32 @@ class Survival @Inject constructor(
 
                 in 0 until (placeOnField.size * 0.2).toInt() -> {
                     level.bonusFillSpeed = 0.01f
-                    level.negativeBonuses = listOf(2, 1)
+                    level.negativeBonuses = listOf(2, 2)
                     level.numberOfBricksToWin = 5
                 }
 
                 in (placeOnField.size * 0.2).toInt() until (placeOnField.size * 0.4).toInt() -> {
                     level.negativeBonuses = listOf(1, 1)
-                    level.bonusFillSpeed = 0.02f
+                    level.bonusFillSpeed = 0.015f
                     level.numberOfBricksToWin = 5
                 }
 
                 in (placeOnField.size * 0.4).toInt() until (placeOnField.size * 0.6).toInt() -> {
                     level.numberOfBricksToWin = 4
                     level.negativeBonuses = listOf(0, 1)
-                    level.bonusFillSpeed = 0.03f
+                    level.bonusFillSpeed = 0.02f
                 }
 
                 in (placeOnField.size * 0.6).toInt()..(placeOnField.size * 0.8).toInt() -> {
                     level.negativeBonuses = listOf(1, 0)
                     level.numberOfBricksToWin = 3
-                    level.bonusFillSpeed = 0.04f
+                    level.bonusFillSpeed = 0.03f
                 }
 
                 else -> {
                     level.numberOfBricksToWin = 3
                     level.negativeBonuses = listOf(0, 0)
-                    level.bonusFillSpeed = 0.05f
+                    level.bonusFillSpeed = 0.035f
                 }
             }
             levelData.levelWinLine.intValue = level.numberOfBricksToWin
