@@ -28,7 +28,7 @@ class Survival @Inject constructor(
         CoroutineScope(Dispatchers.Main).launch {
 
             levelData.survivalStage.collect {
-                val randomStage = listOf(5, 8, 10).random()
+                val randomStage = listOf(10).random()
 
                 if (it % randomStage == 0) {
                     setNextStage()
@@ -49,34 +49,28 @@ class Survival @Inject constructor(
 
             when (val a = placeOnField.size - emptyPlaceOnField.size) {
 
-                in 0 until (placeOnField.size * 0.2).toInt() -> {
-                    level.bonusFillSpeed = 0.01f
+                in 0 until (placeOnField.size * 0.3).toInt() -> {
+                    level.bonusFillSpeed = 0.005f
                     level.negativeBonuses = listOf(2, 2)
                     level.numberOfBricksToWin = 5
                 }
 
-                in (placeOnField.size * 0.2).toInt() until (placeOnField.size * 0.4).toInt() -> {
-                    level.negativeBonuses = listOf(1, 1)
-                    level.bonusFillSpeed = 0.015f
-                    level.numberOfBricksToWin = 5
-                }
-
-                in (placeOnField.size * 0.4).toInt() until (placeOnField.size * 0.6).toInt() -> {
+                in (placeOnField.size * 0.3).toInt() until (placeOnField.size * 0.6).toInt() -> {
+                    level.negativeBonuses = listOf(2, 1)
+                    level.bonusFillSpeed = 0.008f
                     level.numberOfBricksToWin = 4
-                    level.negativeBonuses = listOf(0, 1)
-                    level.bonusFillSpeed = 0.02f
                 }
 
                 in (placeOnField.size * 0.6).toInt()..(placeOnField.size * 0.8).toInt() -> {
-                    level.negativeBonuses = listOf(1, 0)
+                    level.negativeBonuses = listOf(0, 1)
                     level.numberOfBricksToWin = 3
-                    level.bonusFillSpeed = 0.03f
+                    level.bonusFillSpeed = 0.015f
                 }
 
                 else -> {
                     level.numberOfBricksToWin = 3
                     level.negativeBonuses = listOf(0, 0)
-                    level.bonusFillSpeed = 0.035f
+                    level.bonusFillSpeed = 0.025f
                 }
             }
             levelData.levelWinLine.intValue = level.numberOfBricksToWin

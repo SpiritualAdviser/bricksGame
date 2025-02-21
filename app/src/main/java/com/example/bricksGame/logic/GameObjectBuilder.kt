@@ -107,6 +107,9 @@ class GameObjectBuilder @Inject constructor(
             maxColors = gameConfig.spriteBrickList.size - 1
         }
 //       maxColors = 2
+        if (levelData.freeGame) {
+            maxColors = gameConfig.spriteBrickList.size - 1
+        }
 
         val nameSprite = gameConfig.spriteBrickList[(0..maxColors).random()]
 
@@ -123,6 +126,9 @@ class GameObjectBuilder @Inject constructor(
             maxColors = gameConfig.imagesBricks.size - 1
         }
 //       maxColors = 2
+        if (levelData.freeGame) {
+            maxColors = gameConfig.imagesBricks.size - 1
+        }
 
         return gameConfig.imagesBricks[(0..maxColors).random()]
     }
