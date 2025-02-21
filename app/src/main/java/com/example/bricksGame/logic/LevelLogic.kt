@@ -33,6 +33,7 @@ class LevelLogic @Inject constructor(
     private var megaWin = false
 
     private var onChangeStage = false
+    var canPlaySoundWin = true
 
     fun onStartLevel(level: Level) {
         activeLevel = level
@@ -272,7 +273,6 @@ class LevelLogic @Inject constructor(
     }
 
     private fun onEndRound(wonPlaces: MutableList<PlaceOnField>, placeOnField: PlaceOnField) {
-        println()
         if (wasWinLine) {
             popupOnResetLine(placeOnField)
             onWinResetLine(wonPlaces)
@@ -307,7 +307,13 @@ class LevelLogic @Inject constructor(
     }
 
     private fun onWinResetLine(wonPlaces: MutableList<PlaceOnField>) {
-        soundController.winReel()
+
+        if (canPlaySoundWin) {
+            soundController.winReel()
+        }
+
+        canPlaySoundWin = !onChangeStage
+
         wonPlaces.forEach { place ->
             var life = 1
 
