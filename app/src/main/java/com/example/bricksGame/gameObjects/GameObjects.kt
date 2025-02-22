@@ -8,10 +8,15 @@ sealed class GameObjects {
     ) :
         GameObjects()
 
-    data class Bonus(var baseModel: BaseModel, val cords: Cords, val bonusType: BonusType) :
+    data class Bonus(
+        var baseModel: BaseModel,
+        val cords: Cords,
+        val bonusType: BonusType,
+        val animation: Animation
+    ) :
         GameObjects()
 
-    data class Leaves(var baseModel: BaseModel) : GameObjects()
-    data class Rock(var baseModel: BaseModel) : GameObjects()
-    data class Empty(var baseModel: BaseModel) : GameObjects()
+    data class Leaves(var baseModel: BaseModel, val animation: Animation) : GameObjects()
+    data class Rock(var baseModel: BaseModel, val animation: Animation) : GameObjects()
+    data class Empty(var baseModel: BaseModel, val animation: Animation) : GameObjects()
 }

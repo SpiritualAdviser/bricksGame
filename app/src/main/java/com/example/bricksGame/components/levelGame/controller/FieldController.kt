@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
+import com.example.bricksGame.gameObjects.Animation
 import com.example.bricksGame.gameObjects.BaseModel
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
@@ -11,6 +12,9 @@ import com.example.bricksGame.helper.ButtonController
 import com.example.bricksGame.logic.GameObjectBuilder
 import com.example.bricksGame.helper.SpriteAnimation
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FieldController @Inject constructor(
@@ -37,7 +41,8 @@ class FieldController @Inject constructor(
             for (i in 0 until numberSlot) {
                 val placeOnField = placesOnField.random()
                 val slot: GameObjects = createSlot(typeOfSlot)
-                placeOnField.slot.value = slot
+                runAnimationOnCreate(placeOnField, slot)
+                runAnimationOnCreate(placeOnField, slot)
             }
         }
     }
@@ -50,7 +55,7 @@ class FieldController @Inject constructor(
             for (i in 0 until numberSlot) {
                 val placeOnField = placesOnField.random()
                 val slot: GameObjects = createSlot(typeOfSlot)
-                placeOnField.slot.value = slot
+                runAnimationOnCreate(placeOnField, slot)
             }
         }
     }
@@ -63,16 +68,24 @@ class FieldController @Inject constructor(
             GameConfig.NegativeSlot.ROCK -> {
                 baseModel.sprite = spriteAnimation.getSprite(slotOption.spriteName)
                 baseModel.life = slotOption.life
-                GameObjects.Rock(baseModel)
+                GameObjects.Rock(baseModel, Animation())
             }
 
             GameConfig.NegativeSlot.LEAVES -> {
                 baseModel.sprite = spriteAnimation.getSprite(slotOption.spriteName)
                 baseModel.life = slotOption.life
-                GameObjects.Leaves(baseModel)
+                GameObjects.Leaves(baseModel, Animation())
             }
         }
         return slot
+    }
+
+    private fun runAnimationOnCreate(placeOnField: PlaceOnField, slot: GameObjects) {
+        CoroutineScope(Dispatchers.Main).launch {
+            placeOnField.animation.scaleAnimation.snapTo(0.4F)
+            placeOnField.animation.wasAnimated.value = true
+            placeOnField.slot.value = slot
+        }
     }
 
     fun goToHome() {

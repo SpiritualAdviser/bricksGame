@@ -95,7 +95,7 @@ class BaseModel(var context: Context?) {
     private fun onEndAnimation() {
         placeOnField?.let {
             if (needReset) {
-                it.slot.value = GameObjects.Empty(BaseModel(context))
+                it.slot.value = GameObjects.Empty(BaseModel(context), Animation())
                 placeOnField = null
                 context = null
             }

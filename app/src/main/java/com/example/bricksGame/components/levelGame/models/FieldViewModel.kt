@@ -2,13 +2,15 @@ package com.example.bricksGame.components.levelGame.models
 
 import android.content.Context
 import android.util.Log
+import androidx.compose.animation.core.Animatable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.bricksGame.components.levelGame.controller.FieldController
-import com.example.bricksGame.components.map.controller.MapController
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameData.LevelData
@@ -17,6 +19,8 @@ import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ScreenSize
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -90,6 +94,7 @@ class FieldViewModel @Inject constructor(
 //            else -> return
 //
 //        }
+        runAnimationScale(placeOnField)
     }
 
     fun navigateToHome() {
@@ -98,5 +103,13 @@ class FieldViewModel @Inject constructor(
 
     fun navigateToMap() {
         fieldController.goToMap()
+    }
+
+    private fun runAnimationScale(placeOnField: PlaceOnField) {
+
+        viewModelScope.launch(Dispatchers.Main) {
+            placeOnField.animation.scaleAnimation.snapTo(0.3F)
+            placeOnField.animation.wasAnimated.value = !placeOnField.animation.wasAnimated.value
+        }
     }
 }

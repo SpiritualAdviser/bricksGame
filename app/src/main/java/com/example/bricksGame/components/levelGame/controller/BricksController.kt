@@ -19,8 +19,6 @@ class BricksController @Inject constructor(
         Log.d("my", "BricksController_init")
     }
 
-//    var canRunTranslation = mutableStateOf(false)
-
     fun createBricksList(level: Level): MutableList<GameObjects.Brick> {
         return gameObjectBuilder.createBricksList(level)
     }

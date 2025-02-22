@@ -4,9 +4,9 @@ import com.example.bricksGame.components.levelGame.controller.FieldController
 import com.example.bricksGame.config.LevelsConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.GameObjects
+import com.example.bricksGame.gameObjects.PlaceOnField
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -49,20 +49,20 @@ class Survival @Inject constructor(
 
             when (val a = placeOnField.size - emptyPlaceOnField.size) {
 
-                in 0 until (placeOnField.size * 0.3).toInt() -> {
+                in 0 until (placeOnField.size * 0.4).toInt() -> {
                     level.bonusFillSpeed = 0.005f
                     level.negativeBonuses = listOf(2, 2)
                     level.numberOfBricksToWin = 5
                 }
 
-                in (placeOnField.size * 0.3).toInt() until (placeOnField.size * 0.6).toInt() -> {
+                in (placeOnField.size * 0.4).toInt() until (placeOnField.size * 0.7).toInt() -> {
                     level.negativeBonuses = listOf(2, 1)
                     level.bonusFillSpeed = 0.008f
                     level.numberOfBricksToWin = 4
                 }
 
-                in (placeOnField.size * 0.6).toInt()..(placeOnField.size * 0.8).toInt() -> {
-                    level.negativeBonuses = listOf(0, 1)
+                in (placeOnField.size * 0.7).toInt()..(placeOnField.size * 0.9).toInt() -> {
+                    level.negativeBonuses = listOf(1, 0)
                     level.numberOfBricksToWin = 3
                     level.bonusFillSpeed = 0.015f
                 }
@@ -74,32 +74,34 @@ class Survival @Inject constructor(
                 }
             }
             levelData.levelWinLine.intValue = level.numberOfBricksToWin
-
             fieldController.setNegativeSlotOnSurvival(emptyPlaceOnField, levelSurvival)
 
-
             if (currentNumberOfBricksToWin != level.numberOfBricksToWin) {
-
-                placeOnField.forEach { place ->
-                    val updatedPlaces = levelData.getPlacesOnFields()
-                    val placeToReset = updatedPlaces.find { it.position == place.position }
-
-                    placeToReset?.let {
-                        when (val innerSlot = it.slot.value) {
-                            is GameObjects.Brick -> {
-                                if (!innerSlot.baseModel.needReset) {
-                                    levelLogic.checkRound(it, true)
-                                }
-                            }
-
-                            else -> {}
-                        }
-                    }
-                }
+                checkAllField(placeOnField)
                 levelLogic.canPlaySoundWin = true
                 currentNumberOfBricksToWin = level.numberOfBricksToWin
             } else {
                 levelLogic.checkEndLevel()
+            }
+        }
+    }
+
+    private fun checkAllField(placeOnField: MutableList<PlaceOnField>) {
+
+        placeOnField.forEach { place ->
+            val updatedPlaces = levelData.getPlacesOnFields()
+            val placeToReset = updatedPlaces.find { it.position == place.position }
+
+            placeToReset?.let {
+                when (val innerSlot = it.slot.value) {
+                    is GameObjects.Brick -> {
+                        if (!innerSlot.baseModel.needReset) {
+                            levelLogic.checkRound(it, true)
+                        }
+                    }
+
+                    else -> {}
+                }
             }
         }
     }

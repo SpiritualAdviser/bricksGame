@@ -24,7 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bricksGame.components.levelGame.animations.InitAnimationTranslationX
+import com.example.bricksGame.components.levelGame.animations.RunAnimationScaleOnPlace
 import com.example.bricksGame.components.levelGame.models.BonusViewModel
 import com.example.bricksGame.components.levelGame.models.BricksViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
@@ -150,16 +151,19 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
                         )
                         .size(fieldViewModel.placeSizeOnField.value)
                         .background(fieldViewModel.placeBgColor)
+                        .scale(placeOnField.animation.scaleAnimation.value)
                         .paint(
                             painter = fieldViewModel.getBitmapPainter(placeOnField.slot.value),
                             sizeToIntrinsics = true,
                             contentScale = ContentScale.FillBounds
                         )
+
                         .onGloballyPositioned { coordinates ->
                             fieldViewModel.setGloballyPosition(placeOnField, coordinates)
                         }
                         .clickable { fieldViewModel.onClick(placeOnField) }
                 )
+                RunAnimationScaleOnPlace(placeOnField)
             }
         }
     }

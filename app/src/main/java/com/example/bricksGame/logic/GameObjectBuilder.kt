@@ -51,14 +51,15 @@ class GameObjectBuilder @Inject constructor(
     }
 
     fun getEmptyPlace(): GameObjects.Empty {
-        return GameObjects.Empty(BaseModel(context))
+        return GameObjects.Empty(BaseModel(context), Animation())
     }
 
     private fun createPlace(positionColumn: Int, positionRow: Int): PlaceOnField {
         return PlaceOnField(
             position = Pair(positionColumn, positionRow),
-            slot = mutableStateOf(GameObjects.Empty(BaseModel(context))),
-            baseModel = BaseModel(context)
+            slot = mutableStateOf(GameObjects.Empty(BaseModel(context), Animation())),
+            baseModel = BaseModel(context),
+            animation = Animation()
         )
     }
 
@@ -143,7 +144,12 @@ class GameObjectBuilder @Inject constructor(
 
     private fun createBonus(i: Int): GameObjects.Bonus {
         val newBonus =
-            GameObjects.Bonus(baseModel = BaseModel(context = context), Cords(), BonusType())
+            GameObjects.Bonus(
+                baseModel = BaseModel(context = context),
+                cords = Cords(),
+                bonusType = BonusType(),
+                animation = Animation()
+            )
         when (i) {
             0 -> {
                 newBonus.bonusType.ise = true
