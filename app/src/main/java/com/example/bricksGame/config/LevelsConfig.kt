@@ -4,7 +4,7 @@ import com.example.bricksGame.logic.LevelBuilder
 import javax.inject.Inject
 import javax.inject.Singleton
 
-//@Singleton
+@Singleton
 class LevelsConfig @Inject constructor(private var levelBuilder: LevelBuilder) {
 
     var levelGameList = mutableListOf<Level>()
