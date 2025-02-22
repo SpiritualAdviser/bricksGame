@@ -94,7 +94,7 @@ class FieldViewModel @Inject constructor(
 //            else -> return
 //
 //        }
-        runAnimationScale(placeOnField)
+//        runAnimationScale(placeOnField)
     }
 
     fun navigateToHome() {

@@ -43,8 +43,6 @@ class BricksViewModel @Inject constructor(
 
     private var bricksList: MutableList<GameObjects.Brick> = levelData.getBricksList()
 
-//    var canRunTranslation = bricksController.canRunTranslation
-
     var canRunTranslation = mutableStateOf(false)
 
     val bricks

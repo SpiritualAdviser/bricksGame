@@ -9,11 +9,13 @@ import com.example.bricksGame.gameObjects.PlaceOnField
 fun RunAnimationScaleOnPlace(placeOnField: PlaceOnField) {
 
     LaunchedEffect(placeOnField.animation.wasAnimated.value) {
+        placeOnField.animation.scaleAnimation.snapTo(0.4F)
+
         placeOnField.animation.scaleAnimation.animateTo(
             targetValue = 1f,
-            animationSpec = tween(durationMillis = 600),
+            animationSpec = tween(durationMillis = 400),
             initialVelocity = 0.4F,
-        ).endReason
+        )
     }
 }
 

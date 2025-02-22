@@ -14,6 +14,8 @@ import com.example.bricksGame.helper.SpriteAnimation
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -41,7 +43,7 @@ class FieldController @Inject constructor(
             for (i in 0 until numberSlot) {
                 val placeOnField = placesOnField.random()
                 val slot: GameObjects = createSlot(typeOfSlot)
-//                runAnimationOnCreate(placeOnField, slot)
+                runAnimationOnCreate(placeOnField, slot)
                 placeOnField.slot.value = slot
             }
         }
@@ -55,7 +57,7 @@ class FieldController @Inject constructor(
             for (i in 0 until numberSlot) {
                 val placeOnField = placesOnField.random()
                 val slot: GameObjects = createSlot(typeOfSlot)
-//                runAnimationOnCreate(placeOnField, slot)
+                runAnimationOnCreate(placeOnField, slot)
                 placeOnField.slot.value = slot
             }
         }
@@ -82,10 +84,7 @@ class FieldController @Inject constructor(
     }
 
     private fun runAnimationOnCreate(placeOnField: PlaceOnField, slot: GameObjects) {
-        CoroutineScope(Dispatchers.IO).launch {
-            placeOnField.animation.scaleAnimation.snapTo(0.4F)
-            placeOnField.animation.wasAnimated.value = true
-        }
+        placeOnField.animation.wasAnimated.value = !placeOnField.animation.wasAnimated.value
     }
 
     fun goToHome() {

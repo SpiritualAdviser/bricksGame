@@ -39,7 +39,6 @@ class StartLevelLogic @Inject constructor(
 
 
     fun onStartFreeGame() {
-//        levelData.resetFlow()
         survival.onSurvivalMode()
         val level = levelsConfig.levelsSurvival[0]
         onStartLevel(level, true)
