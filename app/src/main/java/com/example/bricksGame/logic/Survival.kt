@@ -1,17 +1,18 @@
 package com.example.bricksGame.logic
 
 import com.example.bricksGame.components.levelGame.controller.FieldController
+import com.example.bricksGame.config.Level
 import com.example.bricksGame.config.LevelsConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.GameObjects
 import com.example.bricksGame.gameObjects.PlaceOnField
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+
 class Survival @Inject constructor(
     private var levelData: LevelData,
     private var levelsConfig: LevelsConfig,
@@ -22,19 +23,28 @@ class Survival @Inject constructor(
     private val levelsSurvival = levelsConfig.levelsSurvival
     private var currentStage = 0
     private var currentNumberOfBricksToWin = 0
+    private var stageCoroutineScope: Job? = null
 
     fun onSurvivalMode() {
+        resetLevel()
+        stageCoroutineScope?.cancel()
 
-        CoroutineScope(Dispatchers.Main).launch {
+        stageCoroutineScope = CoroutineScope(Dispatchers.IO).launch {
 
-            levelData.survivalStage.collect {
-                val randomStage = listOf(10).random()
+            levelData.survivalStage.collect() {
+                val randomStage = listOf(2).random()
 
                 if (it % randomStage == 0) {
                     setNextStage()
                 }
             }
         }
+    }
+
+    private fun resetLevel() {
+        levelsSurvival.first().negativeBonuses = levelsSurvival.last().negativeBonuses
+        levelsSurvival.first().numberOfBricksToWin = levelsSurvival.last().numberOfBricksToWin
+        levelsSurvival.first().bonusFillSpeed = levelsSurvival.last().bonusFillSpeed
     }
 
     private fun setNextStage() {
@@ -56,7 +66,7 @@ class Survival @Inject constructor(
                 }
 
                 in (placeOnField.size * 0.4).toInt() until (placeOnField.size * 0.7).toInt() -> {
-                    level.negativeBonuses = listOf(2, 1)
+                    level.negativeBonuses = listOf(1, 1)
                     level.bonusFillSpeed = 0.008f
                     level.numberOfBricksToWin = 4
                 }
@@ -74,10 +84,12 @@ class Survival @Inject constructor(
                 }
             }
             levelData.levelWinLine.intValue = level.numberOfBricksToWin
-            fieldController.setNegativeSlotOnSurvival(emptyPlaceOnField, levelSurvival)
+
+
+            fieldController.setNegativeSlotOnSurvival(emptyPlaceOnField, level)
 
             if (currentNumberOfBricksToWin != level.numberOfBricksToWin) {
-                checkAllField(placeOnField)
+                checkAllField(placeOnField, level)
                 levelLogic.canPlaySoundWin = true
                 currentNumberOfBricksToWin = level.numberOfBricksToWin
             } else {
@@ -86,7 +98,7 @@ class Survival @Inject constructor(
         }
     }
 
-    private fun checkAllField(placeOnField: MutableList<PlaceOnField>) {
+    private fun checkAllField(placeOnField: MutableList<PlaceOnField>, level: Level) {
 
         placeOnField.forEach { place ->
             val updatedPlaces = levelData.getPlacesOnFields()

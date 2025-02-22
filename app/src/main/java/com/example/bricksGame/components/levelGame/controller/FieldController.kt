@@ -41,8 +41,8 @@ class FieldController @Inject constructor(
             for (i in 0 until numberSlot) {
                 val placeOnField = placesOnField.random()
                 val slot: GameObjects = createSlot(typeOfSlot)
-                runAnimationOnCreate(placeOnField, slot)
-                runAnimationOnCreate(placeOnField, slot)
+//                runAnimationOnCreate(placeOnField, slot)
+                placeOnField.slot.value = slot
             }
         }
     }
@@ -55,7 +55,8 @@ class FieldController @Inject constructor(
             for (i in 0 until numberSlot) {
                 val placeOnField = placesOnField.random()
                 val slot: GameObjects = createSlot(typeOfSlot)
-                runAnimationOnCreate(placeOnField, slot)
+//                runAnimationOnCreate(placeOnField, slot)
+                placeOnField.slot.value = slot
             }
         }
     }
@@ -81,10 +82,9 @@ class FieldController @Inject constructor(
     }
 
     private fun runAnimationOnCreate(placeOnField: PlaceOnField, slot: GameObjects) {
-        CoroutineScope(Dispatchers.Main).launch {
+        CoroutineScope(Dispatchers.IO).launch {
             placeOnField.animation.scaleAnimation.snapTo(0.4F)
             placeOnField.animation.wasAnimated.value = true
-            placeOnField.slot.value = slot
         }
     }
 

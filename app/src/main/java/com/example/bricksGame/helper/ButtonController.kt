@@ -52,7 +52,7 @@ class ButtonController @Inject constructor(
         soundController.clickUi()
         appNavigation.getNavController().navigate(Routes.Records.route) {
 
-            popUpTo(Routes.Players.route)
+            popUpTo(Routes.Records.route)
             launchSingleTop = true
         }
     }

@@ -10,9 +10,6 @@ import com.example.bricksGame.config.LevelsConfig
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.gameObjects.PlaceOnField
 import com.example.bricksGame.helper.ButtonController
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -42,6 +39,7 @@ class StartLevelLogic @Inject constructor(
 
 
     fun onStartFreeGame() {
+//        levelData.resetFlow()
         survival.onSurvivalMode()
         val level = levelsConfig.levelsSurvival[0]
         onStartLevel(level, true)

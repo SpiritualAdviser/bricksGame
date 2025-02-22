@@ -111,7 +111,10 @@ class LevelLogic @Inject constructor(
         }
     }
 
-    fun checkRound(placeOnField: PlaceOnField, isChangeStage: Boolean = false) {
+    fun checkRound(
+        placeOnField: PlaceOnField,
+        isChangeStage: Boolean = false,
+    ) {
         this.onChangeStage = isChangeStage
 
         val columnIndex = placeOnField.position.first
@@ -363,7 +366,7 @@ class LevelLogic @Inject constructor(
         }
     }
 
-    private fun resetPlace(place: PlaceOnField) {
+     fun resetPlace(place: PlaceOnField) {
         val emptyPlace = gameObjectBuilder.getEmptyPlace()
         place.slot.value = emptyPlace
     }
@@ -398,15 +401,17 @@ class LevelLogic @Inject constructor(
     }
 
     fun checkEndLevel() {
+
         val fieldGameIsFull =
             levelData.getPlacesOnFields().all { it.slot.value !is GameObjects.Empty }
 
-        val stepOnLevel = levelData.levelStep.intValue
+        var stepOnLevel = levelData.levelStep.intValue
         val levelTarget = levelData.levelTarget.intValue
         var onLevelWin = levelTarget <= 0
 
         if (levelData.freeGame) {
             onLevelWin = false
+            stepOnLevel=1
         }
         if (onLevelWin || fieldGameIsFull || stepOnLevel <= 0) {
             closeLevel(onLevelWin)
