@@ -9,7 +9,7 @@
 <br align="center"><img src="https://github.com/user-attachments/assets/ce42938f-1b73-4397-ba71-4f97f18e402d" width=210 height="110"/></p>
 
 <h1 align="center">How to play</h1>
-In the game you have to open 200 scrolls, Each scroll is a level in which you need to complete the objectives. The next level opens after completing the previous one. By dropping combinations of colored crystals, you score points. When the required number of points is reached, the level is completed successfully. You have a limited number of moves to do this, and there are obstacles on the playing squares that need to be cleared. Among other things, your achievements are saved in the player's card. You can create as many players as you need, but each player has their own game progress.
+The game has two modes, adventure and survival. In survival mode, you need to hold out for the maximum number of moves. In adventure mode, you will have to open 200 scrolls, each of which represents a level where you need to complete the tasks. The next level opens after completing the previous one. By collecting combinations of colored crystals, you score points. When the required number of points is reached, the level is considered completed successfully. To do this, you have a limited number of moves, and there are obstacles on the playgrounds that need to be overcome. Among other things, your achievements are saved in the player's card. You can create as many players as you need, but each player has their own game progress.
 
 <h1 align="center">Technologies</h1>
 
@@ -29,7 +29,7 @@ The project is implemented using the Single Activity Application pattern. In the
 
 <p>The main menu is the main component of the entrance to the application</p>
 <p>Player menu - here we create and select players in the game</p>
-<p>Free-to-play mode - One level for endless play and practice</p>
+<p>Survival mode - you need to hold out for the maximum number of moves</p>
 <p>Adventure is the main story mode of the game</p>
 <p>Records - information about the author and links to his works</p>
 <p>Information - information about the author and links to his works</p>
