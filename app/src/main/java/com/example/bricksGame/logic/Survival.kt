@@ -32,7 +32,7 @@ class Survival @Inject constructor(
         stageCoroutineScope = CoroutineScope(Dispatchers.IO).launch {
 
             levelData.survivalStage.collect() {
-                val randomStage = listOf(5).random()
+                val randomStage = listOf(6).random()
 
                 if (it % randomStage == 0) {
                     setNextStage()
@@ -61,12 +61,12 @@ class Survival @Inject constructor(
 
                 in 0 until (placeOnField.size * 0.4).toInt() -> {
                     level.bonusFillSpeed = 0.005f
-                    level.negativeBonuses = listOf(2, 2)
-                    level.numberOfBricksToWin = 5
+                    level.negativeBonuses = listOf(1, 1)
+                    level.numberOfBricksToWin = 4
                 }
 
                 in (placeOnField.size * 0.4).toInt() until (placeOnField.size * 0.7).toInt() -> {
-                    level.negativeBonuses = listOf(1, 1)
+                    level.negativeBonuses = listOf(0, 1)
                     level.bonusFillSpeed = 0.008f
                     level.numberOfBricksToWin = 4
                 }
