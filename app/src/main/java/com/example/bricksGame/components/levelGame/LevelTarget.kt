@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bricksGame.components.levelGame.models.FieldViewModel
+import com.example.bricksGame.localization.Localization
 import com.example.bricksGame.ui.theme.onPrimaryLight
 
 @Composable
@@ -32,7 +33,13 @@ fun LevelTargetBlockLandscape() {
 
 @Composable
 fun BlockLevelTarget(fieldViewModel: FieldViewModel = hiltViewModel()) {
-    Text(text = "Target: ${fieldViewModel.levelTarget.intValue}", color = onPrimaryLight)
-    Text("winLine: ${fieldViewModel.levelWinLine.intValue}", color = onPrimaryLight)
-    Text("Step: ${fieldViewModel.levelStep.intValue}", color = onPrimaryLight)
+    Text(
+        text = "${Localization.target.value}: ${fieldViewModel.levelTarget.intValue}",
+        color = onPrimaryLight
+    )
+    Text(
+        "${Localization.winLine.value}: ${fieldViewModel.levelWinLine.intValue}",
+        color = onPrimaryLight
+    )
+    Text("${Localization.step.value}: ${fieldViewModel.levelStep.intValue}", color = onPrimaryLight)
 }

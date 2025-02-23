@@ -34,6 +34,7 @@ import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.tableRecords.model.RecordsViewModel
 import com.example.bricksGame.helper.MainMenuBg
 import com.example.bricksGame.internet.PlayerAchievement
+import com.example.bricksGame.localization.Localization
 import com.example.bricksGame.ui.theme.onPrimaryLight
 import com.example.bricksGame.ui.theme.playerDefaultPlaceBgCard
 import com.example.bricksGame.ui.theme.playerFirstPlaceBgCard
@@ -70,7 +71,7 @@ fun Records() {
 @Composable
 fun RecordsList(recordsViewModel: RecordsViewModel = hiltViewModel()) {
 
-    Text("Records", fontSize = 22.sp, color = onPrimaryLight)
+    Text(Localization.records.value, fontSize = 22.sp, color = onPrimaryLight)
     Spacer(Modifier.size(4.dp))
     LazyColumn(
         Modifier
@@ -124,13 +125,13 @@ fun PlayerRecordCard(playerAchievement: PlayerAchievement, index: Int) {
                 fontSize = 14.sp,
                 color = playerTextDark,
                 maxLines = 1,
-                modifier = Modifier.fillMaxWidth(.5F),
+                modifier = Modifier.fillMaxWidth(0.4F),
                 overflow = TextOverflow.Ellipsis
             )
         }
         Row {
             Text(
-                "achiev: ${playerAchievement.achievements}",
+                "${Localization.achieve.value}: ${playerAchievement.achievements}",
                 fontSize = 14.sp,
                 color = playerTextDark
             )

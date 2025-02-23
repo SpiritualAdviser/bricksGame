@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bricksGame.R
 import com.example.bricksGame.components.players.models.PlayerViewModel
+import com.example.bricksGame.localization.Localization
 import com.example.bricksGame.ui.theme.primaryContainerDark
 
 @Composable
@@ -35,7 +36,7 @@ fun PlayerScoreBlock() {
 }
 
 @Composable
-fun PlayerScore(playerViewModel:PlayerViewModel= hiltViewModel()) {
+fun PlayerScore(playerViewModel: PlayerViewModel = hiltViewModel()) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -46,7 +47,7 @@ fun PlayerScore(playerViewModel:PlayerViewModel= hiltViewModel()) {
         )
         Spacer(Modifier.size(4.dp))
         Text(
-            text = "Score: ${playerViewModel.playerScore.intValue}",
+            text = "${Localization.score.value}: ${playerViewModel.playerScore.intValue}",
             fontSize = 20.sp,
             color = Color.White
         )
@@ -54,7 +55,7 @@ fun PlayerScore(playerViewModel:PlayerViewModel= hiltViewModel()) {
 }
 
 @Composable
-fun PlayerName(playerViewModel:PlayerViewModel= hiltViewModel()) {
+fun PlayerName(playerViewModel: PlayerViewModel = hiltViewModel()) {
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -74,7 +75,7 @@ fun PlayerName(playerViewModel:PlayerViewModel= hiltViewModel()) {
 }
 
 @Composable
-fun PlayerAchievements(playerViewModel:PlayerViewModel= hiltViewModel()) {
+fun PlayerAchievements(playerViewModel: PlayerViewModel = hiltViewModel()) {
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -86,7 +87,7 @@ fun PlayerAchievements(playerViewModel:PlayerViewModel= hiltViewModel()) {
         )
         Spacer(Modifier.size(10.dp))
         Text(
-            text = "Achiv: ${playerViewModel.playerAchievements.intValue}",
+            text = "${Localization.achieve.value}: ${playerViewModel.playerAchievements.intValue}",
             fontSize = 16.sp,
             color = Color.White
         )
