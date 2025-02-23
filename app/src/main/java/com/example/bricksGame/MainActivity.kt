@@ -51,8 +51,6 @@ class MainActivity : ComponentActivity() {
                 soundController.setContext(context)
                 soundController.playMainTheme()
             }
-
-            Localization.runTranslation(Dictionary().en)
 //            context.deleteDatabase("player_database")
             screenSize.GetScreenSize()
             levelData.onOptionChange()
@@ -79,8 +77,8 @@ class MainActivity : ComponentActivity() {
 
     override fun attachBaseContext(newBase: Context?) {
         val newOverride = Configuration(newBase?.resources?.configuration)
-        if (newOverride.fontScale >= 1.3f)
-            newOverride.fontScale = 1.3f
+        if (newOverride.fontScale >= 1f)
+            newOverride.fontScale = 1f
         applyOverrideConfiguration(newOverride)
         super.attachBaseContext(newBase)
     }

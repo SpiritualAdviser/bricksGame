@@ -30,7 +30,7 @@ fun MainButtonsBlock(
         IconButton(
             onClick = { homeScreenViewModel.buttonController.navigateToMap() },
             modifier = Modifier
-                .size(100.dp, 43.dp)
+                .size(110.dp, 43.dp)
                 .paint(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit
@@ -49,41 +49,69 @@ fun MainButtonsBlock(
                 homeScreenViewModel.startFreeGame()
             },
             modifier = Modifier
-                .size(100.dp, 43.dp)
+                .size(110.dp, 43.dp)
                 .paint(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit
                 )
-        ) { Text("Survival", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
+        ) {
+            Text(
+                Localization.survival.value,
+                fontSize = 13.sp,
+                color = buttonText,
+                fontWeight = FontWeight.Bold
+            )
+        }
 
         IconButton(
             onClick = { homeScreenViewModel.buttonController.navigateToPlayers() },
             modifier = Modifier
-                .size(100.dp, 43.dp)
+                .size(110.dp, 43.dp)
                 .paint(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit
                 )
-        ) { Text("Players", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
+        ) {
+            Text(
+                Localization.players.value,
+                fontSize = 13.sp,
+                color = buttonText,
+                fontWeight = FontWeight.Bold
+            )
+        }
 
         IconButton(
             onClick = { homeScreenViewModel.buttonController.navigateToRecords() },
             modifier = Modifier
-                .size(100.dp, 43.dp)
+                .size(110.dp, 43.dp)
                 .paint(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit
                 )
-        ) { Text("Records", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
+        ) {
+            Text(
+                Localization.records.value,
+                fontSize = 13.sp,
+                color = buttonText,
+                fontWeight = FontWeight.Bold
+            )
+        }
 
         IconButton(
             onClick = { homeScreenViewModel.buttonController.navigateToInfo() },
             modifier = Modifier
-                .size(100.dp, 43.dp)
+                .size(110.dp, 43.dp)
                 .paint(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit
                 )
-        ) { Text("Info", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
+        ) {
+            Text(
+                Localization.info.value,
+                fontSize = 13.sp,
+                color = buttonText,
+                fontWeight = FontWeight.Bold
+            )
+        }
     }
 }

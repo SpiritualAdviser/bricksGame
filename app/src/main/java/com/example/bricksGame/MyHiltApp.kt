@@ -5,6 +5,8 @@ import com.example.bricksGame.components.players.repository.PlayerRepository
 import com.example.bricksGame.helper.SoundController
 import com.example.bricksGame.helper.SpriteAnimation
 import com.example.bricksGame.internet.PlayerRecordsRepository
+import com.example.bricksGame.localization.Dictionary
+import com.example.bricksGame.localization.Localization
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -25,7 +27,7 @@ class MyHiltApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+        Localization.runTranslation(Dictionary().en)
         spriteAnimation.setAnimationOnGame()
         playerRecordsRepository.getRecords()
     }
