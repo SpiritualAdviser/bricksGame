@@ -51,6 +51,7 @@ import com.example.bricksGame.components.naviBar.ButtonNaviBar
 import com.example.bricksGame.components.players.data.Player
 import com.example.bricksGame.components.players.models.PlayerViewModel
 import com.example.bricksGame.helper.MainMenuBg
+import com.example.bricksGame.localization.Localization
 import com.example.bricksGame.ui.theme.activePlayerBgCard
 import com.example.bricksGame.ui.theme.activePlayerIcon
 import com.example.bricksGame.ui.theme.buttonText
@@ -94,11 +95,11 @@ fun PlayerView(playerViewModel: PlayerViewModel = hiltViewModel()) {
                 playerViewModel.addPlayer()
                 if (playerViewModel.nameNoEmpty) {
                     coroutineScope.launch {
-                        snackState.showSnackbar("The Player is added")
+                        snackState.showSnackbar(Localization.snackAddPlayer.value)
                     }
                 } else {
                     coroutineScope.launch {
-                        snackState.showSnackbar("The name of Player can not be empty")
+                        snackState.showSnackbar(Localization.snackEmptyNamePlayer.value)
                     }
                 }
             },
@@ -110,7 +111,7 @@ fun PlayerView(playerViewModel: PlayerViewModel = hiltViewModel()) {
                 )
         ) {
             Text(
-                "Create player",
+                Localization.createPlayer.value,
                 fontSize = 13.sp,
                 color = buttonText,
                 fontWeight = FontWeight.Bold
@@ -133,7 +134,7 @@ fun PlayerView(playerViewModel: PlayerViewModel = hiltViewModel()) {
 fun PlayersList(playerViewModel: PlayerViewModel = hiltViewModel()) {
     val playersList = playerViewModel.allPlayers.collectAsState(initial = emptyList())
 
-    Text("Players", fontSize = 22.sp, color = onPrimaryLight)
+    Text(Localization.players.value, fontSize = 22.sp, color = onPrimaryLight)
     Spacer(Modifier.size(4.dp))
     LazyColumn(
         Modifier
@@ -169,8 +170,7 @@ fun PlayerCard(player: Player, playerViewModel: PlayerViewModel = hiltViewModel(
                     playerBgCard
                 }
             )
-            .padding(6.dp)
-        ,
+            .padding(6.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -196,7 +196,11 @@ fun PlayerCard(player: Player, playerViewModel: PlayerViewModel = hiltViewModel(
             )
         }
         Row {
-            Text("achiev: ${player.achievements}", fontSize = 15.sp, color = playerTextDark)
+            Text(
+                "${Localization.achieve.value}: ${player.achievements}",
+                fontSize = 15.sp,
+                color = playerTextDark
+            )
         }
         Box(
             Modifier.fillMaxWidth(),
@@ -208,14 +212,15 @@ fun PlayerCard(player: Player, playerViewModel: PlayerViewModel = hiltViewModel(
                 if (player.isActive) {
                     Icon(
                         Icons.Filled.Check,
-                       modifier = Modifier.offset(x = 23.dp),
+                        modifier = Modifier.offset(x = 23.dp),
                         tint = activePlayerIcon,
                         contentDescription = "activePlayer",
                     )
                 }
 
-                IconButton(onClick = { playerViewModel.delete(player) },
-                        modifier = Modifier.offset(x = 10.dp),
+                IconButton(
+                    onClick = { playerViewModel.delete(player) },
+                    modifier = Modifier.offset(x = 10.dp),
                 ) {
                     Icon(Icons.Filled.Delete, contentDescription = "delete player")
                 }
@@ -227,14 +232,14 @@ fun PlayerCard(player: Player, playerViewModel: PlayerViewModel = hiltViewModel(
 @Composable
 fun AddPlayer(playerViewModel: PlayerViewModel = hiltViewModel()) {
 
-    Text("Enter player name", fontSize = 20.sp, color = onPrimaryLight)
+    Text(Localization.enterPlayerName.value, fontSize = 20.sp, color = onPrimaryLight)
 
     OutlinedTextField(
         value = playerViewModel.nameNewPlayer.value,
         onValueChange = {
             playerViewModel.setNameOnAddPlayer(it)
         },
-        label = { Text("name") },
+        label = { Text(Localization.labelName.value) },
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = unfocusedTextFieldBg,
             focusedContainerColor = focusedTextFieldBg,

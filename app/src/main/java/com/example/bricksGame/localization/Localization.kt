@@ -21,6 +21,12 @@ object Localization {
     val players: MutableState<String> = mutableStateOf("")
     val records: MutableState<String> = mutableStateOf("")
     val info: MutableState<String> = mutableStateOf("")
+    val snackAddPlayer: MutableState<String> = mutableStateOf("")
+    val snackEmptyNamePlayer: MutableState<String> = mutableStateOf("")
+    val createPlayer: MutableState<String> = mutableStateOf("")
+    val achieve: MutableState<String> = mutableStateOf("")
+    val enterPlayerName: MutableState<String> = mutableStateOf("")
+    val labelName: MutableState<String> = mutableStateOf("")
 
     private val strings = mapOf(
         "adventure" to adventure,
@@ -30,6 +36,12 @@ object Localization {
         "players" to players,
         "records" to records,
         "info" to info,
+        "snackAddPlayer" to snackAddPlayer,
+        "snackEmptyNamePlayer" to snackEmptyNamePlayer,
+        "createPlayer" to createPlayer,
+        "achiev" to achieve,
+        "enterPlayerName" to enterPlayerName,
+        "labelName" to labelName,
     )
 }
 
@@ -42,6 +54,12 @@ class Dictionary {
         "players" to "Players",
         "records" to "Records",
         "info" to "Info",
+        "snackAddPlayer" to "The Player is added",
+        "snackEmptyNamePlayer" to "The name of Player can not be empty",
+        "createPlayer" to "Create Player",
+        "achiev" to "Achiev",
+        "enterPlayerName" to "Enter player name",
+        "labelName" to "name",
     )
 
     val ru = mapOf(
@@ -52,6 +70,12 @@ class Dictionary {
         "players" to "Игроки",
         "records" to "Рекорды",
         "info" to "Информация",
+        "snackAddPlayer" to "Игрок добавлен",
+        "snackEmptyNamePlayer" to "Заполните Имя Игрока",
+        "createPlayer" to "Создать Игрока",
+        "achiev" to "Рекорды",
+        "enterPlayerName" to "Имя игрока",
+        "labelName" to "имя",
     )
 }
 
