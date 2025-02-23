@@ -85,7 +85,7 @@ class FieldController @Inject constructor(
     }
 
     private fun runAnimationOnCreate(placeOnField: PlaceOnField, slot: GameObjects) {
-        placeOnField.animation.scaleAnimation = Animatable(initialValue = 0F)
+
         placeOnField.animation.wasAnimated.value = !placeOnField.animation.wasAnimated.value
     }
 

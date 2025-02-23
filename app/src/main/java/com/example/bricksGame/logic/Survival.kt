@@ -32,7 +32,7 @@ class Survival @Inject constructor(
         stageCoroutineScope = CoroutineScope(Dispatchers.IO).launch {
 
             levelData.survivalStage.collect() {
-                val randomStage = listOf(6).random()
+                val randomStage = listOf(1).random()
 
                 if (it % randomStage == 0) {
                     setNextStage()

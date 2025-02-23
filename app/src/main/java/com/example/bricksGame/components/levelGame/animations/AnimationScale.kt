@@ -10,9 +10,14 @@ fun RunAnimationScaleOnPlace(placeOnField: PlaceOnField) {
 
     LaunchedEffect(placeOnField.animation.wasAnimated.value) {
         placeOnField.animation.scaleAnimation.animateTo(
+            targetValue = 0.8f,
+            animationSpec = tween(durationMillis = 500),
+        )
+
+        placeOnField.animation.scaleAnimation.animateTo(
             targetValue = 1f,
-            animationSpec = tween(durationMillis = 800),
-            initialVelocity = 0F,
+            animationSpec = tween(durationMillis = 100),
+
         )
     }
 }
