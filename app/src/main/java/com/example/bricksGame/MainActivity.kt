@@ -5,27 +5,20 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.lifecycleScope
 import com.example.bricksGame.gameData.LevelData
 import com.example.bricksGame.helper.AppNavigation
 import com.example.bricksGame.helper.ScreenSize
 import com.example.bricksGame.helper.SoundController
-import com.example.bricksGame.internet.APIService
-import com.example.bricksGame.internet.DataPlayerRecords
-import com.example.bricksGame.internet.PlayerAchievement
-import com.example.bricksGame.internet.RetrofitClient
+import com.example.bricksGame.localization.Dictionary
+import com.example.bricksGame.localization.Localization
 import com.example.bricksGame.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -52,11 +45,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
+
             val context = LocalContext.current
             if (!soundController.isRun) {
                 soundController.setContext(context)
                 soundController.playMainTheme()
             }
+
+            Localization.runTranslation(Dictionary().en)
 //            context.deleteDatabase("player_database")
             screenSize.GetScreenSize()
             levelData.onOptionChange()

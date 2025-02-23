@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bricksGame.R
 import com.example.bricksGame.components.gameMeny.models.HomeScreenViewModel
+import com.example.bricksGame.localization.Localization
 import com.example.bricksGame.ui.theme.buttonText
 
 @Composable
@@ -34,7 +35,14 @@ fun MainButtonsBlock(
                     painter = painterResource(R.drawable.buttons_empty),
                     contentScale = ContentScale.Fit
                 )
-        ) { Text("Adventure", fontSize = 13.sp, color = buttonText, fontWeight = FontWeight.Bold) }
+        ) {
+            Text(
+                Localization.adventure.value,
+                fontSize = 13.sp,
+                color = buttonText,
+                fontWeight = FontWeight.Bold
+            )
+        }
 
         IconButton(
             onClick = {
