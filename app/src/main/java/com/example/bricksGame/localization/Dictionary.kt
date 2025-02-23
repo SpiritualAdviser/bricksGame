@@ -43,7 +43,7 @@ class Dictionary {
         "score" to "Счёт",
     )
 
-    val gm = mapOf(
+    val de = mapOf(
         "adventure" to "Abenteuer",
         "russian" to "Russisch",
         "english" to "Englisch",

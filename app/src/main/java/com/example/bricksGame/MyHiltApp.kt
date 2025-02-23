@@ -1,6 +1,7 @@
 package com.example.bricksGame
 
 import android.app.Application
+import androidx.compose.ui.text.intl.Locale
 import com.example.bricksGame.components.players.repository.PlayerRepository
 import com.example.bricksGame.helper.SoundController
 import com.example.bricksGame.helper.SpriteAnimation
@@ -22,12 +23,20 @@ class MyHiltApp : Application() {
     @Inject
     lateinit var spriteAnimation: SpriteAnimation
 
-   @Inject
-   lateinit var playerRecordsRepository: PlayerRecordsRepository
+    @Inject
+    lateinit var playerRecordsRepository: PlayerRecordsRepository
 
     override fun onCreate() {
+        val currentLocale = Locale.current.language
+        val systemLanguage = when (currentLocale) {
+            "ru" -> Dictionary().ru
+            "de" -> Dictionary().de
+            "en" -> Dictionary().en
+            else -> Dictionary().en
+        }
+
         super.onCreate()
-        Localization.runTranslation(Dictionary().en)
+        Localization.runTranslation(systemLanguage)
         spriteAnimation.setAnimationOnGame()
         playerRecordsRepository.getRecords()
     }

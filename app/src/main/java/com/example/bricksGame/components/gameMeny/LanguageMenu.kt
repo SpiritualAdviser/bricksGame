@@ -51,7 +51,7 @@ fun LanguageManu() {
                 text = { Text(Localization.english.value) }
             )
             DropdownMenuItem(
-                onClick = { Localization.runTranslation(Dictionary().gm) },
+                onClick = { Localization.runTranslation(Dictionary().de) },
                 text = { Text(Localization.german.value) }
             )
         }
