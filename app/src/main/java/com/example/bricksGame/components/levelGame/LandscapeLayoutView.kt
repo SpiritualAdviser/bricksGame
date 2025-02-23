@@ -110,7 +110,7 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
         ) {
 
             items(fieldViewModel.placesOnField) { placeOnField ->
-
+                RunAnimationScaleOnPlace(placeOnField)
                 Box(
                     Modifier
                         .clip(RoundedCornerShape(fieldViewModel.placeCorner.dp))
@@ -132,7 +132,6 @@ private fun FieldOnLevel(fieldViewModel: FieldViewModel = hiltViewModel()) {
                             fieldViewModel.setGloballyPosition(placeOnField, coordinates)
                         }
                 )
-                RunAnimationScaleOnPlace(placeOnField)
             }
         }
     }

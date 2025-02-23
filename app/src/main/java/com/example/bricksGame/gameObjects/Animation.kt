@@ -11,5 +11,6 @@ data class Animation(
     var translationX: Animatable<Float, AnimationVector1D> = Animatable(initialValue = 0F),
     var translationY: Animatable<Float, AnimationVector1D> = Animatable(initialValue = 0F),
     var delayTranslation: Int = 0,
-    var scaleAnimation: Animatable<Float, AnimationVector1D> = Animatable(initialValue = 0F)
+    var scaleAnimation: Animatable<Float, AnimationVector1D> = Animatable(initialValue = 0.4F),
+
 )

@@ -2,6 +2,7 @@ package com.example.bricksGame.components.levelGame.controller
 
 import android.content.Context
 import android.util.Log
+import androidx.compose.animation.core.Animatable
 import com.example.bricksGame.config.GameConfig
 import com.example.bricksGame.config.Level
 import com.example.bricksGame.gameObjects.Animation
@@ -84,6 +85,7 @@ class FieldController @Inject constructor(
     }
 
     private fun runAnimationOnCreate(placeOnField: PlaceOnField, slot: GameObjects) {
+        placeOnField.animation.scaleAnimation = Animatable(initialValue = 0F)
         placeOnField.animation.wasAnimated.value = !placeOnField.animation.wasAnimated.value
     }
 

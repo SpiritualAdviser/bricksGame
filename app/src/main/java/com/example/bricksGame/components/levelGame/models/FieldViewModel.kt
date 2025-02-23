@@ -108,7 +108,7 @@ class FieldViewModel @Inject constructor(
     private fun runAnimationScale(placeOnField: PlaceOnField) {
 
         viewModelScope.launch(Dispatchers.Main) {
-            placeOnField.animation.scaleAnimation.snapTo(0.8F)
+//            placeOnField.animation.scaleAnimation.snapTo(0.8F)
             placeOnField.animation.wasAnimated.value = !placeOnField.animation.wasAnimated.value
         }
     }
