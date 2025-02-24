@@ -366,7 +366,7 @@ class LevelLogic @Inject constructor(
         }
     }
 
-     fun resetPlace(place: PlaceOnField) {
+    private fun resetPlace(place: PlaceOnField) {
         val emptyPlace = gameObjectBuilder.getEmptyPlace()
         place.slot.value = emptyPlace
     }
@@ -411,11 +411,15 @@ class LevelLogic @Inject constructor(
 
         if (levelData.freeGame) {
             onLevelWin = false
-            stepOnLevel=1
+            stepOnLevel = 1
         }
         if (onLevelWin || fieldGameIsFull || stepOnLevel <= 0) {
             closeLevel(onLevelWin)
         }
+    }
+
+    fun updateRecords() {
+        playerRepository.updateRecords()
     }
 
     private fun closeLevel(onLevelWin: Boolean) {
@@ -423,8 +427,10 @@ class LevelLogic @Inject constructor(
         if (onLevelWin && !levelData.freeGame) {
             activeLevel?.let {
                 playerRepository.updatePlayerOnLevelWin(it)
+                updateRecords()
             }
         }
+
         CoroutineScope(Dispatchers.Main).launch {
             popupsController.showPopupOnFinishGame(onLevelWin)
             delay(1850)

@@ -130,8 +130,11 @@ class PlayerRepository @Inject constructor(
                 activePlayer.levels.openLevelList += newOpenLevel
                 updatePlayerOnLevel(activePlayer)
             }
-            playerRecordsRepository.setRecords(activePlayer)
         }
+    }
+
+    fun updateRecords() {
+        playerRecordsRepository.setRecords(activePlayer)
     }
 
     fun updateOnIncreaseAchievements() {

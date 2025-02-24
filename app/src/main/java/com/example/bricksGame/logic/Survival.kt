@@ -37,6 +37,9 @@ class Survival @Inject constructor(
                 if (it % randomStage == 0) {
                     setNextStage()
                 }
+                if (it % 20 == 0) {
+                    levelLogic.updateRecords()
+                }
             }
         }
     }

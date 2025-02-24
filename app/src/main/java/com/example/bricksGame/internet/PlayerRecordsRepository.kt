@@ -34,23 +34,27 @@ class PlayerRecordsRepository @Inject constructor(
             return
         }
         CoroutineScope(Dispatchers.IO).launch {
-            val result = apiService.getData()
-            if (result.isSuccessful) {
-                result.body()?.let { serverRecords ->
-                    val sortRecords = serverRecords.players
-                    sortRecords.sortByDescending { it.achievements }
+            try {
+                val result = apiService.getData()
+                if (result.isSuccessful) {
+                    result.body()?.let { serverRecords ->
+                        val sortRecords = serverRecords.players
+                        sortRecords.sortByDescending { it.achievements }
 
-                    playerRecords.clear()
-                    playerRecords.addAll(sortRecords)
+                        playerRecords.clear()
+                        playerRecords.addAll(sortRecords)
 
-                    activePlayer?.let { player ->
-                        playerRecords.find { it.id == player.id }?.active = true
-                        if (nedSendToServer) {
-                            setPlayer(player)
+                        activePlayer?.let { player ->
+                            playerRecords.find { it.id == player.id }?.active = true
+                            if (nedSendToServer) {
+                                setPlayer(player)
+                            }
                         }
+                        serverPlayerRecords = serverRecords
                     }
-                    serverPlayerRecords = serverRecords
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
@@ -88,7 +92,12 @@ class PlayerRecordsRepository @Inject constructor(
             serverRecords.players.forEach { it.active = false }
 
             CoroutineScope(Dispatchers.IO).launch {
-                apiService.postData("application/json", dataModal = serverRecords)
+                try {
+                    apiService.postData("application/json", dataModal = serverRecords)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
             }
         }
     }
