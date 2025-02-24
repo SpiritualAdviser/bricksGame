@@ -432,7 +432,7 @@ class LevelLogic @Inject constructor(
         if (onLevelWin && !levelData.freeGame) {
             activeLevel?.let {
                 playerRepository.updatePlayerOnLevelWin(it)
-                updateRecords()
+                playerRepository.updateRecords()
             }
         }
 
