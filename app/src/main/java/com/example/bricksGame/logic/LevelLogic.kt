@@ -31,6 +31,7 @@ class LevelLogic @Inject constructor(
     private var levelColumns = mutableListOf<List<PlaceOnField>>()
     private var wasWinLine = false
     private var megaWin = false
+    private var canUpdateRecords = false
 
     private var onChangeStage = false
     var canPlaySoundWin = true
@@ -390,6 +391,7 @@ class LevelLogic @Inject constructor(
 
         if (playerRepository.playerScore.intValue > playerRepository.playerAchievements.intValue) {
             playerRepository.playerAchievements.intValue = playerRepository.playerScore.intValue
+            canUpdateRecords = true
             playerRepository.updateOnIncreaseAchievements()
         }
 
@@ -419,7 +421,10 @@ class LevelLogic @Inject constructor(
     }
 
     fun updateRecords() {
-        playerRepository.updateRecords()
+        if (canUpdateRecords) {
+            canUpdateRecords = false
+            playerRepository.updateRecords()
+        }
     }
 
     private fun closeLevel(onLevelWin: Boolean) {
