@@ -161,7 +161,7 @@ fun PlayerCard(player: Player, playerViewModel: PlayerViewModel = hiltViewModel(
             .clickable(onClick = {
                 playerViewModel.setActivePlayerOnGame(player)
             })
-            .height(55.dp)
+            .height(53.dp)
             .clip(RoundedCornerShape(5.dp))
             .background(
                 if (player.isActive) {
@@ -170,62 +170,55 @@ fun PlayerCard(player: Player, playerViewModel: PlayerViewModel = hiltViewModel(
                     playerBgCard
                 }
             )
-            .padding(6.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+            .padding(start = 10.dp),
+        horizontalArrangement = Arrangement.spacedBy(5.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
+        Icon(
+            Icons.Filled.AccountBox,
+            contentDescription = "player",
+            tint = if (player.isActive) {
+                activePlayerIcon
+            } else {
+                playerTextDark
+            }
+        )
 
-            ) {
-            Icon(
-                Icons.Filled.AccountBox,
-                contentDescription = "player",
-                tint = if (player.isActive) {
-                    activePlayerIcon
-                } else {
-                    playerTextDark
-                }
-            )
+        Column {
             Text(
                 player.playerName, fontSize = 15.sp, color = playerTextDark,
                 maxLines = 1,
-                modifier = Modifier.fillMaxWidth(.42F),
+                modifier = Modifier.fillMaxWidth(.65F),
                 overflow = TextOverflow.Ellipsis
             )
-        }
-        Row {
             Text(
                 "${Localization.achieve.value}: ${player.achievements}",
-                fontSize = 15.sp,
+                fontSize = 14.sp,
                 color = playerTextDark
             )
         }
-        Box(
-            Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.CenterEnd,
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                if (player.isActive) {
-                    Icon(
-                        Icons.Filled.Check,
-                        modifier = Modifier.offset(x = 23.dp),
-                        tint = activePlayerIcon,
-                        contentDescription = "activePlayer",
-                    )
-                }
 
-                IconButton(
-                    onClick = { playerViewModel.delete(player) },
-                    modifier = Modifier.offset(x = 10.dp),
-                ) {
-                    Icon(Icons.Filled.Delete, contentDescription = "delete player")
-                }
+        Row(
+            Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End
+        ) {
+            if (player.isActive) {
+                Icon(
+                    Icons.Filled.Check,
+                    tint = activePlayerIcon,
+                    contentDescription = "activePlayer",
+                )
+            }
+
+            IconButton(
+                onClick = { playerViewModel.delete(player) },
+            ) {
+                Icon(Icons.Filled.Delete, contentDescription = "delete player")
             }
         }
+
     }
 }
 

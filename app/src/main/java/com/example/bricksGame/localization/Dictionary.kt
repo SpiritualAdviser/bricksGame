@@ -13,7 +13,7 @@ class Dictionary {
         "snackAddPlayer" to "The Player is added",
         "snackEmptyNamePlayer" to "The name of Player can not be empty",
         "createPlayer" to "Create Player",
-        "achiev" to "Achiev",
+        "achiev" to "Achievement",
         "enterPlayerName" to "Enter player name",
         "labelName" to "name",
         "target" to "Target",

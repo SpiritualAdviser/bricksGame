@@ -82,7 +82,7 @@ fun RecordsList(recordsViewModel: RecordsViewModel = hiltViewModel()) {
             .border(1.dp, Color.Black, shape = RoundedCornerShape(5.dp))
             .padding(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         itemsIndexed(items = recordsViewModel.playerRecords) { index, item ->
 
@@ -96,7 +96,7 @@ fun PlayerRecordCard(playerAchievement: PlayerAchievement, index: Int) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(50.dp)
+            .height(40.dp)
             .clip(RoundedCornerShape(5.dp))
             .background(
                 when (index) {
@@ -106,54 +106,48 @@ fun PlayerRecordCard(playerAchievement: PlayerAchievement, index: Int) {
                     else -> playerDefaultPlaceBgCard
                 }
             )
-            .padding(7.dp),
+            .padding(8.dp),
 
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text("${index + 1}")
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-
-            ) {
-            Icon(
-                Icons.Filled.Face,
-                contentDescription = "player",
-            )
-            Text(
-                playerAchievement.name,
-                fontSize = 14.sp,
-                color = playerTextDark,
-                maxLines = 1,
-                modifier = Modifier.fillMaxWidth(0.4F),
-                overflow = TextOverflow.Ellipsis
-            )
-        }
-        Row {
-            Text(
-                "${Localization.achieve.value}: ${playerAchievement.achievements}",
-                fontSize = 14.sp,
-                color = playerTextDark
-            )
-        }
-        Box(
-            Modifier
-                .fillMaxWidth(),
-            contentAlignment = Alignment.CenterEnd,
-
-            ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-            ) {
+
+                ) {
                 Icon(
-                    Icons.Filled.Star, contentDescription = "Star",
-                    tint = if (playerAchievement.active) {
-                        starActive
-                    } else {
-                        starDefault
-                    }
+                    Icons.Filled.Face,
+                    contentDescription = "player",
+                )
+                Text(
+                    playerAchievement.name,
+                    fontSize = 13.sp,
+                    color = playerTextDark,
+                    maxLines = 1,
+                    modifier = Modifier.fillMaxWidth(0.6F),
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    ": ${playerAchievement.achievements}",
+                    fontSize = 12.sp,
+                    color = playerTextDark
                 )
             }
+
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End
+        ) {
+            Icon(
+                Icons.Filled.Star, contentDescription = "Star",
+                tint = if (playerAchievement.active) {
+                    starActive
+                } else {
+                    starDefault
+                }
+            )
         }
     }
 }
