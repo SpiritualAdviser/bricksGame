@@ -421,7 +421,13 @@ class LevelLogic @Inject constructor(
     }
 
     fun updateRecords() {
-        if (canUpdateRecords) {
+
+        if (levelData.freeGame) {
+            if (canUpdateRecords) {
+                canUpdateRecords = false
+                playerRepository.updateRecords()
+            }
+        } else {
             canUpdateRecords = false
             playerRepository.updateRecords()
         }
