@@ -4,16 +4,16 @@ import android.content.Context
 import android.media.MediaPlayer
 import com.example.bricksGame.R
 import com.example.bricksGame.config.GameConfig
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SoundController @Inject constructor(private val gameConfig: GameConfig) {
+class SoundController @Inject constructor(private val gameConfig: GameConfig, @ApplicationContext private val context: Context) {
 
     var isRun = false
     var onWebView = false
 
-    private lateinit var context: Context
     private lateinit var mainmeny: MediaPlayer
     private lateinit var clickUi: MediaPlayer
     private lateinit var levelTheme: MediaPlayer
@@ -32,12 +32,10 @@ class SoundController @Inject constructor(private val gameConfig: GameConfig) {
     private lateinit var stoneCrack: MediaPlayer
     private lateinit var stoneDestroy: MediaPlayer
 
-    fun setContext(context: Context) {
+    fun createMediaPlayer() {
         isRun = true
-        this.context = context
 
         mainmeny = MediaPlayer.create(context, R.raw.main_meny)
-
         levelTheme = MediaPlayer.create(context, R.raw.action_level_one)
         levelThemeTwo = MediaPlayer.create(context, R.raw.action_level_two)
         levelThemeTree = MediaPlayer.create(context, R.raw.action_level_tree)

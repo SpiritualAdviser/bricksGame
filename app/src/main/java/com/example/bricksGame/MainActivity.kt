@@ -46,9 +46,9 @@ class MainActivity : ComponentActivity() {
 
         setContent {
 
-            val context = LocalContext.current
+//            val context = LocalContext.current
             if (!soundController.isRun) {
-                soundController.setContext(context)
+                soundController.createMediaPlayer()
                 soundController.playMainTheme()
             }
 //            context.deleteDatabase("player_database")

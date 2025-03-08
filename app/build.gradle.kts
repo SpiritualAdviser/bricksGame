@@ -86,6 +86,8 @@ dependencies {
     implementation(libs.androidx.window.core.android)
     implementation(libs.androidx.adaptive.android)
     testImplementation(libs.junit)
+    testImplementation(libs.junit.junit)
+    testImplementation(libs.junit.jupiter)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -117,4 +119,11 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+
+    testImplementation (libs.junit)
+    testImplementation (libs.mockito.core)
+    androidTestImplementation (libs.androidx.junit)
+    androidTestImplementation (libs.mockwebserver)
+    androidTestImplementation (libs.mockito.android)
+
 }
