@@ -5,6 +5,7 @@ import com.example.bricksGame.components.players.data.Player
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -36,6 +37,10 @@ class PlayerRecordsRepositoryTest {
             .create(APIService::class.java)
 
         playerRecordsRepository = PlayerRecordsRepository(appContext, retrofitClient)
+    }
+    @After
+    fun stopServer(){
+        server.shutdown()
     }
 
     @Test
