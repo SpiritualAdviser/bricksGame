@@ -34,6 +34,8 @@ roomRuntime = "2.6.1"
 ksp = "2.1.0-1.0.29"
 junitJunit = "4.12"
 junitJupiter = "5.8.1"
+monitor = "1.7.2"
+junitKtx = "1.2.1"
 
 
 [libraries]
@@ -81,6 +83,8 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 secrets-gradle-plugin = { module = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin", version.ref = "secretsGradlePlugin" }
 junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
+androidx-monitor = { group = "androidx.test", name = "monitor", version.ref = "monitor" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
