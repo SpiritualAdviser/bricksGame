@@ -15,14 +15,12 @@ import javax.inject.Singleton
 
 @Singleton
 class PlayerRecordsRepository @Inject constructor(
-    @ApplicationContext val context: Context
-
+    @ApplicationContext val context: Context,
+    private val retrofitClient: RetrofitClient
 ) {
     init {
         Log.d("my", "PlayersRecordsRepository")
     }
-
-    private val apiService = RetrofitClient.getClient().create(APIService::class.java)
 
     var playerRecords = mutableStateListOf<PlayerAchievement>()
     private var serverPlayerRecords: DataPlayerRecords? = null
@@ -35,7 +33,7 @@ class PlayerRecordsRepository @Inject constructor(
         }
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val result = apiService.getData()
+                val result = retrofitClient.apiService.getData()
                 if (result.isSuccessful) {
                     result.body()?.let { serverRecords ->
                         val sortRecords = serverRecords.players
@@ -93,7 +91,10 @@ class PlayerRecordsRepository @Inject constructor(
 
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    apiService.postData("application/json", dataModal = serverRecords)
+                    retrofitClient.apiService.postData(
+                        "application/json",
+                        dataModal = serverRecords
+                    )
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

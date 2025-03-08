@@ -8,6 +8,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import javax.inject.Inject
 
 const val apiKey = BuildConfig.apiKey
 
@@ -24,12 +25,12 @@ interface APIService {
     )
 }
 
-object RetrofitClient {
+class RetrofitClient @Inject constructor() {
     private var retrofit: Retrofit? = null
+    private val baseUrl = "https://getpantry.cloud/apiv1/pantry/"
+    var apiService = getClient().create(APIService::class.java)
 
-    private const val baseUrl = "https://getpantry.cloud/apiv1/pantry/"
-
-    fun getClient(): Retrofit {
+    private fun getClient(): Retrofit {
         if (retrofit == null) {
             retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
