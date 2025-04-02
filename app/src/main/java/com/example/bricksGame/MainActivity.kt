@@ -35,7 +35,6 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var levelData: LevelData
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge(
